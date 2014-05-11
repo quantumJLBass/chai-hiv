@@ -1,0 +1,3 @@
+#if($userService.checkPrivleage("can_publish"))
+<a href="$siteroot/${controller.getView()}/setStatus#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}" class="pubState">  <i class="icon-asterisk"></i>  Status |</a>
+#end

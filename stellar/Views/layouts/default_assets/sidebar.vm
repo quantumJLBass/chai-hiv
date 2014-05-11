@@ -1,0 +1,12 @@
+<aside class="grid col-one-quarter mq2-col-full">
+#set($page = $!{controller.getAction()})
+#capturefor(block) #sidebar_text($page) #end
+#if($!block.Trim()=="")
+	#capturefor(block) #parse("layouts/default_assets/sidebars/${page.Trim()}_sidebar.vm") #end
+#end
+#if($!block.Trim()!="")
+	$block
+#else
+	#parse("layouts/default_assets/sidebars/sidebar.vm")
+#end
+</aside>

@@ -1,0 +1,20 @@
+#if($item.post_type.gets_metadata)
+    <h3  class="switch">SEO<em>( + )</em></h3>
+    <div class="tabed">
+		<hr/>
+	
+		<strong>Title:</strong>(<span id="seo_title" class="seo count">0</span>)<br/>
+		<input rel="seo_title" type="text" name="post.meta_data[0].value" value="$!item.get_meta("title")" data-limit="50"/>
+		<input type="hidden" name="post.meta_data[0].meta_key" value="title" /><br/>
+		
+		<strong>Discription:</strong>(<span id="seo_discription" class="seo count">0</span>)<br/>
+		<textarea data-limit="50" rel="seo_discription" name="post.meta_data[1].value">$!item.get_meta("discription")</textarea>
+		<input type="hidden" name="post.meta_data[1].meta_key" value="discription" /><br/>
+		
+		<strong>Keywords:</strong>(<span id="seo_keywords" class="seo count">0</span>)<br/>
+		<textarea data-limit="50" rel="seo_keywords" name="post.meta_data[2].value">$!item.get_meta("keywords")</textarea>
+		<input type="hidden" name="post.meta_data[2].meta_key" value="keywords" /><br/>
+
+    </div>
+    <hr/>
+ #end

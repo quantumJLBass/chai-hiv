@@ -1,0 +1,7 @@
+<input type="text" name="item.name" id="name" value="$!item.name" class="text ui-widget-content ui-corner-all"  size="50" maxlength="1025" title="It is best to name your event with something that clearly tell people what it is with out needing the summaries."/>
+
+<span style="display:block;margin-top:5px;" id="post_url">
+$siteroot/post/<input type="text" name="item.alias" id="alias" value="$!item.alias" class="alias_input text ui-widget-content ui-corner-all"  size="50" maxlength="1025" #if($item.alias && $item.alias!="")style="display:none;"#end /><span id="aliased" #if(!$item.alias || $item.alias=="")style="display:none;"#end>$!item.alias</span> &nbsp;&nbsp;&nbsp;
+<a class="button" id="edit_post_url" href="#" role="button" aria-disabled="false" #if(!$item.alias || $item.alias=="")style="display:none;"#end>edit</a>
+<a class="button" id="get_post_go_link" href="#" role="button" aria-disabled="false" #if(!$item.alias || $item.alias=="")style="display:none;"#end>Get Shortlink</a>
+</span>

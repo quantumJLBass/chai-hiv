@@ -1,0 +1,8 @@
+.menu li.t2:hover ~ li.t8 {height:35px; background:#b99645;}
+.menu li.p1:hover ~ li.t8 {height:35px; background:#b99645;}
+.menu li.t3:hover ~ li.t8 {height:35px; background:#b38a7b;}
+.menu li.p2:hover ~ li.t8 {height:35px; background:#b38a7b;}
+.menu li.t4:hover ~ li.t8 {height:35px; background:#c09f7c;}
+.menu li.p3:hover ~ li.t8 {height:35px; background:#c09f7c;}
+.menu li.t5:hover ~ li.t8 {height:35px; background:#90b490;}
+.menu li.p4:hover ~ li.t8 {height:35px; background:#90b490;}

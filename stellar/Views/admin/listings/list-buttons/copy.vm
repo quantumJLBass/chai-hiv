@@ -1,0 +1,3 @@
+#if(!$item.editing)
+<a href="$siteroot/${controller.getView()}/copy#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}">  <i class="icon-copy"></i> Copy  |</a>
+#end

@@ -1,0 +1,50 @@
+#if($viewonly)
+	#parse("center/viewonly/treatment.vm")
+#else
+	<article class="grid col-full">
+		<h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Clinical Summary #if($item.acroynm)( $item.acroynm ) #end</h2>
+		<form id="contact_form" class="contact_form" action="/center/savetreatment.castle" method="post" name="contact_form">
+		<input type="hidden" name="item.baseid" value="$!item.baseid" />	
+			<ul class="grid col-one-full mq2-col-full full-input">
+				<li>
+#* acroynm *#
+					<label for="acroynm">Treatment Acronym:</label>
+					<input type="text" name="item.acronym" id="acroynm" required placeholder="XXXXX" class="required" value="$!item.acronym">
+				</li>	
+			</ul>
+			<ul>
+				<li>
+#* description *#
+					<label for="description">Full Description:</label>
+					<textarea name="item.discription" id="description" cols="100" rows="6" required placeholder="Enter discription"  class="required" >$!item.discription</textarea>
+				</li>
+			</ul>
+			#if(!$skiplayout && !$item.baseid)
+				<ul>
+					<li><h2>Save to add Drugs or Clinicals</h2></li>
+				</ul>
+				<ul>
+					<li>
+#* drugdata *#
+						#set($typed_list = $item.drugs)
+						#parse("center/model_tie_tables/drug.vm")
+					</li>
+					
+					<li>
+#* Clinicaldata *#
+						#set($typed_list = $item.clinicals)
+						#parse("center/model_tie_tables/clinical.vm")
+					</li>
+					
+				</ul>		
+			#end
+			<ul>
+				#parse("center/assests/save_bar.vm")	
+			</ul>	
+			#if(!$skiplayout && $item.baseid>0)
+				#set($type="regimen")
+				#parse("center/ref.vm")
+			#end			
+		</form>
+	</article>
+#end

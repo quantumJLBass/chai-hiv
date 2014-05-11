@@ -1,0 +1,64 @@
+#* NOTE: This is where you can change the dropdowns *#
+#set($mechanism_of_action = $objectService.explode("INI"))
+#set($generic_name = $postingService.get_taxonomies("generic_name"))
+#set($chemical_name = $postingService.get_taxonomies("chemical_name"))
+
+
+  <article class="grid col-full">
+    <h2 id="header_title">#if(!$item.baseid)New #end Substance</h2>
+    <ul class="grid col-full full-input">
+      <li>
+        <label for="generic_name">Generic name (International Nonproprietary Name: INN)  <i class="icon-question-sign blue" title="Assigned name of drug, International Nonproprietary Name - Official name given to a drug molecule, as designated by WHO"></i></label>
+        $!postingService.get_taxonomy($item.generic_name).name
+      </li>
+      <li>
+        <label for="lab_code">Lab Code:  <i class="icon-question-sign blue" title="Code that was given by the laboratory which discovered and/or developed the drug molecule"></i></label>
+        $!item.lab_code
+      </li>
+      <li>
+        <label for="chemical_name">Chemical name: <i class="icon-question-sign blue" title="Name of drug product using IUPAC nomenclature, which describes the science of chemistry"></i></label>
+         $!postingService.get_taxonomy($item.chemical_name).name
+      </li>
+      <li>
+        <label for="molecular_formula">Molecular formula: <i class="icon-question-sign blue" title="Expression which states the number and type of atoms present in a drug molecule"></i></label>
+        $!item.molecular_formula
+      </li>
+      <li>
+        <label for="mechanism_of_action">Therapeutic class/Mechanism of action: <i class="icon-question-sign blue" title="Specific biochemical interaction through which a drug molecule produces its pharmacological effect"></i></label>
+        $!item.mechanism_of_action
+      </li>
+      <li>
+        <label for="pro_drug">Pro-drug?:  <i class="icon-question-sign blue" title="Drug molecule that is administered not the active moiety but consequently converts to active agent which produces specific pharmacological effect"></i></label>
+        $!item.pro_drug
+      </li>
+      <li>
+        <label for="metabolites">Metabolites:  <i class="icon-question-sign blue" title="Drug molecule that is administered not the active moiety but consequently converts to active agent which produces specific pharmacological effect"></i></label>
+        $!item.metabolites
+      </li>
+      <li>
+        <label for="active_agent_structure">Structure of active agent: <i class="icon-question-sign blue" title="Molecular geometry, electronic structure and crystal structure of drug molecule"></i></label>
+        $!item.active_agent_structure
+      </li>
+      <li>
+        <label for="cas_reg_number">Chemical Abstracts Service (CAS) Registry Number:  <i class="icon-question-sign blue" title="Japanese adopted name for unique nonproprietary name assigned to drug molecule"></i></label>
+        $!item.cas_reg_number
+      </li>
+      <li>
+        <label for="japanese_accepted_name">Japanese Accepted Name (JAN): <i class="icon-question-sign blue" title="Japanese adopted name for unique nonproprietary name assigned to drug molecule"></i></label>
+        $!item.japanese_accepted_name
+      </li>
+      <li>
+        <label for="british_accepted_name">British Approved Name (BAN): <i class="icon-question-sign blue" title="Official nonproprietary name given to a drug molecule, as defined in British Pharmacopoeia"></i></label>
+        $!item.british_accepted_name
+      </li>
+		<li>
+		  <button type="submit" id="submit" name="submit" class="button fright" title="Go back to the list">Exit</button>
+		</li>
+    </ul>
+  </article>
+  
+  
+	#if(!$skiplayout && $item.baseid>0)
+		#set($type="drug")
+		#parse("center/ref.vm")
+    #end

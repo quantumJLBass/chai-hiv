@@ -1,0 +1,12 @@
+<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" style="display: block; width: auto;"><h2>Place fields: </h2>
+    #foreach($field in $user_fields)          
+    	$field
+    #between
+    	<hr/>
+    #end
+    <div style="position:absolute;top:-9999em;left-9999em;">
+        #foreach($field in $fields)          
+            $field
+        #end
+    </div>
+</div>

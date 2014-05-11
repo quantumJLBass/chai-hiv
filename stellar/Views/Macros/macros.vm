@@ -1,0 +1,301 @@
+#macro(widget $name)
+    $!proxyservice.renderProxyByName($name) 
+#end
+
+#macro(feild_helper $feildObj )
+	#if($feildObj && $feildObj.content && $feildObj.content!="")
+		<i class="icon-question-sign blue" title="$feildObj.content"></i>
+	#end
+#end
+#macro(feild_help $datatype $model_prop )
+	#set($feildObj=$!postingService.get_taxonomy($datatype, $model_prop,"SYSTEM__feild_helpers"))
+	#feild_helper($feildObj)
+#end
+
+
+#macro(tab_note $tab_noteObj )
+	#if($tab_noteObj && $tab_noteObj.content && $tab_noteObj.content!="")
+		<p>$tab_noteObj.content</p>
+	#end
+#end
+
+
+#macro(sidebarText $textObj )
+	#if($textObj && $textObj.content && $textObj.content!="")
+		<p>$textObj.content</p>
+	#end
+#end
+#macro(sidebar_text $page)
+	#set($textObj="")
+	#set($textObj=$!postingService.get_taxonomy("", "${page}","SYSTEM__page_sidebar_text"))
+	#sidebarText($textObj)
+#end
+
+
+
+
+
+#macro(tab_note $tab_noteObj )
+	#if($tab_noteObj && $tab_noteObj.content && $tab_noteObj.content!="")
+		<p class="noteblock">
+			$tab_noteObj.content
+		</p>
+	#end
+#end
+
+#macro(tab_notes $datatype $name $posistion)
+	#set($tab_noteObj="")
+	#set($tab_noteObj=$!postingService.get_taxonomy($datatype, "tab_note_${name}","SYSTEM__tab_notes_${posistion}"))
+	#tab_note($tab_noteObj)
+#end
+
+
+
+#macro(feild_textinput $datatype $model_prop $value $custom_lable $placholder $class $attr)
+		#set($feildObj=$!postingService.get_taxonomy($datatype, $model_prop,"SYSTEM__feild_helpers"))
+		#if($feildObj && $feildObj.name!="")
+			#set($lable=$feildObj.name)
+		#end
+		#if($custom_lable && $custom_lable!="")
+			#set($lable=$custom_lable)
+		#end
+
+	#if($viewonly)
+		<label >$lable: #feild_helper($feildObj)</label>
+		$!value
+	#else
+		<label for="$model_prop">$lable: #feild_helper($feildObj)</label>
+		<input type="text" name="item.$model_prop" id="$model_prop" #if($placholder!="")placeholder="$placholder"#end #if($class!="")class="$class"#end #if($value && $!value!="" && $!value!="System.String[]") value="$!value" #end $attr />
+	#end
+#end
+
+
+
+#macro(feild_textarea $datatype $model_prop $value $custom_lable $placholder $class $attr)
+		#set($feildObj=$!postingService.get_taxonomy($datatype, $model_prop,"SYSTEM__feild_helpers"))
+		#if($feildObj && $feildObj.name!="")
+			#set($lable=$feildObj.name)
+		#end
+		#if($custom_lable && $custom_lable!="")
+			#set($lable=$custom_lable)
+		#end
+
+	#if($viewonly)
+		<label >$lable: #feild_helper($feildObj)</label>
+		$!value
+	#else
+		<label for="$model_prop">$lable: #feild_helper($feildObj)</label>
+		<textarea name="item.$model_prop" id="$model_prop" #if($placholder!="")placeholder="$placholder"#end #if($class!="")class="$class"#end $attr >#if($value && $!value!="" && $!value!="System.String[]")  $!value #end</textarea>
+	#end
+	
+#end
+
+
+
+
+#macro(feild_dateinput $datatype $model_prop $value $custom_lable $placholder $class $attr)
+	#set($feildObj=$!postingService.get_taxonomy($datatype, $model_prop,"SYSTEM__feild_helpers"))
+	#if($feildObj && $feildObj.name!="")
+		#set($lable=$feildObj.name)
+	#end
+	#if($custom_lable && $custom_lable!="")
+		#set($lable=$custom_lable)
+	#end
+	#if($viewonly)
+		<label >$lable: #feild_helper($feildObj)</label>
+		$!value
+	#else
+		<label for="$model_prop">$lable: #feild_helper($feildObj)</label>
+		<input type="date" name="item.$model_prop" id="$model_prop" #if($placholder!="")placeholder="$placholder"#end #if($class!="")class="$class"#end value="$!value" $attr />
+	#end
+#end
+
+#macro(feild_selectinput $datatype $model_prop $SELECTED $options $custom_lable $class $attr)
+	#set($valLock = $SELECTED)
+	#set($feildObj=$!postingService.get_taxonomy($datatype, $model_prop,"SYSTEM__feild_helpers"))
+	#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+	#if($custom_lable && $custom_lable!="") #set($lable=$custom_lable) #end
+	
+	#if($viewonly)
+		<label >$lable: #feild_helper($feildObj)</label>
+		$valLock
+	#else
+	
+	
+		<label for="$model_prop">$lable: #feild_helper($feildObj)</label>
+		<select name="item.$model_prop" id="$model_prop" #if($class!="")class="$class"#end $attr>
+		  <option value="">Select</option>
+			  #if($options!="")
+				#set($opt = $objectService.explode($options))
+				#foreach($part in $opt)
+					#set($selval = $part.Trim())
+					#set($opt = $part.Trim())
+					#if($part.Contains("=>"))
+						#set($opval = $objectService.explode($part,"=>"))
+						#set($selval = $opval.get_Item(1).Trim())
+						#set($opt = $opval.get_Item(0).Trim())
+					#end
+					<option value="$selval" data="$valLock -- $selval" #if($valLock && $valLock != "" && $valLock == $selval) selected #end >$opt</option>
+				#end
+			#end
+		</select>
+	#end
+#end
+
+#macro(feild_multipleselectinput $datatype $model_prop $SELECTED $options $custom_lable $class $attr $fake)
+	#set($valLock = $SELECTED)
+	#set($selectedobj = "")
+	#if($valLock)
+		#set($selectedobj = $objectService.explode($valLock))
+	#end
+	#set($feildObj=$!postingService.get_taxonomy($datatype, $model_prop,"SYSTEM__feild_helpers"))
+	#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+	#if($custom_lable && $custom_lable!="") #set($lable=$custom_lable) #end
+	
+	#if($viewonly)
+		<label >$lable: #feild_helper($feildObj)</label>
+		$valLock
+	#else
+	
+	
+		<label for="$model_prop">$lable: #feild_helper($feildObj)</label>
+		<select multiple name="item.$model_prop[]$fake" id="$model_prop" #if($class!="")class="$class"#end $attr>
+			  #if($options!="")
+				#set($opt = $objectService.explode($options))
+				#foreach($part in $opt)
+					#set($selval = $part.Trim())
+					#set($opt = $part.Trim())
+					#if($part.Contains("=>"))
+						#set($opval = $objectService.explode($part,"=>"))
+						#set($selval = $opval.get_Item(1).Trim())
+						#set($opt = $opval.get_Item(0).Trim())
+					#end
+					#set($selectedval = false)
+					#foreach($object in $selectedobj)
+					|obj:$object
+					|selval:$selval
+						#if($object==$selval)
+						
+							#set($selectedval = true)
+						#end
+					#end
+					<option value="$selval" data="$valLock -- $selval" #if($selectedval) selected #end >$opt</option>
+				#end
+			#end
+		</select>
+	#end
+#end
+
+
+
+
+#macro(imagegallery $placeid $w $h $classes)
+	#set ($c=0)
+	<span class="${classes} imgroto">
+		#foreach($image in $imagerepo)
+			<span style="width:${w}px; #if($c>0) display:none; #end" class="inlineImagery">
+				<span class="slide_next"></span>
+				<span class="slide_prev"></span>
+				<img src="/media/download.castle?id=$!{image.id}&placeid=${placeid}&m=crop&w=${w}&h=${h}" width="${w}" height="${h}"  class="lazy"/>
+				<span class="credit" style="top:${h}px;">$!{image.credit}<em class="flare"></em></span><span class="caption">$!{image.caption}</span>
+			</span>
+			#set ($c=$c+1)
+		#end 
+	</span>
+#end
+
+#macro(Inline_Iamge $id $placeid $w $h $classes)
+#if($w==0)#set($w=250)#end
+#if($h==0)#set($h=250)#end
+    <span style="width:${w}px;" class="inlineImagery ${classes}">
+    <img class="inlineImage lazy" src="/media/download.castle?id=#if($id!=""&&$id!=0)${id}#else${mainImage.id}#end&placeid=${placeid}&m=crop&w=${w}&h=${h}" width="${w}" height="${h}" />
+	#foreach($image in $imagerepo)
+		#if(${image.id}==$id)
+			<span class="credit" style="top:${h}px;">$!{image.credit}<em class="flare"></em></span><span class="caption">$!{image.caption}</span>
+		#end 
+    #end 
+    </span>
+#end
+
+#*
+#macro(Inline_Iamge $id $w $h $classes)
+	#if($w==0)#set($w=250)#end
+	#if($h==0)#set($h=250)#end
+    <span style="width:${w}px;" class="inlineImagery ${classes}">
+    #if(${mainImage.id}&&${mainImage.id}!=0)
+		<img class="inlineImage lazy" src="/media/download.castle?id=#if($id!=""&&$id!=0)${id}#else${mainImage.id}&placeid=${place.id}#end&m=crop&w=${w}&h=${h}" width="${w}" height="${h}" />#end
+    <span class="credit" style="top:${h}px;">${mainImage.credit}<em class="flare"></em></span><span class="caption">${mainImage.caption}</span>
+    </span>
+#end
+*#
+
+
+#macro(highlightnav $name)
+	$!nav.navTreeIsActive($name)
+#end
+
+#macro(shownav $name)
+	$!nav.renderNav($name, "")
+#end
+#macro(shownavwithclass $name $class)
+	$!nav.renderNav($name, $class)
+#end
+
+#macro(showfullnav $name)
+	$!nav.renderNav($name, true, "")
+#end
+
+#macro(shownavwithhomelink $name)
+	$!nav.renderNavWithHome($name)
+#end
+
+#macro(showpound)
+#set($pound = "#")
+#end
+
+#set($pound = "#")
+
+
+#macro(widget $name)
+$!proxyservice.renderProxyByName($name) 
+#end
+
+#macro(highlightnav $name)
+$!nav.navTreeIsActive($name)
+#end
+
+#macro(shownav $name)
+$!nav.renderNav($name, "")
+#end
+
+#macro(shownavwithclass $name $class)
+$!nav.renderNav($name, $class)
+#end
+
+#macro(showfullnav $name)
+$!nav.renderNav($name, true, "")
+#end
+
+#macro(shownavwithhomelink $name)
+$!nav.renderNavWithHome($name)
+#end
+
+#macro(cookie $name)
+$!proxyservice.showcookie($name)
+#end
+
+#macro(url $name)
+$!proxyservice.showurlvariable($name)
+#end
+
+#macro(includeurl $url)
+$!httpservice.HttpGetWithCache($url, "", "")
+#end
+
+#macro(includeurlwithcache $url $time)
+$!httpservice.HttpGetWithCache($url, "", "")
+#end
+
+
+
+

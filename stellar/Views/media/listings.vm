@@ -1,0 +1,168 @@
+#* media.Advertisements *#
+
+
+
+
+<h3>Media Repo</h3>
+<div id="tabs" class="placelist ui-tabs ui-widget ui-widget-content ui-corner-all">
+	<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+	<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active">
+	<a href="#tabs_place">Place</a>
+	</li>
+	<li class="ui-state-default ui-corner-top">
+	<a href="#tabs_geo">Geometric</a>
+	</li>
+	<li class="ui-state-default ui-corner-top">
+	<a href="#tabs_ads">Advertisment</a>
+	</li>
+	</ul>
+	<div id="tabs_place">
+		<div class="tab_tar">
+			#set($Pagination_location='top inhead')
+			#set($target = 'places')
+			#set($list_items=$places)
+			#parse("admin/listings/areas/pagination.vm")		
+
+			<div class="sub_tabs placelist ui-tabs ui-widget ui-widget-content ui-corner-all">
+				<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+				#foreach($type in $mediatypes)
+					#set($con = 0)
+					#foreach($item in $places)
+						#foreach($img in $item.Images)
+							#if($img.type == $type)
+								#set($con = $con+1)
+							#end
+						#end
+					#end
+					#if($con >0)
+						<li class="ui-state-default ui-corner-top">
+							<a href="#tabs_place_$type.name.Replace(" ","_")">$Controller.capitalize($type.name.Replace("_"," ")) ($con)</a>
+						</li>
+					#end
+				#end
+				</ul>
+				
+				#foreach($type in $mediatypes)
+					#set($con = 0)
+					#foreach($item in $places)
+						#foreach($img in $item.Images)
+							#if($img.type == $type)
+								#set($con = $con+1)
+							#end
+						#end
+					#end
+					#if($con >0)
+					<div id="tabs_place_$type.name.Replace(" ","_")">
+						<h3>Image Pool</h3>
+						
+						<a href="new.castle" class="creation button small">
+							<span class="ui-icon ui-icon-plusthick inlineIcon"></span>New Image
+						  </a>
+						</p>
+						
+						<span class="img_layout_choice grid"></span><br/>
+							<div class="browserBox ui-corner-all grid">
+								#foreach($item in $places)
+									#set($con = 0)
+									#foreach($img in $item.Images)
+										#if($img.type == $type)
+											#if($con<1)<fieldset class="grouped"><legend>$item.prime_name</legend>#end
+												<span class="imageBox">
+													<img src="/media/download.castle?id=${img.id}&placeid=${img.id}&m=crop&w=175&h=175&pre=borwser" class="previewImg" width="175" height="175"/>
+													<a title="$img.id" rel="$place.id" style="cursor:pointer;display: inline-block;" class="DeleteImage ui-state-error ui-corner-all">
+														<span class="ui-icon ui-icon-trash"></span>
+													</a>
+													<span class="imgInfo">
+													  <span><label>Caption:</label><input type="text" value="$!{img.caption}" name="images[$!{img.id}].Caption" class=""/></span>
+													  <span><label>Credit:</label><input type="text" value="$!{img.credit}" name="images[$!{img.id}].Credit" class="placeCredit"/></span>
+													  </span>
+													</span>
+												</span>
+											
+											#set($con = $con+1)
+										#end
+										
+									#end
+									#if($con>0)</fieldset>#end
+								#end
+								<div class="clearings" style="clear:both;"></div>
+							</div>
+						</div>
+					#end
+				#end	
+			</div>
+		</div>
+
+				#set($Pagination_location='bottom')
+				
+				#set($target = 'places')
+				#set($list_items=$places)
+				#set($Pagination_location='top')
+				#parse("admin/listings/areas/pagination.vm")		
+
+#*
+				#set($Pagination_location='bottom')
+				#set($t='places')
+<table class="pagination $Pagination_location">
+  <tr>
+    <td>Showing $places.FirstItemIndex - $places.LastItemIndex of $places.TotalItems</td>
+    <td align="right">
+      #if($places.HasPreviousPage) $PaginationHelper.CreatePageLink( 1, "first",null, "%{target=$t}" )  #end
+      #if(!$places.HasPreviousPage) first #end
+      #if($places.HasPreviousPage) | $PaginationHelper.CreatePageLink( $places.PreviousPageIndex, "prev",null, "%{target=$t}" )  #end
+      #if(!$places.HasPreviousPage) | prev #end
+      #if($places.HasNextPage) | $PaginationHelper.CreatePageLink( $places.NextPageIndex, "next",null, "%{target=$t}" )  #end
+      #if(!$places.HasNextPage) | next #end
+      #if($places.HasNextPage) | $PaginationHelper.CreatePageLink( $places.TotalPages, "last",null, "%{target=$t}" )  #end
+      #if(!$places.HasNextPage) | last #end
+      
+    </td>
+  </tr>
+*#
+		
+		
+	</div>
+	<div id="tabs_geo">
+		<div class="sub_tabs placelist ui-tabs ui-widget ui-widget-content ui-corner-all">
+			<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+			#foreach($type in $mediatypes)
+				<li class="ui-state-default ui-corner-top">
+				  <a href="#tabs_geo_$type.name.Replace(" ","_")">$Controller.capitalize($type.name.Replace("_"," ")) (0)</a>
+				</li>
+			#end
+			</ul>
+			#foreach($type in $mediatypes)
+				<div id="tabs_geo_$type.name.Replace(" ","_")">
+					#parse("list.vm")
+				</div>
+			#end
+		</div>
+	</div>
+	<div id="tabs_ads">
+		<div class="sub_tabs placelist ui-tabs ui-widget ui-widget-content ui-corner-all">
+			<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+			#foreach($type in $mediatypes)
+				<li class="ui-state-default ui-corner-top">
+				  <a href="#tabs_ads_$type.name.Replace(" ","_")">$Controller.capitalize($type.name.Replace("_"," ")) (0)</a>
+				</li>
+			#end
+			</ul>
+			#foreach($type in $mediatypes)
+				<div id="tabs_ads_$type.name.Replace(" ","_")">
+					#parse("list.vm")
+				</div>
+			#end
+		</div>
+	</div>
+</div>
+
+	
+#parse("media/massUpload/massUploadForm.vm")	
+#parse("media/massUpload/upload_template.vm")
+#parse("media/massUpload/download_template.vm")
+
+	
+	
+	
+	
+	

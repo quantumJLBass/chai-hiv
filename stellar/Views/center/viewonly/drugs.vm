@@ -1,0 +1,30 @@
+<article class="grid col-full">
+	
+	<h2>Drugs #if(!$skiplayout)<a href="drug.castle" class="button xl right"><i class="icon-plus blue" title="Add"></i> New</a>#end</h2>
+	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
+		<thead>
+			<tr>
+				<th width="15%">Drug code</th>
+				<th>Name/Code</th>
+				<th width="20%"></th>
+			</tr>
+		</thead>
+		<tbody>
+		#foreach($item in $items)
+			#set($name = false)
+			#set($taxedname = false)
+		
+			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
+				<td>#if($item.new_drug_code)$!item.new_drug_code#else -- #end</td>
+				#set($name = $item.get_named())
+				#set($taxedname = $!postingService.get_taxonomy($name).name)
+				
+				
+				<td>#if($taxedname)$taxedname#else$name#end</td>
+				<td>#if(!$skiplayout)<a href="drug.castle?id=$item.baseid" class="button small">View</a></td>
+			</tr>
+		#end
+		</tbody>
+		<tfoot>
+	</table>
+</article>

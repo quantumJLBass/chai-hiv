@@ -1,0 +1,17 @@
+#if($iCount%2==0) #set($polarity="even") #else #set($polarity="odd") #end
+#parse("admin/listings/areas/inedit.vm")
+<tr class="item item_aTar item_$!item.baseid $polarity" rel="$!item.baseid">
+    <td align="center">#if($userService.checkPrivleage("make_edits") && !$item.isCheckedOut())<input type="checkbox" name="mass[]" value="$!{item.baseid}" required />#end</td>
+    <td><strong>$!item.name</strong> <em style="font-size:75%">( Version:${item.version}  Revision:${item.getLastRevision()} #if($item.is_Published())<i class="icon-star"></i> Published #else <em class="red"><i class="icon-star-empty"></i> Published Pending</em> #end)</em><hr style="border-color:#e2e2e2;"/><span>#if($buttons)<span class="button_area">
+        #foreach($button in $buttons)
+            #parse("admin/listings/list-buttons/${button}.vm") 
+        #end<span>
+        #end</span></td>
+    <td align="center">$item.owner.display_name</td>
+    <td align="center">#if($item.status.name=="published") $item.publish_time<br/> <em style="font-size:75%"><strong>$item.status.name</strong></em> #else $item.updated_date<br/> <em style="font-size:75%"><strong>Last updated</strong></em> #end </td>
+    <td  align="center"></td>
+</tr>
+<tr class="item-child  $polarity closed">
+    <td colspan="5">#if($!item.outputError)<b title="There seems to be an error on this item and it will not show." class="itemError">!</b>#end</td>
+</tr>
+#set($iCount=$iCount+1)

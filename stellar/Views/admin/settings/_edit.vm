@@ -1,0 +1,19 @@
+
+
+
+<form action="_save_siteSettings.castle" method="post">
+  $Form.HiddenField("user.id")
+  
+  
+ <h1> $controller.get_user_setting("friendly")</h1>
+  
+  
+  <h3>Place Type</h3>
+  <p>Name:<br/>
+      <input type="text" value="$!settings.name" name="settings.name" id="type_name" class="ui-widget ui-widget-content ui-corner-all " />
+  </p>
+  <p>Friendly name:<br/>
+      <input type="text" value="$!settings.friendly" name="settings.friendly" id="type_friendly" class="ui-widget ui-widget-content ui-corner-all " />
+  </p>
+  <p><input type="submit" value="Submit" /></p>
+</form>

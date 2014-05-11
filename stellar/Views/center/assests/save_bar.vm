@@ -1,0 +1,35 @@
+<li class="formstateaction"> 
+
+	#if($viewonly)
+		<button type="submit" id="submit" name="cancel" class="button fright" value="cancled"  title="Exit to the list with out saving" formnovalidate>Exit</button>
+	#else
+#if(!$skiplayout)
+	<div style="float:left;">
+		<div class="pubstate" style="float:left;">
+			<input type="radio" id="pubstate1" name="item.published" class="button" value="0" #if(!$item.published)checked="checked"#end/>
+				<label for="pubstate1" style="display:inline-block"> #if(!$item.published)<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end Draft</label>
+			<input type="radio" id="pubstate2" name="item.published" class="button" value="1" #if($item.published)checked="checked"#end  />
+				<label for="pubstate2" style="display:inline-block"> #if($item.published)<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end   Published</label>
+		</div>
+		<div class="noted" style="float:left;">
+			<input type="checkbox" id="noting" value=""/>
+			<label for="noting" style="display:inline-block;"> #if($item.content && $item.content!="")<i class="icon-file-text-alt"></i>#else<i class="icon-file-alt"></i>#end</label>
+			<div  style="position:absolute;top:-999em;left:-999em;">
+				<div class="notearea">
+					<textarea class="note" name="item.content">$!item.content</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+#end		
+		
+		
+		<button type="submit" id="submit" name="submit" class="button fright" title="Save it and go to the list">Save & Exit</button> &nbsp; &nbsp;
+		#if(!$skiplayout)
+			<button type="submit" id="submit" name="apply" class="button fright" value="applied"  title="Save and comeback to edit more">
+				Save & Return
+			</button> &nbsp; &nbsp;
+			<button type="submit" id="submit" name="cancel" class="button fright" value="cancled"  title="Exit to the list with out saving" formnovalidate>Exit</button>
+		#end
+	#end
+</li>

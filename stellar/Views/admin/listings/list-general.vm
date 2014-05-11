@@ -1,0 +1,46 @@
+<div class="tab_tar ui-widget ui-helper-clearfix">
+<div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top">
+    #set($Pagination_location='top')
+    #set($target = $status.title)
+    #parse("admin/listings/areas/pagination.vm")
+</div>
+
+<table cellpadding="0" cellspacing="0" border="0" class="display ui-widget ui-helper-reset ui-widget-content" id="example" width="100%">
+	<thead class="">
+		<tr>
+			<th class="ui-state-default" rowspan="1" colspan="1" align="center" style="width:20px;"><input type="checkbox" name="massaction" /></th>
+			<th class="ui-state-default" rowspan="1" colspan="1">Name</th>
+			<th class="ui-state-default" rowspan="1" colspan="1" style="width:15%;">Onwer</th>
+			<th class="ui-state-default" rowspan="1" colspan="1" style="width:15%;">Date</th>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:1%;"></th>
+		</tr>
+	</thead>
+    <tbody>
+        
+        #set($c=0)
+        #foreach($item in $list_items)#set($c=$c+1)#end
+        #if($list_items && $c>0)
+        	#set($iCount=0)
+            #foreach($item in $list_items)
+                #parse("admin/listings/list-item.vm")
+            #end
+        #end   
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="ui-state-default" rowspan="1" colspan="1" align="center"><input type="checkbox" name="massaction" /></th>
+			<th class="ui-state-default" rowspan="1" colspan="1">Name</th>
+			<th class="ui-state-default" rowspan="1" colspan="1">Onwer</th>
+			<th class="ui-state-default" rowspan="1" colspan="1">Date</th>
+			<th class="ui-state-default" rowspan="1" colspan="1"></th>
+		</tr>
+	</tfoot>
+</table>
+
+
+<div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-bottom">
+    #set($Pagination_location='bottom')
+    #parse("listing_parts/areas/pagination.vm")    
+</div>
+
+</div>

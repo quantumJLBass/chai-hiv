@@ -1,0 +1,769 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DF23D0A6-CC6A-4C39-8880-FDDA007E5A7C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>stellar</RootNamespace>
+    <AssemblyName>stellar</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\stellar.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxMin, Version=4.48.4489.28432, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AjaxMin.4.48.4489.28432\lib\net20\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=2.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.ActiveRecord, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Castle.Components.Binder, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Castle.Components.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Components.Pagination, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Castle.Components.Pagination.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Castle.Components.Validator.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Components.Common.EmailSender, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Castle.Components.Common.EmailSender.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=1.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Castle.DynamicProxy, Version=1.1.5.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Facilities.ActiveRecordIntegration, Version=1.1.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Castle.Facilities.ActiveRecordIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.AutomaticTransactionManagement, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Castle.Facilities.AutomaticTransactionManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Castle.MicroKernel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Castle.MonoRail.ActiveRecordSupport, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Castle.MonoRail.ActiveRecordSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MonoRail.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Castle.MonoRail.Framework.Views.NVelocity, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Castle.MonoRail.WindsorExtension, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Castle.Services.Logging.log4netIntegration, Version=1.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Castle.Services.Transaction, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Castle.Services.Transaction.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="dotless.Core, Version=1.2.2.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\dotless.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core">
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.2.2.13055\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core.UI">
+      <HintPath>..\packages\DotNetOpenAuth.Core.UI.4.2.2.13055\lib\net40-full\DotNetOpenAuth.Core.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.InfoCard">
+      <HintPath>..\packages\DotNetOpenAuth.InfoCard.4.2.2.13055\lib\net40-full\DotNetOpenAuth.InfoCard.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.InfoCard.UI">
+      <HintPath>..\packages\DotNetOpenAuth.InfoCard.UI.4.2.2.13055\lib\net40-full\DotNetOpenAuth.InfoCard.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Common">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Common.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OAuth.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.ServiceProvider">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.ServiceProvider.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OAuth.ServiceProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.Core.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OAuth2.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.AuthorizationServer">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.AuthorizationServer.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OAuth2.AuthorizationServer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.Client">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.Client.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OAuth2.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.Client.UI">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.Client.UI.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OAuth2.Client.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.ClientAuthorization">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.ClientAuthorization.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OAuth2.ClientAuthorization.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.ResourceServer">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.ResourceServer.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OAuth2.ResourceServer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.Provider">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Provider.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OpenId.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.Provider.UI">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Provider.UI.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OpenId.Provider.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty.UI">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.UI.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.UI">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.UI.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OpenId.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenIdInfoCard.UI">
+      <HintPath>..\packages\DotNetOpenAuth.OpenIdInfoCard.UI.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OpenIdInfoCard.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenIdOAuth">
+      <HintPath>..\packages\DotNetOpenAuth.OpenIdOAuth.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OpenIdOAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\EcmaScript.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET.modified, Version=0.1.1.0, Culture=neutral, PublicKeyToken=7d53ba4f537753a5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\EcmaScript.NET.modified.dll</HintPath>
+    </Reference>
+    <Reference Include="EXIFextractor">
+      <HintPath>lib\EXIFextractor.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember">
+      <HintPath>..\packages\FastMember.1.0.0.9\lib\net40\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Jurassic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Jurassic.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Exchange.WebServices">
+      <HintPath>..\..\..\..\Program Files\Microsoft\Exchange\Web Services\2.0\Microsoft.Exchange.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Exchange.WebServices.Auth">
+      <HintPath>..\..\..\..\Program Files\Microsoft\Exchange\Web Services\2.0\Microsoft.Exchange.WebServices.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfoExtended, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MonoRailHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MonoRailHelper\MonoRailHelper\bin\Release\MonoRailHelper.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Moxiecode.TinyMCE">
+      <HintPath>lib\Moxiecode.TinyMCE.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
+    <Reference Include="Nullables, Version=1.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
+    <Reference Include="Nullables.NHibernate, Version=1.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
+    <Reference Include="NVelocity, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Omu.ValueInjecter">
+      <HintPath>..\packages\valueinjecter.2.3.3\lib\net35\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="SquishIt.Framework, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SquishIt.0.9.2\lib\SquishIt.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SquishIt.Mvc, Version=0.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SquishIt.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Yahoo.Yui.Compressor, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\sql_prep.sql" />
+    <Content Include="cors\jquery.postmessage-transport.js" />
+    <Content Include="cors\jquery.xdr-transport.js" />
+    <Content Include="cors\postmessage.html" />
+    <Content Include="cors\result.html" />
+    <Content Include="Default.aspx" />
+    <Content Include="global.asax" />
+    <Content Include="logs\log.txt" />
+    <Content Include="obj\Debug\CampusMap2010.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\CampusMap2010.dll" />
+    <Content Include="obj\Debug\CampusMap2010.pdb" />
+    <Content Include="obj\Debug\campus_calendar.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\campus_calendar.dll" />
+    <Content Include="obj\Debug\campus_calendar.pdb" />
+    <Content Include="obj\Debug\campus_script_service.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\TempPE\Properties.Resources.Designer.cs.dll" />
+    <Content Include="Readme.txt" />
+    <EmbeddedResource Include="Services\file_services\mimeTypes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>ElFinder</CustomToolNamespace>
+    </EmbeddedResource>
+    <Content Include="Services\api\Service1.svc" />
+    <Content Include="Sites\Authorize.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Services\oAuth_provider\DataClasses.dbml.layout">
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\adminController.cs" />
+    <Compile Include="Controllers\aAuthSecureBaseController.cs" />
+    <Compile Include="Controllers\centerController.cs" />
+    <Compile Include="Controllers\fileController.cs" />
+    <Compile Include="Controllers\feedController.cs" />
+    <Compile Include="Controllers\visible_editorController.cs" />
+    <Compile Include="Filters\AuthenticationFilter.cs" />
+    <Compile Include="Helpers\User.cs" />
+    <Compile Include="Models\clinical.cs" />
+    <Compile Include="Models\drug.cs" />
+    <Compile Include="Models\reference.cs" />
+    <Compile Include="Models\substance.cs" />
+    <Compile Include="Models\treatment.cs" />
+    <Compile Include="Services\oAuth_provider\Client.cs" />
+    <Compile Include="Services\oAuth_provider\DatabaseKeyNonceStore.cs" />
+    <Compile Include="Services\oAuth_provider\DataClasses.designer.cs" />
+    <Compile Include="Services\oAuth_provider\DataClasses1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\oAuth_provider\HttpHeaderAttribute.cs" />
+    <Compile Include="Services\oAuth_provider\OAuthAuthorizationServer.cs" />
+    <Compile Include="Services\oAuth_provider\Utilities.cs" />
+    <Compile Include="Sites\Authorize.aspx.cs">
+      <DependentUpon>Authorize.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sites\Authorize.aspx.designer.cs">
+      <DependentUpon>Authorize.aspx</DependentUpon>
+    </Compile>
+    <Content Include="install\default_content\Web.config" />
+    <None Include="install\installController.cs.alt" />
+    <Compile Include="Filters\oauth_authentication.cs" />
+    <Compile Include="install\installController.cs" />
+    <Compile Include="Controllers\postController.cs" />
+    <Compile Include="Controllers\fieldsController.cs" />
+    <Compile Include="Controllers\groupController.cs" />
+    <Compile Include="Controllers\tagsController.cs" />
+    <Compile Include="Controllers\usersController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\RescueController.cs" />
+    <Compile Include="Controllers\mediaController.cs" />
+    <Compile Include="Controllers\cal_eventsController.cs" />
+    <Compile Include="Controllers\publicController.cs" />
+    <Compile Include="Controllers\SecureBaseController.cs" />
+    <Compile Include="Filters\user_authentication.cs" />
+    <Compile Include="Filters\scriptFilter.cs" />
+    <Compile Include="GlobalApplication.cs" />
+    <Compile Include="Helpers\Diff.cs" />
+    <Compile Include="Models\base.cs" />
+    <Compile Include="Models\auth.cs" />
+    <Compile Include="Models\postings.cs" />
+    <Compile Include="Models\feilds.cs" />
+    <Compile Include="Models\site.cs" />
+    <Compile Include="Models\users.cs" />
+    <Compile Include="Models\logs.cs" />
+    <Compile Include="Models\taxonomy.cs" />
+    <Compile Include="OAuth.ashx.cs">
+      <DependentUpon>OAuth.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\api\IService1.cs" />
+    <Compile Include="Services\api\Service1.svc.cs">
+      <DependentUpon>Service1.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Services\oAuth_provider\Constants.cs" />
+    <Compile Include="Services\oAuth_provider\CustomOAuthMessageFactory.cs" />
+    <Compile Include="Services\oAuth_provider\DatabaseNonceStore.cs" />
+    <Compile Include="Services\oAuth_provider\DatabaseTokenManager.cs" />
+    <Compile Include="Services\oAuth_provider\OAuthAuthorizationManager.cs" />
+    <Compile Include="Services\oAuth_provider\OAuthConsumer.cs" />
+    <Compile Include="Services\oAuth_provider\OAuthPrincipalAuthorizationPolilcy.cs" />
+    <Compile Include="Services\oAuth_provider\OAuthToken.cs" />
+    <Compile Include="Services\oAuth_provider\RequestScopedTokenMessage.cs" />
+    <Compile Include="Services\oAuth_provider\TokenAuthorizationState.cs" />
+    <Compile Include="Services\oAuth_provider\TracePageAppender.cs" />
+    <Compile Include="Services\SessionService.cs" />
+    <Compile Include="Services\data_handling\CloneInjection.cs" />
+    <Compile Include="Services\file_services\cacheService.cs" />
+    <Compile Include="Services\content_services\editingService.cs" />
+    <Compile Include="Services\file_services\DTO\DirectoryDTO.cs" />
+    <Compile Include="Services\file_services\DTO\DTOBase.cs" />
+    <Compile Include="Services\file_services\DTO\Error.cs" />
+    <Compile Include="Services\file_services\DTO\FileDTO.cs" />
+    <Compile Include="Services\file_services\DTO\ImageDTO.cs" />
+    <Compile Include="Services\file_services\DTO\RootDTO.cs" />
+    <Compile Include="Services\file_services\Facade\Connector.cs" />
+    <Compile Include="Services\file_services\Facade\FileSystemDriver.cs" />
+    <Compile Include="Services\file_services\Facade\FullPath.cs" />
+    <Compile Include="Services\file_services\Facade\IDriver.cs" />
+    <Compile Include="Services\file_services\Facade\Root.cs" />
+    <Compile Include="Services\file_services\file_capture.cs" />
+    <Compile Include="Services\file_services\file_handler.cs" />
+    <Compile Include="Services\data_handling\objectService.cs" />
+    <Compile Include="Services\file_services\file_info.cs" />
+    <Compile Include="Services\file_services\file_helper.cs" />
+    <Compile Include="Services\file_services\file_routines.cs" />
+    <Compile Include="Services\file_services\JsonDataContractResult.cs" />
+    <Compile Include="Services\file_services\media_handling\watermaking.cs" />
+    <Compile Include="Services\file_services\media_handling\image_sizing.cs" />
+    <Compile Include="Services\file_services\file_mime.cs" />
+    <Compile Include="Services\file_services\Response\AddResponse.cs" />
+    <Compile Include="Services\file_services\Response\GetResponse.cs" />
+    <Compile Include="Services\file_services\Response\ListResponse.cs" />
+    <Compile Include="Services\file_services\Response\Open\Debug.cs" />
+    <Compile Include="Services\file_services\Response\Open\InitResponse.cs" />
+    <Compile Include="Services\file_services\Response\Open\OpenResponse.cs" />
+    <Compile Include="Services\file_services\Response\Open\OpenResponseBase.cs" />
+    <Compile Include="Services\file_services\Response\Open\Options.cs" />
+    <Compile Include="Services\file_services\Response\PutResponse.cs" />
+    <Compile Include="Services\file_services\Response\RemoveResponse.cs" />
+    <Compile Include="Services\file_services\Response\ReplaceResponse.cs" />
+    <Compile Include="Services\file_services\Response\TreeResponse.cs" />
+    <Compile Include="Services\jig.cs" />
+    <Compile Include="Services\settingsService.cs" />
+    <Compile Include="Services\content_services\postingService.cs" />
+    <Compile Include="Services\site_controlls\site_timer.cs" />
+    <Compile Include="Services\site_controlls\themeService.cs" />
+    <Compile Include="Services\data_handling\taxonomyService.cs" />
+    <Compile Include="Services\content_services\versionService.cs" />
+    <Compile Include="Services\site_controlls\seoService.cs" />
+    <Compile Include="Services\data_handling\formactionService.cs" />
+    <Compile Include="Services\output_services\widgetFactoryService.cs" />
+    <Compile Include="Services\data_handling\searchService.cs" />
+    <Compile Include="Services\data_handling\validationService.cs" />
+    <Compile Include="Services\output_services\renderService.cs" />
+    <Compile Include="Services\site_controlls\siteService.cs" />
+    <Compile Include="Services\output_services\htmlService.cs" />
+    <Compile Include="Services\logging\logger.cs" />
+    <Compile Include="Services\httpService.cs" />
+    <Compile Include="Services\content_services\fieldsService.cs" />
+    <Compile Include="Services\helperService.cs" />
+    <Compile Include="Services\file_services\media_handling\image_handler.cs" />
+    <Compile Include="Services\file_services\scriptsService.cs" />
+    <Compile Include="Services\site_controlls\userService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Photos.dll" />
+    <Content Include="bin\Photos.pdb" />
+    <Content Include="config\controllers.config" />
+    <Content Include="config\facilities.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\properties.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\components.config" />
+    <Content Include="lib\anrControls.Markdown.NET.dll" />
+    <Content Include="lib\Antlr3.Runtime.dll" />
+    <Content Include="lib\ASL - Apache Software Foundation License.txt" />
+    <Content Include="lib\Boo.Lang.CodeDom.dll" />
+    <Content Include="lib\Boo.Lang.Compiler.dll" />
+    <Content Include="lib\Boo.Lang.dll" />
+    <Content Include="lib\Boo.Lang.Extensions.dll" />
+    <Content Include="lib\Boo.Lang.Interpreter.dll" />
+    <Content Include="lib\Boo.Lang.Parser.dll" />
+    <Content Include="lib\Boo.Lang.PatternMatching.dll" />
+    <Content Include="lib\Boo.Lang.Useful.dll" />
+    <Content Include="lib\BreakingChanges.txt" />
+    <Content Include="lib\Cassini.dll" />
+    <Content Include="lib\Castle.ActiveRecord.dll" />
+    <Content Include="lib\Castle.ActiveRecord.Linq.dll" />
+    <Content Include="lib\Castle.ActiveRecord.Linq.pdb" />
+    <Content Include="lib\Castle.ActiveRecord.Linq.xml" />
+    <Content Include="lib\Castle.ActiveRecord.pdb" />
+    <Content Include="lib\Castle.ActiveRecord.xml" />
+    <Content Include="lib\Castle.Components.Binder.dll" />
+    <Content Include="lib\Castle.Components.Binder.pdb" />
+    <Content Include="lib\Castle.Components.Binder.xml" />
+    <Content Include="lib\Castle.Components.Common.TemplateEngine.dll" />
+    <Content Include="lib\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.dll" />
+    <Content Include="lib\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.pdb" />
+    <Content Include="lib\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.xml" />
+    <Content Include="lib\Castle.Components.Common.TemplateEngine.pdb" />
+    <Content Include="lib\Castle.Components.Common.TemplateEngine.xml" />
+    <Content Include="lib\Castle.Components.DictionaryAdapter.dll" />
+    <Content Include="lib\Castle.Components.DictionaryAdapter.xml" />
+    <Content Include="lib\Castle.Components.Pagination.dll" />
+    <Content Include="lib\Castle.Components.Pagination.xml" />
+    <Content Include="lib\Castle.Components.Validator.dll" />
+    <Content Include="lib\Castle.Components.Validator.pdb" />
+    <Content Include="lib\Castle.Components.Validator.xml" />
+    <Content Include="lib\Castle.Core.dll" />
+    <Content Include="lib\Castle.Core.pdb" />
+    <Content Include="lib\Castle.Core.xml" />
+    <Content Include="lib\Castle.DynamicProxy2.dll" />
+    <Content Include="lib\Castle.DynamicProxy2.xml" />
+    <Content Include="lib\Castle.Facilities.ActiveRecordIntegration.dll" />
+    <Content Include="lib\Castle.Facilities.ActiveRecordIntegration.pdb" />
+    <Content Include="lib\Castle.Facilities.ActiveRecordIntegration.xml" />
+    <Content Include="lib\Castle.Facilities.AutomaticTransactionManagement.dll" />
+    <Content Include="lib\Castle.Facilities.AutomaticTransactionManagement.xml" />
+    <Content Include="lib\Castle.Facilities.Logging.dll" />
+    <Content Include="lib\Castle.Facilities.Logging.xml" />
+    <Content Include="lib\Castle.MicroKernel.dll" />
+    <Content Include="lib\Castle.MicroKernel.xml" />
+    <Content Include="lib\Castle.MonoRail.ActiveRecordSupport.dll" />
+    <Content Include="lib\Castle.MonoRail.ActiveRecordSupport.xml" />
+    <Content Include="lib\Castle.MonoRail.Framework.dll" />
+    <Content Include="lib\Castle.MonoRail.Framework.Views.NVelocity.dll" />
+    <Content Include="lib\Castle.MonoRail.Framework.Views.NVelocity.xml" />
+    <Content Include="lib\Castle.MonoRail.Framework.xml" />
+    <Content Include="lib\Castle.MonoRail.TestSupport.dll" />
+    <Content Include="lib\Castle.MonoRail.TestSupport.xml" />
+    <Content Include="lib\Castle.MonoRail.TransformFilters.dll" />
+    <Content Include="lib\Castle.MonoRail.TransformFilters.xml" />
+    <Content Include="lib\Castle.MonoRail.Views.AspView.dll" />
+    <Content Include="lib\Castle.MonoRail.Views.AspView.xml" />
+    <Content Include="lib\Castle.MonoRail.Views.Brail.dll" />
+    <Content Include="lib\Castle.MonoRail.Views.Brail.xml" />
+    <Content Include="lib\Castle.MonoRail.WindsorExtension.dll" />
+    <Content Include="lib\Castle.MonoRail.WindsorExtension.xml" />
+    <Content Include="lib\Castle.Services.Logging.log4netIntegration.dll" />
+    <Content Include="lib\Castle.Services.Logging.Log4netIntegration.pdb" />
+    <Content Include="lib\Castle.Services.Logging.log4netIntegration.xml" />
+    <Content Include="lib\Castle.Services.Logging.NLogIntegration.dll" />
+    <Content Include="lib\Castle.Services.Logging.NLogIntegration.pdb" />
+    <Content Include="lib\Castle.Services.Transaction.dll" />
+    <Content Include="lib\Castle.Services.Transaction.xml" />
+    <Content Include="lib\Castle.Windsor.dll" />
+    <Content Include="lib\Castle.Windsor.xml" />
+    <Content Include="lib\Changes.txt" />
+    <Content Include="lib\Committers.txt" />
+    <Content Include="lib\de\Castle.MonoRail.Framework.Tests.resources.dll" />
+    <Content Include="lib\es\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\fr\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\Iesi.Collections.dll" />
+    <Content Include="lib\Iesi.Collections.license.txt" />
+    <Content Include="lib\Iesi.Collections.xml" />
+    <Content Include="lib\it\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\log4net.dll" />
+    <Content Include="lib\log4net.license.txt" />
+    <Content Include="lib\log4net.xml" />
+    <Content Include="lib\lt\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\Lucene.Net.dll" />
+    <Content Include="lib\lv\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\mk\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\net35\Castle.Core.dll" />
+    <Content Include="lib\net35\Castle.Core.pdb" />
+    <Content Include="lib\net35\Castle.Core.xml" />
+    <Content Include="lib\net35\Castle.Services.Logging.Log4netIntegration.dll" />
+    <Content Include="lib\net35\Castle.Services.Logging.Log4netIntegration.pdb" />
+    <Content Include="lib\net35\Castle.Services.Logging.NLogIntegration.dll" />
+    <Content Include="lib\net35\Castle.Services.Logging.NLogIntegration.pdb" />
+    <Content Include="lib\net40-client\Castle.Core.dll" />
+    <Content Include="lib\net40-client\Castle.Core.pdb" />
+    <Content Include="lib\net40-client\Castle.Core.xml" />
+    <Content Include="lib\net40-client\Castle.Services.Logging.NLogIntegration.dll" />
+    <Content Include="lib\net40-client\Castle.Services.Logging.NLogIntegration.pdb" />
+    <Content Include="lib\net40-client\Castle.Services.Logging.NLogIntegration.xml" />
+    <Content Include="lib\net40\Castle.Core.dll" />
+    <Content Include="lib\net40\Castle.Core.pdb" />
+    <Content Include="lib\net40\Castle.Core.xml" />
+    <Content Include="lib\net40\Castle.Services.Logging.Log4netIntegration.dll" />
+    <Content Include="lib\net40\Castle.Services.Logging.Log4netIntegration.pdb" />
+    <Content Include="lib\net40\Castle.Services.Logging.NLogIntegration.dll" />
+    <Content Include="lib\net40\Castle.Services.Logging.NLogIntegration.pdb" />
+    <Content Include="lib\Newtonsoft.Json.dll" />
+    <Content Include="lib\Newtonsoft.Json.XML" />
+    <Content Include="lib\NHibernate.ByteCode.Castle.dll" />
+    <Content Include="lib\NHibernate.ByteCode.Castle.xml" />
+    <Content Include="lib\NHibernate.dll" />
+    <Content Include="lib\NHibernate.license.txt" />
+    <Content Include="lib\NHibernate.Linq.dll" />
+    <Content Include="lib\NHibernate.Search.dll" />
+    <Content Include="lib\NLog.dll" />
+    <Content Include="lib\NLog.xml" />
+    <Content Include="lib\nl\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\nl\Castle.MonoRail.Framework.Tests.resources.dll" />
+    <Content Include="lib\NVelocity.dll" />
+    <Content Include="lib\NVelocity.xml" />
+    <Content Include="lib\pl\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\pt-BR\Castle.MonoRail.Framework.resources.dll" />
+    <Content Include="lib\pt\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\readme.txt" />
+    <Content Include="lib\ru\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\sl4\Castle.Core.dll" />
+    <Content Include="lib\sl4\Castle.Core.pdb" />
+    <Content Include="lib\sl4\Castle.Core.xml" />
+    <Content Include="lib\sl4\Castle.Services.Logging.NLogIntegration.dll" />
+    <Content Include="lib\sl4\Castle.Services.Logging.NLogIntegration.pdb" />
+    <Content Include="lib\sl4\Castle.Services.Logging.NLogIntegration.XML" />
+    <Content Include="lib\sv\Castle.Components.Validator.resources.dll" />
+    <Content Include="lib\System.Data.SQLite.DLL" />
+    <Content Include="lib\VCompile.exe" />
+    <Content Include="lib\WatiN.Core.dll" />
+    <Content Include="lib\WatiN.Core.xml" />
+    <Content Include="lib\zh-TW\Castle.MonoRail.Framework.resources.dll" />
+    <Content Include="config\logging.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="manager.aspx" />
+    <None Include="lib\Cassini.EULA.rtf" />
+    <None Include="lib\NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="packages.config" />
+    <Content Include="logs\install.log" />
+    <Content Include="obj\Debug\campus_calendar.csprojResolveAssemblyReference.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="OAuth.ashx" />
+    <Content Include="Sites\Web.config" />
+    <Content Include="Services\oAuth_provider\DataClasses.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Views\AccessLevel\list.vm" />
+    <None Include="Views\AccessLevel\new.vm" />
+    <None Include="Views\AccessLevel\_edit_privilege.vm" />
+    <Content Include="Views\admin\configuration.vm" />
+    <Content Include="Views\admin\diff\show_diff.vm" />
+    <Content Include="Views\admin\connections.vm" />
+    <None Include="Views\admin\fields\index.vm" />
+    <None Include="Views\admin\fields\list.vm" />
+    <None Include="Views\admin\fields\new.vm" />
+    <None Include="Views\admin\footer.vm" />
+    <None Include="Views\admin\global_footer_JS.vm" />
+    <None Include="Views\admin\global_header_html.vm" />
+    <None Include="Views\admin\google-analytics.vm" />
+    <None Include="Views\admin\header_html.vm" />
+    <None Include="Views\admin\help.vm" />
+    <Content Include="Views\admin\install\installing.vm" />
+    <Content Include="Views\admin\install\install_complete.vm" />
+    <Content Include="Views\admin\install\install_start.vm" />
+    <None Include="Views\admin\listings\areas\detailCol.vm" />
+    <None Include="Views\admin\listings\areas\inedit.vm" />
+    <None Include="Views\admin\listings\areas\pagination.vm" />
+    <None Include="Views\admin\listings\areas\summaryCol.vm" />
+    <None Include="Views\admin\listings\buttons\broadcast.vm" />
+    <None Include="Views\admin\listings\buttons\delete.vm" />
+    <None Include="Views\admin\listings\buttons\edit.vm" />
+    <None Include="Views\admin\listings\buttons\ho.vm" />
+    <None Include="Views\admin\listings\buttons\order.vm" />
+    <None Include="Views\admin\listings\buttons\publish.vm" />
+    <None Include="Views\admin\listings\buttons\view.vm" />
+    <None Include="Views\admin\listings\general.vm" />
+    <None Include="Views\admin\listings\list.vm" />
+    <None Include="Views\admin\main_menu.vm" />
+    <Content Include="Views\admin\noted.vm" />
+    <Content Include="Views\admin\postings\custom_post_blocks\cal_event\editor_blocks\contacts_block.vm" />
+    <Content Include="Views\admin\postings\custom_post_blocks\cal_event\editor_blocks\schuedule_block.vm" />
+    <Content Include="Views\admin\postings\custom_post_blocks\cal_event\editor_blocks\type_block.vm" />
+    <Content Include="Views\admin\postings\custom_post_blocks\event_location\editor_blocks\locations_editor.vm" />
+    <Content Include="Views\admin\postings\custom_post_blocks\menu\_editor.vm" />
+    <Content Include="Views\admin\postings\edit_posting_type.vm" />
+    <Content Include="Views\admin\postings\post_blocks\content_block.vm" />
+    <Content Include="Views\admin\postings\post_blocks\fields_block.vm" />
+    <Content Include="Views\admin\postings\post_blocks\identification_publish_base_block.vm" />
+    <Content Include="Views\admin\postings\post_blocks\inpost_edit_comments.vm" />
+    <Content Include="Views\admin\postings\post_blocks\locations_editor.vm" />
+    <Content Include="Views\admin\postings\post_blocks\post_image_block.vm" />
+    <Content Include="Views\admin\postings\post_blocks\publishing_sidebar.vm" />
+    <Content Include="Views\admin\postings\post_blocks\publish_base_bolck.vm" />
+    <Content Include="Views\admin\postings\post_blocks\revisions.vm" />
+    <Content Include="Views\admin\postings\post_blocks\SEO_block.vm" />
+    <Content Include="Views\admin\postings\post_blocks\tagging_block.vm" />
+    <Content Include="Views\admin\postings\post_blocks\taxonomy_block.vm" />
+    <Content Include="Views\admin\postings\post_blocks\template_block.vm" />
+    <Content Include="Views\admin\postings\post_blocks\users_block.vm" />
+    <Content Include="Views\admin\postings\_editor.vm" />
+    <Content Include="Views\admin\master_con.vm" />
+    <Content Include="Views\admin\postings.vm" />
+    <Content Include="Views\admin\postings\custom_post_blocks\link\_editor.vm" />
+    <Content Include="Views\admin\postings\custom_post_blocks\media\_editor.vm" />
+    <Content Include="Views\admin\postings\custom_post_blocks\post_stub.vm" />
+    <None Include="Views\admin\settings\settings.vm" />
+    <None Include="Views\admin\settings\_edit.vm" />
+    <Content Include="Views\admin\sites.vm" />
+    <Content Include="Views\admin\slave_con.vm" />
+    <None Include="Views\admin\splash.vm" />
+    <Content Include="Views\admin\taxonomy\campus_editor.vm" />
+    <Content Include="Views\admin\taxonomy\genral_listings.vm" />
+    <Content Include="Views\admin\taxonomy\list.vm" />
+    <Content Include="Views\admin\taxonomy\_editor.vm" />
+    <Content Include="Views\admin\trashbin.vm" />
+    <None Include="Views\admin\types\index.vm" />
+    <None Include="Views\admin\types\list.vm" />
+    <None Include="Views\admin\types\new.vm" />
+    <Content Include="Views\admin\visible_editor\postings\identification_publish_base_block.vm" />
+    <Content Include="Views\admin\visible_editor\postings\SEO_block.vm" />
+    <Content Include="Views\admin\visible_editor\postings\taxonomies.vm" />
+    <Content Include="Views\admin\visible_editor\postings\template_block.vm" />
+    <Content Include="Views\admin\visible_editor\postings\users_block.vm" />
+    <Content Include="Views\admin\visible_editor\settings.vm" />
+    <None Include="Views\users\list.vm" />
+    <None Include="Views\users\new.vm" />
+    <None Include="Views\collections\_editor.vm" />
+    <None Include="Views\layouts\public.vm" />
+    <None Include="Views\layouts\error.vm" />
+    <None Include="Views\layouts\admin.vm" />
+    <None Include="Views\public\errors\error.vm" />
+    <None Include="Views\public\errors\general404.vm" />
+    <None Include="Views\Macros\results.vm" />
+    <None Include="Views\Mail\directions.vm" />
+    <None Include="Views\Mail\hello.vm" />
+    <None Include="Views\Mail\place_errors.vm" />
+    <None Include="Views\media\browser.vm" />
+    <None Include="Views\media\inlineupload.vm" />
+    <None Include="Views\media\list.vm" />
+    <None Include="Views\media\listings.vm" />
+    <None Include="Views\media\massUpload\download_template.vm" />
+    <None Include="Views\media\massUpload\massUploadForm.vm" />
+    <None Include="Views\media\massUpload\upload_template.vm" />
+    <None Include="Views\media\new.vm" />
+    <None Include="Views\public\event.vm" />
+    <None Include="Views\rescues\generalerror.vm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\bin\" />
+    <Folder Include="Services\oAuth_consumer\" />
+    <Folder Include="Services\site_controlls\events\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>64763</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:64763/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://research.clintonhealthaccess.org</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

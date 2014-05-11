@@ -1,0 +1,20 @@
+This is how we make up the themes.
+
+
+<h3>templates</h3>
+
+<h4>Path lookup</h4>
+<ul>
+    <li><strong>site.alias</strong>/cache/published/<strong>theme</strong>/<strong>mode</strong>/<strong>type</strong>/</li>
+    <li><strong>site.alias</strong>/cache/published/base/<strong>mode</strong>/<strong>type</strong>/</li>
+    <li>Views/admin/default/<strong>type</strong>/    <em>(** if an admin path **)</em></li>
+</ul>
+		
+<h3>Skin</h3>
+
+<h4>Path lookup</h4>
+<ul>
+    <li>site.alias/cache/published/<strong>theme</strong>/<strong>mode</strong>/content/<strong>type</strong>/</li>
+    <li>site.alias/cache/published/base/<strong>mode</strong>/content/<strong>type</strong>/</li>
+    <li>Views/admin/default/content/<strong>type</strong>/    <em>(** if an admin path **)</em></li>
+</ul>

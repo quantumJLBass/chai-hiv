@@ -1,0 +1,200 @@
+<br/>
+<form action="update_group.castle" method="post">
+	$Form.HiddenField("group.baseid")
+	<button type="submit" value="Submit" class="button" style="float:right">Submit</button>
+	<h3>Create a Group</h3>
+	<h6><em>These are used to group users to give access to parts of the system, run reports, and anything that would be needed to controll actions for a few users.</em></h6>
+	<h4>Name:</h4>
+	$Form.TextField("group.name") 
+	<h6>(<em><strong>NOTE:</strong>This is the friendly name.</em>)</h6>
+	<hr style="max-width:66%;display: inline-block;width:100%;"/>
+	<h4>Alias:</h4>
+	$Form.TextField("group.alias") 
+	<h6>(<em><strong>NOTE:</strong>This is the Alias name that is used by the system.</em>)</h6>
+<hr style="max-width:66%;display: inline-block;width:100%;"/>
+    <h4>Admin account:</h4>
+	<select name="group.isAdmin" >
+				<option class="user" value="true" #if(${group.isAdmin}) selected="selected" #end>Yes</option>
+				<option class="user" value="false" #if(!${group.isAdmin}) selected="selected" #end>No</option>
+	</select>	
+    <h4>Allow users to add them self to the group:</h4>
+	<select name="group.allow_signup" >
+				<option class="user" value="true" #if(${group.allow_signup}) selected="selected" #end>Yes</option>
+				<option class="user" value="false" #if(!${group.allow_signup}) selected="selected" #end>No</option>
+	</select>	
+    <h4>Add as a sub group to:</h4>
+    <select id="group.parent" name="group.parent.baseid"  class="" style="width:205px;">
+    	<option value="" #if(!$group.parent.baseid < 1) selected="selected" #end >None (Top level)</option>
+
+            <optgroup class="admin" label="Admin Groups">
+                #foreach($G in $groups)
+                    #if($G.isAdmin)
+
+                        #if(!$G.parent)
+                            <option value="$G.baseid" #if($group.baseid == $G.baseid) disabled="disabled" #end #if($group.parent.baseid == $G.baseid) selected="selected" #end class="parent_op">$G.name</option>
+                            #if($G.children)
+    
+                                #foreach($child in $G.children)
+                                    <option value="$child.baseid" #if($group.baseid == $child.baseid) disabled="disabled" #end #if($group.parent.baseid == $child.baseid) selected="selected" #end  class="child_op">$child.name</option>
+                                #end  
+                            #end  
+    
+                        #end
+                    #end
+                #end
+            </optgroup>
+
+            <optgroup class="feu" label="FEU Groups">
+                #foreach($G in $groups)
+                    #if(!$G.isAdmin)
+                       #if(!$G.parent)
+                            <option value="$G.baseid" #if($group.baseid == $G.baseid) disabled="disabled" #end #if($group.parent.baseid == $G.baseid) selected="selected" #end  class="parent_op">$G.name</option>
+                            #if($G.children)
+    
+                                #foreach($child in $G.children)
+                                    <option value="$child.baseid" #if($group.baseid == $child.baseid) disabled="disabled" #end #if($group.parent.baseid == $child.baseid) selected="selected" #end  class="child_op"> $child.name</option>
+                                #end  
+                            #end  
+    
+                        #end
+                    #end
+                #end
+            </optgroup>
+
+        
+        
+    </select>
+
+	
+	<div id="tabs" class="placelist  ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <!--<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#props">Properties</a></li>-->
+            <li class="ui-state-default ui-corner-top" ><a href="#privileges">Privileges</a></li>
+            
+            
+            <li class="ui-state-default ui-corner-top" ><a href="#users">Users</a></li>
+        </ul>
+    
+       <!-- <div id="props">
+                <fieldset style="max-width:66%;">
+                    <fieldset><legend>WSU Properties</legend>
+                        <div class="col2"  style="display:inline-block; float:left;margin-right:13px;"><em style="float:right;">All <input type="checkbox" class="all" #if($group.campus.count==$campuses.count)checked="checked"#end value="all"/></em>
+                            <label for="group.campus" style="font-size:13px;"><strong>Campus</strong></label><br/>
+                            <select id="group.campus" name="group.campus[]"  class="" multiple="multiple" size="9" style="width:205px;">
+                                #foreach($campus in $campuses)
+                                    <option class="model" value="$campus.id" #if($group.campus.Contains($campus)) selected="selected" #end >$!campus.name</option>
+                                #end
+                            </select>
+                        </div>
+                        <div class="col2"  style="display:inline-block; float:left;margin-right:13px;"><em style="float:right;">All <input type="checkbox" class="all" #if($group.colleges.count==$colleges.count)checked="checked"#end value="all"/></em>
+                            <label for="group.colleges" style="font-size:13px;"><strong>College</strong></label><br/>
+                            <select id="group.colleges" name="group.colleges[]"  class="" multiple="multiple" size="9" style="width:205px;">
+                                #foreach($college in $colleges)
+                                    <option class="model" value="$college.id" #if($group.colleges.Contains($college)) selected="selected" #end >$!college.name</option>
+                                #end
+                            </select>
+                        </div>
+                        <div class="col2" style="display:inline-block; float:left;margin-right:13px;"><em style="float:right;">All <input type="checkbox" class="all" #if($group.schools.count==$schools.count)checked="checked"#end value="all"/></em>
+                            <label for="group.schools" style="font-size:13px;"><strong>School</strong></label><br/>
+                            <select id="group.schools" name="group.schools[]"  class="" multiple="multiple" size="9" style="width:205px;">
+                                #foreach($school in $schools)
+                                    <option class="model" value="$school.id" #if($group.schools.Contains($school)) selected="selected" #end >$!school.name</option>
+                                #end
+                            </select>
+                        </div>
+                                    
+                        <div  style="display:inline-block; float:left;margin-right:13px;"><em style="float:right;">All <input type="checkbox" class="all" #if($group.programs.count==$programs.count)checked="checked"#end value="all"/></em>
+                            <label for="group.programs" style="font-size:13px;"><strong>Programs</strong></label><br/>
+                            <select id="group.programs" name="group.programs[]"  class="" multiple="multiple" size="9" style="width:205px;">
+                                #foreach($program in $programs)
+                                    <option class="model" value="$program.id" #if($group.programs.Contains($program)) selected="selected" #end >$!program.name</option>
+                                #end
+                            </select>
+                        </div>
+                        
+                        
+                        
+                        
+                        #*<div  style="display:inline-block; float:left;margin-right:13px;">
+                            <label for="group.department" style="font-size:13px;"><strong>Academic Departments</strong></label><br/>
+                            <select id="group.department" name="group.department[]"  class="" multiple="multiple" size="9" style="width:205px;">
+                                #foreach($department in $departments)
+                                    <option class="model" value="$department.id" #if($group.department.Contains($department)) selected="selected" #end >$!department.name</option>
+                                #end
+                            </select>
+                        </div>
+                        <div  style="display:inline-block; float:left;margin-right:9px;">
+                            <label for="group.admindepartment" style="font-size:13px;"><strong>Administrative Departments</strong></label><br/>
+                            <select id="group.admindepartment" name="group.admindepartment[]"  class="" multiple="multiple" size="9" style="width:205px;">
+                                #foreach($admindepartment in $admindepartments)
+                                    <option class="model" value="$admindepartment.id" #if($group.admindepartment.Contains($admindepartment)) selected="selected" #end >$!admindepartment.name</option>
+                                #end
+                            </select>
+                        </div>*#	
+                    </fieldset>	
+                    
+                <fieldset><legend>WSU Categories</legend>
+                    <div  style="display:inline-block; float:left;margin-right:9px;"><em style="float:right;">All <input type="checkbox" class="all" #if($group.categories.count==$categories.count)checked="checked"#end value="all"/></em>
+                        <label for="LocationModelSelect" style="font-size:13px;"><strong>Categories:</strong></label><br/>
+                        <select id="LocationModelSelect" name="group.categories[]"  class="" multiple="multiple" size="9" style="width:205px;">
+                            #foreach($cat in $categories)
+                                <option class="model" value="$cat.id" #if($group.categories.Contains($cat)) selected="selected" #end > $HtmlService.repeatStr("- ",$cat.level) $!cat.name</option>
+                            #end
+                        </select>
+                    </div>  
+                </fieldset>	
+            </fieldset>	
+        </div>-->
+        <div id="privileges">
+            <fieldset><legend>Group Privileges</legend>
+                <hr style="display: inline-block;width:100%;"/>
+                <table width="100%" class="ui-widget ui-widget-content">
+                  <thead>
+                    <tr class="ui-widget-header ">
+                        <th style="width:50px;" align="center"><input type="checkbox" onClick="$('.checkable').attr('checked', $(this).attr('checked')?true:false )" /></th>
+                        <th>Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    #set ($c=0)
+                    #foreach($privilege in $privileges)
+                    <tr #if($c%2>0) class="even" #else class="odd" #end>
+                    <td align="center"><input type="checkbox" class="checkable" name="privileges[]" value="$privilege.baseid" #if($group.privileges.contains($privilege))checked="checked"#end></td>
+                    <td align="left">$!privilege.name</td>
+                    </tr>
+                    #set ($c=$c+1)
+                    #end
+                  </tbody>
+                </table>
+            </fieldset>	
+        </div>
+        <div id="users">
+                <table width="100%" class="ui-widget ui-widget-content">
+                  <thead>
+                    <tr class="ui-widget-header ">
+                        <th>Name</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    #set ($c=0)
+                    #foreach($user in $group.users)
+                    <tr #if($c%2>0) class="even" #else class="odd" #end>
+                        <td align="left">$!user.display_name</td>
+                      <td class='actionArea'>
+                
+                        <span style='font-size:0.7em;'>
+                          <a href="/users/edit_user.castle?id=$!{user.baseid}" title="Edit" class="button small">
+                            <span class="ui-icon ui-icon-pencil"></span>
+                          </a>
+                        </span>
+                      </td>
+                    </tr>
+                    #set ($c=$c+1)
+                    #end
+                  </tbody>
+                </table>
+        </div>
+    </div>
+	<p><button type="submit" value="Submit" class="button">Submit</button></p>
+</form>

@@ -1,0 +1,128 @@
+#set($named_type_dname="Page")
+<div id='stellar_visible_settings' style='display:none;'>
+    <span>
+        <a href='#page_settings' class='editor_settings_mode active' >Settings</a>
+        <a href='#page_info' class='editor_settings_mode' >Info</a>
+    </span>
+    <div id="page_settings" class="panle">
+        <h2 style="margin-top:5px">Page Settings</h2>
+        <hr/>
+        <h5 style="display:inline-block">Preview on</h5>
+        <select class="livesite">
+            <option #if(!$dev)selected="selected"#end>Live</option>
+            <option #if($dev)selected="selected"#end>Dev</option>
+        </select>
+
+        <hr/>
+        <h5>#if($item.is_Published()) Published #else Pulbishing Pending #end</h5>
+        <hr/>
+        <h3>Identification</h3>
+        #parse("/admin/visible_editor/postings/identification_publish_base_block.vm")
+        <hr/>
+        
+        
+        #parse("/admin/visible_editor/postings/SEO_block.vm")
+        #parse("/admin/visible_editor/postings/template_block.vm")
+        
+    
+    
+    <h3 id="resources_header" class="switch">Content blocks<em>( + )</em></h3>
+    <div id="resources_content"  class="tabed">
+    <hr/>
+        <h4 class="switch">Used Content Block <em>( + )</em></h4>
+        
+        
+        <table class="tabed">
+        <tr><td><hr/></td></tr>
+        #set($list_items=$All_list)
+                #set($c=0)
+        #foreach($item in $list_items)#set($c=$c+1)#end
+        #if($list_items && $c>0)
+        	#set($iCount=0)
+            #foreach($item in $used_contentblocks)
+                #if($iCount%2==0) #set($polarity="even") #else #set($polarity="odd") #end
+                <tr class="item item_aTar item_$!item.baseid $polarity" rel="$!item.baseid">
+                    <td>
+                        <a href='#' rel='#{content alias="block1" width="50"}'>
+                            <strong>$!item.name</strong> 
+                            <em style="font-size:75%">(Rev: $versionService.getRevisionCount($item))</em>
+                        </a>
+                    </td>
+                    <td align="center"><em style="font-size:75%"><strong>#if($item.is_Published()) Published #else Pulbishing Pending #end</strong></em></td>
+                    <td  align="center"></td>
+                </tr>
+                #set($iCount=$iCount+1) 
+            #end
+        #end 
+        </table> 
+        <hr/>
+        
+        <h4 class="switch">Add Content <em>( + )</em></h4>
+        <table class="tabed">
+        <tr><td><hr/></td></tr>
+        #set($list_items=$All_list)
+                #set($c=0)
+        #foreach($item in $list_items)#set($c=$c+1)#end
+        #if($list_items && $c>0)
+        	#set($iCount=0)
+            #foreach($item in $list_items)
+                #if($iCount%2==0) #set($polarity="even") #else #set($polarity="odd") #end
+                <tr class="item item_aTar item_$!item.baseid $polarity" rel="$!item.baseid">
+                    <td>
+                        <a href='#' rel='#{content alias="block1" width="50"}'>
+                            <strong>$!item.name</strong> 
+                            <em style="font-size:75%">(Rev: $versionService.getRevisionCount($item))</em>
+                        </a>
+                    </td>
+                    <td align="center"><em style="font-size:75%"><strong>#if($item.is_Published()) Published #else Pulbishing Pending #end</strong></em>
+                     </td>
+                    <td  align="center"></td>
+                </tr>
+                #set($iCount=$iCount+1)
+            #end
+        #end 
+        </table> 
+        
+	</div>
+    
+    <hr/>
+    #parse("/admin/visible_editor/postings/taxonomies.vm")    
+        
+        
+        
+    </div>
+    <div id="page_info" class="panle" style="display:none;">
+        <h2 style="margin-top:5px">Page Info</h2>
+        <hr/><h5>#if($item.is_Published()) Published #else Pulbishing Pending #end</h5>
+        <hr/>
+        <h5>version: ${item.version}</h5>
+        <h5>revision:${item.revision}</h5>
+        #parse("../admin/postings/post_blocks/revisions.vm")
+        
+        <hr/>
+        
+        <div id="publicDiv">
+              Public:#if($item.isPublic)<span><strong>Yes</strong></span> <a href="#">edit</a>#end
+                <select name="item.isPublic" #if($item.isPublic || $item.isPublic == "false")style="display:none;" #end>
+                    <option class="user" value="true" #if(${item.isPublic}) selected="selected" #end>Yes</option>
+                    <option class="user" value="false" #if(!${item.isPublic}) selected="selected" #end>No</option>
+                </select>&nbsp;&nbsp;&nbsp;
+                    #set($mess="Changing this will tell whether or not the public can see this ${named_type_dname} in the output <strong>even thou it's published</strong> ie: Internal to WSU only.")
+                    #parse("../admin/noted.vm")
+            </div>
+        
+        
+        
+        #parse("/admin/visible_editor/postings/users_block.vm")   
+
+    </div>
+    <span id="setting_actions">
+        <input type="submit" value="Make Live" name="publish" title="Push version as live." class="settings_botton" /><input type="submit" value="Save" name="save" title="Save and Return" class="settings_botton" />
+        <a href='#' class='settings_tab_close' >Close</a> 
+    </span>
+    
+</div>
+<span id="stellar_visible_settings_tab">
+<a href='#stellar_visible_settings' class='settings_tab' >OPEN</a>
+<a href='#' class='toggle_block active' >show/hide blocks</a>
+</span>

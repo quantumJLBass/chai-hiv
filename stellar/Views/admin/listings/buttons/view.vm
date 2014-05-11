@@ -1,0 +1,11 @@
+<li class="view_btn">
+	<a href="$siteroot/public/posting.castle?iid=${item.baseid}" target="_blank" title="View" class="button">
+	  <span class="ui-button-icon-primary ui-icon ui-icon-search"> </span>
+	  <span class="actionText">View</span>
+	  <span class="actionpropt">&#187;</span>
+	</a>
+</li>
+
+
+
+

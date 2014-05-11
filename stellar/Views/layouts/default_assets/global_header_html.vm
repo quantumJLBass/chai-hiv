@@ -1,0 +1,47 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta content='True' name='HandheldFriendly' />
+<meta content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no' name='viewport' />
+<meta name="viewport" content="width=device-width" />
+
+<meta name="description" content="hiv trails service">
+<meta name="author" content="jeremybass">
+
+<title></title>
+
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/png" href="favicon.png">
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/content/css/style.css">
+
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<title></title>
+<!-- <link rel="shortcut icon" href="" /> -->
+
+
+
+
+
+
+<style type="text/css" title="currentStyle">
+	@import "http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables_themeroller.css";
+	@import "http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.1/themes/cupertino/jquery-ui.css";
+</style>
+
+
+
+
+
+
+
+
+
+#*
+$scriptsService.Css("/common/calendar/fullcalendar.css,/colorbox.css,/share_link.css,/frontend/menu.css,/central_main.css,/frontend/reactive.css")
+*#
+<link media='print' href='/themes/base/content/css/common/calendar/fullcalendar.print.css' 	type='text/css' rel='stylesheet' />
+
+

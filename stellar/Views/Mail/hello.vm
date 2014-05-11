@@ -1,0 +1,15 @@
+<h1><span style="color:#7F9D6A;">dailyevergreen.com</span></h1>
+<h3>Breaking News for $date</h3>
+<p>Hello #if($person.Name)$person.Name #else $person.Email #end,<br/>
+Here is the breaking news from <a href="http://dailyevergreen.com/">The Daily Evergreen</a> for $date:</p>
+<hr/>
+#foreach($new in  $BreakingNews)
+<h4>$new.Title</h4>
+<h5>$Text.Fold($HtmlService.StripHtml($new.Teaser,false),45)<h5>
+<p>$Text.Fold($HtmlService.StripHtml($!new.BodyText,false),100)</p>
+<a href="http://dailyevergreen.com/read/$new.CustomUrl">Click here to see the full story.</a>
+<hr/>
+#end
+
+
+

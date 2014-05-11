@@ -1,0 +1,26 @@
+<h2>Editors</h2>
+<p>While editing the system will provide 3 basic types of editors to work with.  When working with files there will be a very simple file uploades center.  When working with code you get a IDE of CodeMirror.  If your working with a block of code, and it's marked as content, then it'll recive a TinyMCE editor interface.</p>
+
+<h3>File</h3>
+<h5>Base Object Definition</h5>
+<ul>
+    <li> <strong>loads_file</strong> = <em>true</em> </li>
+    <li> <strong>is_code</strong> = <em>false</em> </li>
+    <li> <strong>useTiny</strong> = <em>false</em> </li>
+</ul>
+
+
+<h3>TinyMCE</h3>
+<h5>Base Object Definition</h5>
+<ul>
+    <li> <strong>is_code</strong> = <em>true</em> </li>
+    <li> <strong>useTiny</strong> = <em>true</em> </li>
+</ul>
+<p><strong>Note:</strong>If the posting type does load file, then unless you have file editing truned on in the settings, you will not see the TinyMCE, and instead you'll see CodeMirror.</p>
+
+
+<h3>CodeMirror</h3>
+<ul>
+    <li> <strong>is_code</strong> = <em>true</em> </li>
+    <li> <strong>useTiny</strong> = <em>false</em> </li>
+</ul>

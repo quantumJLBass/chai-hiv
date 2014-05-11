@@ -1,0 +1,11 @@
+<h3><span style="color:#7F9D6A;">Reported on $date</span></h3>
+<p><strong>$name said,</strong><br/>
+   $description        
+</p>
+<hr/>
+Place id: $place_id
+<hr/>
+Sender's email: $email
+<hr/>
+
+

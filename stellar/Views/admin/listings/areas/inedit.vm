@@ -1,0 +1,9 @@
+#if($item.isCheckedOut()) 
+    <span class="UinEdit ui-corner-bottom">
+          &nbsp;&nbsp;&nbsp;$item.editing.display_name is editing this item 
+          <a href="#" title="Published" rel="$item.id" class=" steal button">
+            <span class="ui-icon ui-icon-unlocked"> </span> Click to Release
+          </a>
+    </span>
+    <div class="inEdit ui-corner-all"> </div>
+#end

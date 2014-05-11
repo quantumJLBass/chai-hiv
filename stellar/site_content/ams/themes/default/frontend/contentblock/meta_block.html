@@ -1,0 +1,40 @@
+
+#*
+*   name:Head Metadata
+*	alias:meta_block
+*	theme:default
+*   version:0
+*   revision:0
+*   owner:jeremy.bass
+*   discription: This is the comtentblock
+*#
+
+
+#*
+*   name:Head Metadata 
+*	alias:meta_block
+*	theme:default
+*   version:1
+*   revision:0
+*   owner:jeremy.bass
+*   is_frontend_editable:false
+*   discription: This is the comtentblock
+*#
+
+
+#if($GOOGLE_SITE_VERIFICATION)<meta name="google-site-verification" content="$GOOGLE_SITE_VERIFICATION" />#end
+
+#if($BING_SITE_VERIFICATION)<meta name="msvalidate.01" content="$BING_SITE_VERIFICATION" />#end
+
+
+#* this is set so high up so that we are *#
+#if($GA_ACCOUNT_ID)
+	#{contentblock alias="seo_analytics" account_id="${GA_ACCOUNT_ID}"}
+#end
+
+<meta name='HandheldFriendly' content='True'/>
+<meta name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no' />
+<meta name="viewport" content="width=device-width" />
+
+
+

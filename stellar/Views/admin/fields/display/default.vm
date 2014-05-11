@@ -1,0 +1,7 @@
+$element_html
+
+#if(${notes} && ${notes}!="")
+  #set($mess=$!{notes})
+    #parse("/admin/noted.vm")
+  #end
+<hr/>

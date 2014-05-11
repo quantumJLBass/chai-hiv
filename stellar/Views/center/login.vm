@@ -1,0 +1,30 @@
+<article id="navbutton" class="grid col-full">
+	<h2>Login</h2>
+	<!--<p class="warning">Don't forget to put your own email address in the php file!</p>-->
+	#set($page = $!{controller.getAction()})
+	#if($signedin)
+		<h3>Welcome you have sign in</h3>
+	
+	#else
+		#if($signedin==false && $page!="login")
+			<h3>Login failed</h3>
+		#end
+		<form id="contact_form" class="contact_form" action="/center/signin.castle" method="post" name="contact_form">	
+			<ul>
+				<li>
+					<label for="email">Username:</label>
+					<input type="text" name="user" id="user" required placeholder="john.doe" class="required">
+				</li>	
+				<li>
+					<label for="email">Password:</label>
+					<input type="password" name="checkhash" id="checkhash" required placeholder="password" class="required">
+				</li>	
+				<li>
+					<button type="submit" id="submit" name="submit" class="button fright">Try Log in</button>
+				</li>	
+			</ul>			
+		</form>
+	#end
+</article>
+
+

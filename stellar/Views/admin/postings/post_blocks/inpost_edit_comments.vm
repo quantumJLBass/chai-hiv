@@ -1,0 +1,59 @@
+<h3>Comment List</h3>
+
+    <table width="100%" border="0" style="float:right;margin-right:5px;margin-top:7px;">
+      <tr>
+        <td>Showing $comments.FirstItem - $comments.LastItem of $comments.TotalItems</td>
+        <td align="right">
+          #if($comments.HasPrevious) $PaginationHelper.CreatePageLink( 1, "first" )
+          | $PaginationHelper.CreatePageLink( $comments.PreviousIndex, "prev" ) #end
+          #if($comments.HasNext) | $PaginationHelper.CreatePageLink( $comments.NextIndex, "next" )
+          | $PaginationHelper.CreatePageLink( $comments.LastIndex, "last" ) #end
+        </td>
+      </tr>
+    </table>
+    <table  width="100%" class="ui-widget ui-widget-content">
+      <thead>
+        <tr class="ui-widget-header ">
+          <th>Place</th>
+          <th>Comments</th>
+          <th>Flagged</th>
+          <th>Published</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        #set ($c=0)
+        #foreach($comment in $comments)
+        <tr class="#if($c%2>0) even #else odd #end #if($comment.adminRead==false) ui-state-highlight #end ">
+          <td>$!comment.Place.id</td>
+          <td>$Text.Fold($HtmlService.StripHtml($!comment.Comments,false),100)</td>
+          <td #if($comment.Flagged==true) class="ui-state-error" #end>$!comment.Flagged</td>
+          <td>$!comment.published</td>
+          <td class='actionArea'>
+
+            <span style='font-size:0.7em;'>
+              <a href="../comment/edit.castle?id=$!{comment.id}" title="Edit" class="button">
+                <span class="ui-icon ui-icon-pencil"></span>
+              </a>
+              <a href="../comment/delete.castle?id=$!{comment.id}" title="Delete" class="button">
+                <span class="ui-icon ui-icon-trash"></span>
+              </a>
+            </span>
+          </td>
+        </tr>
+        #set ($c=$c+1)
+        #end
+      </tbody>
+    </table>
+    <table width="100%" border="0" >
+      <tr>
+        <td>Showing $comments.FirstItem - $comments.LastItem of $comments.TotalItems</td>
+        <td align="right">
+          #if($comments.HasPrevious) $PaginationHelper.CreatePageLink( 1, "first" )
+          | $PaginationHelper.CreatePageLink( $comments.PreviousIndex, "prev" ) #end
+          #if($comments.HasNext) | $PaginationHelper.CreatePageLink( $comments.NextIndex, "next" )
+          | $PaginationHelper.CreatePageLink( $comments.LastIndex, "last" ) #end
+        </td>
+      </tr>
+    </table>

@@ -1,0 +1,34 @@
+#*
+*   is_frontend_editable:true
+*#
+
+#if(!$appId)#set($appId="328081143913416")#end
+
+#if(!$width)#set($width="192")#end
+#set($width="data-width='${width}'")
+
+#if(!$height)#set($height="340")#end
+#set($height="data-height='${height}'")
+
+#if(!$showfaces)#set($showfaces="true")#end
+#set($showfaces="data-show-faces='${showfaces}'")
+
+#if(!$stream)#set($stream="false")#end
+#set($stream="data-stream='${stream}'")
+
+#if(!$header)#set($header="false")#end
+#set($header="data-header='${header}'")
+
+
+#if(!$style)#set($style="")#end
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=${appId}";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like-box" data-href="http://www.facebook.com/TheDailyEvergreen" ${width} ${height} ${showfaces} ${stream} ${header} style="${style}"  ></div>
+<br />

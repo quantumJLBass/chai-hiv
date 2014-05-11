@@ -1,0 +1,237 @@
+
+    #capturefor(PageStyles)
+        #* code editor options *#
+
+        #* remove to the css *#
+        <style>
+			#dialog label, #dialog input { display:block; }
+			#dialog label { margin-top: 0.5em; }
+			#dialog input, #dialog textarea { width: 95%; }
+			#tabs { margin-top: 1em; }
+			#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+			#add_tab { cursor: pointer; }
+			#shortcodes{height:0px;}
+			#main_content_title{display:inline-block;}
+			.btn.btn-success.fileinput-button,button[type="submit"]{margin-left:5px;display:inline-block;}
+			
+			.content.rev{}
+			.content.rev em{font-size:10px;}
+        
+        </style>
+
+
+	$scriptsService.Css("/admin/codemirror/codemirror.css,/admin/codemirror/addon/dialog/dialog.css,/admin/codemirror/theme/neat.css,/admin/codemirror/theme/elegant.css,/admin/codemirror/theme/erlang-dark.css,/admin/codemirror/theme/night.css,/admin/codemirror/theme/monokai.css,/admin/codemirror/theme/cobalt.css,/admin/codemirror/theme/eclipse.css,/admin/codemirror/theme/rubyblue.css,/admin/codemirror/theme/lesser-dark.css,/admin/codemirror/theme/xq-dark.css,/admin/codemirror/theme/ambiance.css,/admin/codemirror/theme/blackboard.css,/admin/codemirror/theme/vibrant-ink.css,/admin/codemirror/theme/solarized.css,/admin/codemirror/theme/twilight.css",false)
+    
+    <style type="text/css">
+      .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+		max-height:750px;
+      }
+      .CodeMirror-scroll {
+        overflow-y: hidden;
+        overflow-x: auto;
+      }
+	   .CodeMirror-foldmarker {
+        color: blue;
+        text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
+        font-family: arial;
+        line-height: .3;
+        cursor: pointer;
+      }
+    </style>
+   
+    
+    #end
+    #capturefor(PagePlugins)
+		$scriptsService.Js("/admin/codemirror/codemirror.js,/admin/codemirror/addon/runmode/runmode.js,/admin/codemirror/mode/css/css.js,/admin/codemirror/mode/xml/xml.js,/admin/codemirror/mode/javascript/javascript.js,/admin/codemirror/mode/htmlmixed/htmlmixed.js,/admin/codemirror/addon/hint/simple-hint.js,/admin/codemirror/addon/hint/javascript-hint.js,/admin/codemirror/addon/dialog/dialog.js,/admin/codemirror/addon/search/searchcursor.js,/admin/codemirror/addon/search/search.js,/admin/codemirror/addon/fold/foldcode.js",true)
+     #if($item.post_type.is_Code)	    #end
+    #end
+
+
+
+
+
+<h1>#if($field.Id!=0)Edit#else Add #end Feild</h1>
+<form action="update_field.castle" method="post">
+    $Form.HiddenField("field.baseid")
+    <input type="hidden" value="$!{ele.attr.name}" name="ele.attr.name"/>	
+    
+    
+
+    <fieldset>  <legend>Basic setup:</legend>
+        <fieldset style="float:right;width:46%;"  id="html_sample">
+            #if($html_ele)
+                <legend>Sample:</legend>
+                $!html_ele
+            #end
+        </fieldset>
+    	<fieldset style="float:left;width:46%;">
+            <div  style="float:left;width:46%;">
+            	Name:<br/>
+            	<input type="text" value="$!field.name" name="field.name" id="type_name" class="ui-widget ui-widget-content ui-corner-all  w150" />
+            </div> 
+            <div  style="float:left;width:46%;">
+            	Alias:<br/>
+            	<input type="text" value="$!field.alias" name="field.alias" id="type_alias" class="alias_input ui-widget ui-widget-content ui-corner-all  w150" />
+            </div><br style="clear:both;"/>
+            <hr/>
+		<fieldset><legend><label>Feild Logic:</label></legend>
+            If Post type:<br/>
+            <select name="placemodel">	
+                #foreach($model in $p_models)
+                	#if($model.is_visible)
+                   		<option value="$model.baseid" #if(($field && $field.type==$model.baseid) || (!$field && $model.is_default))selected='selected'#end>$model.name</option>
+					#end  
+				#end
+            </select>
+        </fieldset>
+
+        
+        <fieldset><legend><label>Access:</label></legend>
+            <fieldset>
+            	<legend id="customName">Public</legend>
+                <select name="field.is_public" >
+                    <option class="user" value="true" #if(${field.isPublic}) selected="selected" #end>Yes</option>
+                    <option class="user" value="false" #if(!${field.isPublic}) selected="selected" #end>No</option>
+                </select>
+                #set($mess="Changing this will tell whether or not the public can see this field <strong>even thou it's parent item is published</strong> ie: Internal to WSU only.")
+                #parse("admin/noted.vm")
+            </fieldset>
+            <fieldset>
+            	<legend id="customName">User access settings <em>+</em></legend>
+                <div id="customNames">
+                    <div  style="float:left;width:46%;">Access levels:<br/>
+                        <select name="field.access_levels[]" id="access" multiple="multiple" size="9" style="width:205px;">   
+                            #foreach($access in $accesslevels)
+                                <option class="access_levels" value="$access.id" #if($field.access_levels.Contains($access)) selected="selected" #end>$!access.title</option>
+                            #end
+                        </select>
+                        <h6 style="margin:5px;"><em>These selections make up all the levels that can see and use the fields. Leaving them blank lets everyone use them.</em></h6>  
+                    </div> 
+                     <div  style="float:left;width:46%;">Authors:<br/>
+                        <select name="field.users[]" id="user" multiple="multiple" size="9" style="width:205px;">   
+                            #foreach($user in $users)
+                                <option class="access_levels" value="$user.id" #if($field.users.Contains($user)) selected="selected" #end>$!user.name</option>
+                            #end
+                        </select><br/>
+                        <h6 style="margin:5px;"><em>These selections make up all the users that can see and use the fields. Leaving them blank lets everyone use them.</em></h6>  
+                    </div>  
+                </div>
+            </fieldset>
+        </fieldset>
+       
+    </fieldset>
+	</fieldset>
+    <fieldset><legend>Field setup:</legend>
+        <fieldset><legend>Type:</legend>  
+            <select name="ele.type">
+                <option value="dropdown" #if(${ele.type}=='dropdown')selected='selected'#end>dropdown</option>
+                <option value="textinput" #if(${ele.type}=='textinput')selected='selected'#end>text</option>
+                <option value="textarea" #if(${ele.type}=='textarea')selected='selected'#end>textarea</option>
+                <option value="checkbox" #if(${ele.type}=='checkbox')selected='selected'#end>checkbox</option>
+                <option value="yes_no" #if(${ele.type}=='yes_no')selected='selected'#end>yes/no</option>
+            </select>
+            <hr/>
+            #* maybe the fields need to be typed? *#
+                #parse("admin/fields/editing/dropdown.vm")
+                #parse("admin/fields/editing/textinput.vm")
+                #parse("admin/fields/editing/textarea.vm")
+                #parse("admin/fields/editing/checkbox.vm")
+                #parse("admin/fields/editing/yes_no.vm")   
+        </fieldset>
+        <fieldset id="feild_attr_options">
+            <legend>Field Options</legend>
+            <fieldset>
+                <legend>Element Attributes:</legend>
+                    <div style="width:100%;">
+                        <span><input type="checkbox" #if(${ele.label})checked="checked"#end value=""/>Label:<br/>
+                            <span style="#if(!${ele.label})display:none;#end"><input type="text" value="$!{ele.label}" name="ele.label" class="w200"/></span>
+                        </span><br/>
+                        <span><input type="checkbox" #if(${ele.attr.placeholder})checked="checked"#end value=""/>Placeholder:<br/>
+                            <span style="#if(!${ele.attr.placeholder})display:none;#end"><input type="text" value="$!{ele.attr.placeholder}" name="ele.attr.placeholder" class="w200"/></span>
+                        </span><br/>
+                        <span><input type="checkbox" #if(${ele.attr.accesskey})checked="checked"#end value=""/>Accesskey:<br/>
+                            <span style="#if(!${ele.attr.accesskey})display:none;#end"><input type="text" value="$!{ele.attr.accesskey}" name="ele.attr.accesskey" class="w200"/></span>
+                        </span><br/>
+                        <span><input type="checkbox" #if(${ele.attr.dir})checked="checked"#end value=""/>Dir:<br/>
+                            <span style="#if(!${ele.attr.dir})display:none;#end"><input type="text" value="$!{ele.attr.dir}" name="ele.attr.dir" class="w200"/></span>
+                        </span><br/>
+                        <span><input type="checkbox" #if(${ele.attr.ele_class})checked="checked"#end value=""/>Class:<br/>
+                            <span style="#if(!${ele.attr.ele_class})display:none;#end"><input type="text" value="$!{ele.attr.ele_class}" name="ele.attr.ele_class" class="w200"/></span>
+                        </span><br/>
+                        <span><input type="checkbox" #if(${ele.attr.id})checked="checked"#end value=""/>Id:<br/>
+                            <span style="#if(!${ele.attr.id})display:none;#end"><input type="text" value="$!{ele.attr.id}" name="ele.attr.id" class="w200"/></span>
+                        </span><br/>
+                        <span><input type="checkbox" #if(${ele.attr.style})checked="checked"#end value=""/>Style:<br/>
+                            <span style="#if(!${ele.attr.style})display:none;#end"><input type="text" value="$!{ele.attr.style}" name="ele.attr.style" class="w200"/></span>
+                        </span><br/>
+                        <span><input type="checkbox" #if(${ele.attr.tabindex})checked="checked"#end value=""/>Tabindex:<br/>
+                            <span style="#if(!${ele.attr.tabindex})display:none;#end"><input type="text" value="$!{ele.attr.tabindex}" name="ele.attr.tabindex" class="w200"/></span>
+                        </span><br/>
+                        <span><input type="checkbox" #if(${ele.attr.title})checked="checked"#end value=""/>Title:<br/>
+                            <span style="#if(!${ele.attr.title})display:none;#end"><input type="text" value="$!{ele.attr.title}" name="ele.attr.title" class="w200"/></span>
+                        </span><br/>
+                        <span><input type="checkbox" #if(${ele.attr.data})checked="checked"#end value=""/>Data:<br/>
+                            <span style="#if(!${ele.attr.data})display:none;#end"><input type="text" value="$!{ele.attr.data}" name="ele.attr.data" class="w200"/></span>
+                        </span><br/>
+                        <span><input type="checkbox" #if(${ele.attr.role})checked="checked"#end value=""/>Role:<br/>
+                            <span style="#if(!${ele.attr.role})display:none;#end"><input type="text" value="$!{ele.attr.role}" name="ele.attr.role" class="w200"/></span>
+                        </span>
+                    <div style="clear:both;"></div>
+                </div>	
+            </fieldset>
+            <fieldset>
+                <legend>Element Events:</legend>
+                <div style="width:220px;">
+                     <span><input type="checkbox" #if(${ele.events.onclick})checked="checked"#end value=""/>onClick:<br/>
+                            <span style="#if(!${ele.events.onclick})display:none;#end"><textarea name="ele.events.onclick">$!{ele.events.onclick}</textarea></span>
+                    </span><br/>
+                    <span><input type="checkbox" #if(${ele.events.onchange})checked="checked"#end value=""/>onChange:<br/>
+                            <span style="#if(!${ele.events.onchange})display:none;#end"><textarea name="ele.events.onchange">$!{ele.events.onchange}</textarea></span>
+                    </span>
+                    <div style="clear:both;"></div>
+                </div>
+            </fieldset>
+        </fieldset>
+    </fieldset>
+    <div id="tabs">
+        <ul>
+        <li><a href="#layout">Layout</a></li>
+        <li><a href="#notes">Notes</a></li>
+        </ul>
+        
+        <div id="layout">
+            <fieldset><legend>Field Layout:</legend>
+            #if($field.baseid!=0)
+                #set($parent = $field.baseid)
+            #else
+                #set($parent ="_TEMP_")
+            #end
+            
+            
+                <input type="hidden" value="$!{field.template.baseid}" name="template.baseid"/>	
+                <input type="hidden" value="field_parent_${parent}" name="template.alias"  />
+                <input type="hidden" value="${HelperService.get_postype_id("field_template")}" name="template.post_type"/>
+                <textarea id="code" name="template.content">$!{field.template.content}</textarea>
+            </fieldset>
+        </div>
+        <div id="notes">
+            <fieldset><legend>Note:</legend>
+                #if($field.baseid!=0)
+                    #set($parent = $field.baseid)
+                #else
+                    #set($parent ="_TEMP_")
+                #end
+                <input type="hidden" value="$!{field.notes.baseid}" name="note.baseid"/>	
+                <input type="hidden" value="field_parent_${parent}_notes" name="note.alias"  />
+                <input type="hidden" value="${HelperService.get_postype_id("blobs")}" name="note.post_type"/>
+                <textarea name="note.content">$!{field.notes.content}</textarea>
+            </fieldset>
+        </div>
+    </div>
+        
+    
+    
+  <p><input type="submit" value="#if($field.id!=0) Apply #else Save #end" name="apply" title="#if($field.id!=0)Apply #else Save #end and Return" class="button" /><input type="submit" value="Submit" /><input type="submit" value="Cancel" name="cancel" /></p>
+</form>

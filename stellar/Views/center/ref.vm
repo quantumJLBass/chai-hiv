@@ -1,0 +1,44 @@
+#set($_props = $objectService.get_type_properties($type))
+
+
+<div id="ref_chooser"  style="position:absolute;left:-999em;top:-999em;">
+	<select class="prop_selector">
+		#foreach($part in $_props)
+			#if(!$not_props.Contains($part))
+				<option class="drug">$part</option>
+			#end
+		#end
+	</select>
+
+</div>
+<article class="grid col-full datagrid_area">
+	<input type="hidden" name="typed_ref" value="$type"/>
+  <hr/>
+  <ul class="grid col-one-full mq2-col-full">
+	<li>
+	  <label for="Referencedata">Reference:</label>
+	  <table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Referencedata" width="100%">
+		<thead>
+		  <tr>
+				<th width="15%">ref type</th>
+				<th>location</th>
+				#if(!$viewonly)<th width="20%"></th>#end
+		  </tr>
+		</thead>
+		<tbody>
+			#foreach($part in $item.references)
+				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code" data-baseid="$item.baseid">
+				  <td><input type="hidden" name="item.references[$velocityCount].baseid" value="$part.baseid" class="drug_item"/>$!part.get_meta("ref_type")</td>
+					<td><a href="#if($!part.url)$!part.url#else $!part.static_file #end" target="_blank">#if($!part.url)$!part.url#else $!part.static_file #end <i class="icon-external-link-sign"></i></a></td>
+				  #if(!$viewonly)<td><a href="reference.castle?id=$part.baseid" class="button small inline_edit" data-type="substance"><i class="icon-edit" title="Edit"></i></a> | <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a></td>#end
+				</tr>
+			#end
+		</tbody>
+		<tfoot>
+		</tfoot>
+	  </table>
+	  #if(!$viewonly)<a href="#" class="button add_to_list" data-type="reference"><i class="icon-plus blue" title="Add"></i> Add a $type reference</a>
+	  #end
+	   </li>
+  </ul>
+</article>

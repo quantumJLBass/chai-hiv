@@ -1,0 +1,26 @@
+<div class="tab_tar">
+	#set($Pagination_location='top')
+	#set($target = $status.title)
+	#parse("admin/listings/areas/pagination.vm")
+	
+	<div class="listTitle">#if($named_type_dname && $named_type_dname!="")${named_type_dname}#else${controller.getView().Replace("_"," ")}#end List :</div>
+	<a href="$siteroot/${controller.getView()}/create.castle?post_type=$!{named_type}" class="button" style="display:inline-block;float:left;margin-top:6px;">
+	  <span class="ui-icon ui-icon-plusthick inlineIcon"></span>New #if($named_type_dname && $named_type_dname!="")${named_type_dname}#else${controller.getView().Replace("_"," ")}#end
+	</a>
+	<br style="clear:both;"/>
+	#set($c=0)
+	#foreach($item in $list_items)#set($c=$c+1)#end
+	#if($list_items && $c>0)
+
+		<ul class="editablelistUL list_1">
+			#foreach($item in $list_items)
+				<li class="ui-widget-content ui-corner-all item_$!item.id con">
+					#parse("admin/listings/item.vm")
+				</li>
+		  	#end
+		</ul>
+		#set($Pagination_location='bottom')
+		#parse("listing_parts/areas/pagination.vm")
+	#end
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,21 @@
+
+
+<fieldset style="float:right;font-size:50%"><legend style="font-size:100%">Key</legend>
+<del title="i=9999" style="background: none repeat scroll 0% 0% rgb(255, 230, 230);">Removed Text</del><br/>
+<ins style="background: none repeat scroll 0% 0% rgb(230, 255, 230);" title="i=99999">Inserted Text</ins>
+</fieldset>
+<h3>$parent_post.name (Rev:$rev1.revision - Rev:$rev2.revision)</h3>
+<fieldset><legend>Comparing</legend>
+<div class="tabs">
+    <ul>
+        <li><a href="#outputdiv">Visual</a></li>
+        <li><a href="#outputdiv_code">Html</a></li>
+    </ul>
+    <div id="outputdiv"></div>
+    <div id="outputdiv_code"></div>
+</div>'
+</fieldset>
+<div style="position:absolute;left:-9999em;">
+    <div id="rev1text">$!{rev1text}</div>
+    <div id="rev2text">$!{rev2text}</div>
+</div>

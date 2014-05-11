@@ -1,0 +1,174 @@
+#set($not_props = $objectService.explode("name,alias,publish_time,post_type,outputError,editing,owner,baseid,published,checksum,filehash,static_file,url,position,sort,revision,version,deleted,is_active,is_default,is_visible,is_core,is_visible_to_others,is_frontend,is_admin,admin_url,is_link,is_editable,is_frontend_editable,is_Public,protect_post,is_deletable,is_cachable,is_trackable,loads_file,tmp,gets_media,gets_url,is_tabable_content,is_summarizable,is_taggable,gets_metadata,is_taxonomyable,is_categorized,is_templatable,parent,children,menuoptions,seen,options,theme,users,taxonomy_types,taxonomies,site,meta_data,meta_data_date,meta_data_geo,editable,root,logings,references,updated_date,creation_date,id,record_id,ln_clinical_t,content"))
+
+<article class="grid col-full">
+	<form id="contact_form" class="contact_form" action="/center/savereference.castle" method="post" name="contact_form" enctype="multipart/form-data">
+		<input type="hidden" name="item.baseid" value="$!item.baseid" />
+		<article class="grid col-full">
+			  <h2 id="header_title">#if(!$item.baseid)New #end Reference</h2>
+			  <hr/>
+		</article>
+		<article class="grid col-full">
+			<ul class="grid col-one-full mq2-col-full full-input">       
+				<li>
+					#set($_props = $objectService.get_type_properties($type))
+					#if($_props.Count>0)
+					
+						<input type="hidden" name="meta_key[0]" value="ref_type" />
+						<input type="hidden" name="post[0]" value="$item.baseid" />
+						<select name="value[0]" >
+							<option class="$type" value="global">Global</option>
+							
+							#if($type=="clinical")
+								<option class="$type" value="Adverse event">Adverse event</option>
+								<option class="$type" value="Serious Adverse event">Serious Adverse event</option>
+							#end
+							
+							#foreach($part in $_props)
+								#if(!$not_props.Contains($part))
+									<option class="drug" value="$part">$htmlService.capitalize_all($part.Replace("_"," "))</option>
+								#end
+							#end
+						</select>
+						#foreach($part in $item.meta_data)
+							#if(!$_props.Contains($part.value))
+								<!-- $!part.meta_key -->
+								<input type="hidden" name="value[$velocityCount]" value="$!part.value" />
+								<input type="hidden" name="meta_key[$velocityCount]" value="$!part.meta_key" />
+								<input type="hidden" name="post[$velocityCount]" value="$item.baseid" />
+							#end
+						#end
+					#else
+						<input type="hidden" name="value[0]" value="global" />
+						<input type="hidden" name="meta_key[0]" value="ref_type" />
+						<input type="hidden" name="post[0]" value="$item.baseid" />	
+					#end
+				</li>
+			</ul>
+			
+			<ul class="grid col-one-half mq2-col-full full-input">   
+				<li>
+					<label for="name">name:</label>
+					$!item.name
+				</li>	
+			</ul>
+			<ul class="grid col-one-half mq2-col-full full-input">
+				<li>
+					 #if(!$item.static_file)
+						<div class="load_file active">
+							<label for="url"><i class="icon-external-link-sign"></i> URL:</label>
+							$!item.url
+						</div>
+					#else
+						<div class="load_file active">
+							<label for="url"><i class="icon-file"></i> Current file:</label>
+							$item.static_file <i class="icon-download-alt"></i>
+						</div>
+					#end
+				</li> 
+				<!--<li class="content">
+					<label for="content"><i class="icon-file-alt"></i> Content:</label>
+					<input type="text" name="item.content" id="content" placeholder="" value="$!item.content" />
+				</li>-->
+			</ul>
+			<ul class="grid col-one-full mq2-col-full full-input">
+				<li>
+					<label for="notes">notes:</label>
+					<p>$!item.notes</p>
+				</li>
+			</ul>
+		</article>
+		<ul class="grid col-one-full mq2-col-full full-input">
+			<li>
+				<button type="submit" id="submit" name="submit" class="button fright">Submit it</button>#if(!$skiplayout)<button type="submit" id="submit" name="apply" class="button fright" value="applied">#if(!$item.baseid) Save #else Apply Changes#end</button><!--<button type="submit" id="submit" name="cancel" class="button fright">Cancel</button>-->#end
+			</li>	
+		</ul>
+		
+		
+    #if(!$skiplayout && !$item.baseid)
+    <h2>Save to add Substances or to Clinicals</h2>
+    #end
+    
+    #if(!$skiplayout && $item.baseid>0)
+    <article class="grid col-full datagrid_area">
+      <hr/>
+
+      <ul class="grid col-one-half mq2-col-full">
+        <li>
+          <label for="Clinicaldata">Clinical Information:</label>
+          <table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Clinicaldata" width="100%">
+				<thead>
+					<tr>
+						<th width="15%">ID</th>
+						<th>Drug</th>
+					</tr>
+				</thead>
+				<tbody>
+				#foreach($part in  $item.clinicals)
+					<tr class="#if($velocityCount%2<1)even #else odd #end rec_$!part.ln_clinical_t" data-baseid="$part.baseid">
+						<td>$!part.baseid</td>
+						<td>#if($!part.drugs.Count>0)$!postingService.get_taxonomy($!part.drugs.get_item(0).brand_name).name#else Not set#end</td>
+					</tr>
+				#end
+				</tbody>
+				<tfoot>
+          </table>
+          </li>
+      </ul>
+	  
+	  
+	  <ul class="grid col-one-half mq2-col-full">
+	  			<li>
+				<label for="Drugdata">Drug Regiment:</label>
+				<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Drugdata" width="100%">
+					<thead>
+						<tr>
+							<th>New Drug Code</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						#foreach($item in $item.drugs)
+							<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
+								<td>$!item.new_drug_code <input type="hidden" name="item.drugs[$velocityCount].baseid" value="$item.baseid" class="list_item drug_item"/></td>
+								<td>$!postingService.get_taxonomy($item.brand_name).name</td>
+							</tr>
+						#end
+					</tbody>
+					<tfoot></tfoot>
+				</table>
+			</li>
+	  </ul>
+      <ul class="grid col-one-half mq2-col-full">
+        <li>
+          <label for="Substancedata">Substances:</label>
+          <table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Substancedata" width="100%">
+            <thead>
+              <tr>
+                <th>CAS</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+            #foreach($part in $item.substances)
+            <tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code" data-baseid="$item.baseid">
+              <td><input type="hidden" name="item.substances[$velocityCount].baseid" value="$part.baseid" class="drug_item"/>
+                $part.cas_reg_number </td>
+              <td>$part.generic_name</td>
+            </tr>
+            #end
+            </tbody>
+            
+            <tfoot>
+            </tfoot>
+          </table>
+          </li>
+      </ul>
+    </article>
+    #end
+		
+		
+		
+			
+	</form>
+</article>

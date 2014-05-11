@@ -1,0 +1,31 @@
+<ul class="grid col-one-half mq2-col-full full-input">
+
+#* discontinuation_af *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.discontinuation_adverse_events)
+		#feild_textinput("$type" "discontinuation_adverse_events" $daval "" "00% / number of patients" "" "")
+	</li>
+  
+#* discontinuation_virologic_failure *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.discontinuation_virologic_failure)
+		#feild_textinput("$type" "discontinuation_virologic_failure" $daval "" "00% / number of patients" "" "")
+	</li>
+
+#* discontinuation_followup *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.discontinuation_followup)
+		#feild_textinput("$type" "discontinuation_followup" $daval "" "00% / number of patients" "" "")
+	</li>
+	
+#* discontinuation_other *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.discontinuation_other)
+		#feild_textinput("$type" "discontinuation_other" $daval "" "00% / number of patients" "" "")
+	</li>
+	
+</ul>  

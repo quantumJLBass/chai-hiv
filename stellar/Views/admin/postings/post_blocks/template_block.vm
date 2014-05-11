@@ -1,0 +1,48 @@
+
+<h3>Templates</h3>
+#* should be no there but it's hard coded so fix fix fix 
+
+#if($menu_templates)
+    <fieldset><legend>Menu Template</legend>    
+        <div id="posting_templates">
+        <h6><em>Select a template for ${named_type_dname}</em></h6>
+        <select name="item.postparents[]" class="userSelect">
+            <option class="" value="">-select-</option>
+            #foreach($template in $menu_templates)
+                <option value="$template.baseid" #if($item.get_template_obj("menu_template")==$template) selected="selected" #end>$!template.name</option>
+            #end
+        </select>
+        <div class="lightLine"></div>
+        </div>
+    </fieldset>
+#end
+*#
+
+#if($posting_templates && $item.post_type.use_posting_templates) 
+    <fieldset><legend>Posting Template</legend>    
+        <div id="posting_templates">
+        <h6><em>Select a template for ${named_type_dname}</em></h6>
+        <select name="item.postparents[]" class="userSelect">
+            <option class="" value="">-select-</option>
+            #foreach($template in $posting_templates)
+                <option value="$template.baseid" #if($item.get_template_obj("posting_template")==$template) selected="selected" #end>$!template.name</option>
+            #end
+        </select>
+        <div class="lightLine"></div>
+        </div>
+    </fieldset>
+#end
+#if($layout_templates && $item.post_type.use_layout_templates)
+    <fieldset><legend>Layout Template</legend>    
+        <div id="layout_templates">
+        <h6><em>Select a template for ${named_type_dname}</em></h6>
+        <select name="item.postparents[]" class="userSelect">
+            <option class="" value="">-select-</option>
+            #foreach($template in $layout_templates)
+                <option value="$template.baseid" #if($item.get_template_obj("layout_template")==$template) selected="selected" #end>$!template.name</option>
+            #end
+        </select>
+        <div class="lightLine"></div>
+        </div>
+    </fieldset>
+#end

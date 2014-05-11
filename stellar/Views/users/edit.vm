@@ -1,0 +1,382 @@
+<form action="update_user.castle" method="post" enctype="multipart/form-data" >
+$Form.HiddenField("user.baseid")
+$Form.HiddenField("image.baseid") 
+<div style="float:right;"> <input type="submit" value="Submit" name="submited" /> | <input type="submit" value="Save" name="apply" /> </div>
+<h1>Authorized User</h1>
+
+    <div id="tabs" class="placelist  ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+        	<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#usersettings">User Settings</a></li>
+            
+            <li class="ui-state-default ui-corner-top" ><a href="#history">History</a></li>
+        </ul>
+        <div id="usersettings">
+        
+            #set($i=0)
+            
+            
+            <div id="tabs-left" class="tabs left  ui-tabs ui-widget ui-widget-content ui-corner-all">
+                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                    <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#gen_tab" name="tabs-left">General</a></li>
+                     <li class="ui-state-default ui-corner-top"><a href="#editing_tab">Editing</a></li>
+                    <li class="ui-state-default ui-corner-top"><a href="#interaction_tab">Interactions</a></li>
+                    <li class="ui-state-default ui-corner-top"><a href="#notices_tab">Notifications</a></li>
+                    <li class="ui-state-default ui-corner-top"><a href="#contact_profiles">Contact Profiles</a></li>
+                    <li class="ui-state-default ui-corner-top"><a href="#some_tab">something grand</a></li>
+                </ul>
+                <div id="gen_tab">
+					<h3>Your Settings</h3>
+                    
+					<fieldset><legend>General Profile Information</legend>
+                    <p>User handle (nickname): <br/>
+						<input type="text" value="$!user.display_name" name="user.display_name" id="user_display_name" class="ui-widget ui-widget-content ui-corner-all " />
+                    </p>
+                    <p>User Network ID:<br/>
+                    	<input type="text" value="$!user.Nid" name="user.Nid" id="user_Nid" class="ui-widget ui-widget-content ui-corner-all " /></p>
+                    
+                    
+                    <p>Name to display publicly:<br/>
+                    <select id="display_name_as" name="value[$i]">
+                    	<option #if($!user.get_meta_data("display_name_as")=="nid")selected="selected"#end value="nid">$!user.Nid</option>
+                    	<option #if($!user.get_meta_data("display_name_as")=="display_name")selected="selected"#end value="display_name">$!user.display_name</option>
+                    </select>
+
+                    	<input type="hidden" name="meta_key[$i]" value="display_name_as" />#set($i=$i+1)
+                    </p>
+                    </fieldset>
+                    
+                    <fieldset><legend>Associations</legend>
+                    
+                    #if($userService.checkPrivleage("modify_groups"))
+                        <p>Group Memeber of:<br/>
+                        <select id="user.groups" name="user.groups.baseid"  class="" style="width:205px;">
+                            #if(!$user.groups.baseid < 1) <option value=""  selected="selected"  >Choose Group</option> #end
+                                <optgroup class="admin" label="Admin Groups">
+                                    #foreach($G in $groups)
+                                        #if($G.isAdmin)
+                                            #if(!$G.parent)
+                                                <option value="$G.baseid" #if($user.groups.baseid == $G.baseid) disabled="disabled" #end #if($user.groups.baseid == $G.baseid) selected="selected" #end class="parent_op">$G.name</option>
+                                                #if($G.children)
+                                                    #foreach($child in $G.children)
+                                                        <option value="$child.baseid" #if($user.groups.baseid == $child.baseid) disabled="disabled" #end #if($user.groups.baseid == $child.baseid) selected="selected" #end  class="child_op">$child.name</option>
+                                                    #end  
+                                                #end  
+                        
+                                            #end
+                                        #end
+                                    #end
+                                </optgroup>
+                    
+                                <optgroup class="feu" label="FEU Groups">
+                                    #foreach($G in $groups)
+                                        #if(!$G.isAdmin)
+                                           #if(!$G.parent)
+                                                <option value="$G.baseid" #if($user.groups.baseid == $G.baseid) disabled="disabled" #end #if($user.groups.baseid == $G.baseid) selected="selected" #end  class="parent_op">$G.name</option>
+                                                #if($G.children)
+                                                    #foreach($child in $G.children)
+                                                        <option value="$child.baseid" #if($user.groups.baseid == $child.baseid) disabled="disabled" #end #if($user.groups.baseid == $child.baseid) selected="selected" #end  class="child_op"> $child.name</option>
+                                                    #end  
+                                                #end  
+                        
+                                            #end
+                                        #end
+                                    #end
+                                </optgroup>
+                        </select>
+                            
+                            
+                            
+                        </p>
+                    #end
+                    </fieldset>
+                    
+
+                </div>
+                
+                 <div id="editing_tab">
+                    <fieldset><legend>Editor settings</legend>
+                    
+                    
+				<div id="tabs-min" class="tabs min  ui-tabs ui-widget ui-widget-content ui-corner-all">
+                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#TinyMCE_tab" name="tabs-left">TinyMCE</a></li>
+                        <li class="ui-state-default ui-corner-top"><a href="#Code_tab">Code</a></li>
+                    </ul>
+                    <div id="TinyMCE_tab">
+                    
+                    
+                    
+                        <input type="checkbox" name="value[$i]" value="1" #if($!user.get_meta_data("use_tinymce")=="1")checked="checked"#end /> Use TinyMCE.
+                    	<input type="hidden" name="meta_key[$i]" value="use_tinymce" />#set($i=$i+1)
+                    	<hr/>
+                        </div>
+                     <div id="Code_tab">   
+                     
+                     
+                     
+
+#* we are loading code mirror in the <head> *#
+
+    #capturefor(PageStyles)
+        #* code editor options *#
+
+        #* remove to the css *#
+        <style>
+			#dialog label, #dialog input { display:block; }
+			#dialog label { margin-top: 0.5em; }
+			#dialog input, #dialog textarea { width: 95%; }
+			#tabs { margin-top: 1em; }
+			#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+			#add_tab { cursor: pointer; }
+			#shortcodes{height:0px;}
+			#main_content_title{display:inline-block;}
+			.btn.btn-success.fileinput-button,button[type="submit"]{margin-left:5px;display:inline-block;}
+			
+			.content.rev{}
+			.content.rev em{font-size:10px;}
+        
+        </style>
+
+
+	$scriptsService.Css("/admin/codemirror/codemirror.css,/admin/codemirror/addon/dialog/dialog.css,/admin/codemirror/theme/neat.css,/admin/codemirror/theme/elegant.css,/admin/codemirror/theme/erlang-dark.css,/admin/codemirror/theme/night.css,/admin/codemirror/theme/monokai.css,/admin/codemirror/theme/cobalt.css,/admin/codemirror/theme/eclipse.css,/admin/codemirror/theme/rubyblue.css,/admin/codemirror/theme/lesser-dark.css,/admin/codemirror/theme/xq-dark.css,/admin/codemirror/theme/ambiance.css,/admin/codemirror/theme/blackboard.css,/admin/codemirror/theme/vibrant-ink.css,/admin/codemirror/theme/solarized.css,/admin/codemirror/theme/twilight.css",false)
+    
+    <style type="text/css">
+      .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+		max-height:750px;
+      }
+      .CodeMirror-scroll {
+        overflow-y: hidden;
+        overflow-x: auto;
+      }
+	   .CodeMirror-foldmarker {
+        color: blue;
+        text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
+        font-family: arial;
+        line-height: .3;
+        cursor: pointer;
+      }
+    </style>
+   
+    
+    #end
+    #capturefor(PagePlugins)
+		$scriptsService.Js("/admin/codemirror/codemirror.js,/admin/codemirror/addon/runmode/runmode.js,/admin/codemirror/mode/css/css.js,/admin/codemirror/mode/xml/xml.js,/admin/codemirror/mode/javascript/javascript.js,/admin/codemirror/mode/htmlmixed/htmlmixed.js,/admin/codemirror/addon/hint/simple-hint.js,/admin/codemirror/addon/hint/javascript-hint.js,/admin/codemirror/addon/dialog/dialog.js,/admin/codemirror/addon/search/searchcursor.js,/admin/codemirror/addon/search/search.js,/admin/codemirror/addon/fold/foldcode.js",true)
+     #if($item.post_type.is_Code)	    #end
+    #end
+
+                     
+                        <div> 
+                            <div style="float: left; display: inline-block; border-right:1px solid #454545; padding-right:15px;"><br/>
+                            <select id="selectTheme" class="settings" name="value[$i]" >
+                            	<option #if($!user.get_meta_data("code_theme")=="default")selected#end>default</option>
+                                <option #if($!user.get_meta_data("code_theme")=="" || $!user.get_meta_data("code_theme")=="ambiance")selected#end>ambiance</option>
+                                <option #if($!user.get_meta_data("code_theme")=="blackboard")selected#end>blackboard</option>
+                                <option #if($!user.get_meta_data("code_theme")=="cobalt")selected#end>cobalt</option>
+                                <option #if($!user.get_meta_data("code_theme")=="eclipse")selected#end>eclipse</option>
+                                <option #if($!user.get_meta_data("code_theme")=="elegant")selected#end>elegant</option>
+                                <option #if($!user.get_meta_data("code_theme")=="erlang-dark")selected#end>erlang-dark</option>
+                                <option #if($!user.get_meta_data("code_theme")=="lesser-dark")selected#end>lesser-dark</option>
+                                <option #if($!user.get_meta_data("code_theme")=="monokai")selected#end>monokai</option>
+                                <option #if($!user.get_meta_data("code_theme")=="neat")selected#end>neat</option>
+                                <option #if($!user.get_meta_data("code_theme")=="night")selected#end>night</option>
+                                <option #if($!user.get_meta_data("code_theme")=="rubyblue")selected#end>rubyblue</option>
+                                <option #if($!user.get_meta_data("code_theme")=="solarized dark")selected#end>solarized dark</option>
+                                <option #if($!user.get_meta_data("code_theme")=="solarized light")selected#end>solarized light</option>
+                                <option #if($!user.get_meta_data("code_theme")=="twilight")selected#end>twilight</option>
+                                <option #if($!user.get_meta_data("code_theme")=="vibrant-ink")selected#end>vibrant-ink</option>
+                                <option #if($!user.get_meta_data("code_theme")=="xq-dark")selected#end>xq-dark</option>
+							</select>
+                            <input type="hidden" name="meta_key[$i]" value="code_theme" />#set($i=$i+1)
+                            </div>
+                            <div style="margin-left: 150px; min-height: 350px;">
+                                <h2>SAMPLE</h2>
+                                <textarea id="code" >
+<div>
+    <ul>
+    	<li></li>
+    </ul>
+</div>
+<style type="text/css">
+  .CodeMirror {
+	border: 1px solid #eee;
+	height: auto;
+	max-height:750px;
+  }
+  .CodeMirror-scroll {
+	overflow-y: hidden;
+	overflow-x: auto;
+  }
+   .CodeMirror-foldmarker {
+	color: blue;
+	text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
+	font-family: arial;
+	line-height: .3;
+	cursor: pointer;
+  }
+</style>
+<script>(function loadingtext(dir){
+    var len = $('#loading em').length;
+    $.each($("#loading em"), function(i){
+        var jObj = $(this);
+        setTimeout( function() { dir=="in"?jObj.animate({opacity: 0.85},250+(i*5)):jObj.animate({opacity: 0.15},850); }, i*50 );
+        if (i == len - 1) {
+            setTimeout(function(){loadingtext(dir=="in"?"out":"in")}, i*50);
+        }
+    });
+})();</script></textarea>
+                            </div>
+            			</div>
+                       </div> 
+                    </fieldset>            
+                </div>
+                
+                 <div id="interaction_tab">
+                 
+						<fieldset><legend>Visiablity</legend>
+                            <input type="checkbox" name="value[$i]" value="1" #if($!user.get_meta_data("user_stealth")=="1")checked="checked"#end /> Hide your self from the front when logged in.
+                        <input type="hidden" name="meta_key[$i]" value="user_stealth" />#set($i=$i+1)
+                        
+                        <hr/>
+                        </fieldset> 
+                 
+                 
+						<fieldset><legend>Visiablity</legend>
+                            <input type="checkbox" name="value[$i]" value="1" #if($!user.get_meta_data("user_hotkeys")=="1")checked="checked"#end />Use keyboard shortcuts while editing.
+                        	<input type="hidden" name="meta_key[$i]" value="user_hotkeys" />#set($i=$i+1)
+                        
+                        <hr/>
+                        </fieldset> 
+                 
+                 
+                 
+						<fieldset><legend>General Email settings</legend>
+                          <!--  <input type="checkbox" name="value[$i]" value="1" #if($!user.get_meta_data("email_pending")=="1")checked="checked"#end />
+                        	<input type="hidden" name="meta_key[$i]" value="email_pending" />#set($i=$i+1)
+                        -->
+                        <hr/>
+                        </fieldset> 
+                 
+                 
+                 
+                </div>
+                
+                
+                <div id="notices_tab">
+                
+                    <div id="tabs-min" class="tabs min  ui-tabs ui-widget ui-widget-content ui-corner-all">
+                        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#email_tab" name="tabs-left">Email Setting</a></li>
+                            <li class="ui-state-default ui-corner-top"><a href="#something">something</a></li>
+                        </ul>
+                        <div id="email_tab">
+                    
+                        <fieldset><legend>Post and publishing</legend>
+                            <input type="checkbox" name="value[$i]" value="1" #if($!user.get_meta_data("email_pending")=="1")checked="checked"#end /> Email me pending changes.
+                        <input type="hidden" name="meta_key[$i]" value="email_pending" />#set($i=$i+1)
+                        
+                        <hr/>
+                        </fieldset>  
+                        
+                        </div>
+                        <div id="something">
+                        </div>
+                    </div>
+                    
+                              
+                </div>
+        <div id="contact_profiles">
+            <table width="100%" class="ui-widget ui-widget-content">
+              <thead>
+                <tr class="ui-widget-header ">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Public</th>
+                    <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                #set ($c=0)
+                #foreach($profile in $user.contact_profiles)
+                    <tr #if($c%2>0) class="even" #else class="odd" #end>
+                      <td align="center">$!profile.baseid</td>
+                      <td align="left">$!profile.first_name $!profile.middle_name  $!profile.last_name</td>
+                      <td align="left">#if($profile.isPublic)Yes#else No #end</td>
+                      <td class='actionArea'>
+                        <span style='font-size:0.7em;'>
+                          <a href="/users/view_ContactProfile.castle?id=$!{profile.baseid}" title="View Profile" class="button small">
+                            <span class="ui-icon ui-icon-search"></span>
+                          </a>
+                        </span>
+                        <span style='font-size:0.7em;'>
+                          <a href="/users/edit_ContactProfile.castle?id=$!{profile.baseid}" title="Edit" class="button small">
+                            <span class="ui-icon ui-icon-pencil"></span>
+                          </a>
+                        </span>
+                        
+                        
+                        
+                      </td>
+                    </tr>
+                    #set ($c=$c+1)
+                #end
+              </tbody>
+              <tfoot>
+              <tr>
+              <td colspan="4" align="right"><input type="submit" value="Add Profile" /></td>
+              </tr>
+              </tfoot>
+            </table>
+        </div>
+        <div id="some_tab"> </div>
+        
+        </div>
+        </div>
+    
+    
+    
+    
+
+        <div id="history">
+            <div class="tab_tar">
+                <table width="100%" class="ui-widget ui-widget-content">
+                      <thead>
+                        <tr class="ui-widget-header ">
+                            <th width="10%">ID</th>
+                            <th width="15%">date</th>
+                            <th width="75%">event</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        #set ($c=0)
+                        #foreach($log in $history)
+                            <tr #if($c%2>0) class="even" #else class="odd" #end>
+                              <td align="center">$!log.id</td>
+                              <td align="left">$!log.date</td>
+                              <td align="left">$!log.entry</td>
+                            </tr>
+                            #set ($c=$c+1)
+                        #end
+                      </tbody>
+                      <tfoot>
+                      <tr>
+                      <td colspan="4" align="right">
+                        #set($Pagination_location='top')
+                        #set($target = "history")
+                        #set($list_items = $history)
+                        #set($item = $user)
+                        #parse("admin/listings/areas/pagination.vm")
+                        </td>
+                      </tr>
+                      </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+#if($user.baseid>0)
+
+
+
+#end
+</form>

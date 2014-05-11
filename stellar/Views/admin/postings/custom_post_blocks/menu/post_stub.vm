@@ -1,0 +1,50 @@
+<article class="grid col-full ">
+(Note: items created here are not published.  You must farther edit the times to have them show in the menu publicly)
+    <div class="tabs">
+      <ul class="clearfix">
+        <li><a href="#tab1">First</a></li>
+        <li><a href="#tab2">Second</a></li>
+      </ul>
+      <div class="tab_container">
+        <article id="tab1" class="tab_content">
+          <form class="contact_form" action="/post/save_stub.castle" method="post">
+            <input type="hidden" name="item.baseid" value="$!item.baseid" />
+			<input type="hidden" name="item.is_link" value="1" />
+			<input type="hidden" name="item.is_Public" value="1" />
+			<input type="hidden" name="item.is_visible" value="1" />
+            <ul class="grid col-one-half mq2-col-full full-input">
+				<li><input type="text" name="post_type" value="link" /></li>
+				<li><input type="text" name="item.name" value="" placeholder="Name"/></li>
+				<li><input type="text" name="item.url" value="" placeholder="Url (http://domain.tld)"/></li>
+				<li>
+					<button type="submit" name="submit" class="button fright">Submit it</button>
+				</li>
+            </ul>
+          </form>
+        </article>
+        <article id="tab2" class="tab_content">
+          <form class="contact_form" action="/post/save_stub.castle" method="post">
+            <input type="hidden" name="item.baseid" value="$!item.baseid" />
+            <ul class="grid col-one-half mq2-col-full full-input">
+				<li>
+					<select type="text" name="post_type">
+						#foreach($post in $post_types)
+							#if($post.admin_url.Contains("posts"))
+								#if($post.is_visible)
+									<option value="${post.alias}">${post.name}</option>
+								#end
+							#end
+						#end
+					</select>
+				</li>
+				<li><input type="text" name="item.name" value="" placeholder="Name"/></li>
+				<li>
+					<button type="submit" name="submit" class="button fright">Submit it</button>
+				</li>
+            </ul>
+          </form>
+        </article>
+      </div>
+    </div>
+</article>
+

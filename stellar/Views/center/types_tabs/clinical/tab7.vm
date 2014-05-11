@@ -1,0 +1,62 @@
+			
+<ul class="grid col-one-half mq2-col-full full-input">
+#* study_type *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.study_type)
+		#feild_selectinput($type "study_type" $daval "Clinical trial,Patient records,Data review" "" "" "")
+	</li>
+</ul>	
+<ul class="grid col-one-half mq2-col-full full-input">
+#* study_phase *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.study_phase)
+		#feild_textinput("$type" "study_phase" $daval "" "only if clinical trial" "" "")
+	</li>		
+</ul>	
+<div style="clear:both;"></div>
+
+<ul class="grid col-one-half mq2-col-full full-input">
+#* study_location *#
+	<li>	
+		#set($daval ="")
+		#set($daval = $!item.study_location)
+		#feild_textinput("$type" "study_location" $daval "" "" "" "")
+	</li>
+	
+#* study_sick_healthy *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.study_sick_healthy)
+		#feild_selectinput($type "study_sick_healthy" $daval "HIV infected,HIV uninfected,Health Human volunteer" "" "" "")
+	</li>	
+</ul>
+
+<ul class="grid col-one-half mq2-col-full full-input">	
+#* study_sample_size *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.study_sample_size)
+		#feild_textinput("$type" "study_sample_size" $daval "" "" "" "")
+	</li>
+#* study_length *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.study_length)
+		#feild_textinput("$type" "study_length" $daval "" "open #" "" "")
+	</li>
+#* study_length_measurement *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.study_length_measurement)
+		#feild_selectinput($type "study_length_measurement" $daval "Days,Weeks,Months,Years" "" "" "")
+	</li>
+</ul>	  
+
+
+		
+
+
+
+	

@@ -1,0 +1,37 @@
+<link type='text/css' href='http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css' rel='stylesheet' media='screen' />
+<link type='text/css' href='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.1/themes/cupertino/jquery-ui.css' rel='stylesheet' media='screen' />
+
+
+
+<!-- not seeing the need here
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry&amp;sensor=false"></script>
+<script type="text/javascript" src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0"></script>
+-->
+<!-- Javascript - jQuery -->
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+
+
+<script type="text/javascript" language="javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+
+		
+#* PLUGINS 
+$scriptsService.Js("modernizr-2.0.6/modernizr.min.js,jquery.defaultvalue.js,common/calendar/fullcalendar.min.js,common/calendar/gcal.js,utilities_general.js,infobox.js,jquery.ui.map.js,jquery.ui.map.extensions.js,jquery.ui.map.services.js,jquery.ui.map.overlays.js,zeroclipboard/ZeroClipboard.js,jPrint.js")
+*# 
+#* Controls *#
+#* old control scripts map_functions.js,init_test.js,map_ini.js, 
+$scriptsService.Js("addthis_ini.js")
+*#
+
+
+<!--[if (gte IE 6)&(lte IE 8)]>
+	<script src="/content/js/selectivizr.js"></script>
+<![endif]-->
+<script src="/content/js/scripts.js"></script>
+<script src="/content/js/jquery.maskedinput.js"></script>
+
+<script src="/content/js/init.js"></script>
+#if($admin_js)${admin_js}#end

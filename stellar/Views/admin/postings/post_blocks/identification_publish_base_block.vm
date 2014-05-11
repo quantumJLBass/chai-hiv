@@ -1,0 +1,19 @@
+#set($base_url = $!{item.post_type.url.Trim('/')})
+#set($ext = $!{item.site.get_option("site_ext")})
+
+#set($shorturl = $!{item.site.get_option("use_shorturl")})
+
+$!{site.get_option("site_ext")}
+<input type="text" name="item.name" id="name" value="$!item.name" class="text ui-widget-content ui-corner-all"  size="50" maxlength="1025" title="It is best to name your event with something that clearly tell people what it is with out needing the summaries."/>
+
+<span style="display:block;margin-top:5px;" id="post_url">
+<span id="generated_url" #if($item.url=="")style="display:none;"#end>$siteroot/#if($base_url && $base_url!="")$base_url/#end<input type="text" name="item.alias" id="alias" value="$!item.alias" class="alias_input text ui-widget-content ui-corner-all"  size="50" maxlength="1025" #if($item.alias && $item.alias!="")style="display:none;"#end /><span id="aliased" #if(!$item.alias || $item.alias=="")style="display:none;"#end>$!item.alias</span>#if($ext && $ext!="").$ext#end</span><span id="custom_url" #if($!item.url=="")style="display:none;"#end><input type="text" name="item.url" id="url" value="$!item.url" class="url_input text ui-widget-content ui-corner-all"  size="50" maxlength="1025" #if($item.alias && $item.alias!="")style="display:none;"#end /></span> &nbsp;&nbsp;&nbsp;
+
+<a class="button small" id="edit_post_url" href="#" #if(!$item.alias || $item.alias=="")style="display:none;"#end> <i class="icon-edit"></i> edit</a>
+
+#if($shorturl)#if($!item.site.get_option("use_shorturl"))<a class="button small" id="get_post_go_link" href="#" #if(!$item.alias || $item.alias=="")style="display:none;"#end>Get Shortlink  <i class="icon-external-link"></i> </a>#end
+#end
+
+<a class="button small" id="edit_custom_url" href="#" #if(!$item.alias || $item.alias=="")style="display:none;"#end>Custom  <i class="icon-cog"></i> </a>
+
+</span>

@@ -1,0 +1,22 @@
+<h2>Profile</h2>
+    $profile.title<br/>
+    $profile.first_name $profile.middle_name $profile.last_name
+
+<hr/>
+    <h3>Contact Info</h3>
+    <h4>Email</h4>
+        #if($profile.email!="")$profile.email #else -NA- #end
+    
+    <h4>Phone</h4>
+        #if($profile.phone!="")$profile.phone #else -NA- #end
+
+<hr/>
+    <h3>Profile Options</h3>
+    <h4>Is this your default profile?</h4>
+    	#if($profile.isDefault)Yes #else No #end
+
+    <h4>May people see this contact profile?</h4>
+    	#if($profile.isPublic)Yes #else No #end
+    
+    <h4>May people contact you?</h4>
+    	#if($profile.allowContact)Yes #else No #end

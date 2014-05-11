@@ -1,0 +1,137 @@
+
+<div id="_Listing" class="tabedArea tabactive" >
+	<div class="listTitle">Sites</div>
+	<a href="$siteroot/${controller.getView()}/create.castle?post_type=$!{named_type}" class="button" style="display:inline-block;float:left;margin-top:6px;"><i class="icon-plus"></i>  New Site</a><br style="clear:both;"/>
+
+    <div style="position:relative;" >
+        <h2>Default Site</h2>
+            
+            
+            #set($list_items = $default_site)
+            <div class="tab_tar ui-widget ui-helper-clearfix">
+                <div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top">
+                    #set($Pagination_location='top')
+                    #set($target = $status.title)
+                    #parse("admin/listings/areas/pagination.vm")
+                </div>
+                
+                <table cellpadding="0" cellspacing="0" border="0" class="display ui-widget ui-helper-reset ui-widget-content" id="example" width="100%">
+                    <thead class="">
+                        <tr>
+                            <th class="ui-state-default" rowspan="1" colspan="1" align="center" style="width:20px;"><input type="checkbox" name="massaction" /></th>
+                            <th class="ui-state-default" rowspan="1" colspan="1">Name</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:20%;">Base url</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:10%;">Date</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:0.1%;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #set($c=0)
+                        #foreach($item in $list_items)#set($c=$c+1)#end
+                        #if($list_items && $c>0)
+                            #set($iCount=0)
+                            #foreach($item in $list_items)
+                                #if($iCount%2==0) #set($polarity="even") #else #set($polarity="odd") #end
+                                #parse("admin/listings/areas/inedit.vm")
+                                <tr class="item item_aTar item_$!item.baseid $polarity" rel="$!item.baseid">
+                                    <td align="center">#if($userService.checkPrivleage("make_edits") && !$item.isCheckedOut())<input type="checkbox" name="mass[]" value="$!{item.baseid}" required />#end</td>
+                                    <td><strong>$!item.name</strong> <em style="font-size:75%"><i class="icon-star"></i>$!item.get_option("default_head_html_description")</em><hr style="border-color:#e2e2e2;"/><span><span class="button_area">
+                                        #if($userService.checkPrivleage("make_edits") && !$item.isCheckedOut())
+                                        <a href="$siteroot/${controller.getView()}/edit#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}"> <i class="icon-edit"></i> Edit |</a>
+                                        #end
+                                        <a><em><i class="icon-notice"></i><strong>NOTE:</strong>Promote another site as the default to delete this one.</em></a>
+                                        </span></span></td>
+                                    <td align="center">$item.base_url</td>
+                                    <td align="center"> <em style="font-size:75%"><strong>Created</strong></em> <br/> $!item.updated_date</td>
+                                    <td  align="center"></td>
+                                </tr>
+                                <tr class="item-child  $polarity closed">
+                                    <td colspan="5">#if($!item.outputError)<b title="There seems to be an error on this item and it will not show." class="itemError">!</b>#end</td>
+                                </tr>
+                                #set($iCount=$iCount+1)
+                            #end
+                        #end   
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="ui-state-default" rowspan="1" colspan="1" align="center" style="width:20px;"><input type="checkbox" name="massaction" /></th>
+                            <th class="ui-state-default" rowspan="1" colspan="1">Name</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:20%;">Base url</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:10%;">Date</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:0.1%;"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-bottom">
+                    #set($Pagination_location='bottom')
+                    #parse("listing_parts/areas/pagination.vm")    
+                </div>
+            </div>
+
+
+            <div class="clear"></div>
+            <hr/>
+                <h3>Sites managed under this install</h3>
+            <hr/>
+			#set($list_items = $sites)
+<div class="tab_tar ui-widget ui-helper-clearfix">
+                <div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top">
+                    #set($Pagination_location='top')
+                    #set($target = $status.title)
+                    #parse("admin/listings/areas/pagination.vm")
+                </div>
+                
+                <table cellpadding="0" cellspacing="0" border="0" class="display ui-widget ui-helper-reset ui-widget-content" id="example" width="100%">
+                    <thead class="">
+                        <tr>
+                            <th class="ui-state-default" rowspan="1" colspan="1" align="center" style="width:20px;"><input type="checkbox" name="massaction" /></th>
+                            <th class="ui-state-default" rowspan="1" colspan="1">Name</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:20%;">Base url</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:10%;">Date</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:0.1%;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #set($c=0)
+                        #foreach($item in $list_items)#set($c=$c+1)#end
+                        #if($list_items && $c>0)
+                            #set($iCount=0)
+                            #foreach($item in $list_items)
+                                #if($iCount%2==0) #set($polarity="even") #else #set($polarity="odd") #end
+                                #parse("admin/listings/areas/inedit.vm")
+                                <tr class="item item_aTar item_$!item.baseid $polarity" rel="$!item.baseid">
+                                    <td align="center">#if($userService.checkPrivleage("make_edits") && !$item.isCheckedOut())<input type="checkbox" name="mass[]" value="$!{item.baseid}" required />#end</td>
+                                    <td><strong>$!item.name</strong> <em style="font-size:75%"><i class="icon-star"></i>$!item.get_option("default_head_html_description")</em><hr style="border-color:#e2e2e2;"/><span><span class="button_area">
+                                        #if($userService.checkPrivleage("make_edits") && !$item.isCheckedOut())
+                                        <a href="$siteroot/${controller.getView()}/edit#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}"> <i class="icon-edit"></i> Edit |</a>
+                                        #end
+                                        <a href="$siteroot/${controller.getView()}/delete#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}" class="delete" > <i class="icon-trash crimson"></i> Delete  |</a>
+                                        </span></span></td>
+                                    <td align="center">$item.base_url</td>
+                                    <td align="center"> <em style="font-size:75%"><strong>Created</strong></em> <br/> $!item.updated_date</td>
+                                    <td  align="center"></td>
+                                </tr>
+                                <tr class="item-child  $polarity closed">
+                                    <td colspan="5">#if($!item.outputError)<b title="There seems to be an error on this item and it will not show." class="itemError">!</b>#end</td>
+                                </tr>
+                                #set($iCount=$iCount+1)
+                            #end
+                        #end   
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="ui-state-default" rowspan="1" colspan="1" align="center" style="width:20px;"><input type="checkbox" name="massaction" /></th>
+                            <th class="ui-state-default" rowspan="1" colspan="1">Name</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:20%;">Base url</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:10%;">Date</th>
+                            <th class="ui-state-default" rowspan="1" colspan="1" style="width:0.1%;"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-bottom">
+                    #set($Pagination_location='bottom')
+                    #parse("listing_parts/areas/pagination.vm")    
+                </div>
+            </div>
+    </div>	
+</div>

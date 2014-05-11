@@ -1,0 +1,23 @@
+	<div id="globalnav">
+		<ul>
+			<li>
+			</li>
+		</ul>
+	</div>
+
+	<div id="logo">
+		<a href="/admin" target="_blank">
+			<img width="185" height="105" alt="" src="/content/img/CHAI_logo.jpg" />
+		</a>
+	</div>		
+		
+	<div id="siteID">
+		<h2></h2>
+		<h1><a href="../admin">$!current_site.name Admin</a></h1>
+	</div>
+	<div id="toolbar">
+		<ul>
+			<li>
+			</li>
+        </ul>
+	</div>

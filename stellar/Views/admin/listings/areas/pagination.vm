@@ -1,0 +1,42 @@
+#if($list_items.FirstItemIndex)
+    #if(!$target)
+    #set($target = $status.title)
+    #end
+    
+    <div class="pagination $Pagination_location ui-widget-content ui-corner-all">
+        <h6>Showing $list_items.FirstItemIndex - $list_items.LastItemIndex of $list_items.TotalItems</h6>
+       #if($list_items.HasPreviousPage || $list_items.HasNextPage)
+           <ul class=" ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-bottom">
+                <li>
+                    #if($list_items.HasPreviousPage)
+                        $PaginationHelper.CreatePageLink( 1, "first",null, "%{searchId=$!searchId,target=$target,id=$!item.baseid,post_type=$!post_type,show_core=$!show_core}" )
+                    #else
+                        <span>first</span>
+                    #end
+                </li>
+                <li>
+                    #if($list_items.HasPreviousPage)
+                        $PaginationHelper.CreatePageLink( $list_items.PreviousPageIndex, "prev",null, "%{searchId=$!searchId,target=$target,id=$item.baseid,post_type=$!post_type,show_core=$!show_core}" )
+                    #else
+                        <span>prev</span>
+                    #end
+                </li>
+                <li>
+                    #if($list_items.HasNextPage)
+                        $PaginationHelper.CreatePageLink( $list_items.NextPageIndex, "next",null, "%{searchId=$!searchId,target=$target,id=$item.baseid,post_type=$!post_type,show_core=$!show_core}" )
+                    #else
+                        <span>next</span>
+                    #end
+                </li>
+                <li>
+                    #if($list_items.HasNextPage)
+                        $PaginationHelper.CreatePageLink( $list_items.TotalPages, "last",null, "%{searchId=$!searchId,target=$target,id=$item.baseid,post_type=$!post_type,show_core=$!show_core}" )
+                    #else
+                        <span>last </span>
+                    #end
+                </li>
+            </ul>
+        #end
+    </div>
+#end
+

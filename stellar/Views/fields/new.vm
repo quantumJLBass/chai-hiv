@@ -1,0 +1,188 @@
+#if($Flash.error)
+<p style="color: red; font-weight: bold;">
+    $Flash.error
+</p>
+#end
+
+<form action="update_field.castle" method="post">
+  $Form.HiddenField("field.Id")
+  <input type="hidden" value="$!{ele.attr.name}" name="ele.attr.name"/>	
+  
+  
+  <h3>#if($field.Id!=0)Edit#else Add #end Place Feild</h3>
+
+<fieldset>
+<fieldset style="float:right;width:46%;"  id="html_sample">
+	#if($html_ele)
+		<legend>Sample:</legend>
+		$!html_ele
+	#end
+</fieldset>
+<fieldset style="float:left;width:46%;">
+	<legend>Basic setup:</legend>
+	<div  style="float:left;width:46%;">Name:<br/>
+		  <input type="text" value="$!field.name" name="field.name" id="type_name" class="ui-widget ui-widget-content ui-corner-all " />
+	</div> 
+	 <div  style="float:left;width:46%;">Alias:<br/>
+		  <input type="text" value="$!field.alias" name="field.alias" id="type_alias" class="ui-widget ui-widget-content ui-corner-all " />
+	</div>
+	<div class="clear"></div>
+	<hr/>
+	<p>Public:<br/>
+		<select name="field.isPublic" >
+			<option class="author" value="true" #if(${field.isPublic}) selected="selected" #end>Yes</option>
+			<option class="author" value="false" #if(!${field.isPublic}) selected="selected" #end>No</option>
+		</select>
+		<h6><em>Changing this will tell whether or not the public can see this place in a map view <strong>even thou it's published</strong> ie: Internal to WSU only.</em></h6>  
+	</p>
+	<hr/>
+	<fieldset><legend id="customName"><label>User access settings</label> <em>+</em></legend>
+		<div id="customNames">
+			<div  style="float:left;width:46%;">Access levels:<br/>
+				<select name="field.access_levels[]" id="access" multiple="multiple" size="9" style="width:205px;">   
+					#foreach($access in $accesslevels)
+						<option class="access_levels" value="$access.id" #if($field.access_levels.Contains($access)) selected="selected" #end>$!access.title</option>
+					#end
+				</select>
+				<h6 style="margin:5px;"><em>These selections make up all the levels that can see and use the fields. Leaving them blank lets everyone use them.</em></h6>  
+			</div> 
+			 <div  style="float:left;width:46%;">Authors:<br/>
+				<select name="field.authors[]" id="author" multiple="multiple" size="9" style="width:205px;">   
+					#foreach($author in $authors)
+						<option class="access_levels" value="$author.id" #if($field.authors.Contains($author)) selected="selected" #end>$!author.name</option>
+					#end
+				</select><br/>
+				<h6 style="margin:5px;"><em>These selections make up all the authors that can see and use the fields. Leaving them blank lets everyone use them.</em></h6>  
+			</div>  
+		</div>
+	</fieldset>
+	
+	<fieldset><legend><label>Tie Feilds To:</label></legend>
+		<div style="float:right;width:46%;">Feild Type:<br/>  
+			<select name="ele.type">
+				<option value="dropdown" #if(${ele.type}=='dropdown')selected='selected'#end>dropdown</option>
+				<option value="textinput" #if(${ele.type}=='textinput')selected='selected'#end>text</option>
+				<option value="textarea" #if(${ele.type}=='textarea')selected='selected'#end>textarea</option>
+				<option value="checkbox" #if(${ele.type}=='checkbox')selected='selected'#end>checkbox</option>
+				<option value="yes_no" #if(${ele.type}=='yes_no')selected='selected'#end>yes/no</option>
+			</select>
+		</div> 
+		<div  style="float:left;width:46%;">Place Model:<br/>
+			<select name="placemodel">	
+				#foreach($model in $p_models)
+					<option value="$model.baseid" #if(($field && $field.set.baseid==$model.baseid) || !$field && $model.is_default)selected='selected'#end>$model.name</option>
+				#end
+			</select>
+		</div>
+	</fieldset>
+</fieldset>
+
+
+
+
+</fieldset>
+
+
+<fieldset id="optionsSelectionDefaults" #if(${ele.type}=='dropdown')style="display:none;" #end>
+	<div id="defaults">
+		<span class="">
+			<span style="float:left;width:100px;">Value</span>
+			#set($o=0)
+			#capturefor(opValue)
+				#foreach($opt in ${ele.options}) 
+					#if(${opt.val}!='' && $o==0)
+						$!{opt.val}
+					#end
+					#set($o=$o+1)
+				#end
+			#end
+			<input type="text" value="$opValue.Trim()" name="ele.options[0].val"  class="opVal" style="float:left;width:94px;"/>
+		</span>
+	</div>	
+</fieldset>
+<fieldset id="optionsSelection" #if(${ele.type}!='dropdown')style="display:none;" #end>
+	<legend>#if(${ele.type}!='dropdown')Dropdown/Multi Select Options:#else Default Value #end</legend>
+	<div style="width:250px;">
+		<span>
+			<label for="ele.attr.multiple">Multiple Select</label>
+			<input type="checkbox" value="multiple" name="ele.attr.multiple" id="ele_attr_multiple" #if(${ele.attr.multiple}=="multiple")checked="checked"#end />
+		</span>
+		<div style="clear:both;">
+			<span style="float:left;width:100px;">Value</span>
+			<span style="float:left;width:100px;">Label</span>
+		</div>
+		<div id="ops">
+		#set($o=0)
+		#foreach($opt in ${ele.options})
+			#if($opt.val!='')
+				<span class="pod opRow">
+					<input type="text" value="$!{opt.val}" name="ele.options[$o].val"  class="opVal" style="float:left;width:94px;"/>
+					<input type="text" value="$!{opt.label}" name="ele.options[$o].label"  style="float:left;width:94px;"/>
+					<input type="radio" value="$!{opt.val}" name="ele.options[$o].selected" #if(${opt.selected}) checked="checked" #end style="float:left;  #if(${ele.attr.multiple}=="multiple") display:none; #end" />
+					<input type="checkbox" value="$!{opt.val}" name="ele.options[$o].selected" #if(${opt.selected}) checked="checked" #end style="float:left; #if(${ele.attr.multiple}!="multiple") display:none; #end" />
+					<a href="#" title="Delete option" class="deleteOption ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float:left;"><span class="ui-icon ui-icon-trash"></span></a>
+				</span>
+			#end
+			#set($o=$o+1)
+		#end
+		</div>
+
+		<a href="#" id="addOption" #if(${ele.type}!='dropdown')style="display:none;" #end class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-icon ui-icon-plusthick inlineIcon"></span>
+			Add name
+		</a>
+		<div style="clear:both;"></div>
+	</div>
+</fieldset>
+<div id="option_clonebed" class="clonebed">         
+	<span class="pod opRow">    
+		<input type="text" value="" name="ele.options[9999].val"  style="float:left;width:94px;"/>
+		<input type="text" value="" name="ele.options[9999].label"  style="float:left;width:94px;"/>
+		<a href="#" title="Delete option" class="deleteOption ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float:left;">
+			<span class="ui-icon ui-icon-trash"></span>
+		</a>
+	</span>
+</div>
+
+<fieldset id="optionsSelection">
+	<legend>Field Options</legend>
+	<fieldset style="float:right;width:46%;">
+		<legend>Element Events:</legend>
+		<div style="width:220px;">
+			<span style="float:left;width:100px;">onClick:</span>
+				<input type="text" value="$!{ele.events.onclick}" name="ele.events.onclick"  style="float:left;width:94px;"/>
+			<span style="float:left;width:100px;">onChange:</span>
+				<input type="text" value="$!{ele.events.onchange}" name="ele.events.onchange"  style="float:left;width:94px;"/>
+			<div style="clear:both;"></div>
+		</div>
+	</fieldset>
+
+	<fieldset style="float:left;width:46%;">
+		<legend>Element Attributes:</legend>
+			<div style="width:100%;">
+				<span style="float:right;width:46%;">Label:<br/><input type="text" value="$!{ele.label}" name="ele.label" class="w200"/></span>
+				<span style="float:left;width:46%;">Placeholder:<br/><input type="text" value="$!{ele.attr.placeholder}" name="ele.attr.placeholder" class="w200"/></span>
+				<hr class="clear"/>
+				<span style="float:right;width:46%;">Accesskey:<br/><input type="text" value="$!{ele.attr.accesskey}" name="ele.attr.accesskey" class="w200"/></span>
+				<span style="float:left;width:46%;">Dir:<br/><input type="text" value="$!{ele.attr.dir}" name="ele.attr.dir" class="w200"/></span>
+				<hr class="clear"/>
+				<span style="float:right;width:46%;">Class:<br/><input type="text" value="$!{ele.attr.ele_class}" name="ele.attr.ele_class" class="w200"/></span>
+				<span style="float:left;width:46%;">Id:<br/><input type="text" value="$!{ele.attr.id}" name="ele.attr.id" class="w200"/></span>
+				<hr class="clear"/>
+				<span style="float:right;width:46%;">Style:<br/><input type="text" value="$!{ele.attr.style}" name="ele.attr.style" class="w200"/></span>
+				<span style="float:left;width:46%;">Tabindex:<br/><input type="text" value="$!{ele.attr.tabindex}" name="ele.attr.tabindex" class="w200"/></span>
+				<hr class="clear"/>
+				<span style="float:left;width:46%;">Title:<br/><input type="text" value="$!{ele.attr.title}" name="ele.attr.title" class="w200"/></span>
+			<div style="clear:both;"></div>
+		</div>	
+	</fieldset>
+
+</fieldset>
+
+
+	
+
+
+
+  <p><input type="submit" value="#if($field.id!=0) Apply #else Save #end" name="apply" title="#if($field.id!=0)Apply #else Save #end and Return" class="ui-button ui-widget ui-state-default ui-corner-all" /><input type="submit" value="Submit" /><input type="submit" value="Cancel" name="cancel" /></p>
+</form>

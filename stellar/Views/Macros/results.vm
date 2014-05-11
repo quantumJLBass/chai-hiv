@@ -1,0 +1,21 @@
+#macro(photo $photo)
+	<div class="result_pod">
+		<a href="photo.castle?id=$photo.id"><img width="130px" src="$siteroot/image/download.castle?id=$photo.thumbimage.id" alt="" /></a>
+		<div class="pod_content">
+			<h2 class="info-title">$!photo.name</h2>
+			<p class="date">$!photo.getDate()</p>
+			<p class="desc">$!photo.Caption</p>
+		</div>
+	</div>
+#end
+
+#macro(feature $feature)
+	<div class="result_pod">
+		<a href="feature.castle?id=$feature.id"><img width="130px" src="$siteroot/image/download.castle?id=$feature.thumbimage.id" alt="" /></a>
+		<div class="pod_content">
+			<h2 class="info-title">$!feature.name</h2>
+			<p class="date">$!feature.getDate()</p>
+			<p class="desc">$!feature.Caption</p>
+		</div>
+	</div>
+#end

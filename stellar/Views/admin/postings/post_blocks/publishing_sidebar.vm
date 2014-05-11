@@ -1,0 +1,93 @@
+<div id="sidebar">
+    <div class="ui-widget-content ui-corner-all">
+        <h3 class="ui-widget-header ui-corner-top">Status Information</h3>
+		
+		
+		#if($item.parent.baseid>0)
+			<div class="content">
+				<input type="submit" value="Cancel" name="cancel"  class="cancel_btn button"/>
+				<input type="submit" value="Revert" class="submit_btn button crimson" />
+			</div>
+		#else
+			<div class="content">
+				<a class="button orange small" href="#" role="button" aria-disabled="false" style="float:right; #if($item.is_Published()) display:none; #end">Preview Changes</a>
+				
+				<br style="clear:right;"/>
+				#if($userService.checkPrivleage("can_publish"))
+					<br style="clear:right;"/>
+					<button type="submit" style="float:right;margin-left:15px;  #if($item.is_Published()) display:none; #end " class="live_btn button crimson med" name="pushlive" value="Push Live">Push Live</button>
+				#end
+				#if($item.is_Published()) 
+				<h4>Published</h4>
+				#else
+				
+				<h4>Pulbishing Pending</h4> 
+				#end
+				
+	
+				<hr/>
+	
+				<div id="publicDiv">
+					<span  id="is_Public_state" >Public:<strong>#if($item.is_Public) Yes #else No #end </strong> <a href="#" id="is_Public_choice">edit</a></span>
+					<div id="public_choice" #if($item.is_Public || $item.is_Public == "false") style="display:none;" #end>
+						Public:<input type="radio" class="dependence" name="item.is_Public" rel="is_Public" value="true" #if(${item.is_Public}) checked="checked" #end />Yes | 
+						<input type="radio" class="dependence" name="item.is_Public" rel="is_Public" value="false" #if(!${item.is_Public}) checked="checked" #end />No
+	
+						<div class="dependent" data-tiedto="is_Public" data-tiedmatches="false" #if( $item.is_Public && $item.is_Public!="false" ) style='display:none;' #end >
+							<input type="checkbox" class="dependence" rel="protect_post" value="1" #if($item.protect_post) checked="checked" #end />Password Protect<br/>
+							<div class="dependent" data-tiedto="protect_post" data-tiedmatches="1" #if(!$item.protect_post) style='display:none;' #end>
+								<input type="checkbox" value="1" class="dependence" rel="custom_pass" #if(!$item.protect_post || $item.protect_post=="**NID**") checked="checked" #end />Use Network Password<br/>
+								<div  class="dependent" data-tiedto="custom_pass" data-dont_match="1"  #if(!$item.protect_post || $item.protect_post=="**NID**" ) style='display:none;' #end >
+									Custom Password
+									<input type="text" name="item.protect_post" value="$!item.protect_post" />
+								</div>
+							</div>
+						</div>
+				   </div>&nbsp;&nbsp;&nbsp;
+					#set($mess="Changing this will tell whether or not the public can see this ${named_type_dname} in the output <strong>even thou it's published</strong> ie: Internal to WSU only.")
+					#parse("admin/noted.vm")
+				</div>
+				
+						  
+				
+				
+				<hr/>
+				
+				<button type="submit" class="cancel_btn button small" name="cancel" value="Cancel"><i class="icon-remove-sign"></i> Cancel</button>
+				<button type="submit" class="button small" name="apply" value="#if($cal_event.baseid!=0) Apply #else Save #end" title="#if($cal_event.baseid!=0)Apply #else Save #end and Return"><i class="icon-save"></i> #if($cal_event.baseid!=0) Apply #else Save #end</button>
+				<button type="submit" class="submit_btn button small" name="submit" value="Submit">Submit <i class="icon-double-angle-right"></i></button>
+				
+				
+				<!--<input type="submit" value="Cancel" name="cancel"  class="cancel_btn button small"/>
+				<input type="submit" value="#if($cal_event.baseid!=0) Apply #else Save #end" name="apply"  title="#if($cal_event.baseid!=0)Apply #else Save #end and Return" class="button small" />
+				<input type="submit" value="Submit"  class="submit_btn button small" />-->
+				<div style="clear:right;"></div>
+			</div>
+		#end  
+    </div>
+    #if($item.this_is_categorized())
+    <div class="ui-widget-content ui-corner-all">
+        <h3 class="ui-widget-header ui-corner-top">Categories</h3>
+        <div class="content">
+            <h6><em>Use Ctrl/Option + click to select or deselect items in the lists.</em></h6>
+            <div class="col2"  style="display:inline-block;">
+                <em style="float:right;">All <input type="checkbox" class="all" #if($item.categories.count==$categories.count)checked="checked"#end value="all"/></em>
+                <label for="_$node.name" style="font-size:13px;"><strong>All Categories</strong></label><br/>
+                <select id="_$node.name" name="item.taxonomies.categories[]"  class="" multiple="multiple" size="9" style="width:205px;">
+                    #foreach($cat in $categories)
+                        <option class="model" value="$cat.baseid" #if($item.categories.Contains($cat)) selected="selected" #end > $htmlService.repeat_str("- ",$cat.position) $!cat.name</option>
+                    #end
+                </select>
+            </div>
+        </div>
+    </div>
+    #end
+    
+    #parse("/admin/postings/post_blocks/revisions.vm")
+
+    
+    
+    
+    
+    
+</div>

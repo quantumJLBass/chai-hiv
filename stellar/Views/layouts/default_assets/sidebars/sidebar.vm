@@ -1,0 +1,9 @@
+<p class="mbottom"></p>
+<h3>Help</h3>
+<menu>
+	<ul>
+		<!--<li><a href="#" class="arrow">(555) 555-5555</a></li>-->
+		<li><a href="mailto:RDdbhelp@clintonhealthaccess.org" class="arrow">RDdbhelp@clintonhealthaccess.org</a></li>
+		<li><a href="/Help Doc.pdf" class="arrow">Pdf Help doc</a></li>
+	</ul>
+</menu>

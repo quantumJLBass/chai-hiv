@@ -1,0 +1,95 @@
+<article class="grid col-full">
+	<h2 id="header_title">#if(!$item.baseid)New #end Regimen #if($item.acroynm)( $item.acroynm ) #end</h2>
+		<ul class="grid col-one-half mq2-col-full full-input">
+			<li>
+				<label for="rid">Record ID:</label>
+				$!item.record_id
+			</li>
+		</ul>
+		<ul class="grid col-one-half mq2-col-full full-input">
+			<li>
+				<label for="acroynm">Treatment Acroynm:</label>
+				$!item.acroynm
+			</li>	
+		</ul>
+		<ul>
+			<li>
+				<label for="description">Full Discription:</label>
+				<p>$!item.discription</p>
+			</li>
+		</ul>
+		
+			
+			
+			
+		 #if(!$skiplayout && !$item.baseid) <ul>
+			<li><h2>Save to add Drugs or Clinicals</h2></li>
+		</ul> #end
+	  
+	  #if(!$skiplayout && $item.baseid>0)
+			<ul>
+			<li>
+				<label for="Drugdata">Drugs:</label>
+				<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Drugdata" width="100%">
+					<thead>
+						<tr>
+							<th>New Drug Code</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						#foreach($item in $item.drugs)
+							<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
+								<td>$!item.new_drug_code <input type="hidden" name="item.drugs[$velocityCount].baseid" value="$item.baseid" class="list_item drug_item"/></td>
+								<td>$!postingService.get_taxonomy($item.brand_name).name</td>
+							</tr>
+						#end
+					</tbody>
+					<tfoot></tfoot>
+				</table>
+			</li>
+			
+			<li>
+				<label for="Clinicaldata">Clinical Information:</label>
+				<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Clinicaldata" width="100%">
+					<thead>
+						<tr>
+							<th>Clinical Trial</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					#foreach($part in  $item.clinicals)
+						<tr class="#if($velocityCount%2<1)even #else odd #end rec_$!part.ln_clinical_t" data-baseid="$part.baseid">
+							<td>$!part.baseid
+							<input type="hidden" name="item.clinicals[$velocityCount].baseid" value="$part.baseid" class="drug_item"/>
+							</td>
+							<td>$!part.name #if($!part.drugs.Count>0) <em>(for: $!postingService.get_taxonomy($!part.drugs.get_item(0).brand_name).name)</em> #end</td>
+						</tr>
+					#end
+						
+						
+					</tbody>
+					<tfoot></tfoot>
+				</table>
+			</li>
+			
+</ul>		
+		#end
+		
+		
+		
+		
+	<ul>		<li>
+		  <button type="submit" id="submit" name="submit" class="button fright" title="Go back to the list">Exit</button>
+		</li>	
+		</ul>	
+		
+		
+	#if(!$skiplayout && $item.baseid>0)
+		#set($type="regimen")
+		#parse("center/ref.vm")
+    #end
+
+</article>

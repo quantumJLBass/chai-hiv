@@ -1,0 +1,119 @@
+#if($item.post_type.alias == "page")#set($VISIBLE_ID = $item.baseid) #end
+
+<h1 id="actiontitle">Edit ${named_type_dname} <a href="#" class="button med" >Add New</a></h1>
+
+#if($item.revision>0)
+    <div style="margin-top: 20px; padding: 0 .7em;" class="ui-state-highlight ui-corner-all">
+      <p style="line-height: 15px;padding-bottom: 0;">
+        <span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-info"></span><strong>Note:</strong>You are working off revision $item.revision from $item.updated_date.  If you save or apply, it will make this the current version. (<a href="/post/edit_post.castle?id=${item.parent.baseid}">Cancel and use current</a>)
+      </p>
+    </div>
+#end
+
+#capturefor(admin_js) <!-- -->
+#end
+
+
+
+#* we are loading code mirror in the <head> *#
+
+    #capturefor(PageStyles)
+        #* code editor options *#
+
+        #* remove to the css *#
+        <style>
+			#dialog label, #dialog input { display:block; }
+			#dialog label { margin-top: 0.5em; }
+			#dialog input, #dialog textarea { width: 95%; }
+			#tabs { margin-top: 1em; }
+			#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+			#add_tab { cursor: pointer; }
+			#shortcodes{height:0px;}
+			#main_content_title{display:inline-block;}
+			.btn.btn-success.fileinput-button,button[type="submit"]{margin-left:5px;display:inline-block;}
+			
+			.content.rev{}
+			.content.rev em{font-size:10px;}
+        </style>
+
+    #end
+
+#if($skiplayout) $PageStyles #end
+
+<form action="update.castle" method="post" id="editor_form" class=" ui-widget ui-widget-content ui-corner-all " style="padding:5px;">
+    
+    <input type="hidden" name="item.baseid" value="#if($item.revision>0)${item.parent.baseid}#else$!{item.baseid}#end" />
+    #if( $item.baseid==0 || $item.tmp)
+        <input type="hidden" name="forced_tmp" value="1" />
+    #end
+
+    #parse("/admin/postings/post_blocks/publishing_sidebar.vm")
+	#parse("/admin/postings/post_blocks/identification_simple_block.vm")
+    
+    
+    
+    <div id="tabs" class=" ui-tabs ui-widget ui-widget-content ui-corner-all cal_event_new">
+        <ul class="short ui-tabs-nav ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top">
+            	<a href="#tabs_Text">Content</a>
+            </li>
+            <li class="ui-state-default ui-corner-top">
+            	<a href="#tabs_Detail">Detail</a>
+            </li>
+        </ul>
+        <div id="tabs_Text" class="mainAreaTabs">
+            <h3>Url</h3>
+			<input type="text" value="$!item.url" name="item.url" class="w400"/>
+            <div class="clear"></div>
+        </div>
+        <div id="tabs_Detail" class="mainAreaTabs">
+            #set($i = 0 )
+            #capturefor(block)
+                #if($item.post_type.is_summarizable)
+                    <div id="summary_tab">
+                        <h3>Summary :</h3>
+                        <textarea id="_summary" name="item.summary"  class="tinyEditor">$!item.summary</textarea>
+                        <br/>
+                        <hr/>
+                    </div>
+                    #set($i = $i+1)
+                #end
+                #if($item.post_type.gets_metadata)<div id="seo_tab">
+                    #parse("/admin/postings/post_blocks/SEO_block.vm")
+                    #set($i = $i+1)
+                </div>#end
+                #if($item.post_type.is_templatable)<div id="templates_tab">
+                    #parse("/admin/postings/post_blocks/template_block.vm")
+                    #set($i = $i+1)
+                </div>#end
+                #if($item.post_type.is_taggable)<div id="tags_tab">
+                    #parse("/admin/postings/post_blocks/tagging_block.vm")
+                    #set($i = $i+1)
+                </div>#end
+                <div id="permisions_tab">
+                    #parse("/admin/postings/post_blocks/users_block.vm")
+                </div>
+                #if($item.post_type.is_taxonomyable)<div id="taxonomies_tab">
+                   #parse("/admin/postings/post_blocks/taxonomy_block.vm")
+                   #set($i = $i+1)
+                </div>#end
+            #end
+            #if($i>0)
+                <div class="tabs left ui-tabs ui-widget ui-widget-content ui-corner-all cal_event_new">
+                    <ul class="main ui-tabs-nav ui-widget-header ui-corner-all">
+                        #if($item.post_type.is_summarizable)<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#summary_tab">Summary</a></li>#end
+                        #if($item.post_type.gets_metadata)<li class="ui-state-default ui-corner-top"><a href="#seo_tab">SEO / Meta</a></li>#end
+                        #if($item.post_type.is_templatable)<li class="ui-state-default ui-corner-top"><a href="#templates_tab">Templates</a></li>#end
+                        #if($item.post_type.is_taggable)<li class="ui-state-default ui-corner-top"><a href="#tags_tab">Tags</a></li>#end
+                        <li class="ui-state-default ui-corner-top"><a href="#permisions_tab">Permisions</a></li>
+                        #if($item.post_type.is_taxonomyable)<li class="ui-state-default ui-corner-top"><a href="#taxonomies_tab">Taxonomies</a></li>#end
+                    </ul>
+                    $block
+                </div>
+            #else
+            	$block
+            #end
+        </div>
+    </div>
+</form>
+<div class="clear"></div>

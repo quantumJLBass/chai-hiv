@@ -1,0 +1,73 @@
+<article class="tab_content">
+	<p>CHAI is funded to screen for new compounds and opportunities and develop methodologies to understand the kinds of cost impact new opportunities might have in LMI countries. To facilitate work in each of these area, CHAI developed this  web-based ARV Treatments Repository database to allow CHAI and its partners to capture, analyze, model, and report on ARV data associated with the chemistry and drug development, clinical and treatment studies, and economic and outcomes research for existing and clinical phase drugs.</p>
+</article>
+
+
+<!--			<article id="navbutton" class="grid col-full">
+				<h2>Buttons</h2>
+				<p>
+					<a href="#" class="button">First button</a>
+					<a href="#" class="button">Second button</a>
+				</p>
+			</article>
+		
+			<article id="navtogg" class="grid col-full">
+				<h2>Toggles</h2>
+						<ul class="toggle-view">
+							<li>
+								<h5 class="toggle-title">General <span class="toggle-title-detail">- Main features</span></h5>
+								<div class="toggle grid-wrap">                     
+									<ul class="grid col-one-half mq3-col-full">
+										<li>Lorem ipsum</li>
+										<li>Cras</li>
+										<li>Dolor Euismod Cras</li>
+										<li>Sit Amet</li>
+										<li>Ornare Nullam Dolor</li> 
+										<li>Consectetur</li>
+									</ul>
+									<ul class="grid col-one-half mq3-col-full">
+										<li>Euismod Dapibus</li>
+										<li>Magna</li>
+										<li>Lorem Ligula Elit</li>
+										<li>Dolor Vulputate</li>
+										<li>Dapibus</li> 
+										<li>Dolor Mattis Ipsum</li>
+									</ul>
+								</div>       
+							</li>
+							
+							<li>
+								<h5 class="toggle-title">Lorem <span class="toggle-title-detail">- Ipsum dolor</span></h5>
+								<div class="toggle">                     
+									<p>Etiam porta sem malesuada magna mollis euismod. Nulla vitae elit libero, a pharetra augue. Sed posuere consectetur est at lobortis. Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec sed odio dui.</p>
+								</div>       
+							</li>
+						</ul>
+			</article>
+			
+			<article id="navtabs" class="grid col-full">
+				<h2>Tabs</h2>
+				<div class="">
+					<ul class="tabs clearfix">
+					    <li><a href="#tab1">First</a></li>
+					    <li><a href="#tab2">Second</a></li>
+					    <li><a href="#tab3">Third</a></li>
+					</ul>
+					<div class="tab_container">
+					    <article id="tab1" class="tab_content">
+					        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit.</p>
+					    </article>
+					    
+						<article id="tab2" class="tab_content">
+							<h6>Heading</h6>
+					        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit.</p>
+					    </article>
+					    
+					    <article id="tab3" class="tab_content">
+				    		<h6>Heading</h6>
+				            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit.</p>
+					    </article>
+					 </div>
+				  </div>
+			</article>
+			-->

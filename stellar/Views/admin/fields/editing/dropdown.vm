@@ -1,0 +1,47 @@
+<div id="field_dropdown" #if(${ele.type}!='dropdown')style="display:none;" #end class="default_bed_item">
+    <legend>#if(${ele.type}!='dropdown')Dropdown/Multi Select Options:#else Default Value #end</legend>
+    <div style="width:250px;">
+        <span>
+            <label for="ele.attr.multiple">Multiple Select</label>
+            <input type="checkbox" value="multiple" name="ele.attr.multiple" id="ele_attr_multiple" #if(${ele.attr.multiple}=="multiple")checked="checked"#end />
+        </span>
+        <div style="clear:both;">
+            <span style="float:left;width:100px;">Value</span>
+            <span style="float:left;width:100px;">Label</span>
+        </div>
+        <div id="ops">
+        #set($o=0)
+        #foreach($opt in ${ele.options})
+            #if($opt.val!='')
+                <span class="pod opRow">
+                    <input type="text" value="$!{opt.val}" name="ele.options[$o].val"  class="opVal" style="float:left;width:94px;"/>
+                    <input type="text" value="$!{opt.label}" name="ele.options[$o].label"  style="float:left;width:94px;"/>
+                    <input type="radio" value="$!{opt.val}" name="ele.options[$o].selected" #if(${opt.selected}) checked="checked" #end style="float:left;  #if(${ele.attr.multiple}=="multiple") display:none; #end" />
+                    <input type="checkbox" value="$!{opt.val}" name="ele.options[$o].selected" #if(${opt.selected}) checked="checked" #end style="float:left; #if(${ele.attr.multiple}!="multiple") display:none; #end" />
+                    <a href="#" title="Delete option" class="deleteOption button ui-button-text-only" style="float:left;"><span class="ui-icon ui-icon-trash"></span></a>
+                </span>
+            #end
+            #set($o=$o+1)
+        #end
+        </div>
+
+        <a href="#" id="addOption" class="button ui-button-text-only">
+            <span class="ui-icon ui-icon-plusthick inlineIcon"></span>
+            Add name
+        </a>
+        <div style="clear:both;"></div>
+    </div>
+</div>
+ <div id="option_clonebed" class="clonebed">         
+    <span class="pod opRow">    
+        <input type="text" value="" name="ele.options[9999].val"  style="float:left;width:94px;"/>
+        <input type="text" value="" name="ele.options[9999].label"  style="float:left;width:94px;"/>
+        
+        <input type="radio" value="" name="ele.options[9999].selected" style="float:left;  #if(${ele.attr.multiple}=="multiple") display:none; #end" />
+        <input type="checkbox" value="" name="ele.options[9999].selected" style="float:left; #if(${ele.attr.multiple}!="multiple") display:none; #end" />
+        
+        <a href="#" title="Delete option" class="deleteOption button ui-button-text-only" style="float:left;">
+            <span class="ui-icon ui-icon-trash"></span>
+        </a>
+    </span>
+</div>

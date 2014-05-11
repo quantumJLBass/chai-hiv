@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--[if IE 7]><html class="no-js ie7 ie" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie8 ie" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html itemscope="itemscope" itemtype="http://schema.org/WebPage" class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+    <head>
+		<script type='text/javascript'>window.mod_pagespeed_start = Number(new Date());</script>
+    	<meta charset="utf-8">
+		#* all the JS and CSS that is site wide *#
+        #{contentblock alias="global_header_html"}
+	</head>
+    <body class="wsu_ui_dark #if($embeded)embeded #end central_layout ${controller.getView()} ${controller.getAction()}">
+		#if(!$embeded)
+			<div id="header_bar">
+                #{contentblock alias="header_html"}
+			</div>
+			<div id="mainNavArea">
+                <form action="#" id="placeSearch" style="margin: 19px 0 10px 33px;">
+                    <input type="text" value="" placeholder="Search for a place" /><input type="submit" class="submit" value="placeSearching" />
+                </form>
+                <div id="navwrap_outer">
+                    <div id="navwrap">
+                        <div id="nav">
+                            #{menu alias="test-menu"}
+                        </div>
+                    </div>
+                </div>
+			</div>
+		#end
+		$childContent
+        #{contentblock alias="footer"}
+        #{contentblock alias="global_footer_JS"}
+	</body>
+</html>

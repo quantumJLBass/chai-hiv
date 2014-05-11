@@ -1,0 +1,3 @@
+#if($userService.checkPrivleage("make_edits") && ($item.owner.baseid == $user.baseid || $item.users.Contains($user) ))
+<a href="$siteroot/admin/share.castle?id=$!{item.baseid}" class="shareit">  <i class="icon-user"></i> Share  |</a>
+#end

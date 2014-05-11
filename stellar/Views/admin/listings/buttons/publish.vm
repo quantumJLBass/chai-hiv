@@ -1,0 +1,9 @@
+#if($userService.checkPrivleage("can_publish"))
+  <li class="publish_btn">
+	<a href="$siteroot/${controller.getView()}/setStatus#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}" title="Published" class=" pubState button small">
+	  <span class="ui-button-icon-primary ui-icon ui-icon-star"></span>
+	  <span class="actionText">Status</span>
+	  <span class="actionpropt">&#187;</span>
+	</a>
+  </li>
+#end

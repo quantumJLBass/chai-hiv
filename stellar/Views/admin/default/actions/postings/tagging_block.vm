@@ -1,0 +1,61 @@
+<h3>Tags: </h3>
+<div class="tabs min ui-tabs ui-widget ui-widget-content ui-corner-all ${named_type}_new">
+    <ul class="ui-tabs-nav ui-widget-header ui-corner-all">
+        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active">
+          <a href="#Tags">Main</a>
+        </li>
+        <li class="ui-state-default ui-corner-top">
+          <a href="#UTags">User added</a>
+        </li>
+    </ul>
+    <div id="Tags">
+        <div id="taged" class="podContainer">		
+            #set($T = 0)
+            #foreach($tag in $item.tags) 
+                <span class="pod tags">
+                    <input type="hidden" name="tags[$T].baseid" value="$!tag.baseid" /> 
+                    <label for="${named_type}_tags_$T" class="editable" rel="${named_type}tags">$!tag.name</label>
+                    <input id"${named_type}_tags_$T" class="tags editzone text ui-widget-content ui-corner-all" size="50" name="tags[$T].name" value="$!tag.name"/><a href="#" title="Delete option" class="deleteOption button ui-button-text-only" style="float:left;"><span class="ui-icon ui-icon-trash"></span></a>
+                    #set($T = $T+1)
+                <br/></span>
+            #end
+            #if($T==0)Don't for get that adding tags help the search pick up this entry#end
+        </div>
+        <a href="#" id="PlaceTagCreate" class=" button">
+            <span class="ui-icon ui-icon-plusthick inlineIcon"></span>Add Tag
+        </a>
+        <a href="#" id="massTagging" class=" button">
+            <span class="ui-icon ui-icon-plusthick inlineIcon"></span>Add Tags in mass
+        </a>		
+        <div id="massTaggingarea" style="display: none;">
+            <h6><em>Use this to add a bunch of tags at in lieu of one at a time (CSV)</em></h6>
+            <textarea name="massTag[]" style=" width: 100%; height: 175px;"></textarea>
+        </div>
+    </div>
+    <div id="UTags">
+        #set($T = 0)
+        #foreach($tag in $item.usertags) 
+            <input type="hidden" name="item.usertags[$T].baseid" value="" /> 
+            <input class="tags text ui-widget-content ui-corner-all" size="50" name="item.usertags[$T].name" value="$!tag.name"/>
+            #set($T = $T+1)
+        #between
+            <hr/>
+        #end
+        #if($T==0)There are no user added tags.  Try promoting the ${named_type} to get it out there.#end
+    </div>
+</div>
+
+
+#*<!-- tag_clonebed -->*#
+<div id="tag_clonebed" class="clonebed">         
+    <span class="pod tags">    
+        <input type="hidden" name="||tags[9999].baseid" value="" /> 
+        <label for="${named_type}_tags_9999" class="editable" rel="${named_type}tags">**New Tag**</label>
+        <input id="${named_type}_tags_9999" class="tags editzone text ui-widget-content ui-corner-all" size="50" name="||tags[9999].name" value=""/>
+        <a href="#" title="Delete option" class="deleteOption button ui-button-text-only" style="float:left;">
+        	<span class="ui-icon ui-icon-trash"></span>
+		</a>
+    	<br/>
+    </span>
+</div>
+#*<!-- EOF tag_clonebed -->*#

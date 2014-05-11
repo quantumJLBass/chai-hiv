@@ -1,0 +1,656 @@
+<form action="/admin/save_config.castle" method="post"/>
+<input type="hidden" name="site.id" value="$!site.id" />
+
+	#set($i=0)
+	<input type="submit" name="save" value="Save" style="float:right;"/>
+    <h1>Site Configuration</h1>
+    <div id="tabs-left" class="tabs left">
+        <ul>
+            <li><a href="#gen_tab" name="tabs-left">General</a></li>
+            <li><a href="#html_head" name="tabs-left">Html Head</a></li>
+            <li><a href="#email_tab">Email</a></li>
+            <li><a href="#content_tab">Content</a></li>
+			<li><a href="#social_tab">Social Networking</a></li>
+            <li><a href="#seo_tab">SEO</a></li>
+            <li><a href="#editing_tab">Editors</a></li>
+        </ul>
+        <div id="gen_tab">
+       		Name : <input type="text" name="site.name" value="$!site.name"/><br/>
+            Base Url : <input type="text" name="site.base_url" value="$!site.base_url"/><br/>
+            
+             Site Extension : #set($i=$i+1)<input type="text" name="value[$i]" value="$!site.get_option("site_ext")"/>
+            <input type="hidden" name="option_key[$i]" value="site_ext" />#set($i=$i+1)<br/>
+            
+            <fieldset><legend>Processing</legend>   
+                Is Default :                
+                <select name="site.is_default" >
+                    <option value="1" #if($!site.is_default) selected="selected" #end >Yes</option>
+                    <option value="0" #if(!$site.is_default) selected="selected" #end >No</option>
+                </select>
+				#set($mess="The site your currenting editing the setting will become the default if selected")
+				#parse("admin/noted.vm")
+				<br/><br/>
+               
+                #set($i=$i+1)
+                Use Static Files: 
+                <select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("use_static")=="1" || $!site.get_option("use_static")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("use_static")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="use_static" /><br/>
+            
+            </fieldset>
+            
+            
+            <fieldset><legend>Modes</legend>
+                #set($i=$i+1)
+                <strong>Default Mode:</strong><br/>
+                <input class="dependence" rel="usedev" type="radio" name="value[$i]" value="1"  #if($!site.get_option("usedev"))checked="checked"#end />Live<br/>
+                <input class="dependence" rel="usedev" type="radio" name="value[$i]" value="0" #if($!site.get_option("usedev")=="" || $!site.get_option("usedev")==0) checked="checked"#end />Devlopment<br/>
+                <input type="hidden" name="option_key[$i]" value="usedev" />
+                
+                <div class="dependent" data-tiedto="usedev" data-tiedmaatches="0" style="#if($!site.get_option("usedev") && $!site.get_option("usedev")==1) display:none; #end" >
+
+                    Only with WSU network:
+                    #set($i=$i+1)
+                    <select class="dependence" name="value[$i]" rel="filters_only_wsu"  >
+                        <option value="1" #if($!site.get_option("filters_only_wsu")=="1") selected="selected" #end >Yes</option>
+                        <option value="0" #if($!site.get_option("filters_only_wsu")=="0" || $!site.get_option("filters_only_wsu")=="") selected="selected" #end >No</option>
+                    </select><input type="hidden" name="option_key[$i]" value="filters_only_wsu" />
+                    
+                    #set($i=$i+1)<input type="text" name="value[$i]" value="$!site.get_option("filters_only_wsu_expression")"/>
+                    <input type="hidden" name="option_key[$i]" value="filters_only_wsu_expression" /><br/>
+                    
+                    <hr/>
+                	Or
+                    <hr/>
+                
+                    Allowed IP's :
+                    #set($i=$i+1)<select class="dependence" name="value[$i]" rel="filters_allowed_ips"  >
+                        <option value="1" #if($!site.get_option("filters_allowed_ips")=="1") selected="selected" #end >Yes</option>
+                        <option value="0" #if($!site.get_option("filters_allowed_ips")=="0" || $!site.get_option("filters_allowed_ips")=="") selected="selected" #end >No</option>
+                    </select><input type="hidden" name="option_key[$i]" value="filters_allowed_ips" />
+
+                    #set($i=$i+1)<input type="text" name="value[$i]" value="$!site.get_option("filters_allowed_ips_expression")"/>
+                    <input type="hidden" name="option_key[$i]" value="filters_allowed_ips_expression" /><br/>
+                    Note:this is regular expresion of the IP's that can see the site. Your IP is($userService.getUserIp())
+
+                </div>
+                
+                
+                #set($i=$i+1)
+                <strong>Debug Mode On:</strong><br/>
+                <select class="dependence" name="value[$i]" rel="debug"  >
+                    <option value="1" #if($!site.get_option("state_debug")=="1") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("state_debug")=="0" || $!site.get_option("state_debug")=="") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="state_debug" />
+                
+                <div class="dependent" data-tiedto="debug" data-tiedmaatches="0" style="#if($site.get_option("state_debug")==0) display:none; #end" >
+                
+                    Allowed IP's :
+                    #set($i=$i+1)<select class="dependence" name="value[$i]" rel="filters_debug_ips"  >
+                        <option value="1" #if($!site.get_option("filters_debug_ips")=="1") selected="selected" #end >Yes</option>
+                        <option value="0" #if($!site.get_option("filters_debug_ips")=="0" || $!site.get_option("filters_debug_ips")=="") selected="selected" #end >No</option>
+                    </select><input type="hidden" name="option_key[$i]" value="filters_debug_ips" />
+                    
+                    
+                     #set($i=$i+1)<input type="text" name="value[$i]" value="$!site.get_option("filters_debug_ips_expression")"/>
+                    <input type="hidden" name="option_key[$i]" value="filters_debug_ips_expression" /><br/>
+                    Note:this is regular expresion of the IP's that can see the site in dev mode. Your IP is($userService.getUserIp())
+                   
+                </div>
+                
+                
+                
+            </fieldset>
+            
+            <fieldset><legend>Print pages</legend>    
+            
+            	#set($i=$i+1)
+                 Use print.wsu.edu: 
+                <select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("use_print_service")=="1" || $!site.get_option("use_print_service")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("use_print_service")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="use_print_service" /><br/>
+                
+                
+                #set($i=$i+1)
+                Allow Notes:
+				<select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("print_notable")=="1" || $!site.get_option("print_notable")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("print_notable")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="print_notable" />
+                
+                
+            </fieldset>
+            
+            <fieldset><legend>URL shortening</legend>    
+            
+            	#set($i=$i+1)
+                 Use go.wsu.edu: 
+                <select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("use_shorturl")=="1" || $!site.get_option("use_shorturl")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("use_shorturl")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="use_shorturl" /><br/>
+            </fieldset>
+            
+            
+            
+            <fieldset><legend>Theme</legend>    
+           
+            	#set($i=$i+1)
+                #foreach($theme in $frontend_themelist)
+                    <div style="width:250px;float:left;border:1px solid #454545; background-color:#d2d2d2; border-radius:5px; #if(($site.get_option("current_site_theme")=="" && $theme.theme=="default") || $site.get_option("current_site_theme")==$theme.theme) background-color:#fff;  #end ">
+                       <input type="radio" name="value[$i]" value="${theme.theme}"  #if(($site.get_option("current_site_theme")=="" && $theme.theme=="default") || $site.get_option("current_site_theme")==$theme.theme) checked="checked" #end class="theme_choice"/>${theme.theme}<br/>
+                        <img src="${file_info.relative_site_content_path()}themes/${theme.theme}/${theme.theme}.png" width="250"/><br/>
+                        <span style="padding-left:5px;display:inline-block;">
+                          by: $theme.author<br/>
+                          version:$theme.version<br/>
+                        </span>
+                    </div>
+                #end
+                <input type="hidden" name="option_key[$i]" value="current_site_theme" />
+            </fieldset>
+            
+            
+            
+            
+                                       
+            
+            
+        </div>
+        
+        <div id="html_head">
+        
+        	<fieldset><legend>General head meta data settings</legend>
+            	#set($i=$i+1)
+                Logo : 
+                #set($logo = $!site.get_option("site_logo") )
+                #if($logo)<img src="$!logo" width="125" /> #end
+                
+                
+                <input type="file" name="value[$i]" value=""/>
+                <input type="hidden" name="current[$i]" value="$!logo"/>
+                
+                
+                <input type="hidden" name="option_key[$i]" value="site_logo" />
+                <br/>
+       		</fieldset>
+        
+        
+        
+        
+        
+        
+            <fieldset><legend>General head meta data settings</legend>
+
+            	#set($i=$i+1)
+                Default Title : <input type="text" name="value[$i]" value="$!site.get_option("default_head_html_title")"/>
+                <input type="hidden" name="option_key[$i]" value="default_head_html_title" />
+                <br/>
+
+            	#set($i=$i+1)
+                Default Description :<br />
+				<textarea name="value[$i]" class="w500" rows="10" >$!site.get_option("default_head_html_description")</textarea>
+                <input type="hidden" name="option_key[$i]" value="default_head_html_description" />
+                <br/>
+                
+            	#set($i=$i+1)
+                Default Keywords :<br />
+				<textarea name="value[$i]" class="w500" rows="10" >$!site.get_option("default_head_html_keywords")</textarea>
+                <input type="hidden" name="option_key[$i]" value="default_head_html_keywords" />
+                <br/>
+
+
+
+                #set($i=$i+1)
+                Default Robots : 
+                <select name="value[$i]" >
+                    <option #if($!site.get_option("default_head_html_robots")=="INDEX, FOLLOW" || $!site.get_option("default_head_html_robots")=="")selected="selected"#end value="INDEX,FOLLOW">INDEX, FOLLOW</option>
+                    <option #if($!site.get_option("default_head_html_robots")=="NOINDEX,FOLLOW")selected="selected"#end value="NOINDEX,FOLLOW">NOINDEX, FOLLOW</option>
+                    <option #if($!site.get_option("default_head_html_robots")=="INDEX,NOFOLLOW")selected="selected"#end value="INDEX,NOFOLLOW">INDEX, NOFOLLOW</option>
+                    <option #if($!site.get_option("default_head_html_robots")=="NOINDEX,NOFOLLOW")selected="selected"#end value="NOINDEX,NOFOLLOW">NOINDEX, NOFOLLOW</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="default_head_html_robots" />
+            </fieldset>  
+            
+            
+            
+            <fieldset><legend>Default Site Contact</legend>
+
+            </fieldset>  
+            
+            
+                       		
+            
+            
+                      
+        </div>
+        
+        
+        
+        
+        
+        
+        <div id="email_tab">
+            <fieldset><legend>General Email settings</legend>
+
+                #set($i=$i+1)
+                Sent as HTML : 
+                <select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("email_asHtml")=="1" || $!site.get_option("email_asHtml")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("email_asHtml")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="email_asHtml" />
+            </fieldset>  
+            
+            
+            
+            <fieldset><legend>Default Site Contact</legend>
+            	#set($i=$i+1)
+                Sender Name : <input type="text" name="value[$i]" value="$!site.get_option("default_sender_name")"/>
+                <input type="hidden" name="option_key[$i]" value="default_sender_name" />
+                <br/><br/>
+           		#set($i=$i+1)
+                Sender Email : <input type="text" name="value[$i]" value="$!site.get_option("default_sender_email")"/>
+                <input type="hidden" name="option_key[$i]" value="default_sender_email" />
+                <br/><br/>
+            </fieldset>  
+            
+            
+                       		
+            
+            
+                      
+        </div>
+        <div id="content_tab">
+            <fieldset><legend>General Content settings</legend>
+				
+                #set($i=$i+1)
+                Clean html output (htmlTidy): 
+                
+                <select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("tidy_html")=="1" || $!site.get_option("tidy_html")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("tidy_html")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="tidy_html" /><br/>
+                
+                
+                
+                
+                #set($i=$i+1)
+                Minify Html : 
+                <select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("minify_html")=="1" || $!site.get_option("minify_html")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("minify_html")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="minify_html" />  <br/>   
+
+                #set($i=$i+1)
+                Minify JS : 
+                <select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("minify_js")=="1" || $!site.get_option("minify_js")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("minify_js")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="minify_js" />   <br/>  
+                
+                #set($i=$i+1)
+                Minify CSS : 
+                <select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("minify_css")=="1" || $!site.get_option("minify_css")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("minify_css")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="minify_css" />   <br/>   
+				
+                <h4>Note: this only applies to the frontend</h4>
+            </fieldset>            
+        </div>
+        <div id="seo_tab">
+			<fieldset><legend>Search Engines</legend>
+                <div id="tabs-min" class="tabs min  ui-tabs ui-widget ui-widget-content ui-corner-all">
+                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#Google_tab" name="tabs-left">Google</a></li>
+                        <li class="ui-state-default ui-corner-top"><a href="#bing_tab">Bing</a></li>
+                    </ul>
+                    <div id="Google_tab">
+                        
+                        
+                            #set($i=$i+1)
+                            Account Id : <input type="text" name="value[$i]" value="$!site.get_option("GA_account_id")"/>
+                            <input type="hidden" name="option_key[$i]" value="GA_account_id" />
+                            <br/><br/>
+                            
+                            #set($i=$i+1)
+                            Site Verification : <input type="text" name="value[$i]" value="$!site.get_option("google_site_verification")" class="w250"/>
+                            <input type="hidden" name="option_key[$i]" value="google_site_verification"/><br/>
+                            Example:(&lt;meta name="google-site-verification" content="<strong>hMQT0jjLAQ7ZvVY91SCAMHNNBjEWVgpJMqIbzt0XAd0</strong>" /&gt;)
+                            <br/><br/>
+            
+            
+                            #set($i=$i+1)
+                            Track Events : 
+                            <select name="value[$i]" >
+                                <option value="1" #if($!site.get_option("ga_track_events")=="1" || $!site.get_option("ga_track_events")=="") selected="selected" #end >Yes</option>
+                                <option value="0" #if($!site.get_option("ga_track_events")=="0") selected="selected" #end >No</option>
+                            </select>
+                            <input type="hidden" name="option_key[$i]" value="ga_track_events" /><br/>
+            
+                            #set($i=$i+1)
+                            Use Custome Event Rules : 
+                            <select name="value[$i]" >
+                                <option value="1" #if($!site.get_option("ga_use_custom")=="1" || $!site.get_option("ga_use_custom")=="") selected="selected" #end >Yes</option>
+                                <option value="0" #if($!site.get_option("ga_use_custom")=="0") selected="selected" #end >No</option>
+                            </select>
+                            <input type="hidden" name="option_key[$i]" value="ga_use_custom" /><br/>
+            
+                            <div #if($!site.get_option("ga_track_events")=="1") style="display:none;" #end>
+                                #set($i=$i+1)
+                                Path to event rules : <input type="text" name="value[$i]" value="$!site.get_option("ga_rules_path")"/>
+                                <input type="hidden" name="option_key[$i]" value="ga_rules_path" />
+                            </div>
+            
+            
+                            <div #if($!site.get_option("ga_track_events")=="0" || $!site.get_option("ga_track_events")=="") style="display:none;" #end>
+                                #set($i=$i+1)
+                                Custom Rules : <br/>
+                                <textarea class="w500" rows="10"  name="value[$i]">$!site.get_option("ga_custom_rules")
+                                </textarea><br/>
+                                <input type="hidden" name="option_key[$i]" value="ga_custom_rules" />
+                            </div>
+            
+                         
+                    </div>
+                    <div id="bing_tab">
+                       
+                            #set($i=$i+1)
+                            Account Id : <input type="text" name="value[$i]" value="$!site.get_option("Bing_account_id")"/>
+                            <input type="hidden" name="option_key[$i]" value="Bing_account_id" />
+                            <br/><br/>
+            
+                            #set($i=$i+1)
+                            Site Verification : <input type="text" name="value[$i]" value="$!site.get_option("bing_site_verification")" class="w250"/>
+                            <input type="hidden" name="option_key[$i]" value="bing_site_verification"/><br/>
+                            Example:(&lt;meta name="msvalidate.01" content="<strong>73B464C828058D51A426DC1B61D99824</strong>" /&gt;)
+                       
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset><legend>Sitemap</legend>
+                #set($i=$i+1)
+                Generate Sitemap : 
+                <select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("generate_sitemap")=="1" || $!site.get_option("generate_sitemap")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("generate_sitemap")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="generate_sitemap" /><br/>
+				#set($i=$i+1)
+                Location : <input type="text" name="value[$i]" value="$!site.get_option("sitemap_location")" class="w250"/>
+                <input type="hidden" name="option_key[$i]" value="sitemap_location"/><br/>
+
+				<h4>Has sitemap.xml: Yes</h4>
+				<input type="submit" name="regen_sitemap" value="Generate" />
+            </fieldset>  
+
+            <fieldset><legend>Robots.txt</legend>
+                #set($i=$i+1)
+                Generate Sitemap : 
+                <select name="value[$i]" >
+                    <option value="1" #if($!site.get_option("generate_robots_txt")=="1" || $!site.get_option("generate_robots_txt")=="") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("generate_robots_txt")=="0") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="generate_robots_txt" />
+
+				<h4>Has robots.txt: Yes</h4>
+				
+				<h3>Your Robots.txt File</h3>
+                <textarea disabled="disabled"  class="w500" rows="10">
+User-Agent: *
+Disallow: 
+Disallow: /admin
+
+
+Sitemap: http://www.domain.com/sitemap.xml
+                </textarea><br/>
+				<input type="submit" name="regen_robots_txt" value="Generate" />
+
+            </fieldset> 
+
+        </div>
+        
+        <div id="social_tab">
+            <fieldset><legend>Social Networking settings</legend>
+				
+                #set($i=$i+1)
+                Use Faceabook : 
+                <select name="value[$i]" class="dependence" rel="use_faceabook" >
+                    <option value="1" #if($!site.get_option("use_faceabook")=="1") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("use_faceabook")=="0" || $!site.get_option("use_faceabook")=="") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="use_faceabook" />
+                <div class="dependent" data-tiedto="use_faceabook" data-tiedmaatches="1" style="#if($site.get_option("use_faceabook") && $!site.get_option("use_faceabook")==0) display:none; #end" >
+                    App Id : #set($i=$i+1)<input type="text" name="value[$i]" value="$!site.get_option("appId")"/>
+                    <input type="hidden" name="option_key[$i]" value="appId" />#set($i=$i+1)<br/>
+               	</div><br/>
+                
+                
+                #set($i=$i+1)
+                Use Twitter : 
+                <select name="value[$i]" class="dependence" rel="use_twitter" >
+                    <option value="1" #if($!site.get_option("use_twitter")=="1") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("use_twitter")=="0" || $!site.get_option("use_twitter")=="") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="use_twitter" />
+                <br/>
+                
+                #set($i=$i+1)
+                Use LinkedIn : 
+                <select name="value[$i]" class="dependence" rel="use_linkedin" >
+                    <option value="1" #if($!site.get_option("use_linkedin")=="1") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("use_linkedin")=="0" || $!site.get_option("use_linkedin")=="") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="use_linkedin" />
+                <br/>           
+                
+                #set($i=$i+1)
+                Use tumblr. : 
+                <select name="value[$i]" class="dependence" rel="use_tumblr" >
+                    <option value="1" #if($!site.get_option("use_tumblr")=="1") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("use_tumblr")=="0" || $!site.get_option("use_tumblr")=="") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="use_tumblr" />
+                <br/>
+                
+                
+                #set($i=$i+1)
+                Use Yahoo! : 
+                <select name="value[$i]" class="dependence" rel="use_yahoo" >
+                    <option value="1" #if($!site.get_option("use_yahoo")=="1") selected="selected" #end >Yes</option>
+                    <option value="0" #if($!site.get_option("use_yahoo")=="0" || $!site.get_option("use_yahoo")=="") selected="selected" #end >No</option>
+                </select>
+                <input type="hidden" name="option_key[$i]" value="use_yahoo" />
+                <br/>
+                
+                
+                
+            </fieldset>            
+        </div>
+
+        
+                 <div id="editing_tab">
+                    <fieldset><legend>Editor settings</legend>
+                    
+                    
+				<div id="tabs-min" class="tabs min  ui-tabs ui-widget ui-widget-content ui-corner-all">
+                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#TinyMCE_tab" name="tabs-left">TinyMCE</a></li>
+                        <li class="ui-state-default ui-corner-top"><a href="#Code_tab">Code</a></li>
+                    </ul>
+                    <div id="TinyMCE_tab">
+                    
+                    
+                    	#set($i=$i+1)
+                        Use TinyMCE:                
+                        <select name="value[$i]" >
+                            <option value="1" #if($!site.get_option("use_tinymce")=="1" || $!site.get_option("use_tinymce")=="") selected="selected" #end >Yes</option>
+                            <option value="0" #if($!site.get_option("use_tinymce")=="0") selected="selected" #end >No</option>
+                        </select>
+                    	<input type="hidden" name="option_key[$i]" value="use_tinymce" /><br/>
+
+                        
+                        #set($i=$i+1)
+                        Use YouTube addon:  
+                        <select name="value[$i]" >
+                            <option value="1" #if($!site.get_option("use_tinymce_youtube")=="1" || $!site.get_option("use_tinymce_youtube")=="") selected="selected" #end >Yes</option>
+                            <option value="0" #if($!site.get_option("use_tinymce_youtube")=="0") selected="selected" #end >No</option>
+                        </select>
+                    	<input type="hidden" name="option_key[$i]" value="use_tinymce_youtube" /><br/>
+                        
+                        #set($i=$i+1)
+                        Use Storify addon:  
+                        <select name="value[$i]" >
+                            <option value="1" #if($!site.get_option("use_tinymce_storify")=="1" || $!site.get_option("use_tinymce_storify")=="") selected="selected" #end >Yes</option>
+                            <option value="0" #if($!site.get_option("use_tinymce_storify")=="0") selected="selected" #end >No</option>
+                        </select>
+                    	<input type="hidden" name="option_key[$i]" value="use_tinymce_storify" /><br/>
+                        
+                        
+                        
+                        
+                        
+                    	<hr/>
+                        </div>
+                     <div id="Code_tab">   
+                     
+                     
+                     
+
+#* we are loading code mirror in the <head> *#
+
+    #capturefor(PageStyles)
+        #* code editor options *#
+
+        #* remove to the css *#
+        <style>
+			#dialog label, #dialog input { display:block; }
+			#dialog label { margin-top: 0.5em; }
+			#dialog input, #dialog textarea { width: 95%; }
+			#tabs { margin-top: 1em; }
+			#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+			#add_tab { cursor: pointer; }
+			#shortcodes{height:0px;}
+			#main_content_title{display:inline-block;}
+			.btn.btn-success.fileinput-button,button[type="submit"]{margin-left:5px;display:inline-block;}
+			
+			.content.rev{}
+			.content.rev em{font-size:10px;}
+        
+        </style>
+
+
+	$scriptsService.Css("/codemirror/codemirror.css,/codemirror/addon/dialog/dialog.css,/codemirror/theme/neat.css,/codemirror/theme/elegant.css,/codemirror/theme/erlang-dark.css,/codemirror/theme/night.css,/codemirror/theme/monokai.css,/codemirror/theme/cobalt.css,/codemirror/theme/eclipse.css,/codemirror/theme/rubyblue.css,/codemirror/theme/lesser-dark.css,/codemirror/theme/xq-dark.css,/codemirror/theme/ambiance.css,/codemirror/theme/blackboard.css,/codemirror/theme/vibrant-ink.css,/codemirror/theme/solarized.css,/codemirror/theme/twilight.css","admin",false)
+    
+    <style type="text/css">
+      .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+		max-height:750px;
+      }
+      .CodeMirror-scroll {
+        overflow-y: hidden;
+        overflow-x: auto;
+      }
+	   .CodeMirror-foldmarker {
+        color: blue;
+        text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
+        font-family: arial;
+        line-height: .3;
+        cursor: pointer;
+      }
+    </style>
+   
+    
+    #end
+    #capturefor(PagePlugins)
+		$scriptsService.Js("/admin/codemirror/codemirror.js,/admin/codemirror/addon/runmode/runmode.js,/admin/codemirror/mode/css/css.js,/admin/codemirror/mode/xml/xml.js,/admin/codemirror/mode/javascript/javascript.js,/admin/codemirror/mode/htmlmixed/htmlmixed.js,/admin/codemirror/addon/hint/simple-hint.js,/admin/codemirror/addon/hint/javascript-hint.js,/admin/codemirror/addon/dialog/dialog.js,/admin/codemirror/addon/search/searchcursor.js,/admin/codemirror/addon/search/search.js,/admin/codemirror/addon/fold/foldcode.js",true)
+     #if($item.post_type.is_Code)	    #end
+    #end
+
+                     
+                        <div> 
+                            <div style="float: left; display: inline-block; border-right:1px solid #454545; padding-right:15px;">
+                            Default settings
+                            <br/>
+                            #set($i=$i+1)
+                            <select id="selectTheme" class="settings" name="value[$i]" >
+                            	<option #if($!site.get_option("code_theme")=="default")selected#end>default</option>
+                                <option #if($!site.get_option("code_theme")=="" || $!site.get_meta_data("code_theme")=="ambiance")selected#end>ambiance</option>
+                                <option #if($!site.get_option("code_theme")=="blackboard")selected#end>blackboard</option>
+                                <option #if($!site.get_option("code_theme")=="cobalt")selected#end>cobalt</option>
+                                <option #if($!site.get_option("code_theme")=="eclipse")selected#end>eclipse</option>
+                                <option #if($!site.get_option("code_theme")=="elegant")selected#end>elegant</option>
+                                <option #if($!site.get_option("code_theme")=="erlang-dark")selected#end>erlang-dark</option>
+                                <option #if($!site.get_option("code_theme")=="lesser-dark")selected#end>lesser-dark</option>
+                                <option #if($!site.get_option("code_theme")=="monokai")selected#end>monokai</option>
+                                <option #if($!site.get_option("code_theme")=="neat")selected#end>neat</option>
+                                <option #if($!site.get_option("code_theme")=="night")selected#end>night</option>
+                                <option #if($!site.get_option("code_theme")=="rubyblue")selected#end>rubyblue</option>
+                                <option #if($!site.get_option("code_theme")=="solarized dark")selected#end>solarized dark</option>
+                                <option #if($!site.get_option("code_theme")=="solarized light")selected#end>solarized light</option>
+                                <option #if($!site.get_option("code_theme")=="twilight")selected#end>twilight</option>
+                                <option #if($!site.get_option("code_theme")=="vibrant-ink")selected#end>vibrant-ink</option>
+                                <option #if($!site.get_option("code_theme")=="xq-dark")selected#end>xq-dark</option>
+							</select>
+                            <input type="hidden" name="option_key[$i]" value="code_theme" />
+                            </div>
+                            <div style="margin-left: 150px; min-height: 350px;">
+                                <h2>SAMPLE</h2>
+                                <textarea id="code" >
+<div>
+    <ul>
+    	<li></li>
+    </ul>
+</div>
+<style type="text/css">
+  .CodeMirror {
+	border: 1px solid #eee;
+	height: auto;
+	max-height:750px;
+  }
+  .CodeMirror-scroll {
+	overflow-y: hidden;
+	overflow-x: auto;
+  }
+   .CodeMirror-foldmarker {
+	color: blue;
+	text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
+	font-family: arial;
+	line-height: .3;
+	cursor: pointer;
+  }
+</style>
+<script>(function loadingtext(dir){
+    var len = $('#loading em').length;
+    $.each($("#loading em"), function(i){
+        var jObj = $(this);
+        setTimeout( function() { dir=="in"?jObj.animate({opacity: 0.85},250+(i*5)):jObj.animate({opacity: 0.15},850); }, i*50 );
+        if (i == len - 1) {
+            setTimeout(function(){loadingtext(dir=="in"?"out":"in")}, i*50);
+        }
+    });
+})();</script></textarea>
+                            </div>
+            			</div>
+                       </div> 
+                    </fieldset>            
+                </div>
+                
+                 
+        
+    </div>
+
+</form>
+

@@ -1,0 +1,211 @@
+	#* *#
+	#* NOTE: This is where you can change the dropdowns *#
+	#* *#
+	#set($type = "drug")
+	
+	
+	#set($brand_name = $postingService.get_taxonomies("brand_name"))
+#capturefor(brand_names)
+#foreach($part in $brand_name)
+$part.name => $part.alias
+#between
+,
+#end
+#end
+
+
+	#set($frequency = $postingService.get_taxonomies("frequency"))
+#capturefor(frequencys)
+#foreach($part in $frequency)
+$part.name => $part.alias
+#between
+,
+#end
+#end	
+	
+	
+	#set($approved_for = $postingService.get_taxonomies("adult"))
+#capturefor(approved_fors)
+#foreach($part in $approved_for)
+$part.name => $part.alias
+#between
+,
+#end
+#end
+
+	
+	#set($dose_form = $postingService.get_taxonomies("dose_type"))
+#capturefor(dose_forms)
+#foreach($part in $dose_form)
+$part.name => $part.alias
+#between
+,
+#end
+#end
+
+	
+	#set($dosing = $postingService.get_taxonomies("dosing"))
+#capturefor(dosings)
+#foreach($part in $dosing)
+$part.name => $part.alias
+#between
+,
+#end
+#end
+	
+	
+	
+	#set($inactive_ingredients = $postingService.get_taxonomies("inactive_ingredients"))
+#capturefor(inactive_ingredientss)
+#foreach($part in $inactive_ingredients)
+$part.name => $part.alias
+#between
+,
+#end
+#end
+	
+	
+	
+	
+	
+	#set($manufacturer = $postingService.get_taxonomies("commercial"))	
+#capturefor(manufacturers)
+#foreach($part in $manufacturer)
+$part.name => $part.alias
+#between
+,
+#end
+#end	
+
+	#set($sra = $postingService.get_taxonomies("sra"))	
+#capturefor(sras)
+#foreach($part in $sra)
+$part.name => $part.alias
+#between
+,
+#end
+#end	
+
+	#set($sra_approval_status = $postingService.get_taxonomies("sra_approval_status"))	
+#capturefor(sra_approval_statuss)
+#foreach($part in $sra_approval_status)
+$part.name => $part.alias
+#between
+,
+#end
+#end	
+
+
+	#* *#
+	#* END *#
+	#* *#
+		
+		
+	<article class="grid col-full">
+	  <form id="entry_form" class="entry_form" action="/center/savedrug.castle" method="post" name="entry_form">
+		<input type="hidden" name="item.baseid" value="$!item.baseid" />
+		<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
+		<article id="navtabs" class="grid col-full">
+		  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Product Data #if($item.new_drug_code)( $!item.new_drug_code )#end </h2>
+		  <hr/>
+		  <div class="">
+			<div class="">
+			
+#* *#
+#* tab1 ------------ *#
+#* *#
+			<article id="tab1" class="">
+				<h3>Regulatory Information</h3>
+					<hr/>
+				#parse("center/types_tabs/drug/tab1.vm")
+				<div style="clear:both;"></div>
+			</article>
+#* *#
+#* tab2 ------------ *#
+#* *#
+			<article id="tab2" class="">
+				<h3>Dosing & Administration</h3>
+					<hr/>
+				#parse("center/types_tabs/drug/tab2.vm")
+				<div style="clear:both;"></div>
+			</article>
+#* *#
+#* tab3 ------------ *#
+#* *#
+			  <article id="tab3" class="">
+				<h3>LMIC Regimen Us</h3>
+					<hr/>
+			  	#parse("center/types_tabs/drug/tab3.vm")
+				<div style="clear:both;"></div>
+			  </article>
+#* *#
+#* tab4 ------------ *#
+#* *#
+			  <article id="tab4" class="">
+				<h3>Clinical Study</h3>
+					<hr/>
+			  	#parse("center/types_tabs/drug/tab4.vm")
+				<div style="clear:both;"></div>
+			  </article>
+			  
+#* *#
+#* tab5 ------------ *#
+#* *#
+			  <article id="tab5" class="">
+				<h3>Market</h3>
+					<hr/>
+			  	#parse("center/types_tabs/drug/tab5.vm")
+				<div style="clear:both;"></div>
+			  </article>
+#* *#
+#* tab6 ------------ *#
+#* *#
+				<article id="tab6" class="">
+					<h3>SRA</h3>
+					<hr/>
+			  		#parse("center/types_tabs/drug/tab6.vm")
+					<div style="clear:both;"></div>
+				</article>
+			</div>
+		  </div>
+		</article>
+		<article class="grid col-full">
+		  <hr/>
+		  <ul class="grid col-one-full mq2-col-full full-input">
+				#parse("center/assests/save_bar.vm")
+		  </ul>
+		  <br/>
+		  <br/>
+		  <hr/>
+		</article>
+		#if(!$skiplayout && !$item.baseid)
+			<h2>Save to add Substances or to Clinicals</h2>
+		#end
+		
+		#if(!$skiplayout && $item.baseid>0)
+		<article class="grid col-full datagrid_area">
+		  <hr/>
+		  <ul class="grid col-one-half mq2-col-full">
+
+			<li>
+				#* substancedata *#
+				#set($typed_list = $item.substances)
+				#parse("center/model_tie_tables/substance.vm")
+			</li>	
+		  </ul>
+		  <ul class="grid col-one-half mq2-col-full">
+			<li>
+				#* Clinicaldata *#
+				#set($typed_list = $item.clinicals)
+				#parse("center/model_tie_tables/clinical.vm")
+			</li>
+		  </ul>
+		</article>
+		#end
+		
+		#if(!$skiplayout && $item.baseid>0)
+			#set($type="drug")
+			#parse("center/ref.vm")
+		#end
+	  </form>
+	</article>

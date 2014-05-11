@@ -1,0 +1,29 @@
+<article class="grid col-full">
+	
+	<h2 id="header_title">References #if(!$skiplayout && !$viewonly)<a href="reference.castle" class="button  xl right"><i class="icon-plus blue" title="Add"></i> New</a>#end</h2>
+	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
+		<thead>
+			<tr>
+				<th width="15%">Name</th>
+				<th>location</th>
+				<th width="20%"></th>
+			</tr>
+		</thead>
+		<tbody>
+		#foreach($item in $items)
+			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.ln_clinical_t" data-baseid="$item.baseid">
+				<td>$!item.name</td>
+				<td><a href="#if($!item.url)$!item.url#else $!item.static_file #end" target="_blank">#if($!item.url)$!item.url#else $!item.static_file #end #if($item.static_file)<i class="icon-download-alt"></i>#else<i class="icon-external-link-sign"></i>#end</a></td>
+				<td>
+					#if($viewonly)
+						<a href="reference.castle?id=$item.baseid" class="button small">View</a>
+					#else
+						#if(!$skiplayout)<a href="reference.castle?id=$item.baseid" class="button small">Edit</a> | <a href="remove_reference.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>#else<a href="#ADD" class="additem button med">Add</a>#end
+					#end
+				</td>
+			</tr>
+		#end
+		</tbody>
+		<tfoot>
+	</table>
+</article>

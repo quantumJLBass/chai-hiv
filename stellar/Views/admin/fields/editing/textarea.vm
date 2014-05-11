@@ -1,0 +1,12 @@
+<div id="field_textarea" #if(${ele.type}!='textarea')style="display:none;" #end  class="default_bed_item">
+    <span>Default Value</span>
+    #set($o=0)
+    #foreach($opt in ${ele.options}) 
+        #if(${opt.val}!='' && $o==0)
+           #set($opValue=$!{opt.val}) 
+        #end
+        #set($o=$o+1)
+    #end
+    <br/>
+    <textarea name="ele.options[0].val" class="opVal">$opValue.Trim()</textarea>
+</div>

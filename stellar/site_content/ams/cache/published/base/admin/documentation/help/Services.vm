@@ -1,0 +1,74 @@
+<style>
+	#dialog label, #dialog input { display:block; }
+	#dialog label { margin-top: 0.5em; }
+	#dialog input, #dialog textarea { width: 95%; }
+	#tabs { margin-top: 1em; }
+	#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+	#add_tab { cursor: pointer; }
+	#shortcodes{height:0px;}
+	#main_content_title{display:inline-block;}
+	.btn.btn-success.fileinput-button,button[type="submit"]{margin-left:5px;display:inline-block;}
+	
+	.content.rev{}
+	.content.rev em{font-size:10px;}
+</style>
+
+
+	$scriptsService.Css("/codemirror/codemirror.css,/codemirror/addon/dialog/dialog.css,/codemirror/theme/neat.css,/codemirror/theme/elegant.css,/codemirror/theme/erlang-dark.css,/codemirror/theme/night.css,/codemirror/theme/monokai.css,/codemirror/theme/cobalt.css,/codemirror/theme/eclipse.css,/codemirror/theme/rubyblue.css,/codemirror/theme/lesser-dark.css,/codemirror/theme/xq-dark.css,/codemirror/theme/ambiance.css,/codemirror/theme/blackboard.css,/codemirror/theme/vibrant-ink.css,/codemirror/theme/solarized.css,/codemirror/theme/twilight.css","admin",false)
+    
+<style type="text/css">
+  .CodeMirror {
+	border: 1px solid #eee;
+	height: auto;
+	max-height:750px;
+  }
+  .CodeMirror-scroll {
+	overflow-y: hidden;
+	overflow-x: auto;
+  }
+   .CodeMirror-foldmarker {
+	color: blue;
+	text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
+	font-family: arial;
+	line-height: .3;
+	cursor: pointer;
+  }
+</style>
+
+		$scriptsService.Js("/admin/codemirror/codemirror.js,/admin/codemirror/addon/runmode/runmode.js,/admin/codemirror/mode/css/css.js,/admin/codemirror/mode/xml/xml.js,/admin/codemirror/mode/javascript/javascript.js,/admin/codemirror/mode/htmlmixed/htmlmixed.js,/admin/codemirror/addon/hint/simple-hint.js,/admin/codemirror/addon/hint/javascript-hint.js,/admin/codemirror/addon/dialog/dialog.js,/admin/codemirror/addon/search/searchcursor.js,/admin/codemirror/addon/search/search.js,/admin/codemirror/addon/fold/foldcode.js",true)
+
+
+<h2>Services</h2>
+<p>The abstraction of this application is meant to only do work when needed.  Sometimes it is not known when something is needed till we are already in the templates.  Although this application fallows an MVC setup, it's impossible and in-flexible to try to have 0 logic with in a template 100% of the time.  Since we have to accept that fact, we can use it to our advantage where, let’s say call for a list of something,  we don't have to take the load of that call till it's absolutely needed.  This may save only 50ms for example, but 50ms x 1000 calls a day is 1 min fast for that one instance over the day.  Make many more of these adjustments and we'll find that not only is there a faster response, but the server cost can be reduced over a length of time, and more importantly, the end user will be happier.</p>
+
+
+<h3>Services available</h3>
+<ul>
+	#set($menuItems = $postingService.get_published_postings("documentation"))
+	#set($baseurl="admin/help.castle")
+	#foreach($item in $menuItems)
+		#if($!item.name.Contains("Service") && $!item.name!="Services")
+		<li>
+			<a  hidefocus="true" href='/$!baseurl?iid=$!{item.baseid}#if($dev)&dev=1#end'><em>$!item.name.Replace("&","&amp;")</em></a>
+		</li>
+		#end
+	#end
+</ul>
+
+<h3>Example</h3>
+<p>An example of using a service is right here on this page.  The Services available list was formed using this same pratice of defered rendering.</p>
+<textarea id="code" style="width:100%;min-height:250px;">
+
+<ul>
+	&#35;set(&#36;menuItems = &#36;postingService.get_published_postings("documentation"))
+	&#35;set(&#36;baseurl="admin/help.castle")
+	&#35;foreach(&#36;item in &#36;menuItems)
+		&#35;if(&#36;!item.name.Contains("Service") && &#36;!item.name!="Services")
+			<li>
+				<a href='/&#36;!baseurl?iid=&#36;!{item.baseid}&#35;if(&#36;dev)&dev=1&#35;end' ><em>&#36;!item.name.Replace("&","&amp;amp;")</em></a>
+			</li>
+		&#35;end
+	&#35;end
+</ul>
+
+</textarea>

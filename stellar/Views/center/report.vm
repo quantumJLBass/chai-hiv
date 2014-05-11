@@ -1,0 +1,46 @@
+<article class="grid col-full">
+	
+	<h2>Results for $htmlService.capitalize(${type})s</h2>
+	
+	#parse("center/report_tables/${type}s.vm")
+
+	
+	<article class="grid col-full full-input query_item">
+		<form action="/center/report.castle" >
+			<h3>Choose output</h3>
+			<ul class="grid col-one-eighth mq2-col-full full-input">
+			  <li> <button type="submit" id="make_export" name="excel" class="button">Excel</button> </li>
+			</ul>
+			<!--<ul class="grid col-one-eighth mq2-col-full full-input">
+			  <li> <button type="submit" id="make_export" name="pdf" class="button">PDF</button> </li>
+			</ul>-->
+			<ul class="grid col-one-eighth mq2-col-full full-input">
+			  <li> <button type="submit" id="make_export" name="csv" class="button">CSV</button> </li>
+			</ul>
+			<ul class="grid col-five-eighth mq2-col-full full-input">
+			  <li></li>
+			</ul>
+		</form>
+	</article>	
+	
+	<article class="grid col-full full-input query_item"><hr/>
+		<h3>Query Ran</h3>
+		<p><em>$!ran_query</em></p>
+		#if(!$saved)
+			<form action="/center/savereport.castle" >
+				<input type="hidden" value="${type}" name="type" />
+				<input type="hidden" value="$!ran_query" name="sql" />
+				
+				<div id="to_save_query">
+					<label style="display: inline-block;">Name: <input type="text" value="" name="query_name"  style="display:inline-block;" placeholder="Give a name to the query" /></label>
+					<button type="submit" id="make_export" name="csv" class="button green" style=" margin-left:10px; display:inline-block;" >Save</button>
+				</div>
+				<a href="#" class="button" id="start_save_query" style="line-height: 3.2em;">Save your query</a>
+				
+			</form>
+		#else
+		 <strong>Note:</strong>This is already a saved query.
+		#end
+	</article>	
+
+</article>

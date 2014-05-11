@@ -1,0 +1,11 @@
+#if($userService.checkPrivleage("make_edits") && !$item.isCheckedOut())
+	<li class="edit_btn">
+	<a href="$siteroot/${controller.getView()}/edit#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}" title="Edit" class=" editIt button small">
+	  <span class="ui-button-icon-primary ui-icon ui-icon-pencil"> </span>
+	  <span class="actionText">Edit</span>
+	  <span class="actionpropt">&#187;</span>
+	</a>
+	</li>
+#end
+
+

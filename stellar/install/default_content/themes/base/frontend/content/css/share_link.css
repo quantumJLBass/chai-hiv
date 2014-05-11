@@ -1,0 +1,21 @@
+/*Add This Drop Down styles*/
+.sharearea{position: relative;}
+.clickshare{padding:0 4px 0 4px;}
+.clickshare.open{background-color:#5e6a71;color:#FFF !important;}
+#toolbar #sharing-menu{text-align:left; width:170px; top:20px; right:0px; position:absolute; z-index: 3;}
+#social-list{ display:none; float:right; background-color:#FFF; width:100%; border:1px solid #5e6a71;}
+#toolbar #social-list ul{ float:none !important;}
+#toolbar #social-list ul li{width:100%;padding: 0;}
+#toolbar #social-list a{color: #5E6A71;}
+#toolbar #social-list ul li a{display:block;font-size:11px;width:100%;padding:2px 0 1px 0;border-bottom:1px #EBEBED dotted;}
+#toolbar #social-list ul li a:hover{color:#FFF;background-color:#5e6a71;}
+#toolbar #social-list ul li span{margin:4px;margin-left:10px;display:block;float:left;}
+#toolbar .mid{text-align:center;}
+#toolbar .mid a { }
+#toolbar .mid a span{display:none;}
+#toolbar .mid a:hover{color: #981E32 !important;}
+/*classes from addthis*/
+#toolbar .at16nc{background-size:11px;height:11px;}
+#toolbar .at16nc.at16t_facebook {background-position:0 -198px;}
+#toolbar .at16nc.at16t_twitter {background-position:0 -616px;}
+#toolbar .at16nc.at16t_email {background-position:0 -187px;}

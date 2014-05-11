@@ -1,0 +1,822 @@
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Services\file_services\mimeTypes.txt
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\stellar.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\stellar.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\stellar.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\AutoMapper.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.ActiveRecord.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Binder.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Common.EmailSender.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Pagination.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Validator.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Core.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Facilities.ActiveRecordIntegration.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Facilities.AutomaticTransactionManagement.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Facilities.Logging.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.MicroKernel.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.MonoRail.ActiveRecordSupport.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.MonoRail.Framework.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.MonoRail.Framework.Views.NVelocity.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.MonoRail.WindsorExtension.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Services.Logging.log4netIntegration.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Services.Transaction.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Windsor.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.Core.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.Core.UI.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.InfoCard.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.InfoCard.UI.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth.Common.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth.ServiceProvider.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.Client.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.Client.UI.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.ClientAuthorization.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.ResourceServer.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.Provider.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.Provider.UI.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.RelyingParty.UI.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.UI.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenIdInfoCard.UI.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenIdOAuth.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\EXIFextractor.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\FastMember.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\HtmlAgilityPack.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Iesi.Collections.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Moxiecode.TinyMCE.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Newtonsoft.Json.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\NHibernate.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Nullables.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Nullables.NHibernate.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\NVelocity.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Omu.ValueInjecter.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\System.Net.Http.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\System.Net.Http.WebRequest.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\NHibernate.ByteCode.Castle.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\NHibernate.Search.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.DynamicProxy2.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Common.TemplateEngine.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.DictionaryAdapter.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Org.Mentalis.Security.Cryptography.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\NHibernate.Linq.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Antlr3.Runtime.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Lucene.Net.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Mono.Math.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\AutoMapper.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.ActiveRecord.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.ActiveRecord.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Binder.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Binder.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Pagination.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Validator.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Validator.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Common.EmailSender.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Core.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Core.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Facilities.ActiveRecordIntegration.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Facilities.ActiveRecordIntegration.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Facilities.AutomaticTransactionManagement.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Facilities.Logging.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.MicroKernel.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.MonoRail.ActiveRecordSupport.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.MonoRail.Framework.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.MonoRail.Framework.Views.NVelocity.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.MonoRail.WindsorExtension.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Services.Logging.log4netIntegration.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Services.Logging.log4netIntegration.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Services.Transaction.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Windsor.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.Core.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.Core.UI.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.InfoCard.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.InfoCard.UI.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth.Common.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth.ServiceProvider.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.Client.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.Client.UI.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.ClientAuthorization.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OAuth2.ResourceServer.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.Provider.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.Provider.UI.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.RelyingParty.UI.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenId.UI.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenIdInfoCard.UI.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\DotNetOpenAuth.OpenIdOAuth.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\FastMember.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\FastMember.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\HtmlAgilityPack.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\HtmlAgilityPack.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Iesi.Collections.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Newtonsoft.Json.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Nullables.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Nullables.NHibernate.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\NVelocity.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Omu.ValueInjecter.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\System.Net.Http.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\System.Net.Http.WebRequest.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\NHibernate.ByteCode.Castle.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.DynamicProxy2.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Common.TemplateEngine.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Common.TemplateEngine.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.pdb
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Castle.Components.DictionaryAdapter.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Org.Mentalis.Security.Cryptography.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\Mono.Math.xml
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\es\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\fr\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\it\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\lt\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\lv\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\mk\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\nl\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\pl\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\pt\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\ru\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\sv\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\pt-BR\Castle.MonoRail.Framework.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\bin\zh-TW\Castle.MonoRail.Framework.resources.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\obj\Debug\stellar.csprojResolveAssemblyReference.cache
+D:\._GIT_\HIV PROJECT\campus_calendar\obj\Debug\stellar.dll
+D:\._GIT_\HIV PROJECT\campus_calendar\obj\Debug\stellar.pdb
+D:\._GIT_\Stellar\stellar\bin\Services\file_services\mimeTypes.txt
+D:\._GIT_\Stellar\stellar\bin\stellar.xml
+D:\._GIT_\Stellar\stellar\bin\stellar.dll
+D:\._GIT_\Stellar\stellar\bin\stellar.pdb
+D:\._GIT_\Stellar\stellar\bin\AutoMapper.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.ActiveRecord.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Binder.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Common.EmailSender.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Pagination.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Validator.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Core.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Facilities.ActiveRecordIntegration.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Facilities.AutomaticTransactionManagement.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Facilities.Logging.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.MicroKernel.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.MonoRail.ActiveRecordSupport.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.MonoRail.Framework.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.MonoRail.Framework.Views.NVelocity.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.MonoRail.WindsorExtension.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Services.Logging.log4netIntegration.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Services.Transaction.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Windsor.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.Core.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.Core.UI.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.InfoCard.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.InfoCard.UI.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth.Common.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth.ServiceProvider.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.Client.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.Client.UI.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.ClientAuthorization.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.ResourceServer.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.Provider.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.Provider.UI.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.UI.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.UI.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenIdInfoCard.UI.dll
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenIdOAuth.dll
+D:\._GIT_\Stellar\stellar\bin\EXIFextractor.dll
+D:\._GIT_\Stellar\stellar\bin\FastMember.dll
+D:\._GIT_\Stellar\stellar\bin\HtmlAgilityPack.dll
+D:\._GIT_\Stellar\stellar\bin\Iesi.Collections.dll
+D:\._GIT_\Stellar\stellar\bin\Moxiecode.TinyMCE.dll
+D:\._GIT_\Stellar\stellar\bin\Newtonsoft.Json.dll
+D:\._GIT_\Stellar\stellar\bin\NHibernate.dll
+D:\._GIT_\Stellar\stellar\bin\Nullables.dll
+D:\._GIT_\Stellar\stellar\bin\Nullables.NHibernate.dll
+D:\._GIT_\Stellar\stellar\bin\NVelocity.dll
+D:\._GIT_\Stellar\stellar\bin\Omu.ValueInjecter.dll
+D:\._GIT_\Stellar\stellar\bin\System.Net.Http.dll
+D:\._GIT_\Stellar\stellar\bin\System.Net.Http.WebRequest.dll
+D:\._GIT_\Stellar\stellar\bin\NHibernate.ByteCode.Castle.dll
+D:\._GIT_\Stellar\stellar\bin\NHibernate.Search.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.DynamicProxy2.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Common.TemplateEngine.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.dll
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.DictionaryAdapter.dll
+D:\._GIT_\Stellar\stellar\bin\Org.Mentalis.Security.Cryptography.dll
+D:\._GIT_\Stellar\stellar\bin\NHibernate.Linq.dll
+D:\._GIT_\Stellar\stellar\bin\Antlr3.Runtime.dll
+D:\._GIT_\Stellar\stellar\bin\Lucene.Net.dll
+D:\._GIT_\Stellar\stellar\bin\Mono.Math.dll
+D:\._GIT_\Stellar\stellar\bin\AutoMapper.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.ActiveRecord.pdb
+D:\._GIT_\Stellar\stellar\bin\Castle.ActiveRecord.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Binder.pdb
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Binder.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Pagination.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Validator.pdb
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Validator.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Common.EmailSender.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Core.pdb
+D:\._GIT_\Stellar\stellar\bin\Castle.Core.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Facilities.ActiveRecordIntegration.pdb
+D:\._GIT_\Stellar\stellar\bin\Castle.Facilities.ActiveRecordIntegration.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Facilities.AutomaticTransactionManagement.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Facilities.Logging.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.MicroKernel.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.MonoRail.ActiveRecordSupport.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.MonoRail.Framework.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.MonoRail.Framework.Views.NVelocity.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.MonoRail.WindsorExtension.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Services.Logging.log4netIntegration.pdb
+D:\._GIT_\Stellar\stellar\bin\Castle.Services.Logging.log4netIntegration.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Services.Transaction.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Windsor.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.Core.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.Core.UI.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.InfoCard.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.InfoCard.UI.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth.Common.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth.ServiceProvider.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.Client.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.Client.UI.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.ClientAuthorization.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OAuth2.ResourceServer.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.Provider.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.Provider.UI.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.UI.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenId.UI.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenIdInfoCard.UI.xml
+D:\._GIT_\Stellar\stellar\bin\DotNetOpenAuth.OpenIdOAuth.xml
+D:\._GIT_\Stellar\stellar\bin\FastMember.pdb
+D:\._GIT_\Stellar\stellar\bin\FastMember.xml
+D:\._GIT_\Stellar\stellar\bin\HtmlAgilityPack.pdb
+D:\._GIT_\Stellar\stellar\bin\HtmlAgilityPack.xml
+D:\._GIT_\Stellar\stellar\bin\Iesi.Collections.xml
+D:\._GIT_\Stellar\stellar\bin\Newtonsoft.Json.xml
+D:\._GIT_\Stellar\stellar\bin\Nullables.xml
+D:\._GIT_\Stellar\stellar\bin\Nullables.NHibernate.xml
+D:\._GIT_\Stellar\stellar\bin\NVelocity.xml
+D:\._GIT_\Stellar\stellar\bin\Omu.ValueInjecter.xml
+D:\._GIT_\Stellar\stellar\bin\System.Net.Http.xml
+D:\._GIT_\Stellar\stellar\bin\System.Net.Http.WebRequest.xml
+D:\._GIT_\Stellar\stellar\bin\NHibernate.ByteCode.Castle.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.DynamicProxy2.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Common.TemplateEngine.pdb
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Common.TemplateEngine.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.pdb
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.xml
+D:\._GIT_\Stellar\stellar\bin\Castle.Components.DictionaryAdapter.xml
+D:\._GIT_\Stellar\stellar\bin\Org.Mentalis.Security.Cryptography.xml
+D:\._GIT_\Stellar\stellar\bin\Mono.Math.xml
+D:\._GIT_\Stellar\stellar\bin\es\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\fr\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\it\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\lt\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\lv\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\mk\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\nl\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\pl\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\pt\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\ru\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\sv\Castle.Components.Validator.resources.dll
+D:\._GIT_\Stellar\stellar\bin\pt-BR\Castle.MonoRail.Framework.resources.dll
+D:\._GIT_\Stellar\stellar\bin\zh-TW\Castle.MonoRail.Framework.resources.dll
+D:\._GIT_\Stellar\stellar\obj\Debug\stellar.csprojResolveAssemblyReference.cache
+D:\._GIT_\Stellar\stellar\obj\Debug\stellar.dll
+D:\._GIT_\Stellar\stellar\obj\Debug\stellar.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Services\file_services\mimeTypes.txt
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\stellar.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\stellar.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\stellar.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\AutoMapper.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.ActiveRecord.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Binder.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Common.EmailSender.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Pagination.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Validator.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Core.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.DynamicProxy.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Facilities.ActiveRecordIntegration.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Facilities.AutomaticTransactionManagement.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Facilities.Logging.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.MicroKernel.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.MonoRail.ActiveRecordSupport.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.MonoRail.Framework.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.MonoRail.Framework.Views.NVelocity.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.MonoRail.WindsorExtension.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Services.Logging.log4netIntegration.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Services.Transaction.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Windsor.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.Core.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.Core.UI.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.InfoCard.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.InfoCard.UI.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth.Common.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth.Consumer.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth.ServiceProvider.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.Client.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.Client.UI.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.ClientAuthorization.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.ResourceServer.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.Provider.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.Provider.UI.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.UI.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.UI.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenIdInfoCard.UI.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenIdOAuth.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\EXIFextractor.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\FastMember.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\HtmlAgilityPack.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Iesi.Collections.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\log4net.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Microsoft.Exchange.WebServices.Auth.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Microsoft.Exchange.WebServices.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\MonoRailHelper.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Moxiecode.TinyMCE.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Newtonsoft.Json.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\NHibernate.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Nullables.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Nullables.NHibernate.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\NVelocity.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Omu.ValueInjecter.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\System.Net.Http.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\System.Net.Http.WebRequest.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\NHibernate.ByteCode.Castle.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\NHibernate.Search.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.DynamicProxy2.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Common.TemplateEngine.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.DictionaryAdapter.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Org.Mentalis.Security.Cryptography.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\NHibernate.Linq.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\CentralCCProcessing.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Recaptcha.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Antlr3.Runtime.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Lucene.Net.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Mono.Math.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\AutoMapper.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.ActiveRecord.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.ActiveRecord.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Binder.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Binder.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Pagination.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Validator.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Validator.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Common.EmailSender.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Core.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Core.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.DynamicProxy.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Facilities.ActiveRecordIntegration.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Facilities.ActiveRecordIntegration.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Facilities.AutomaticTransactionManagement.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Facilities.Logging.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.MicroKernel.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.MonoRail.ActiveRecordSupport.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.MonoRail.Framework.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.MonoRail.Framework.Views.NVelocity.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.MonoRail.WindsorExtension.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Services.Logging.log4netIntegration.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Services.Logging.log4netIntegration.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Services.Transaction.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Windsor.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.Core.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.Core.UI.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.InfoCard.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.InfoCard.UI.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth.Common.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth.Consumer.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth.ServiceProvider.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.Client.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.Client.UI.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.ClientAuthorization.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OAuth2.ResourceServer.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.Provider.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.Provider.UI.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.UI.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenId.UI.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenIdInfoCard.UI.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\DotNetOpenAuth.OpenIdOAuth.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\FastMember.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\FastMember.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\HtmlAgilityPack.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\HtmlAgilityPack.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Iesi.Collections.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\log4net.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Microsoft.Exchange.WebServices.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Microsoft.Exchange.WebServices.Auth.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\MonoRailHelper.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Newtonsoft.Json.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Nullables.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Nullables.NHibernate.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\NVelocity.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Omu.ValueInjecter.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\System.Net.Http.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\System.Net.Http.WebRequest.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\NHibernate.ByteCode.Castle.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.DynamicProxy2.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Common.TemplateEngine.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Common.TemplateEngine.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Castle.Components.DictionaryAdapter.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Org.Mentalis.Security.Cryptography.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\CentralCCProcessing.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Recaptcha.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Mono.Math.xml
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\es\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\fr\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\it\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\lt\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\lv\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\mk\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\nl\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\pl\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\pt\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\ru\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\sv\Castle.Components.Validator.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\pt-BR\Castle.MonoRail.Framework.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\zh-TW\Castle.MonoRail.Framework.resources.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\obj\Debug\stellar.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\obj\Debug\stellar.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\AjaxMin.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\EcmaScript.NET.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\SquishIt.Framework.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\Yahoo.Yui.Compressor.dll
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\AjaxMin.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\bin\SquishIt.Framework.pdb
+D:\._GIT_\Stellar\stellar\bin\AjaxMin.dll
+D:\._GIT_\Stellar\stellar\bin\EcmaScript.NET.dll
+D:\._GIT_\Stellar\stellar\bin\SquishIt.Framework.dll
+D:\._GIT_\Stellar\stellar\bin\Yahoo.Yui.Compressor.dll
+D:\._GIT_\Stellar\stellar\bin\CentralCCProcessing.dll
+D:\._GIT_\Stellar\stellar\bin\Recaptcha.dll
+D:\._GIT_\Stellar\stellar\bin\AjaxMin.pdb
+D:\._GIT_\Stellar\stellar\bin\Microsoft.Exchange.WebServices.xml
+D:\._GIT_\Stellar\stellar\bin\Microsoft.Exchange.WebServices.Auth.xml
+D:\._GIT_\Stellar\stellar\bin\MonoRailHelper.pdb
+D:\._GIT_\Stellar\stellar\bin\SquishIt.Framework.pdb
+D:\._GIT_\Stellar\stellar\bin\CentralCCProcessing.pdb
+D:\._GIT_\Stellar\stellar\bin\Recaptcha.pdb
+C:\_SVN_\campus_calendar\EventManager\stellar\obj\Debug\stellar.csprojResolveAssemblyReference.cache
+D:\._GIT_\HIV PROJECT\stellar\bin\Services\file_services\mimeTypes.txt
+D:\._GIT_\HIV PROJECT\stellar\bin\stellar.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\stellar.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\stellar.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\AjaxMin.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\AutoMapper.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.ActiveRecord.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Binder.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Common.EmailSender.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Pagination.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Validator.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Core.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Facilities.ActiveRecordIntegration.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Facilities.AutomaticTransactionManagement.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Facilities.Logging.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.MicroKernel.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.MonoRail.ActiveRecordSupport.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.MonoRail.Framework.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.MonoRail.Framework.Views.NVelocity.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.MonoRail.WindsorExtension.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Services.Logging.log4netIntegration.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Services.Transaction.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Windsor.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.Core.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.Core.UI.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.InfoCard.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.InfoCard.UI.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.Common.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.ServiceProvider.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.Client.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.Client.UI.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.ClientAuthorization.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.ResourceServer.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.Provider.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.Provider.UI.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.UI.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.UI.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenIdInfoCard.UI.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenIdOAuth.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\EcmaScript.NET.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\EXIFextractor.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\FastMember.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\HtmlAgilityPack.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Iesi.Collections.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\MonoRailHelper.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Moxiecode.TinyMCE.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Newtonsoft.Json.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\NHibernate.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Nullables.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Nullables.NHibernate.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\NVelocity.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Omu.ValueInjecter.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\SquishIt.Framework.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\System.Net.Http.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\System.Net.Http.WebRequest.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Yahoo.Yui.Compressor.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\NHibernate.ByteCode.Castle.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\NHibernate.Search.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.DynamicProxy2.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.DictionaryAdapter.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Org.Mentalis.Security.Cryptography.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Antlr3.Runtime.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Lucene.Net.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Mono.Math.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\AjaxMin.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\AutoMapper.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.ActiveRecord.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.ActiveRecord.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Binder.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Binder.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Pagination.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Validator.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Validator.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Common.EmailSender.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Core.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Core.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Facilities.ActiveRecordIntegration.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Facilities.ActiveRecordIntegration.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Facilities.AutomaticTransactionManagement.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Facilities.Logging.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.MicroKernel.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.MonoRail.ActiveRecordSupport.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.MonoRail.Framework.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.MonoRail.Framework.Views.NVelocity.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.MonoRail.WindsorExtension.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Services.Logging.log4netIntegration.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Services.Logging.log4netIntegration.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Services.Transaction.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Windsor.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.Core.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.Core.UI.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.InfoCard.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.InfoCard.UI.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.Common.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.ServiceProvider.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.Client.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.Client.UI.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.ClientAuthorization.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.ResourceServer.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.Provider.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.Provider.UI.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.UI.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.UI.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenIdInfoCard.UI.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenIdOAuth.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\FastMember.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\FastMember.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\HtmlAgilityPack.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\HtmlAgilityPack.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Iesi.Collections.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\MonoRailHelper.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\Newtonsoft.Json.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Nullables.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Nullables.NHibernate.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\NVelocity.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Omu.ValueInjecter.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\SquishIt.Framework.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\System.Net.Http.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\System.Net.Http.WebRequest.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\NHibernate.ByteCode.Castle.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.DynamicProxy2.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.Components.DictionaryAdapter.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Org.Mentalis.Security.Cryptography.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\Mono.Math.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\es\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\fr\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\it\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\lt\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\lv\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\mk\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\nl\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\pl\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\pt\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\ru\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\sv\Castle.Components.Validator.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\pt-BR\Castle.MonoRail.Framework.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\zh-TW\Castle.MonoRail.Framework.resources.dll
+D:\._GIT_\HIV PROJECT\stellar\obj\Debug\stellar.csprojResolveAssemblyReference.cache
+D:\._GIT_\HIV PROJECT\stellar\obj\Debug\stellar.dll
+D:\._GIT_\HIV PROJECT\stellar\obj\Debug\stellar.pdb
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.DynamicProxy.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.ConnectionInfo.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.ConnectionInfoExtended.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.Management.Sdk.Sfc.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.Smo.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.SmoExtended.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.Types.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\System.Web.Mvc.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\Castle.DynamicProxy.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\System.Web.Mvc.xml
+D:\._GIT_\HIV PROJECT\stellar\bin\log4net.dll
+D:\._GIT_\HIV PROJECT\stellar\bin\log4net.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Services\file_services\mimeTypes.txt
+E:\_REPO_\HIV PROJECT\stellar\bin\stellar.dll.config
+E:\_REPO_\HIV PROJECT\stellar\bin\stellar.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\stellar.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\stellar.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\AjaxMin.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\AutoMapper.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.ActiveRecord.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Binder.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Pagination.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Validator.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Core.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Facilities.ActiveRecordIntegration.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Facilities.AutomaticTransactionManagement.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Facilities.Logging.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.MicroKernel.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.MonoRail.ActiveRecordSupport.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.MonoRail.Framework.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.MonoRail.Framework.Views.NVelocity.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.MonoRail.WindsorExtension.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Services.Logging.log4netIntegration.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Services.Transaction.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Windsor.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.Core.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.Core.UI.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.InfoCard.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.InfoCard.UI.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.Common.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.Consumer.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.ServiceProvider.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.Client.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.Client.UI.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.ClientAuthorization.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.ResourceServer.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.Provider.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.Provider.UI.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.UI.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.UI.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenIdInfoCard.UI.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenIdOAuth.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\EcmaScript.NET.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\EXIFextractor.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\FastMember.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\HtmlAgilityPack.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Iesi.Collections.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\log4net.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.ConnectionInfo.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.ConnectionInfoExtended.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.Management.Sdk.Sfc.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.Smo.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.SmoExtended.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Microsoft.SqlServer.Types.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Moxiecode.TinyMCE.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Newtonsoft.Json.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\NHibernate.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\NVelocity.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Omu.ValueInjecter.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\SquishIt.Framework.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\System.Net.Http.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\System.Net.Http.WebRequest.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\System.Web.Mvc.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Yahoo.Yui.Compressor.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\NHibernate.ByteCode.Castle.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\NHibernate.Search.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.DynamicProxy2.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.DictionaryAdapter.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Org.Mentalis.Security.Cryptography.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Antlr3.Runtime.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Lucene.Net.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\Mono.Math.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\AjaxMin.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\AutoMapper.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.ActiveRecord.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.ActiveRecord.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Binder.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Binder.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Pagination.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Validator.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Validator.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Common.EmailSender.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Core.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Core.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.DynamicProxy.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Facilities.ActiveRecordIntegration.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Facilities.ActiveRecordIntegration.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Facilities.AutomaticTransactionManagement.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Facilities.Logging.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.MicroKernel.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.MonoRail.ActiveRecordSupport.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.MonoRail.Framework.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.MonoRail.Framework.Views.NVelocity.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.MonoRail.WindsorExtension.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Services.Logging.log4netIntegration.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Services.Logging.log4netIntegration.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Services.Transaction.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Windsor.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.Core.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.Core.UI.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.InfoCard.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.InfoCard.UI.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.Common.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.Consumer.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth.ServiceProvider.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.Client.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.Client.UI.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.ClientAuthorization.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OAuth2.ResourceServer.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.Provider.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.Provider.UI.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.RelyingParty.UI.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenId.UI.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenIdInfoCard.UI.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\DotNetOpenAuth.OpenIdOAuth.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\FastMember.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\FastMember.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\HtmlAgilityPack.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\HtmlAgilityPack.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Iesi.Collections.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\log4net.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\MonoRailHelper.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\Newtonsoft.Json.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Nullables.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Nullables.NHibernate.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\NVelocity.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Omu.ValueInjecter.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\SquishIt.Framework.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\System.Net.Http.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\System.Net.Http.WebRequest.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\System.Web.Mvc.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\NHibernate.ByteCode.Castle.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.DynamicProxy2.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.pdb
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.Common.TemplateEngine.NVelocityTemplateEngine.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Castle.Components.DictionaryAdapter.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Org.Mentalis.Security.Cryptography.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\Mono.Math.xml
+E:\_REPO_\HIV PROJECT\stellar\bin\es\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\fr\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\it\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\lt\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\lv\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\mk\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\nl\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\pl\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\pt\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\ru\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\sv\Castle.Components.Validator.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\pt-BR\Castle.MonoRail.Framework.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\bin\zh-TW\Castle.MonoRail.Framework.resources.dll
+E:\_REPO_\HIV PROJECT\stellar\obj\Debug\stellar.csprojResolveAssemblyReference.cache
+E:\_REPO_\HIV PROJECT\stellar\obj\Debug\stellar.dll
+E:\_REPO_\HIV PROJECT\stellar\obj\Debug\stellar.pdb

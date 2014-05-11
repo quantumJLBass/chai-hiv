@@ -1,0 +1,54 @@
+
+#*
+*   name:Central nav
+*	alias:main
+*	theme:
+*   version:1
+*   revision:0
+*   owner:jeremy.bass
+*   discription: This is the comtentblock
+*#
+
+
+
+
+
+#set($baseClass="parent")
+#set($subULClass="")
+#set($subNarrowClass="subNarrow")
+#set($subClass="")
+#set($lastLevel = 0 )
+#set($c=0)
+<ul id='mob' >
+	<li id="mob_li">
+		<a id='mob_link'>Nav</a>
+		<em></em>
+		<ul id='main_nav'>
+			#foreach($item in $menuItems)
+				#* $velocityCount  *#
+			
+				#set($Lev=${item.position})
+				#if($Lev > $lastLevel)
+					#set($val=${Lev}-${lastLevel})
+					$htmlService.repeat_str("<div class='parentarea'><ul>",$val)
+				#elseif( $Lev < $lastLevel )
+					#set($val=${lastLevel}-${Lev})
+					$htmlService.repeat_str("</li></ul></div>",$val)
+					</li>
+				#elseif( $Lev > 1 )
+					</li>
+				#end
+				<li class='depth_${item.position} #if($item.position==1)$baseClass#elseif($item.position>1)$subClass#end' >
+					<a  hidefocus="true" href='$item.url()' #if($item.position==1) class='parentalLink' #end $item.target()>$item.name()</a>
+					#set($lastLevel=${item.position})
+			#end
+			#set($end = 2 )
+				#set($val=${lastLevel}-${end})
+				$htmlService.repeat_str("</li></ul></div>",$val)
+			</li>
+		</ul>
+	</li>
+</ul>
+
+
+

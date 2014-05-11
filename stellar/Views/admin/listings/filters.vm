@@ -1,0 +1,27 @@
+<div id="${controller.getView()}TypeDiv" style="float: right; color:#000; height:45px;">
+	#if(${controller.getView()}=="page")
+		<form action="post/posting_list.castle?post_type=page" id="placeSearch" style="float:left;margin-right:7px;margin-top:12px">
+			<lable for="by_name_id"><span></span><input id="by_name_id" type="text" value="" placeholder="Place name or id" name="filter"/><input type="submit" class="submit" value="placeSearching" style=" background: none repeat scroll 0 0 transparent;border: medium none;display: inline-block;font-size: 0;height: 24px;line-height: 24px;margin: 0;padding: 0;position: absolute;right: 0;top: 0;"/></lable>
+		</form>
+	#end
+	<span style="display:block; float: right; width: 125px;">
+		Categories:<br/>
+		<select id="list${controller.getView()}Type" class="fliterList">
+			<option value="-2" #if($searchId == -2) selected="selected" #end>Your ${controller.getView()}</option>
+		
+			<option value="-3" #if($searchId == -3) selected="selected" #end>Your Sections</option>
+			
+			<option value="-1" #if($searchId == -1) selected="selected" #end>All</option>
+			#foreach($cat in $listcats)
+				<option value="$cat.id" #if($searchId == $cat.id) selected="selected" #end>$HtmlService.repeatStr("- ",$cat.level)$cat.name</option>
+			#end
+		</select>
+	</span>
+	#if($userService.checkPrivleage("modify_core_objects"))
+		<span style="display:block; float: right; width: 110px;">
+			Core visiblity:<br/>
+			<input type="checkbox" value="true" id="show_core" name="show_core" #if($show_core) checked="checked" #end /><strong>show items</strong>
+		</span>
+	#end
+<br style="clear:both"/>
+</div>

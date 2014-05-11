@@ -1,0 +1,164 @@
+<h3>Authorized User List</h3>
+<p>
+  <a href="new_user.castle" class="creation button">
+    <span class="icon-plus inlineIcon"></span>New User
+  </a>
+</p>
+
+<fieldset style="width:45%;float:right;">
+
+	#set($Pagination_location='top')
+	#set($target = "feu")
+    #set($list_items = $FEusers)
+	#parse("admin/listings/areas/pagination.vm")
+    
+
+    #set ($c=0)
+    #capturefor(block)
+        #foreach($item in $FEusers)
+            <tr #if($c%2>0) class="even" #else class="odd" #end>
+              <td>$!item.baseid</td>
+              <td>$!item.nid</td>
+              <td>
+                $!item.groups.name
+              </td>
+              <td>
+               #if($userService.get_defaultContactProfile($item).email)<a href="mailto:$userService.get_defaultContactProfile($item).email">$userService.get_defaultContactProfile($item).email</a> #else -- #end
+              </td>
+              <td class='actionArea'>
+                <span style='font-size:0.7em;'>
+                  <a href="edit_user.castle?id=$!{item.baseid}" title="Edit" class="button med pull-left">
+                    <span class="icon-edit"></span>
+                  </a>
+                  <a href="delete_user.castle?id=$!{item.baseid}" title="Delete" class="button med crimson pull-right">
+                    <span class="icon-trash"></span>
+                  </a>
+                </span>
+              </td>
+            </tr>
+            #set ($c=$c+1)
+        #end
+    #end
+
+	<legend><h3>Frontend Users</h3></legend>
+    #if($c>0)
+     <label style="float:right;">Filter by 
+        <select id="user.groups" name="user.groups.baseid"  class="" style="width:205px;">
+                <optgroup class="admin" label="Choose Frontend user Group">
+                	<option value="" class="parent_op">All</option>
+                    #foreach($G in $groups)
+                        #if(!$G.isAdmin)
+                            #if(!$G.parent)
+                                <option value="$G.baseid" class="parent_op">$G.name</option>
+                                #if($G.children)
+                                    #foreach($child in $G.children)
+                                        <option value="$child.baseid" class="child_op">$child.name</option>
+                                    #end  
+                                #end  
+        
+                            #end
+                        #end
+                    #end
+                </optgroup>
+        </select>
+    </label>
+        <table  width="100%" class="ui-widget ui-widget-content">
+          <thead>
+            <tr class="ui-widget-header ">
+            <th>Id</th>
+            <th>Network ID</th>
+            <th>Group</th>
+            <th>Email</th>
+            <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+			$block
+          </tbody>
+        </table>
+    #else
+    	<h3>Currently there is no users</h3>
+    #end
+</fieldset>
+#**#
+
+<fieldset style="">
+
+	#set($Pagination_location='top')
+	#set($target = "admin")
+    #set($list_items = $admin_users)
+	#parse("admin/listings/areas/pagination.vm")
+    
+
+    #set ($c=0)
+    #capturefor(block)
+        #foreach($item in $admin_users)
+            <tr #if($c%2>0) class="even" #else class="odd" #end>
+              <td>$!item.baseid</td>
+              <td>$!item.nid</td>
+              <td>
+                $!item.groups.name
+              </td>
+              <td>
+               #if($userService.get_defaultContactProfile($item).email)<a href="mailto:$userService.get_defaultContactProfile($item).email">$userService.get_defaultContactProfile($item).email</a> #else -- #end
+              </td>
+              <td class='actionArea'>
+                <span style='font-size:0.7em;'>
+                  <a href="edit_user.castle?id=$!{item.baseid}" title="Edit" class="button med pull-left">
+                    <span class="icon-edit"></span>
+                  </a>
+                  <a href="delete_user.castle?id=$!{item.baseid}" title="Delete" class="button med crimson pull-right">
+                    <span class="icon-trash"></span>
+                  </a>
+                </span>
+              </td>
+            </tr>
+            #set ($c=$c+1)
+        #end
+    #end
+    
+    
+	<legend><h3>Admin Users</h3></legend>
+    #if($c>0)
+     <label style="float:right;">Filter by 
+        <select id="user.groups" name="user.groups.baseid"  class="" style="width:205px;">
+                <optgroup class="admin" label="Choose Admin User Group">
+                	<option value="" class="parent_op">All</option>
+                    #foreach($G in $groups)
+                        #if($G.isAdmin)
+                            #if(!$G.parent)
+                                <option value="$G.baseid" class="parent_op">$G.name</option>
+                                #if($G.children)
+                                    #foreach($child in $G.children)
+                                        <option value="$child.baseid" class="child_op">$child.name</option>
+                                    #end  
+                                #end  
+        
+                            #end
+                        #end
+                    #end
+                </optgroup>
+        </select>
+    </label>
+        <table  width="100%" class="ui-widget ui-widget-content">
+          <thead>
+            <tr class="ui-widget-header ">
+            <th>Id</th>
+            <th>Network ID</th>
+            <th>Group</th>
+            <th>Email</th>
+            <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            $block
+          </tbody>
+        </table>
+    #else
+    	<h3>Currently there is no users</h3>
+    #end
+</fieldset>
+
+
+
+

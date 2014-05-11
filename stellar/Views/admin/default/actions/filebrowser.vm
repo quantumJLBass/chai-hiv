@@ -1,0 +1,15 @@
+		<!-- jQuery and jQuery UI (REQUIRED)
+		<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/smoothness/jquery-ui.css">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+ 
+		<link rel="stylesheet" type="text/css" media="screen" href="/test_fileBrowser/css/elfinder.min.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="/test_fileBrowser/css/theme.css">-->
+<!--
+		<script type="text/javascript" src="/test_fileBrowser/js/elfinder.min.js"></script>
+		<script type="text/javascript" src="/test_fileBrowser/js/init.js"></script>-->
+<h2>File Browser</h2>
+<div style="font-size:18px;">
+    <div id="elfinder">
+    </div>
+</div>

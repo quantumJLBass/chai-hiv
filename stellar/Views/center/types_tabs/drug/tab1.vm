@@ -1,0 +1,85 @@
+<ul class="grid col-one-half mq2-col-full full-input">
+	<li>
+		<ul>
+		#* lab_code *#
+			<li>
+				#capturefor(value)
+#foreach($part in $item.substances)
+$!part.lab_code
+#between
+,
+#end
+#end
+#if($value.Trim()!="")
+	#set($labcode=$value.Trim())
+#else
+	#set($PH="No Substance codes provided yet")
+#end
+				#feild_textinput("$type" "lab_code" $!labcode "" $!PH "" "disabled")
+				<input type="hidden" name="item.lab_code" value="$!labcode" />
+			</li>
+		
+		#* common_name_or_abbreviation *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!{item.common_name_or_abbreviation})
+				#feild_textinput("$type" "common_name_or_abbreviation" $daval "Colloquial name / abbreviation" "" "" "")
+			</li>
+		
+		#* brand_name *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.brand_name)
+				#feild_selectinput($type "brand_name" $daval $!brand_names  "" "taxed" "")
+			</li>				  
+		#* new_drug_code *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.new_drug_code)
+				#feild_textinput("$type" "new_drug_code" $daval "" "" "" "")
+			</li>				  
+		</ul>
+		<ul>			  
+		#* approved_for *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.approved_for)
+				#feild_selectinput($type "approved_for" $daval $!approved_fors  "" "taxed" "")
+			</li>
+		</ul>
+  </li>
+</ul>
+<ul class="grid col-one-half mq2-col-full full-input">
+	<li>
+		<fieldset class="grid col-one-full mq2-col-full full-input" style="border:1px solid #ccc"><legend style="border-bottom:1px solid #494949">Companies</legend>
+			<ul>
+		#* manufacturer *#
+			<li data-type_id="$manufacturer_type_id">
+				#set($daval ="")
+				#set($daval = $!item.manufacturer)
+				#feild_selectinput($type "manufacturer" $daval $!manufacturers "" "taxed" " rel='commercial' ")
+			</li>	
+		#* commercial_company *#
+			<li data-type_id="$manufacturer_type_id">
+				#set($daval ="")
+				#set($daval = $!{item.commercial_company})
+				#feild_selectinput($type "commercial_company" $daval $!manufacturers "" "taxed" " rel='commercial' ")
+			</li>				  
+		#* innovator_company *#
+			<li data-type_id="$manufacturer_type_id">
+				#set($daval ="")
+				#set($daval = $!item.innovator_company)
+				#feild_selectinput($type "innovator_company" $daval $!manufacturers "" "taxed" " rel='commercial' ")
+			</li>
+		  </ul>
+		</fieldset>
+	</li>
+
+
+#* investigational *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.investigational)
+		#feild_selectinput($type "investigational" $daval "Yes,No,TBD" "" "" "")
+	</li>				  
+</ul>

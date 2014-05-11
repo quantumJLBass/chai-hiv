@@ -1,0 +1,18 @@
+<ul class="grid col-one-half mq2-col-full full-input">		
+#* resistance *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.resistance)
+		#feild_textinput("$type" "resistance" $daval "" "(Time +/- SD to resistance)" "" "")
+	</li>
+</ul>	
+<ul class="grid col-one-half mq2-col-full full-input">	
+#* genetic_mutation *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.genetic_mutation)
+		#feild_textinput("$type" "genetic_mutation" $daval "" "(Time +/- SD to resistance)" "" "")
+	</li>
+</ul>	
+			  
+			  

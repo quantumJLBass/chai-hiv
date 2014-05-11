@@ -1,0 +1,66 @@
+
+#if($Flash.error)
+<p style="color: red; font-weight: bold;">
+    $Flash.error
+</p>
+#end
+
+<form action="_update_${action}.castle" method="post">
+  <input type="hidden" value="$!itmes.id" name="${action}.id" />
+  <h3>${action}</h3>
+  <p>Display Name:<br/>
+      <input type="text" value="$!itmes.name" name="${action}.name" id="type_name" class="ui-widget ui-widget-content ui-corner-all w500" />
+  </p>
+  <p>Url:<br/>
+		<input type="text" value="$!itmes.url" name="${action}.url" id="type_url" class="ui-widget ui-widget-content ui-corner-all w500" /><br/>
+		<span id="url">http://map.wsu.edu<span>$!itmes.url</span></span>
+		<br/>
+		#set($mess="This is how you will get to and central style maps for each campus.")
+		#parse("admin/noted.vm")
+  </p>
+  <p>city:<br/>
+      <input type="text" value="$!itmes.city" name="${action}.city" id="type_city" class="ui-widget ui-widget-content ui-corner-all w250" />
+  </p>
+  <p>state:<br/>
+      <input type="text" value="$!itmes.state" name="${action}.state" id="type_state" class="ui-widget ui-widget-content ui-corner-all w100" />
+  </p>  
+   <p>state_abbrev:<br/>
+      <input type="text" value="$!itmes.state_abbrev" name="${action}.state_abbrev" id="type_state_abbrev" class="ui-widget ui-widget-content ui-corner-all w100" />
+  </p>   
+   <p>zipcode:<br/>
+      <input type="text" value="$!itmes.zipcode" name="${action}.zipcode" id="type_zipcode" class="ui-widget ui-widget-content ui-corner-all w100" />
+  </p> 
+   <p>latitude:<br/>
+      <input type="text" value="$!itmes.latitude" name="${action}.latitude" id="type_latitude" class="ui-widget ui-widget-content ui-corner-all w150" />
+  </p> 
+   <p>longitude:<br/>
+      <input type="text" value="$!itmes.longitude" name="${action}.longitude" id="type_longitude" class="ui-widget ui-widget-content ui-corner-all w150" />
+  </p> 
+
+	<fieldset style="display:inline-block; float:left;margin-right:13px;width:205px;" role="place">
+		<legend><h3 style="padding: 0px; margin: 0px;"><span>Place</span>s</h3></legend>
+		<div class="listPicker ui-widget-content ui-corner-top">	
+			<ol id="places" class="sortable">
+				#set($c=0)
+				#foreach($place in $!itmes.Places)
+					<li  id="list_${c}" class="ini">
+						<div style="padding: 1px;">
+							$!place.prime_name
+						</div>	
+					</li>
+					#set($c=$c+1)
+				#end
+				#if($c==0)
+					<li class="ini"><div><h5>Currently there are no places under this campus</h5</div></li>
+				#end
+			</ol>		
+		</div>	
+	</fieldset> 
+  
+  
+  
+  
+  
+  
+  <p style="clear:both;"><input type="submit" value="Submit" /></p>
+</form>

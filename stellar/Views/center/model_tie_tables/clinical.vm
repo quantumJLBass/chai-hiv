@@ -1,0 +1,36 @@
+<label for="Clinicaldata">Clinical Trials/Studies:</label>
+<table cellpadding="0" cellspacing="0" border="0" class="display  datagrid" id="Clinicaldata" width="100%">
+	<thead>
+		<tr>
+			<th width="15%">ID</th>
+			<th>Name</th>
+			<th>Drug</th>
+			<th width="20%">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	
+	#foreach($part in  $typed_list)
+		<tr class="#if($velocityCount%2<1)even #else odd #end rec_$!part.ln_clinical_t" data-baseid="$part.baseid">
+			<td>
+				<input type="hidden" name="item.clinicals[$velocityCount].baseid" value="$part.baseid" class="list_item drug_item"/>
+				$!part.baseid
+			</td>
+			<td>$!part.name</td>
+			<td>
+				#if($!part.drugs.Count>0)$!taxonomyService.get_taxonomy($!part.drugs.get_item(0).brand_name).name#else Not set#end
+			</td>
+			<td>
+				#if($viewonly) #else
+					<a href="clinical.castle?id=$part.baseid" class="button small inline_edit" data-type="clinical"><i class="icon-edit" title="Edit"></i></a> | 
+					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
+				#end
+			</td>
+		</tr>
+	#end
+	</tbody>
+	<tfoot></tfoot>
+</table>
+#if($viewonly) #else
+	<a href="#" class="button add_to_list" data-type="clinical"><i class="icon-plus blue" title="Add"></i> Add Trial</a>
+#end

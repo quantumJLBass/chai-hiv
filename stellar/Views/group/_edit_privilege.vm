@@ -1,0 +1,18 @@
+#if($privilege.baseid>0 && !$privilege.editable) $Controller.RedirectToAction("list_groups") #end
+<br/>
+<form action="update_privilege.castle" method="post">
+	$Form.HiddenField("privilege.baseid")
+	<input type="hidden" value="1" name="privilege.editable"/>
+	<h3>Create a privilege</h3>
+	<h6><em>These are used to give groups of users access to parts of the system.</em></h6>
+	<h4>Name:</h4>
+	 <input type="text" value="#if($Flash.item)$Flash.item.name#else$!privilege.name#end" name="privilege.name" id="type_name" class="ui-widget ui-widget-content ui-corner-all " />	
+	<h6>(<em><strong>NOTE:</strong>This is the friendly name.</em>)</h6>
+	<hr style="max-width:33%;display: inline-block;width:100%;"/>
+	<h4>Alias:</h4>
+	 <input type="text" value="#if($Flash.item)$Flash.item.alias#else$!privilege.alias#end" name="privilege.alias" id="type_name" class="ui-widget ui-widget-content ui-corner-all " />
+
+	<h6>(<em><strong>NOTE:</strong>This is the Alias name that is used by the system.</em>)</h6>
+	
+	<p><input type="submit" value="Submit" /></p>
+</form>

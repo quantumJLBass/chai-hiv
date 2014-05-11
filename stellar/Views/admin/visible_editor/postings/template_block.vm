@@ -1,0 +1,25 @@
+#if($item.post_type.use_layout_templates || $item.post_type.use_layout_templates)
+    <h3  class="switch">Layout<em>( + )</em></h3>
+    <div class="tabed">
+    <hr/>
+        #if($item.post_type.use_layout_templates)
+            <h4>Posting Template:</h4>  
+            <select name="item.postparents[]" class="userSelect">
+                <option class="" value="">-select-</option>
+                #foreach($template in $posting_templates)
+                    <option value="$template.baseid" #if($item.get_template_obj("posting_template")==$template) selected="selected" #end>$!template.name</option>
+                #end
+            </select>
+        #end
+        #if($item.post_type.use_layout_templates)
+            <h4>Layout Template:</h4>
+            <select name="item.postparents[]" class="userSelect">
+                <option class="" value="">-select-</option>
+                #foreach($template in $layout_templates)
+                    <option value="$template.baseid" #if($item.get_template_obj("layout_template")==$template) selected="selected" #end>$!template.name</option>
+                #end
+            </select>
+        #end
+    </div>
+    <hr/>
+ #end

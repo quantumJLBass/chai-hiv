@@ -1,0 +1,35 @@
+<div id="_Listing" class="tabedArea tabactive" >
+	#parse("/admin/listings/filters.vm")
+	<div class="listTitle">Connections</div>
+	
+    <br style="clear:both;"/>
+    <div style="position:relative;" >
+        <h2>Master Of</h2><a href="$siteroot/admin/edit_master_connection.castle" class="button" style="display:inline-block;float:left;margin-top:6px;">
+    	<span class="ui-icon ui-icon-plusthick inlineIcon"></span>Add Master Connection
+	</a>
+        <ul class="editablelistUL list_1">
+            #foreach($item in $slaves)
+                <li class="ui-widget-content ui-corner-all item_$!item.id con">
+                    #parse("admin/listings/grid-item.vm")
+                </li>
+            #end
+        </ul>
+        #set($Pagination_location='bottom')
+        #parse("listing_parts/areas/pagination.vm")
+        <div class="clear"></div>
+        <hr/>
+        <h2>Slave To</h2><a href="$siteroot/admin/edit_slave_connection.castle" class="button" style="display:inline-block;float:left;margin-top:6px;">
+    	<span class="ui-icon ui-icon-plusthick inlineIcon"></span>Create Slave Connection
+	</a>
+        <ul class="editablelistUL list_1">
+            #foreach($item in $masters)
+                <li class="ui-widget-content ui-corner-all item_$!item.id con">
+                    #parse("admin/listings/grid-item.vm")
+                </li>
+            #end
+        </ul>
+        #set($Pagination_location='bottom')
+        #parse("listing_parts/areas/pagination.vm")
+        <div class="clear"></div>
+    </div>	
+</div>

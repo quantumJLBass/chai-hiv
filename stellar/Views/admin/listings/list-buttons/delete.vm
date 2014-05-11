@@ -1,0 +1,3 @@
+#if($userService.checkPrivleage("make_edits") && !$item.editing && $item.is_deletable && $item.owner.baseid == $userService.getUser().baseid)
+<a href="$siteroot/${controller.getView()}/delete#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}" class="delete" > <i class="icon-trash crimson"></i> Delete  |</a>
+#end

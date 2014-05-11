@@ -1,0 +1,74 @@
+<form action="update_location.castle" method="post">
+	$Form.HiddenField("location.id")
+	
+	<h3 style="margin-top:0px;margin-bottom:0px;">Create a location</h3>
+	<h6 style="margin-top:0px;"><em>Note: The point of a place it to tell the user where.  It's not required but strongly requimended</em></h6>
+	
+    
+    <label for="campus"><strong>Name:</strong></label>&nbsp;
+	<input type="text" value="$!location.name" name="location.name" id="name" class="ui-widget ui-widget-content ui-corner-all " />	
+    #set($mess="You may resize the map thru the by simply draging the corner of the map to the size you wish to see")
+    #parse("admin/noted.vm")
+<hr/>
+	<hr/>
+
+    <label for="campus"><strong>Address:</strong></label>&nbsp;
+	<input type="text" value="$!location.address" name="location.address" id="address" class="ui-widget ui-widget-content ui-corner-all " />	
+	<hr/>
+    <label for="campus"><strong>Address 2:</strong></label>&nbsp;
+	<input type="text" value="$!location.address_2" name="location.address_2" id="address_2" class="ui-widget ui-widget-content ui-corner-all " />	
+	<hr/>
+    
+    <label for="campus"><strong>city:</strong></label>&nbsp;
+	<input type="text" value="$!location.city" name="location.city" id="city" class="ui-widget ui-widget-content ui-corner-all w150" />	
+    
+	<label for="campus"><strong>state:</strong></label>&nbsp;
+	<input type="text" value="$!location.state" name="location.state" id="state" class="ui-widget ui-widget-content ui-corner-all w50" />	
+    
+    <label for="campus"><strong>zip:</strong></label>&nbsp;
+	<input type="text" value="$!location.zip" name="location.zip" id="zip" class="ui-widget ui-widget-content ui-corner-all w100" />	
+ <br/>
+ 	<label for="onMap"><a href="#onMap"><strong>On Map:</strong></a></label>&nbsp;
+    <div class="sudoHide">
+        <div id="onMap">
+        	<h3 style="margin-top:0px;margin-bottom:0px;">On the map</h3>
+			<h6 style="margin-top:0px;"><em>Note: The point of a place it to tell the user where.  It's not required but strongly requimended</em></h6>
+            <div id="cbn_map" style="width:100%;height:250px;"></div>
+            <div class="ui-widget-content ui-corner-bottom" style="padding:5px 15px;">
+                <div id="data_display">
+                    <label><strong>Latitude:<font color="#ff0000" face="Arial" size="2">*</font></strong></label>
+                            <input type="text" name="location.latitude" id="latitude" value="$!location.latitude" class="text ui-widget-content ui-corner-all w100" />
+                    
+                    <label><strong>Longitude:<font color="#ff0000" face="Arial" size="2">*</font></strong></label>
+                            <input type="text" name="location.longitude" id="longitude" value="!location.longitude" class="text ui-widget-content ui-corner-all w100" />
+                    
+                </div>
+                <br style="clear:both;"/>
+                #set($mess="You may simply drage the point on the map around to adjust the location.")
+                #parse("admin/noted.vm")
+            </div>
+        </div>
+    </div>
+	 <hr/>
+    <label for="campus"><strong>Campus:</strong></label>&nbsp;
+    <select name="location.campus" id="commentable">
+        #foreach($campus in $campuses)
+            <option class="type" value="$campus.id" #if($location.campus == $campus) selected="selected" #end>$!campus.name</option>
+        #end
+    </select>
+    #set($mess="This is to note if the event is tied to a campus by location")
+    #parse("admin/noted.vm")
+    <hr/>
+    
+    <label for="directions"><strong>directions:</strong></label>&nbsp;
+    #set($mess="Althou there will be a map where avialble not eveyone will pick up on how to get to your location.  Since it's best to accomodate all points of view it's a great idea to give writen directions.  IE: i have a confrence and most eveyone will be coming from the airport so I'll provide directions from that location.")
+    #parse("admin/noted.vm")
+    <br/>
+	<textarea name="location.directions" id="directions" class="ui-widget ui-widget-content ui-corner-all w500">$!location.directions</textarea>
+
+    
+    
+    
+    
+	<p><input type="submit" value="Submit" /></p>
+</form>

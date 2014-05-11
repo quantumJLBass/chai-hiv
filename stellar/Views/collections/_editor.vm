@@ -1,0 +1,811 @@
+#if($place.id!=0)
+
+
+
+#capturefor(admin_js)<script type="text/javascript">
+  var user_count =#if($place.Authors.Count)$place.Authors.Count #else 0 #end + 2;
+  var tag_count = #if($place.Tags.Count)$place.Tags.Count #else 0 #end + 2;
+  var image_count = #if($place.Images.Count)$place.Images.Count #else 0 #end  + 2;
+</script>
+
+<script type="text/javascript">
+
+
+  var availablecredits = [$credits];
+
+  var availableTags = [$!locations];
+  #* set up images*#
+  #set($availableImages='')
+  #capturefor(availableImages)
+  #foreach ($image in $place.Images)
+  #each
+  {id:"${Image.id}",name:"${Image.FileName}",url:"/media/download.castle?id=${Image.id}&placeid=${place.id}&m=crop&w=250&h=250&pre=TMP"}
+  #between
+  ,
+  #end
+  #end
+  #* EOF set up  *#
+
+  var tinyMCEImageList = new Array($!availableImages);
+
+  var place_id=$place.id;
+</script>
+#end
+
+
+
+#capturefor(formbuttons)
+    <input type="submit" value="Cancel" name="cancel" style="float:right"  class="cancel_btn ui-button ui-widget ui-state-default ui-corner-all"/>
+    <input type="submit" value="#if($place.id!=0) Apply #else Save #end" name="apply" style="float:right" title="#if($place.id!=0)Apply #else Save #end and Return" class="ui-button ui-widget ui-state-default ui-corner-all" />
+    <input type="submit" value="Submit" style="float:right" class="submit_btn ui-button ui-widget ui-state-default ui-corner-all" />
+#end
+
+
+
+
+
+#if($Flash.error)
+	<p style="color: red; font-weight: bold;">
+		$Flash.error
+	</p>
+#end
+#if($place.id)
+	#*<a href="$siteroot/Pdf/new.castle" class="PDF creation button small">
+		<span class="ui-icon ui-icon-plusthick inlineIcon"></span>Create a Print Version
+	</a>
+	#if($place.id!=0)<a href="$siteroot/read/${place.CustomUrl}" style="height:33px" target="_blank" title="View" class="PDF creation button small">
+		<span class="ui-icon ui-icon-search"  style="margin-top: 3px;"> </span>
+	</a>#end*#
+#end
+
+
+
+#if( !$ajaxed )
+	<div id="smaple_area" style="position:absolute; z-index:9; background-color:#fff; right:15px; top:65px;">
+		<fieldset id='stellar'><legend>Sample</legend>
+			<!--<div id="map_canvas" style="width:300px;height: 520px;"></div>-->
+			<div id="place_drawing_map" style="width:425px;height: 520px;"></div>
+		</fieldset>
+	</div>
+#end
+
+
+
+
+<div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all place_new">
+  <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+    <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active">
+      <a href="#tabs_Basic">Basic</a>
+    </li>
+    <li class="ui-state-default ui-corner-top">
+      <a href="#tabs_Text">Text</a>
+    </li>
+    <li class="ui-state-default ui-corner-top">
+      <a href="#tabs_Detail">Detail</a>
+    </li>
+     #if(${user_fields.count}>0||${fields.count}>0)<li class="ui-state-default ui-corner-top">
+      <a href="#tabs_FIELDS">Fields</a>
+    </li>   #end
+    <li class="ui-state-default ui-corner-top">
+      <a href="#tabs_IMAGES">Images</a>
+    </li>
+    #if($comments.TotalItems&&$comments.TotalItems!=0)<li class="ui-state-default ui-corner-top">
+      <a href="#tabs_COMMENTS">Comments</a>
+    </li>#end
+  </ul>
+  
+<form action="update.castle" method="post" id="editor_form">
+
+  <div id="tabs_Basic" class="mainAreaTabs">
+		$formbuttons
+		<p class="validateTips">All form fields are required.</p>
+        $Form.HiddenField("place.id")
+		#if( $place.id==0 || $place.tmp)
+			<input type="hidden" name="forced_tmp" value="1" />
+		#end
+		<fieldset style="min-width:455px;">
+		
+		
+<fieldset><legend>Naming</legend>
+                <span style="float:left;display:inline-block;"><label for="place.prime_name">Preferred Map Name</label><br/>
+                <input type="text" name="place.prime_name" id="name" value="$!place.prime_name" class="text ui-widget-content ui-corner-all"  size="50" maxlength="1025"/></span>
+                <span style="float:left;display:inline-block;"><label for="place.abbrev_name">Bldg Abbrev</label><br/>
+                <input type="text" name="place.abbrev_name" id="Abbrev" value="$!place.abbrev_name" class="text ui-widget-content ui-corner-all" /></span><br/><br/><br/>
+                
+                #capturefor(nameblock)
+					#set($c=0)
+					#foreach($altname in $place_names)
+					<span class="pod name">
+						<input type="hidden" name="place_names[$c].id" value="$altname.id"/>
+						<a href="#" title="Delete option" class="deleteOption ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float:left;"><span class="ui-icon ui-icon-trash"></span></a>
+						<span>Type:</span>
+						<select id="LocationModelSelect" name="place_names[$c].label.id"  class="" >
+							#set($pt=$altname.label.id)
+							#foreach($pTypes in $place_name_types)
+								<option class="model" value="$pTypes.id" #if($pt == $pTypes.id) selected="selected" #end> $!pTypes.type</option>
+							#end
+						</select>
+						<br/><span>Name:</span>
+						<input type="text" id="place_names_$c" name="place_names[$c].name" value="$altname.name"  class="text ui-widget-content ui-corner-all"/><br/>
+						#set($c=$c+1)
+						</span>
+					#end  
+				#end
+                
+                
+                
+                
+                <fieldset style="clear:left;"><legend id="customName"><label>Custom Naming</label> (<span id="nameCount">$c</span> name#if($c==0||$c>1)s#end) <em>+</em></legend>
+					<div id="customNames">
+						<div id="names" class="podContainer">
+							$nameblock
+						</div>
+						
+						<a href="#" id="PlaceNameCreate" class=" creation button small">
+							<span class="ui-icon ui-icon-plusthick inlineIcon"></span>Add name
+						</a>
+						<div id="name_clonebed" class="clonebed">         
+							<span class="pod name">    
+								<input type="hidden" name="||place_names[9999].id" value=""/>
+								<a href="#" title="Delete option" class="deleteOption ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float:left;"><span class="ui-icon ui-icon-trash"></span></a>
+								<span>Type:</span>
+								<select id="LocationModelSelect" name="||place_names[9999].label.id"  class="" >
+									#foreach($pTypes in $place_name_types)
+										<option class="model" value="$pTypes.id">$!pTypes.type</option>
+									#end
+								</select>
+								<br/><span>Name:</span>
+								<input type="text" name="||place_names[9999].name" value=""  class="text ui-widget-content ui-corner-all"/><br/>
+							</span>
+						</div>
+					</div>
+				</fieldset>
+			</fieldset>
+		
+		
+			<fieldset style="width:44%;float:right;"><legend>Address Options</legend>
+					<div class="col2 w100"  style="display:inline-block;">
+						<label for="street_address">Address</label><br/>
+						<input type="text" name="place.address" id="place_address" value="$!place.address" class="text ui-widget-content ui-corner-all w100"/>
+					</div>
+					<div class="col2 w200"  style="display:inline-block;">
+						<label for="street_address">Street</label><br/>
+						<input type="text" name="place.street" id="place_street" value="$!place.street" class="text ui-widget-content ui-corner-all w300"/>
+					</div>	
+					<hr/>
+					<label style="font-size:10px;"><input type="checkbox" value="" id="revGoeLookup" />Reverse geolookup address? <br/><em style="font-size:8px;">(temperarly gets address from map as you drag marker, or sets marker to address typed)</em></label>		
+					<hr/>	
+					#if($place.campus.zipcode)<br/><label for="place.plus_four_code">Plus Four Code</label><br/>
+					<span id="zcode">$place.campus.zipcode</span> - 
+					<input type="text" name="place.plus_four_code" id="place_plus_four_code" value="$!place.plus_four_code" class="text ui-widget-content ui-corner-all w50" />
+					<br/>#end
+					
+					<div class="col2"  style="display:inline-block;">
+						<label for="place.campus"><strong>Campus</strong></label><br/>
+						<select id="place_campus" class="autoselect" name="place.campus.id">
+							<option value="">Select one...</option>
+							#foreach($campus in $campuses)
+								<option class="type" value="$campus.id" #if($place.campus == $campus) selected="selected" #end>$!campus.name</option>
+							#end
+						</select>
+					</div>
+			</fieldset>
+		
+
+		
+            <fieldset style="width:44%;float:left;"><legend>Location</legend>
+				<div class="container" style="width:100%;">
+					<label for="LocationModelSelect"><strong>Location Model</strong></label><br/>
+					<select id="LocationModelSelect" name="place.model.id"  class="autoselect">
+						<option value="">Select one...</option>
+						#foreach($model in $models)
+							<option class="model" value="$model.id" #if($place.model.id == $model.id) selected="selected" #end>$!model.name</option>
+						#end
+					</select>
+					<br/>
+					
+					<fieldset style="position:relative;"><a href="#" title="Set Latitude/Longitude" id="setLatLong" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="position: absolute; right: 5px; top: 5px;"><span class="ui-icon ui-icon-pin-s"></span></a>
+						<div class="col2"  style="">	
+							<label for="Lat"><strong>Latitude</strong></label><br/>
+							<input type="text" name="Length" id="Lat" value="$!lat" class="text ui-widget-content ui-corner-all" />
+						</div><br/> 
+						<div class="col2"  style="">
+
+							<label for="Long"><strong>Longitude</strong></label><br/>
+							<input type="text" name="LongLength" id="Long" value="$!long" class="text ui-widget-content ui-corner-all" />
+						</div>
+						<fieldset id="estimated_places" style="display:none;"><legend>Places At or Near this point</legend>
+						<div id="local_place_names"></div>
+						</fieldset>
+					</fieldset>
+                </div>  
+            </fieldset>
+           
+
+			
+            <fieldset style="width:44%;float:left;" class="switch"><legend><a href="#" id="cat" class="active">Categories</a>/<a href="#" id="types">Types</a></legend>
+				<div class="container cat active" style="width:100%;">
+					<label for="LocationModelSelect"><strong>Choose the Categories:</strong></label><br/>
+					<select id="LocationModelSelect" name="place.categories[]"  class="" multiple="multiple" size="9" style="width:205px;">
+						#foreach($cat in $categories)
+							<option class="model" value="$cat.id" #if($place.categories.Contains($cat)) selected="selected" #end > $HtmlService.repeatStr("- ",$cat.level) $!cat.name</option>
+						#end
+					</select>
+                </div>  
+				<div class="container types" style="width:100%;">
+				<label for="LocationTypeSelect"><strong>Location Type</strong></label><br/>
+					<select id="LocationTypeSelect" name="place.place_types[]"  class="" multiple="multiple" size="9" style="width:205px;">
+						#foreach($type in $types)
+							<option class="type" value="$type.id" #if($place.place_types.Contains($type)) selected="selected" #end>$!type.friendly</option>
+						#end
+					</select>
+                </div>
+				<h6><em>Use Ctrl/Option + click to select or deselect items in the lists.</em></h6>
+            </fieldset>
+	</fieldset>
+	
+<fieldset style="min-width:455px;"><fieldset><legend>WSU Properties</legend>
+
+				<div class="col2"  style="display:inline-block; float:left;margin-right:13px;">
+					<label for="place.college" style="font-size:13px;"><strong>College</strong></label><br/>
+					<select id="place.college" name="place.college[]"  class="" multiple="multiple" size="9" style="width:205px;">
+						#foreach($college in $colleges)
+							<option class="model" value="$college.id" #if($place.college.Contains($college)) selected="selected" #end >$!college.name</option>
+						#end
+					</select>
+				</div>
+				<div class="col2" style="display:inline-block; float:left;margin-right:13px;">
+					<label for="place.school" style="font-size:13px;"><strong>School</strong></label><br/>
+					<select id="place.school" name="place.school[]"  class="" multiple="multiple" size="9" style="width:205px;">
+						#foreach($school in $schools)
+							<option class="model" value="$school.id" #if($place.school.Contains($school)) selected="selected" #end >$!school.name</option>
+						#end
+					</select>
+				</div>
+				<div  style="display:inline-block; float:left;margin-right:13px;">
+					<label for="place.department" style="font-size:13px;"><strong>Academic Departments</strong></label><br/>
+					<select id="place.department" name="place.department[]"  class="" multiple="multiple" size="9" style="width:205px;">
+						#foreach($department in $departments)
+							<option class="model" value="$department.id" #if($place.department.Contains($department)) selected="selected" #end >$!department.name</option>
+						#end
+					</select>
+				</div>
+				<div  style="display:inline-block; float:left;margin-right:9px;">
+					<label for="place.admindepartment" style="font-size:13px;"><strong>Administrative Departments</strong></label><br/>
+					<select id="place.admindepartment" name="place.admindepartment[]"  class="" multiple="multiple" size="9" style="width:205px;">
+						#foreach($admindepartment in $admindepartments)
+							<option class="model" value="$admindepartment.id" #if($place.admindepartment.Contains($admindepartment)) selected="selected" #end >$!admindepartment.name</option>
+						#end
+					</select>
+				</div>				
+				<div  style="display:inline-block; float:left;margin-right:13px;">
+					<label for="place.program" style="font-size:13px;"><strong>Programs</strong></label><br/>
+					<select id="place.program" name="place.program[]"  class="" multiple="multiple" size="9" style="width:205px;">
+						#foreach($program in $programs)
+							<option class="model" value="$program.id" #if($place.program.Contains($program)) selected="selected" #end >$!program.name</option>
+						#end
+					</select>
+				</div>
+            </fieldset>	
+	
+            
+			<fieldset><legend>Geometrics</legend>
+                <label for="name">Geometric Object to repersent this place.</label><br/>
+				<select name="place.geometrics[]" id="placeShape">   
+					<option class="geometric" value="" >Select an optional shape.</option> 
+					#foreach($geo in $geometrics)
+						<option class="geometric" value="$geo.id" #if($place.geometrics.Contains($geo)) selected="selected" #end>$!geo.name</option>
+					#end
+				</select>
+            </fieldset>    
+			
+             
+
+
+
+     $formbuttons
+    <div class="clear"></div>
+  </div>
+  <div id="tabs_Text" class="mainAreaTabs">
+$formbuttons
+
+	<style>
+	#dialog label, #dialog input { display:block; }
+	#dialog label { margin-top: 0.5em; }
+	#dialog input, #dialog textarea { width: 95%; }
+	#tabs { margin-top: 1em; }
+	#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+	#add_tab { cursor: pointer; }
+	</style>
+
+
+
+<div id="infotabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+$formbuttons
+
+
+			<h3>Summary :</h3>
+			#*$Form.TextArea("place.summary")*#
+			<textarea id="place_summary" name="place.summary"  class="tinyEditor">$!place.summary</textarea>
+						<br/>
+			<hr/>
+			<h3>Short codes <a href="#" title="show" id="shortcode">+</a></h3>
+<div id="shortcodes">
+
+	#foreach($short_code in $short_codes)
+		$short_code<br/>
+	#end
+	
+</div>
+<h6><em>When using the short codes, adding the ! mark between the $ and { ( ie: &#36;!{notes_comments} ) will let the code retrun nothing if there is a value is unset.</em></h6>
+			<br/>
+			<hr/>
+			<h3 style="display:inline-block;">Info Window Title:</h3><input type="text" value="$!place.infoTitle" placeholder="Title to show at top of each tab" name="place.infoTitle" style="width:50%;" id="infoTitle"/><label>Hide:<select name="place.hideTitles" >
+				<option class="user" value="true" #if(${place.hideTitles}) selected="selected" #end>Yes</option>
+				<option class="user" value="false" #if(!${place.hideTitles}) selected="selected" #end>No</option>
+			</select></label>
+			<h6><em>Shows up on all tabs of the info window; leaving this blank will default to the Primary Name of the place.  If it’s wished to only show a title on one tab, click the hide checkbox while using the wysiwyg with an H2 tag to do so.</em></h6>
+			<br/>
+			<hr/>
+			#*<h3 style="display:inline-block;">Auto apply Accessibility Tab:</h3><label>Enable: <select name="place.autoAccessibility" >
+				<option class="user" value="true" #if(${place.autoAccessibility}) selected="selected" #end>Yes</option>
+				<option class="user" value="false" #if(!${place.autoAccessibility}) selected="selected" #end>No</option>
+			</select></label>
+			<h6><em>By using the Auto Accessibility feature, a default template is used to display all feilds defined.  You can always use the short codes and disableing this to design your own tab layout.</em></h6>
+			<hr/>*#
+			<br/>
+			<button id="add_tab" style="float: right; margin:5px;">Add Tab</button>
+			<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+				<li class="ui-state-default ui-corner-top nonsort"><a href="#tab_overview">Overview</a></li>
+				#set($T = 0)
+				#foreach($tab in $tabs)
+					#if($tab.title=="Views" && $tab.content=="")
+						#if($placeimages.count>0)
+							<li class="ui-state-default ui-corner-top">
+								<a href="#dyno_tabs_$T" hideFocus='true'>$tab.title</a>
+								<input type="hidden" name="tabs[$T].id" value="$!tab.id" id='tab_id_${T}'/>
+								<input type="hidden" name="tabs[$T].title" value="$!tab.title" id='tab_title_${T}'/> 
+								<input type='hidden' name='tabs[$T].template.id' value='$!tab.template.id'  class='sort' id='tab_template_id_${T}'/>
+								<input type='hidden' name='tabs[$T].sort' value='$!tab.sort'  class='sort' id='tab_counter${T}'/>
+							</li>
+						#end
+					#else
+						#if($tab.title=="Views")
+							#if($placeimages.count>0)
+								<li class="ui-state-default ui-corner-top">
+									<a href="#dyno_tabs_$T" hideFocus='true'>$tab.title</a>
+									<input type="hidden" name="tabs[$T].id" value="$!tab.id" id='tab_id_${T}'/>
+									<input type="hidden" name="tabs[$T].title" value="$!tab.title" id='tab_title_${T}'/> 
+									<input type='hidden' name='tabs[$T].template.id' value='$!tab.template.id'  class='sort' id='tab_template_id_${T}'/>
+									<input type='hidden' name='tabs[$T].sort' value='$!tab.sort'  class='sort' id='tab_counter${T}'/>
+								</li>
+							#end
+						#else
+							<li class="ui-state-default ui-corner-top">
+								<a href="#dyno_tabs_$T" hideFocus='true'>$tab.title</a>
+								<input type="hidden" name="tabs[$T].id" value="$!tab.id" id='tab_id_${T}'/>
+								<input type="hidden" name="tabs[$T].title" value="$!tab.title" id='tab_title_${T}'/> 
+								<input type='hidden' name='tabs[$T].template.id' value='$!tab.template.id'  class='sort' id='tab_template_id_${T}'/>
+								<input type='hidden' name='tabs[$T].sort' value='$!tab.sort'  class='sort' id='tab_counter${T}'/>
+								#if($tab.title!="Views")
+									<span class='ui-icon ui-icon-close'>Remove Tab</span>
+									<span class="edit ui-icon ui-icon-pencil"></span>
+								#end
+							</li>
+						#end
+					#end
+					#set($T = $T+1)
+				#end
+			</ul>
+			<div id="tab_overview">
+				<h3>Details:</h3>
+				<textarea id="place_details" name="place.details"  class="tinyEditor full">$!place.details</textarea>
+			</div>
+			#set($T = 0)
+			#foreach($tab in $tabs) 
+				<div id="dyno_tabs_$T">
+					#if($tab.title=="Views" && $tab.content=="")
+						#if($placeimages.count>0)
+							<img class="infotabTemplate" src="../Content/images/gallery_placeholder.png"  id='viewTab' width="297" height="201" />
+							<input type="hidden" id='tab_$T' name="tabs[$T].content" value="<img class='infotabTemplate' src='../Content/images/gallery_placeholder.png'  id='viewTab' width='297' height='201' />" />
+						#end
+					#else
+						#if($tab.title=="Views")
+							#if($placeimages.count>0)
+								<img class="infotabTemplate" src="../Content/images/gallery_placeholder.png"  id='viewTab' width="297" height="201" />
+							<input type="hidden" id='tab_$T' name="tabs[$T].content" value="<img class='infotabTemplate' src='../Content/images/gallery_placeholder.png'  id='viewTab' width='297' height='201' />" />
+							#end
+						#else
+							<textarea id='tab_$T' class='tinyEditor full dyno_tabs'  name="tabs[$T].content">$!tab.content</textarea>
+						#end
+					#end
+				</div>
+				#set($T = $T+1)
+			#end
+		</div>
+		$formbuttons
+    <div class="clear"></div>
+  </div>
+  
+  
+  <div id="tabs_Detail" class="mainAreaTabs">
+$formbuttons <div class="clear"></div>
+
+	<fieldset><legend>Tags: </legend>     
+		<div class="sub_tabs ui-tabs ui-widget ui-widget-content ui-corner-all place_new">
+			<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+				<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active">
+				  <a href="#Tags">Main</a>
+				</li>
+				<li class="ui-state-default ui-corner-top">
+				  <a href="#UTags">User added</a>
+				</li>
+			</ul>
+			<div id="Tags">
+                <div id="taged" class="podContainer">		
+					#set($T = 0)
+					#foreach($tag in $place.tags) 
+						<span class="pod tags">
+							<input type="hidden" name="tags[$T].id" value="$!tag.id" /> 
+							<label for="place_tags_$T" class="editable" rel="placetags">$!tag.name</label>
+							<input id"place_tags_$T" class="tags editzone text ui-widget-content ui-corner-all" size="50" name="tags[$T].name" value="$!tag.name"/><a href="#" title="Delete option" class="deleteOption ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float:left;"><span class="ui-icon ui-icon-trash"></span></a>
+							#set($T = $T+1)
+						<br/></span>
+					#end
+					#if($T==0)Don't for get that adding tags help the search pick up a place#end
+				</div>
+				<a href="#" id="PlaceTagCreate" class=" creation button small">
+					<span class="ui-icon ui-icon-plusthick inlineIcon"></span>Add Tag
+				</a>		
+				
+				
+				<a href="#" id="massTagging" class=" creation button small">
+					<span class="ui-icon ui-icon-plusthick inlineIcon"></span>Add Tags in mass
+				</a>		
+				<div id="massTaggingarea" style="display: none;">
+				<h6><em>Use this to add a bunch of tags at in lieu of one at a time (CSV)</em></h6>
+				<textarea name="massTag[]"></textarea>
+				</div>
+				
+						
+				<div id="tag_clonebed" class="clonebed">         
+					<span class="pod tags">    
+						<input type="hidden" name="||tags[9999].id" value="" /> 
+						<label for="place_tags_9999" class="editable" rel="placetags">**New Tag**</label>
+						<input id"place_tags_9999" class="tags editzone text ui-widget-content ui-corner-all" size="50" name="||tags[9999].name" value=""/><a href="#" title="Delete option" class="deleteOption ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float:left;"><span class="ui-icon ui-icon-trash"></span></a>
+					<br/></span>
+                </div>
+				
+			</div>
+			<div id="UTags">
+				#set($T = 0)
+				#foreach($tag in $place.usertags) 
+					<input type="hidden" name="place.usertags[$T].id" value="" /> 
+					<input class="tags text ui-widget-content ui-corner-all" size="50" name="place.usertags[$T].name" value="$!tag.name"/>
+					#set($T = $T+1)
+				#between
+					<hr/>
+				#end
+				#if($T==0)There are no user added tags.  Try promoting the place to get it out there.#end
+			</div>
+		</div>
+	</fieldset> 
+ 	#if($userService.checkPrivleage("can_publish"))
+		<div id="StatusDiv">
+		  <h3 style="display:inline-block;">Place Status:</h3>
+		  $Form.Select("place.status.id", $statuslists, "%{value='id', text='title'}")
+		  <h6><em>Changing this will tell whether or not the public can see this place in a map view.</em></h6>
+		</div>
+		<hr/>
+	#end
+	
+		<div id="publicDiv">
+		  <h3 style="display:inline-block;">Public:</h3>
+			<select name="place.isPublic" >
+				<option class="user" value="true" #if(${place.isPublic}) selected="selected" #end>Yes</option>
+				<option class="user" value="false" #if(!${place.isPublic}) selected="selected" #end>No</option>
+			</select>
+		  <h6><em>Changing this will tell whether or not the public can see this place in a map view <strong>even thou it's published</strong> ie: Internal to WSU only.</em></h6>
+		</div>
+		<hr/>
+	
+	
+    <div id="AuthorDiv">
+      <h3>Authors</h3>
+      <h6><em>Select or create new user (if one isn't already created)</em></h6>
+      #set($count = 0)
+      #set($id = 0)
+      #foreach($placeuser in $placeusers)
+      <div id="div$placeuser.id">
+        <select name="Authors[$!count].id" id="user$placeuser" class="userSelect">
+          <option class="" value="">-select-</option>
+          #foreach($user in $users)
+          <option class="user" value="$user.id" #if($placeuser == $user) selected="selected" #end>$!user.Name</option>
+          #set($id = $placeuser.id)
+          #end
+        </select>
+
+        #if($id!=0)
+        <a title="$id" rel="$place.id"  style="cursor:pointer;display: inline-block;" class="deleteAuthor ui-state-error ui-corner-all">
+          <span class="ui-icon ui-icon-trash"></span>
+        </a>
+        #end
+        <div class="lightLine"></div>
+      </div>
+      #set($count = $count + 1)
+      #end
+
+	#*
+		<select name="users[$!count].id" id="user">
+			<option class="" value="">-select-</option>
+			#foreach($user in $users)
+			<option class="user" value="$user.id" #if($placeuser == $user) selected="selected" #end>$!user.Name</option>
+			#end
+		</select>
+	*#
+
+
+      <div class="lightLine"></div>
+      <input type="hidden" id="NextAuthorID" name="NextAuthorID" value="$my_var"/>
+
+      <div id="NewAuthorHolderDiv"></div>
+    </div>
+
+    <a style="cursor:pointer;" onclick="AddAuthor()">+ add additional users</a>
+    
+    $formbuttons
+    <div class="clear"></div>
+  <br/>
+    
+  </div>
+  
+#if(${user_fields.count}>0||${fields.count}>0)<div id="tabs_FIELDS" class="mainAreaTabs">
+	$formbuttons <div class="clear"></div>
+        <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" style="display: block; width: auto;"><h2>Place fields: </h2>
+
+			#foreach($field in $user_fields)          
+				$field
+			#between
+			<hr/>
+			#end
+			<div style="position:absolute;top:-9999em;left-9999em;">
+				#foreach($field in $fields)          
+					$field
+				#end
+			</div>
+			
+			
+        </div> 
+    $formbuttons
+    <div class="clear"></div>
+  <br/>    
+</div>
+  #end
+    <div id="tabs_IMAGES" class="mainAreaTabs">
+$formbuttons     
+        <div id="ImageDiv">
+            <h3>Place Images</h3>
+        
+            <a href="#" class="insotryupload buttons">Upload Images</a>
+            
+			 
+           
+		   <h6><strong>Note:</strong><em>The first image in the list is the main image.  Any layout that calls the Main image will be calling this first image.  To make another image be the main image, simply drag the desired image before the first.</em></h6>
+		   <span id="img_layout_choice" class="grid"></span><br/>
+            <div id="browserBox" class="ui-corner-all grid">
+                #foreach($placeimage in $placeimages)
+                    #if($placeimage.id!=0)
+                    
+                        <span class="imageBox">
+							<input type="hidden" name="images[$!{placeimage.id}].id" value="$!{placeimage.id}" class="placeImages"/>
+                            <img src="/media/download.castle?id=${placeimage.id}&placeid=${place.id}&m=crop&w=175&h=175&pre=borwser" class="previewImg" width="175" height="175"/>
+                            <a title="$placeimage.id" rel="$place.id" style="cursor:pointer;display: inline-block;" class="DeleteImage ui-state-error ui-corner-all">
+                                <span class="ui-icon ui-icon-trash"></span>
+                            </a>
+                            <span class="imgInfo">
+                              <span><label>Caption:</label><input type="text" value="$!{placeimage.caption}" name="images[$!{placeimage.id}].Caption" class=""/></span>
+                              <span><label>Credit:</label><input type="text" value="$!{placeimage.credit}" name="images[$!{placeimage.id}].Credit" class="placeCredit"/></span>
+                              <span><label>Order:</label>
+                              <input type="hidden" value="$!{placeimage.PlaceImages.get_Item(0).id}" name="PlaceImages[$!{placeimage.id}].id" class=""/>
+                              <input type="text" value="$!{placeimage.PlaceImages.get_Item(0).placeOrder}" name="PlaceImages[$!{placeimage.id}].placeOrder" class="placeOrder"/>
+                              <input type="hidden" value="$!{placeimage.id}" name="PlaceImages[$!{placeimage.id}].Image.id" class="placeOrderId"/>
+                              </span>
+                            </span>
+                        </span>
+                    #end
+                #end
+                <div class="clearings" style="clear:both;"></div>
+            </div>
+            $formbuttons
+    <div class="clear"></div>
+        </div>
+    </div>
+</form>
+  #if($comments.TotalItems&&$comments.TotalItems!=0)
+  <div id="tabs_COMMENTS" class="mainAreaTabs">
+
+
+    <h3>Comment List</h3>
+
+    <table width="100%" border="0" style="float:right;margin-right:5px;margin-top:7px;">
+      <tr>
+        <td>Showing $comments.FirstItem - $comments.LastItem of $comments.TotalItems</td>
+        <td align="right">
+          #if($comments.HasPrevious) $PaginationHelper.CreatePageLink( 1, "first" )
+          | $PaginationHelper.CreatePageLink( $comments.PreviousIndex, "prev" ) #end
+          #if($comments.HasNext) | $PaginationHelper.CreatePageLink( $comments.NextIndex, "next" )
+          | $PaginationHelper.CreatePageLink( $comments.LastIndex, "last" ) #end
+        </td>
+      </tr>
+    </table>
+    <table  width="100%" class="ui-widget ui-widget-content">
+      <thead>
+        <tr class="ui-widget-header ">
+          <th>Place</th>
+          <th>Comments</th>
+          <th>Flagged</th>
+          <th>Published</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        #set ($c=0)
+        #foreach($comment in $comments)
+        <tr class="#if($c%2>0) even #else odd #end #if($comment.adminRead==false) ui-state-highlight #end ">
+          <td>$!comment.Place.id</td>
+          <td>$Text.Fold($HtmlService.StripHtml($!comment.Comments,false),100)</td>
+          <td #if($comment.Flagged==true) class="ui-state-error" #end>$!comment.Flagged</td>
+          <td>$!comment.published</td>
+          <td class='actionArea'>
+
+            <span style='font-size:0.7em;'>
+              <a href="../comment/edit.castle?id=$!{comment.id}" title="Edit" class="button small">
+                <span class="ui-icon ui-icon-pencil"></span>
+              </a>
+              <a href="../comment/delete.castle?id=$!{comment.id}" title="Delete" class="button small">
+                <span class="ui-icon ui-icon-trash"></span>
+              </a>
+            </span>
+          </td>
+        </tr>
+        #set ($c=$c+1)
+        #end
+      </tbody>
+    </table>
+    <table width="100%" border="0" >
+      <tr>
+        <td>Showing $comments.FirstItem - $comments.LastItem of $comments.TotalItems</td>
+        <td align="right">
+          #if($comments.HasPrevious) $PaginationHelper.CreatePageLink( 1, "first" )
+          | $PaginationHelper.CreatePageLink( $comments.PreviousIndex, "prev" ) #end
+          #if($comments.HasNext) | $PaginationHelper.CreatePageLink( $comments.NextIndex, "next" )
+          | $PaginationHelper.CreatePageLink( $comments.LastIndex, "last" ) #end
+        </td>
+      </tr>
+    </table>
+  </div>
+  #end
+
+
+</div>
+
+
+
+
+	
+	#if( !$ajaxed )
+		<div style="position:absolute;top:-9999em;left:-9999em; z-index: 1;">
+			<div class="ui-widget ui-widget-content ui-corner-left" >
+			  <div id="searchwell"></div>
+			</div>
+			
+			<div id="mapSearch">
+				<h3>Search types</h3>
+				<h4>Geo coded</h4>
+				<input type="text" value="" id="searchbox"  />
+				<h4>places</h4>
+				<input id="searchTextField" type="text" size="50" placeholder="Anything you want!" />
+				<div>
+					<h4>local search</h4>
+					<input type="text" id="queryInput" value="pullman" style="width: 250px;"/>
+					<input type="button" value="Find" onclick="doSearch()"/>
+				</div>
+			</div>
+		</div>
+	#end
+
+	<div id="page_dialog">
+		<form id="taber" name="">
+			<fieldset class="ui-helper-reset">
+				<label for="tab_title">Title</label>
+				<input type="text" name="tab_title" id="tab_title" value="" class="ui-widget-content ui-corner-all" />
+				<label for="tab_content">Content</label>
+				<textarea name="tab_content" id="tab_content" class="ui-widget-content ui-corner-all"></textarea>
+			</fieldset>
+		</form>
+	</div>
+#else
+
+	#capturefor(formbuttons)
+		<input type="submit" value="Cancel" name="cancel" style="float:right"  class="cancel_btn ui-button ui-widget ui-state-default ui-corner-all"/>
+		<input type="submit" value="#if($place.id!=0) Apply #else Save #end" name="apply" style="float:right" title="#if($place.id!=0)Apply #else Save #end and Return" class="ui-button ui-widget ui-state-default ui-corner-all" />
+	#end
+
+	<form action="update.castle" method="post" id="editor_form">
+			$formbuttons
+			<p class="validateTips">*Form fields are required.</p>
+			$Form.HiddenField("place.id")
+			<input type="hidden" name="forced_tmp" value="1" />
+			<fieldset>
+			<fieldset style="width:44%;"><legend>Location</legend>
+	
+					<span style="float:left;display:inline-block;"><label for="place.prime_name">Preferred Map Name *</label><br/>
+					<input type="text" name="place.prime_name" id="name" value="$!place.prime_name" class="text ui-widget-content ui-corner-all"  size="50" maxlength="1025"/></span>
+					<br/><br/><br/>
+	
+					<div class="container" style="width:100%;">
+						<label for="LocationModelSelect"><strong>Location Model *</strong></label><br/>
+						<select id="LocationModelSelect" name="place.model.id"  class="autoselect">
+							<option value="">Select one...</option>
+							#foreach($model in $models)
+								<option class="model" value="$model.id" #if($model.name == "Building") selected="selected" #end>$!model.name</option>
+							#end
+						</select>#*
+						<input type="text"  value="2" name="place.model.id" />*#
+						<br/>
+						<label for="LocationTypeSelect"><strong>Location Type</strong></label><br/>
+						<select id="LocationTypeSelect" name="place.type.id"  class="autoselect">
+							<option value="">Select one...</option>
+							#foreach($type in $types)
+								<option class="type" value="$type.id" #if($place.type.id == $type.id) selected="selected" #end>$!type.name</option>
+							#end
+						</select>
+					</div>  
+				</fieldset>
+			
+			
+			
+			<fieldset style="width:44%;"><legend>Address Options</legend>		
+					<label for="place.campus"><strong>Campus *</strong></label><br/>
+					<select id="place.campus" class="autoselect" name="place.campus.id">
+						<option value="">Select one...</option>
+						#foreach($campus in $campuses)
+							<option class="type" value="$campus.id" #if($campus.name == 'Pullman') selected="selected" #end>$!campus.name</option>
+						#end
+					</select><br/>
+					<label for="place.college"><strong>College</strong></label><br/>
+					<select id="place.college" class="autoselect" name="place.college.id">
+						<option value="">Select one...</option>
+						#foreach($college in $colleges)
+							<option class="type" value="$college.id" #if($place.college == $college) selected="selected" #end>$!college.name</option>
+						#end
+					</select><br/>
+					<label for="place.school"><strong>School</strong></label><br/>
+					<select id="place.school" class="autoselect" name="place.school.id">
+						<option value="">Select one...</option>
+						#foreach($school in $schools)
+							<option class="type" value="$school.id" #if($place.school == $school) selected="selected" #end>$!school.name</option>
+						#end
+					</select><br/>
+					<label for="place.department"><strong>Departments</strong></label><br/>
+					<select id="place.department" class="autoselect" name="place.department.id">
+						<option value="">Select one...</option>
+						#foreach($department in $departments)
+							<option class="type" value="$department.id" #if($place.department == $department) selected="selected" #end>$!department.name</option>
+						#end
+					</select><br/>
+					<label for="place.program"><strong>Programs</strong></label><br/>
+					<select id="place.program" class="autoselect" name="place.program.id">
+						<option value="">Select one...</option>
+						#foreach($program in $programs)
+							<option class="type" value="$program.id" #if($place.program == $program) selected="selected" #end>$!program.name</option>
+						#end
+					</select>
+				</fieldset>
+		</fieldset>
+	</form>
+#end
+
+
+

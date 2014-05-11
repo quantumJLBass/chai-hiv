@@ -1,0 +1,56 @@
+#*
+*   name:Header html
+*	alias:header_html
+*	theme:default
+*   version:1
+*   revision:0
+*   owner:jeremy.bass
+*   is_frontend_editable:true
+*   discription: This is the comtentblock
+*#
+
+
+<div id="globalnav">
+  <ul>
+    <li><a href="http://index.wsu.edu/">A-Z Index</a></li>
+    <li><a href="http://www.about.wsu.edu/statewide/">Statewide</a></li>
+    <li><a href="https://portal.wsu.edu/">zzusis</a></li>
+    <li><a href="http://www.wsu.edu/">WSU Home</a></li>
+    <li>
+      <form id="globalnavsearchform" action="http://search.wsu.edu/Default.aspx" method="get" name="wsu_headersearch">
+        <input type="hidden" value="013644890599324097824:kbqgwamjoxq" name="cx" />
+        <input type="hidden" value="FORID:11" name="cof" />
+        <input type="hidden" value="Search" name="sa" />
+        <input type="hidden" value="true" name="fp" />
+        <input type="text" id="my_filter" onblur="checktextbox();" onclick="erasetextbox();" value="Search WSU Web/People" name="q" class="txtsearch2" />
+        <a onclick="document.wsu_headersearch.submit(); return false;" href="#"><img border="0" align="top" src="http://images.wsu.edu/global/global-search-arrow.jpg" id="searchbuttonimg" alt="Submit" /></a>
+      </form>
+    </li>
+  </ul>
+</div>
+<a href="http://www.wsu.edu" id="logo">Washington State University - World Class Face to Face</a>
+<div id="siteID">
+  <h2></h2>
+  <h1>$!post.title()</h1>
+</div>
+<div id="toolbar">
+  <ul>
+    <li><a href="#" id="embed">Link<span id="embedlink">/Embed</span></a></li>
+	<li class="sharearea">
+        <a href="#" class="clickshare">Share</a>
+        <div id="sharing-menu">
+            <div id="social-list">
+                <ul>
+                    <li><a class="addthis_button_facebook">Facebook</a></li>
+                    <li><a class="addthis_button_twitter">Twitter</a></li>
+                    <li><a class="addthis_button_email">Email</a></li>              
+                </ul>
+                <div class="mid"><a class="addthis_button_expanded">More Destinations...</a></div>
+            </div>
+        </div>
+     </li>
+     <li>
+         <a href="?reportError=&amp;place=0" class="errorReporting" target="_blank" hidefocus="true" style="outline: medium none;">Report&nbsp;&nbsp;Error</a>
+     </li>
+  </ul>
+</div>

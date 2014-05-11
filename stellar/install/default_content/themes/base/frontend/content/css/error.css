@@ -1,0 +1,109 @@
+/* note that this is embeded to the templae by hand.. so you will need to do the same if you make a change.  */
+
+
+html {
+	margin: 0px;
+	padding: 0px;
+}
+body {
+	text-rendering: optimizeLegibility;
+	text-align: center;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, san-serif;
+	margin: 0px;
+	background: #FFF url(/images/error/bg.jpg) repeat-x center top;
+	color: #5e6a71;
+	padding: 0px;
+}
+p {
+	line-height: 26px;
+	margin: 0px;
+	padding: 0px 420px 10px 0px;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+}
+h1 {
+	color: #9e1b32;
+	padding: 10px 300px 10px 0px;
+	text-transform: uppercase;
+	font: normal 72px/70px 'SteelfishExtraBold', Arial, sans-serif;
+	margin: 0px;
+}
+h2 {
+	color: #9e1b32;
+	padding: 10px 380px 10px 0px;
+	text-transform: uppercase;
+	font: normal 32px/30px 'SteelfishExtraBold', Arial, sans-serif;
+	margin: 0px;
+}
+a {
+	color: #9e1b32;
+	text-decoration: none;
+}
+a:hover {
+	color: #b6bcbf;
+	text-decoration: none;
+}
+ol {
+	margin: 0px;
+	line-height: 26px;
+	padding: 0px 420px 10px 50px;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+}
+li {
+	padding: 0px 0px 10px;
+}
+#container {
+	width: 910px;
+	max-width: 910px;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: left;
+	padding: 100px 10px 100px;
+	position:relative;
+}
+#container * {
+	position: relative;
+	z-index: 1;
+}
+#container #butch {
+	/*position:absolute;
+			right:0px;
+			top:20px;
+			z-index:0;*/
+			    float: right;
+	margin-right: -55px;
+}
+#cboxClose {
+	background: url("/images/colorbox/cbox_close.png") no-repeat scroll left top transparent;
+	color: #444444;
+	display: block;
+	height: 15px;
+	position: absolute;
+	right: -50px;
+	text-indent: -9999em;
+	top: 0;
+	width: 17px;
+}
+#cboxContent {
+	text-align:left;
+}
+#cboxContent input[type="text"], #cboxContent input[type="email"] {
+	width: 60%;
+}
+#cboxContent textarea {
+	width: 80%;
+}
+img {
+	padding: 40px 0px 0px;
+}
+@font-face {
+	font-family: 'SteelfishExtraBold';
+	src: url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.eot?') format('eot'), url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.woff') format('woff'), url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.ttf') format('truetype'), url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.svg#webfont') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

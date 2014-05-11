@@ -1,0 +1,502 @@
+#* NOTE: This is where you can change the dropdowns *#
+
+#set($types = $objectService.explode("drug,clinical,substance,treatment"))
+
+#set($drug_props = $objectService.get_type_properties("drug"))
+#set($clinical_props = $objectService.get_type_properties("clinical"))
+#set($substance_props = $objectService.get_type_properties("substance"))
+#set($treatment_props = $objectService.get_type_properties("treatment"))
+
+#set($brand_name = $postingService.get_taxonomies("brand_name"))
+#set($manufacturer = $postingService.get_taxonomies("commercial"))
+#set($frequency = $postingService.get_taxonomies("frequency"))
+#set($approved_for = $postingService.get_taxonomies("adult"))
+#set($dose_form = $postingService.get_taxonomies("dose_type"))
+#set($dosing = $postingService.get_taxonomies("dosing"))
+#set($inactive_ingredients = $postingService.get_taxonomies("inactive_ingredients"))
+
+
+
+#set($operator = $objectService.explode("=,&lt;,&gt;,&lt;=,&gt;=,!=,LIKE,REGEXP,NOT LIKE,NOT REGEXP"))#*,LIKE,LIKE %%,REGEXP,IS NULL,NOT LIKE,NOT REGEXP,IS NOT NULL*##*IN,NOT IN,*#
+#set($joining = $objectService.explode("AND,OR"))
+
+#set($not_props = $objectService.explode("name,alias,publish_time,post_type,outputError,editing,owner,baseid,published,checksum,filehash,static_file,url,position,sort,revision,version,deleted,is_active,is_default,is_visible,is_core,is_visible_to_others,is_frontend,is_admin,admin_url,is_link,is_editable,is_frontend_editable,is_Public,protect_post,is_deletable,is_cachable,is_trackable,loads_file,tmp,gets_media,gets_url,is_tabable_content,is_summarizable,is_taggable,gets_metadata,is_taxonomyable,is_categorized,is_templatable,parent,children,menuoptions,seen,options,theme,users,taxonomy_types,taxonomies,site,meta_data,meta_data_date,meta_data_geo,editable,root,logings,updated_date,creation_date,id,record_id,ln_clinical_t,content,drugs,treatments,clinicals,substances,references"))
+
+
+
+
+<ul class="tabs clearfix">
+	<li><a href="#tab1">Custom Reports</a></li>
+	<li><a href="#tab2">Predefined Reports</a></li>
+</ul>
+<div class="tab_container">
+	<article id="tab1" class="tab_content">
+		<form id="contact_form" class="contact_form smallgut" action="/center/report.castle" method="post" name="contact_form">	
+			<h2 id="header_title">
+				#if(!$skiplayout)<label for="brand_name" style="float:right;font-size:85%;width:225px;">on:
+					<select name="type" style="padding:0px;width:175px;" required class="required" id="types">
+						#foreach($part in $types)
+							<option value="$part">$htmlService.capitalize(${part})s</option>
+						#end
+					</select>
+				</label>#end
+				Create report
+			</h2>
+			<article class="grid col-full full-input">
+				<ul class="grid col-one-eighth">
+					<li></li>
+				</ul>
+				<ul class="grid col-one-quarter">
+					<li> <label for="generic_name">Property:</label> </li>
+				</ul>
+				<ul class="grid col-one-quarter">
+					<li> <label for="generic_name">Operators:</label> </li>
+				</ul>
+				<ul class="grid col-three-eighth">
+					<li> <label for="generic_name">Value:</label> </li>
+				</ul>
+			</article>
+			<article class="grid col-full full-input query_item">
+				<ul class="grid col-one-eighth">
+					<li></li>
+				</ul>
+				<ul class="grid col-one-quarter">
+					<li>
+						<select name="property[0]" data-type='drug' class="drug property_selector">
+							<option value="">Select</option>
+							<optgroup label="Drugs" class="drugs">
+								#foreach($part in $drug_props)
+									#if(!$not_props.Contains($part))
+										#set($feildObj="" )#set($lable="")
+										#set($feildObj=$!postingService.get_taxonomy("drug",$part,"feild_helpers"))
+										#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+										#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+										<option class="drug" value="$part">$lable</option>
+									#end
+								#end
+							</optgroup>
+							<optgroup label="Clinicals" class="clinicals">
+							#foreach($part in $clinical_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("clinical",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="clinical" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+							<optgroup label="Substances" class="substances">
+							#foreach($part in $substance_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("substance",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="substance" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+							<optgroup label="Treatments" class="treatments">
+							#foreach($part in $treatment_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("treatment",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="treatment" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+						</select>
+					</li>
+				</ul>
+				<ul class="grid col-one-quarter">
+					<li>
+						<select name="operator[0]" data-type='drug' class="drug">
+							<option value="">Select</option>
+							#foreach($part in $operator)
+								<option value="$part">$htmlService.capitalize_all($part.Replace("_"," "))</option></option>
+							#end
+						</select>
+					</li>
+				</ul>
+				<ul class="grid col-three-eighth relative value_area">
+					<li>
+					
+					
+					
+					
+					
+						<div class="input_box gen showen"><input name="value[0]" type="text" /></div>
+						<div class="input_box brand_name">
+							<select name="value[0]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $brand_name)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box manufacturer">
+							<select name="value[0]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $manufacturer)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box innovator_company">
+							<select name="value[0]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $manufacturer)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box adult">
+							<select name="value[0]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $adult)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box dose_type">
+							<select name="value[0]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $dose_type)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box dosing">
+							<select name="value[0]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $dosing)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box inactive_ingredients">
+							<select name="value[0]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $inactive_ingredients)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+		
+						<div class="input_box frequency">
+							<select name="value[0]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $frequency)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+		
+						
+						
+						
+						
+					</li>
+				</ul>
+			</article>
+			<article class="grid col-full full-input">
+				<ul class="grid col-full mq2-col-full full-input">
+				  <li> <button type="submit" id="ADD_query" name="submit" class="button">ADD</button> </li>
+				</ul>
+			</article>
+			<article class="grid col-full full-input">
+				<ul class="grid col-one-half mq2-col-full full-input">
+				  <li> 
+				  <label for="generic_name">Selectes Properties:</label>
+				  <select name="selected_properties" data-type='drug' class="drug" multiple>
+		
+							<option class="all" value="*" selected>All</option>
+							<optgroup label="Drugs" class="drugs">
+							#foreach($part in $drug_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("drug",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="drug" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+							<optgroup label="Clinicals" class="clinicals">
+							#foreach($part in $clinical_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("clinical",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="clinical" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+							<optgroup label="Substances" class="substances">
+							#foreach($part in $substance_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("substance",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="substance" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+							<optgroup label="Treatments" class="treatments">
+							#foreach($part in $treatment_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("treatment",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="treatment" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+		
+							
+							
+							
+						</select>
+					</li>
+				</ul>
+				<ul class="grid col-one-half mq2-col-full full-input">
+				  <li></li>
+				</ul>
+			</article>
+		
+		
+		
+			
+			
+			<article class="grid col-full full-input">
+				<ul class="grid col-full mq2-col-full full-input">
+				  <li><button type="submit" id="submit" name="submit" class="button">Run it</button></li>
+				</ul>
+			</article>
+		</form>
+		
+		
+			<h2 id="header_title">Saved Queries</h2>
+			<hr/>
+			<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
+				<thead>
+					<tr>
+						<th width="15%">Owner</th>
+						<th width="15%">Name</th>
+						<th width="10%">Object type</th>
+						<th>SQL</th>
+						<th width="10%">action</th>
+					</tr>
+				</thead>
+				<tbody>
+				#foreach($report in $savedreports)
+					#set($index = $velocityCount-1)
+					<tr class="#if($index%2<1)even #else odd #end rec_$item.record_id" data-baseid="$report.baseid">
+						#set($typed = $report.meta_key.ToString())
+						#set($user = $report.appuser)
+						<td> $!user.nid </td>
+						
+						#set($preindex = $report.meta_key)
+
+						<td>$!datanames.get_Item("${preindex}__name")</td>
+						<td>$objectService.explode($typed,"_").get_Item(1)</td>
+						<td>$report.value</td>
+						<td>
+							<form action="/center/rerunreport.castle" method="post" >	
+								<input type="hidden"  value="$report.value" name="sql"/>
+								<input type="hidden"  value="$objectService.explode($typed,"_").get_Item(1)" name="type"/>
+								<button type="submit" class="button xsmall green">re-Run</button>
+							</from>
+						</td>
+					</tr>
+				#end
+				</tbody>
+				<tfoot>
+			</table>
+		
+		</article>	
+		
+		
+		
+		
+		
+		<div style="display:none;" id="queryBed">
+			<article class="grid col-full full-input query_item">
+				<ul class="grid col-one-eighth">
+					<li>
+						<select name="joining[9999]" data-type='drug' class="drug query_joining">
+							#foreach($part in $joining)
+								<option>$part</option>
+							#end
+						</select>
+					</li>
+				</ul>
+				<ul class="grid col-one-quarter">
+					<li>
+						<select name="property[9999]" data-type='drug' class="drug property_selector">
+							<option value="">Select</option>
+							
+							<option class="all" value="*" selected>All</option>
+							<optgroup label="Drugs" class="drugs">
+							#foreach($part in $drug_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("drug",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="drug" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+							<optgroup label="Clinicals" class="clinicals">
+							#foreach($part in $clinical_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("clinical",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="clinical" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+							<optgroup label="Substances" class="substances">
+							#foreach($part in $substance_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("substance",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="substance" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+							<optgroup label="Treatments" class="treatments">
+							#foreach($part in $treatment_props)
+								#if(!$not_props.Contains($part))
+									#set($feildObj="" )#set($lable="")
+									#set($feildObj=$!postingService.get_taxonomy("treatment",$part,"feild_helpers"))
+									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
+									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
+									<option class="treatment" value="$part">$lable</option>
+								#end
+							#end
+							</optgroup>
+		
+						</select>
+					</li>
+				</ul>
+				<ul class="grid col-one-quarter">
+					<li>
+						<select name="operator[9999]" data-type='drug' class="drug">
+							<option value="">Select</option>
+							#foreach($part in $operator)
+								<option>$part</option>
+							#end
+						</select>
+					</li>
+				</ul>
+				<ul class="grid col-three-eighth relative value_area">
+					<li>
+		
+						<div class="input_box gen showen"><input name="value[9999]" type="text" /></div>
+						<div class="input_box brand_name">
+							<select name="value[9999]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $brand_name)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box manufacturer">
+							<select name="value[9999]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $manufacturer)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box innovator_company">
+							<select name="value[9999]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $manufacturer)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box adult">
+							<select name="value[9999]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $adult)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box dose_type">
+							<select name="value[9999]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $dose_type)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box dosing">
+							<select name="value[9999]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $dosing)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<div class="input_box inactive_ingredients">
+							<select name="value[9999]">
+								<option value="" class="empty">Empty Entry</option>
+								#foreach($part in $inactive_ingredients)
+									<option value="$part.alias" >$part.name</option>
+								#end
+							</select>
+						</div>
+						<span class="REMOVE_query">X</span>
+					</li>
+				</ul>
+			</article>	
+		</div>
+	</article>
+	<article id="tab2" class="tab_content">
+	
+			<h2 id="header_title">ARV database Reports</h2><hr/>
+			<ul>
+				<li>
+					<form action="/center/predefinedeport.castle" method="post" >	
+						<input type="hidden"  value="drug_market_monitoring" name="alias"/>
+						<button type="submit" class="button">Drug Market Monitoring Report</button>
+					</from><br/><br/>
+				</li>
+				<li>
+					<form action="/center/predefinedeport.castle" method="post" >	
+						<input type="hidden"  value="clinical_pharmacology" name="alias"/>
+						<button type="submit" class="button">Clinical/Pharmacology Report</button>
+					</from><br/><br/>
+				</li>
+				<li>
+					<form action="/center/predefinedeport.castle" method="post" >	
+						<input type="hidden"  value="durability_comparison" name="alias"/>
+						<button type="submit" class="button">Durability Comparison Report</button>
+					</from><br/><br/>
+				</li>
+			</ul>
+
+			<h2 id="header_title">Chemistry Formulation Reports</h2><hr/>			
+			<p>Note: On hold</p>
+
+			<h2 id="header_title">Target Drug Comparison/Patient Profile Reports</h2><hr/>			
+			<p>Note: On hold</p>
+	
+	</article>
+</div>
+

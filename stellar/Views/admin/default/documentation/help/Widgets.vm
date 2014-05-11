@@ -1,0 +1,47 @@
+<h2>Widget Services</h2>
+<hr/>
+<h3>mailto</h3>
+Example: &#35;{mailto email=&quot;jeremy.bass@wsu.edu&quot;} <br/>
+<div style="border:1px solid red;">
+Outputs: #{mailto email="jeremy.bass@wsu.edu"}
+</div>
+<br/><hr/><br/>
+
+<h3>strip</h3>
+<p> This is meant to let you take a variable string and remove it's html formating.  This would be useful for an excepert where you would want to truncate on the unformated peice of text only.</p>
+Example: &#35;{strip text=&quot;&lt;p&gt;&lt;a href='#'&gt;Test link&lt;/a&gt; with text after&lt;/p&gt;&quot;} <br/>
+<div style="border:1px solid red;">
+	Outputs: <code><pre>#{strip text="<p><a href='#'>Test link</a> with text after</p>"}</pre></code>
+</div>
+<br/><hr/><br/>
+
+
+<h3>encodeHtml</h3>
+<p> discription.</p>
+Example: &#35;{encodeHtml text=&quot;&lt;p&gt;&lt;a href='#'&gt;Test link&lt;/a&gt; with text after&lt;/p&gt;&quot;} <br/>
+<div style="border:1px solid red;">
+	Outputs: <pre><code>#{encodeHtml text="<p><a href='#'>Test link</a> with text after</p>"}</code></pre>
+</div>
+<br/><hr/><br/>
+
+
+
+<h3>clearMSWordFormating</h3>
+<p> discription.</p>
+Example: &#35;{clearMSWordFormating text=&quot;#{encodeHtml text="<p><a href='#' mso-padding-alt='bad'>Test link</a> with text after</p>"}&quot;} <br/>
+<div style="border:1px solid red;">
+	Outputs: <pre><code>#{clearMSWordFormating text="<p><a href='#' mso-padding-alt='bad'>Test link</a> with text after</p>"}</code></pre>
+</div>
+<br/><hr/><br/>
+
+
+
+<h3>fech</h3>
+Example: &#35;{fech url=&quot;http://admission.wsu.edu/2012/pages/home/voices.php&quot;} <br/>
+<div style="border:1px solid red;">
+Outputs: #{fech url="http://admission.wsu.edu/2012/pages/home/voices.php"}
+</div>
+<br/><hr/><br/>
+
+
+<div style="clear:both;"></div>

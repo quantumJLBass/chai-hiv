@@ -1,0 +1,16 @@
+
+<h4>Post handling</h4>
+
+is_active:<input type="" name="item.is_active" value="$item.is_active" /><br/>
+is_default:<input type="" name="item.is_default" value="$item.is_default" /><br/>
+is_visible:<input type="" name="item.is_visible" value="$item.is_visible" /><br/>
+is_core:<input type="" name="item.is_core" value="$item.is_core" /><br/>
+is_visible_to_others:<input type="" name="item.is_visible_to_others" value="$item.is_visible_to_others" /><br/>
+is_frontend:<input type="" name="item.is_frontend" value="$item.is_frontend" /><br/>
+is_admin:<input type="hidden" name="item.is_admin" value="$item.is_admin" /><br/>
+is_link:<input type="" name="item.is_link" value="$item.is_link" /><br/>
+is_editable:<input type="" name="item.is_editable" value="$item.is_editable" /><br/>
+is_visible:<input type="" name="item.is_visible" value="$item.is_visible" /><br/>
+is_frontend_editable:<input type="" name="item.is_frontend_editable" value="$item.is_frontend_editable" /><br/>
+is_deletable:<input type="" name="item.is_deletable" value="$item.is_deletable" /><br/>
+is_cachable:<input type="" name="item.is_cachable" value="$item.is_cachable" /><br/>

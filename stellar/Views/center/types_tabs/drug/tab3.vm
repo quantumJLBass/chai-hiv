@@ -1,0 +1,20 @@
+<ul class="grid col-one-half mq2-col-full full-input">
+	#* lmic_1l *#
+		<li>
+			#set($daval ="")
+				#set($daval = $!item.lmic_1l)
+			#feild_selectinput($type "lmic_1l" $daval "Yes,No" "1L in LMIC?" "" "")
+		</li>
+	#* lmic_2l *#
+		<li>
+			#set($daval ="")
+				#set($daval = $!item.lmic_2l)
+			#feild_selectinput($type "lmic_2l" $daval "Yes,No" "2L in LMIC?" "" "")
+		</li>
+	#* lmic_3l *#
+		<li>
+			#set($daval ="")
+				#set($daval = $!item.lmic_3l)
+			#feild_selectinput($type "lmic_3l" $daval "Yes,No" "3L in LMIC?" "" "")
+		</li>
+</ul>

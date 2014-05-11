@@ -1,0 +1,49 @@
+/**
+ * MacOS X like theme for elFinder.
+ * Required jquery ui "smoothness" theme.
+ *
+ * @author Dmitry (dio) Levashov
+ **/
+
+/* dialogs */
+#wsu_ui_default .std42-dialog, #wsu_ui_default .std42-dialog .ui-widget-content { background-color:#ededed !important; background-image:none; background-clip: content-box; }
+
+/* navbar */
+#wsu_ui_default .elfinder .elfinder-navbar { background:#ebe0dd !important; color:#454545 !important; }
+#wsu_ui_default .elfinder-navbar .ui-state-hover  { background:transparent; border-color:transparent; }
+#wsu_ui_default .elfinder-navbar .ui-state-active { background: #3875d7 !important;    border-color:#3875d7 !important; color:#000 !important; font-weight:bold; }
+/* disabled elfinder */
+#wsu_ui_default .elfinder-disabled .elfinder-navbar .ui-state-active { background: #dadada; border-color:#aaa; color:#fff !important; }
+
+
+/* current directory */
+/* selected file in "icons" view */
+#wsu_ui_default .elfinder-cwd-view-icons .elfinder-cwd-file .ui-state-hover { background:#ccc !important; }
+/* list view*/
+#wsu_ui_default .elfinder-cwd table tr:nth-child(odd) { background-color:#edf3fe !important; }
+#wsu_ui_default .elfinder-cwd table tr { border-top:1px solid #fff !important; }
+
+/* common selected background/color */
+#wsu_ui_default .elfinder-cwd-view-icons .elfinder-cwd-file .elfinder-cwd-filename.ui-state-hover,
+#wsu_ui_default .elfinder-cwd table td.ui-state-hover,
+#wsu_ui_default .elfinder-button-menu .ui-state-hover { background: #3875d7; color:#fff !important;}
+/* disabled elfinder */
+#wsu_ui_default .elfinder-disabled .elfinder-cwd-view-icons .elfinder-cwd-file .elfinder-cwd-filename.ui-state-hover,
+#wsu_ui_default .elfinder-disabled .elfinder-cwd table td.ui-state-hover { background:#dadada !important;}
+
+/* statusbar */
+#wsu_ui_default .elfinder .elfinder-statusbar { color:#FFF !important; }
+#wsu_ui_default .elfinder .elfinder-statusbar a { text-decoration:none; color:#e6e6e6 !important;}
+
+
+#wsu_ui_default .std42-dialog .elfinder-help, #wsu_ui_default .std42-dialog .elfinder-help .ui-widget-content { background:#fff !important;}
+
+/* contextmenu */
+#wsu_ui_default .elfinder-contextmenu .ui-state-hover { background: #3875d7 !important; color:#fff !important; }
+#wsu_ui_default .elfinder-contextmenu .ui-state-hover .elfinder-contextmenu-arrow { background-image:url('../img/arrows-active.png'); }
+
+
+
+
+
+

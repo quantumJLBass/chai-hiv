@@ -1,0 +1,25 @@
+#*
+*   name:Main event template
+*	alias:main
+*	theme:default
+*   version:1
+*   revision:0
+*   is_default:true
+*   owner:jeremy.bass
+*   discription: This is the comtentblock
+*#
+
+<div style="width:350px;float:right;margin-right:15px;">
+    <h4 style="margin:0px; border-bottom:1px solid #333">Main Calendar</h4>
+    <div id='calendar' data-editable="false" data-height="250" data-right="agendaWeek,agendaDay" data-left="prev,next today" style="width:350px;font-size:10px;"></div>
+    <div style="clear:both;"></div>
+</div>
+<div id="event_area">
+    <h3>$!item.name</h3>
+    <h4>$!item.get_meta_date_date("startdate") at  $!item.get_meta_date_time("startdate")<br/>
+     to $!item.get_meta_date_date("endDate") at  $!item.get_meta_date_time("endDate")</h4>   
+    <p>$!item.load_published_content()</p>
+</div>
+<div style="clear:both;"></div>
+
+

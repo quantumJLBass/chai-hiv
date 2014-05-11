@@ -1,0 +1,47 @@
+<h3>Versions and Revisions</h3>
+
+<h4>General rules</h4>
+<p>We follow a 0.0 style of file and content tracking.
+	<ol>
+		<li>All posts have a version and a revision of the version</li>
+		<li>Point version resleases aree the working/backup copies <br/>
+						IE: "foo" version 3 rev 4 is the working copy over "foo" version 3 rev 1 nad from "foo" version 3 rev 0</li>
+		<li>The largest version int release is the Published IE: "foo" version 3 is showen over "foo" version 2</li>
+	</ol>
+</p>
+
+
+<h4>Working with Dreamweaver</h4>
+<p>In order to work with Dreamweaver we need to understand a few things.  First, all files in the editing path are the working files.  Any published file is located in the "site content > published" folder.  It is suggested that you do not edit those files as you well be making changes to file that will show up instantly to the public.  All working files are located in the "site content > working" folder.  These are the file you want to edit.  It is suggested to be safe to only synchronize with the working folder. As far as the themes and css, their location is in the "themes" folder.</p>
+
+<h5>Suggest folders to synchronize with</h5>
+<style>
+.folder_list, .folder_list ul{list-style:none !important;margin:0px !important; padding: 0px !important;}
+.folder_list li{list-style:none;margin:0px !important;margin-left:10px !important;}
+</style>
+
+
+<ul class="folder_list">
+	<li>&raquo;site content
+		<ul>
+			<li>&raquo;working
+				<ul>
+					<li>&raquo;pages</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>&raquo;themes
+		<ul>
+			<li>&raquo;frontend
+				<ul>
+					<li>&raquo;default [or the theme your working on]</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+

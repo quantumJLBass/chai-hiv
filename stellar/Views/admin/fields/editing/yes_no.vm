@@ -1,0 +1,16 @@
+ <div id="field_yes_no" #if(${ele.type}!='yes_no')style="display:none;" #end  class="default_bed_item">
+    <span>Default Value</span>
+    #set($o=0)
+    #capturefor(opValue)
+        #foreach($opt in ${ele.options}) 
+            #if(${opt.val}!='' && $o==0)
+                $!{opt.val}
+            #end
+            #set($o=$o+1)
+        #end
+    #end
+    <br/>
+    <label><input type="radio" value="yes" name="ele.options[0].val" class="opVal" #if($opValue.Trim()=='yes') checked="checked" #end/>Yes</label>
+    <br/>
+    <label><input type="radio" value="no" name="ele.options[0].val" class="opVal" #if($opValue.Trim()=='no' || $opValue.Trim()=="") checked="checked" #end/> No</label>
+</div>

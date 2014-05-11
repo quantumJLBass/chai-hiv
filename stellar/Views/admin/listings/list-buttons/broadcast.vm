@@ -1,0 +1,3 @@
+          #if($Controller.canPublish($user))
+          <a href="$siteroot/${controller.getView()}/send_breaking_single.castle?id=$!{item.baseid}" title="Send a breaking News for this ONLY" class="sendBR">Broadcast</a>
+          #end

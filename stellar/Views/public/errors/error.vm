@@ -1,0 +1,41 @@
+#macro(showexception $exc)
+
+#end
+<div id="container" class="fluid">
+	<h1>Unexpected error happened</h1>
+	<p> This is the rescue page and it is supposed to show you a nice message. 
+		View the source for more details on the exception, though. </p>
+	<div style="margin-left:15px;"> 
+ 
+        <h3>$exception.GetType().Name</h3>
+    
+        <h4>Message:</h4>
+        <p>$exception.Message</p>
+    
+        #if($exception.StackTrace)
+            <h4>StackTrace:</h4>
+            <code style="font-size: 12px; line-height: 12px; display: inline-block;"> $exception.StackTrace </code>
+        #end
+    
+        #if($exception.InnerException)
+            <div style="margin-left:15px;">
+                <h5>Inner exception:</h5>
+                #set($inner = $exception.InnerException)
+                <h3>$inner.GetType().Name</h3>
+            
+                <h4>Message:</h4>
+                <code style="font-size: 12px; line-height: 12px; display: inline-block;">$inner.Message</code>
+            
+                #if($inner.StackTrace)
+                <h4>StackTrace:</h4>
+                <code style="font-size: 12px; line-height: 12px; display: inline-block;"> $inner.StackTrace </code>
+                #end
+            </div>
+        #end
+    </div>
+	<!--<h2>Get Help:</h2>
+	<a href="#" class="errorReporting">Contact suport</a>
+	</br>-->
+	
+	<img src="/content/img/CHAI_logo.jpg" alt="clinton health access initiative" style="width:220px;" />
+</div>

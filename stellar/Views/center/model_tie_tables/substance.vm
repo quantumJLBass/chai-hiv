@@ -1,0 +1,32 @@
+<label for="Substancedata">Drug Substances:</label>
+<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Substancedata" width="100%">
+<thead>
+  <tr>
+	<th width="15%">CAS</th>
+	<th>Name</th>
+	<th width="20%">action</th>
+  </tr>
+</thead>
+<tbody>
+
+	#foreach($part in  $typed_list)
+		<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code" data-baseid="$item.baseid">
+			<td><input type="hidden" name="item.substances[$velocityCount].baseid" value="$part.baseid" class="drug_item"/>
+				#if($part.cas_reg_number)$!part.cas_reg_number#else -- #end
+			</td>
+			<td>$!postingService.get_taxonomy($part.generic_name).name</td>
+			<td>
+				#if($viewonly) #else
+					<a href="substance.castle?id=$part.baseid" class="button small inline_edit" data-type="substance"><i class="icon-edit" title="Edit"></i></a> | 
+					<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
+				#end
+			</td>
+		</tr>
+	#end
+</tbody>
+
+<tfoot></tfoot>
+</table>
+#if($viewonly) #else
+<a href="#" class="button add_to_list" data-type="substance"><i class="icon-plus blue" title="Add"></i> Add Substance</a>
+#end

@@ -1,0 +1,20 @@
+#if($searchId!=0&&$searchId!=-1)
+          <li class="moveup_btn">
+            #if($item.id != $firstitem.id )
+            <a href="$siteroot/${controller.getView()}/moveup#if($itemNamed)_${itemNamed}#end.castle?searchId=$!searchId&id=$!{item.baseid}" title="Move Up"  class="  button">
+              <span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-n"> </span>
+              <span class="actionText">Up</span>
+              <span class="actionpropt">&#187;</span>
+            </a>
+            #end
+          </li>
+          <li class="movedown_btn">
+            #if($item.id != $lastitem.id )
+            <a href="$siteroot/${controller.getView()}/movedown#if($itemNamed)_${itemNamed}#end.castle?searchId=$!searchId&id=$!{item.baseid}"  title="Move down" class="  button">
+              <span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-s"> </span>
+              <span class="actionText">Down</span>
+              <span class="actionpropt">&#187;</span>
+            </a>
+            #end
+          </li>
+          #end

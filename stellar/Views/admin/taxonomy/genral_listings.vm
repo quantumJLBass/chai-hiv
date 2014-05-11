@@ -1,0 +1,45 @@
+<div style=" height: 37px; margin-top: 9px; position: relative; width: auto; z-index: 1;top:0px;">
+    <a href="$siteroot/admin/edit_taxonomy.castle?type=${action}" class="button" ><i class="icon-plus"></i> Create ${itemname} </a>&nbsp;
+</div>
+
+<form action="merge_taxonomy.castle" method="post">
+	<table  width="100%" class="ui-widget ui-widget-content">
+	  <thead>
+		<tr class="ui-widget-header ">
+		<th align="center" width="35"><input type="checkbox" onClick="$(this).closest('table').find('.checkable').attr('checked', $(this).attr('checked')?true:false )" /></th>
+		<th>Name</th>
+		<th style="width:85px;">&nbsp;</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		#if($items)
+			#set ($c=0)
+			#foreach($item in $items)
+				<tr class="#if($c%2>0) even #else odd #end">
+				<td align="center"><input name="ids[]" type="checkbox" class="checkable" value="$item.baseid"/></td>
+				  <td><a href="$siteroot/admin/edit_taxonomy.castle?id=$!{item.baseid}" class="name">
+						$item.name
+					  </a></td>
+				  <td>
+					<span style='font-size:0.7em;'>
+						<a href="$siteroot/admin/edit_taxonomy.castle?id=$!{item.baseid}" title="Edit" class="button med pull-left">
+							<span class="icon-edit"></span>
+						</a>
+						<a href="$siteroot/admin/delete_taxonomy.castle?id=$!{item.baseid}" title="Delete" class="button med crimson pull-right">
+							<span class="icon-trash"></span>
+						</a>
+					</span>
+					
+				  </td>
+				</tr>
+				#set ($c=$c+1)
+			#end
+		#else
+			<h1>There are currently no name items</h1>
+		#end
+	  </tbody>
+	</table>
+	<label>New Tag name:<input type="text" name="newname" value="" /></label>
+	<input type="submit" name="mergeTags" value="Merge Tags" />
+	<input type="submit" name="deleteTags" value="Delete Tags" />
+</form>

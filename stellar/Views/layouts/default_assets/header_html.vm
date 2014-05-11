@@ -1,0 +1,61 @@
+#set($page = $!{controller.getAction()})
+
+#if($viewonly==true && $viewonly!="")
+	<div style="padding: 0px 0.7em; position: absolute; top: 0px; margin-top: 0px; z-index: 999; opacity: 0.8;" class="ui-state-highlight ui-corner-bottom">
+		<p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-info"></span>
+		<strong>Note:</strong> You are in view only mode.</p>
+	</div>
+#end
+
+#if($signedin)
+	<!-- signed in -->
+#end
+
+#if($viewonly)
+	<!-- viewonly -->
+#end
+
+
+
+<header id="navtop">
+	<a href="home.castle" class="logo fleft">
+		<img src="/content/img/CHAI_logo.jpg" alt="clinton health access initiative" style="width:220px;" />
+	</a>
+	<nav class="fright">
+		<ul>
+			<li><a href="/center/clinicals.castle" #if($page=="clinicals"||$page=="clinical")class="navactive"#end>Clinical Trials/Studies</a></li>
+			<li><a href="/center/treatments.castle" #if($page=="treatments"||$page=="treatment")class="navactive"#end>Clinical Summaries</a></li>
+		</ul>
+		<ul>
+			<li><a href="/center/drugs.castle" #if($page=="drugs"||$page=="drug")class="navactive"#end>Drug Products</a></li>
+			<li><a href="/center/substances.castle" #if($page=="substances"||$page=="substance")class="navactive"#end>Drug Substances</a></li>
+		</ul>
+		<ul>
+			<li><a href="/center/references.castle" #if($page=="references"||$page=="reference")class="navactive"#end>References</a></li>
+			<li><a href="/center/reports.castle" #if($page=="reports"||$page=="report")class="navactive"#end>Reports</a></li>
+		</ul>
+		<ul>
+			#if(!$viewonly && $signedin)<li>
+				<a href="/center/trashbin.castle" #if($page=="trashbin"||$page=="trashbin")class="navactive"#end><i class="icon-trash" title="Go to trashbin"></i></a>
+			</li>
+			#end
+			#if($signedin)
+				<li><a href="/center/logout.castle" #if($page=="logout"||$page=="logout")class="navactive"#end><i class="icon-signout" title="logout"></i></a></li>
+			#else
+				<li><a href="/center/login.castle" #if($page=="login"||$page=="login")class="navactive"#end><i class="icon-signin" title="login"></i></a></li>
+			#end
+		</ul>
+		<ul>
+		#if(!$viewonly && $signedin)
+			<li><a href="/admin" class="navactive" ><i class="icon-cogs" title="Go to admin"></i></a></li>
+		#end	
+		#if($signedin && ($page!="reports" && $page!="report"))
+			<li>
+				<input type="checkbox" id="viewonly" #if($viewonly)checked="checked"#end/> viewonly
+			</li>
+		#end
+			
+			
+		</ul>
+	</nav>
+</header>

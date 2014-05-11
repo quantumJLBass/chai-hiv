@@ -1,0 +1,9 @@
+          #if($Controller.canPublish($user))
+          <li class="broadcast_btn">
+            <a href="$siteroot/${controller.getView()}/send_breaking_single.castle?id=$!{item.baseid}" title="Send a breaking News for this ONLY" class=" sendBR button small">
+              <span class="ui-button-icon-primary ui-icon ui-icon-signal-diag"> </span>
+              <span class="actionText">Broadcast</span>
+              <span class="actionpropt">&#187;</span>
+            </a>
+          </li>
+          #end

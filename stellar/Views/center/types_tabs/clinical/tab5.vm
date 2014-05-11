@@ -1,0 +1,56 @@
+#set($taxorder = 0)
+#set($adverse_events = $postingService.get_taxonomies("adverse_events"))
+  <ul class="grid col-one-half mq2-col-full full-input">
+#* max_dose *#
+<li>
+	<label for="max_dose">Adverse event: <i class="icon-question-sign blue" title=""></i></label>
+		<select name="" id="adverse_events" class="adverse_events" >
+			<option value="">Add an event</option> 
+			#foreach($part in $adverse_events)
+				<option #if($item.taxonomies.Contains($part))disabled #end value="$part.baseid" data-content="$part.content" data-baseid="$part.baseid" data-alias="$part.alias">$part.name</option>
+			#end
+		</select>
+	</li>
+	
+	#set($tax_type = $taxonomyService.get_taxonomy_type("adverse_events"))
+	#foreach($part in $item.taxonomies)
+		#if($part.taxonomy_type== $tax_type)
+			<li data-taxorder="$taxorder">
+				 <i class="icon-remove-circle red right remove"></i>
+
+				 <label>$part.name #if($!part.content)<i class="icon-question-sign blue" title="$!part.content"></i>#end
+				 </label>
+				 <input type="text" name="value[$taxorder]" id="" required  value="$!item.get_meta(${part.baseid.ToString()})"/>
+				 <input type="hidden" name="option_key[$taxorder]" value="$part.baseid" />
+			 </li>
+			 #set($taxorder = $taxorder+1)
+		#end
+	#end
+  </ul>
+  #set($adverse_events_severe = $postingService.get_taxonomies("adverse_events_severe"))
+  <ul class="grid col-one-half mq2-col-full full-input">
+#* max_dose *#
+<li>
+	<label for="max_dose">Serious Adverse event: <i class="icon-question-sign blue" title=""></i></label>
+		<select name="" id="adverse_events_severe" class="adverse_events" >
+			<option value="">Add an event</option> 
+			#foreach($part in $adverse_events_severe)
+			
+				<option #if($item.taxonomies.Contains($part))disabled #end value="$part.baseid" data-content="$part.content" data-baseid="$part.baseid" data-alias="$part.alias">$part.name</option>
+			#end
+		</select>
+	</li>
+	#set($tax_type = $taxonomyService.get_taxonomy_type("adverse_events_severe"))
+	#foreach($part in $item.taxonomies)
+		#if($part.taxonomy_type == $tax_type)
+			<li data-taxorder="$taxorder">
+				 <i class="icon-remove-circle red right remove"></i>
+				 <label>$part.name #if($!part.content)<i class="icon-question-sign blue" title="$!part.content"></i>#end
+				 </label>
+				 <input type="text" name="value[$taxorder]" id="" required  value="$!item.get_meta(${part.baseid.ToString()})"/>
+				 <input type="hidden" name="option_key[$taxorder]" value="$part.baseid" />
+			 </li>
+			 #set($taxorder = $taxorder+1)
+		#end
+	#end
+  </ul>

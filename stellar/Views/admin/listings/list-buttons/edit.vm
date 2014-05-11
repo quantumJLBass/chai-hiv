@@ -1,0 +1,5 @@
+#if($userService.checkPrivleage("make_edits") && !$item.isCheckedOut())
+<a href="$siteroot/${controller.getView()}/edit#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}"> <i class="icon-edit"></i> Edit |</a>
+#end
+
+

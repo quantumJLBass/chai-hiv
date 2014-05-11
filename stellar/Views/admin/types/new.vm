@@ -1,0 +1,18 @@
+
+#if($Flash.error)
+<p style="color: red; font-weight: bold;">
+    $Flash.error
+</p>
+#end
+
+<form action="update_type.castle" method="post">
+  $Form.HiddenField("type.Id")
+  <h3>Place Type</h3>
+  <p>Name:<br/>
+      <input type="text" value="$!type.name" name="type.name" id="type_name" class="ui-widget ui-widget-content ui-corner-all " />
+  </p>
+  <p>Friendly name:<br/>
+      <input type="text" value="$!type.friendly" name="type.friendly" id="type_friendly" class="ui-widget ui-widget-content ui-corner-all " />
+  </p>
+  <p><input type="submit" value="Submit" /></p>
+</form>

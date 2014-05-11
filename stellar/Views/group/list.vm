@@ -1,0 +1,186 @@
+<div id="tabs" class="placelist  ui-tabs ui-widget ui-widget-content ui-corner-all">
+	<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#groups">Groups</a></li>
+		<li class="ui-state-default ui-corner-top" ><a href="#privileges">Privileges</a></li>
+	</ul>
+
+	<div id="groups">
+        <p>
+          <a href="new_group.castle" class="creation button">
+            <span class="icon-plus inlineIcon"></span>Create a New Group
+          </a>
+        </p>
+
+        <fieldset style="width:45%;float:right;">
+            <legend><h3>Frontend Groups</h3></legend>
+            <table width="100%" class="ui-widget ui-widget-content">
+                <thead>
+                    <tr class="ui-widget-header ">
+                        <th>Name</th>
+                        <th width="85">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  #*  #set ($c=0)
+                    #foreach($group in $FE_groups)
+                        <tr #if($c%2>0) class="even" #else class="odd" #end>
+                            <td align="left">$!group.name</td>
+                          <td class='actionArea'>
+                            <span style='font-size:0.7em;'>
+                              <a href="edit_group.castle?id=$!{group.id}" title="Edit" class="button  pull-right">
+                                <span class="ui-icon ui-icon-pencil"></span>
+                              </a>
+                              <a href="delete_group.castle?id=$!{group.id}" title="Delete" class="button  pull-right">
+                                <span class="ui-icon ui-icon-trash"></span>
+                              </a>
+                            </span>
+                          </td>
+                        </tr>
+                        #set ($c=$c+1)
+                    #end
+                    *#
+                    
+                    
+				#set ($c=0)
+				#foreach($group in $FE_groups)
+
+                    <tr #if($c%2>0) class="even" #else class="odd" #end>
+                        <td align="left">$!group.name</td>
+                        <td class='actionArea'>
+                            <span style='font-size:0.7em;'>
+                                <a href="edit_group.castle?id=$!{group.id}" title="Edit" class="button med  pull-left">
+                                    <i class="icon-edit"></i>
+                                </a>
+                                <a href="delete_group.castle?id=$!{group.id}" title="Delete" class="button med crimson pull-right">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                    #if($group.children)
+                        #set ($c_s=0)
+                        #foreach($child in $group.children)
+                            <tr #if($c_s%2>0) class="even" #else class="odd" #end>
+                                <td align="left">--- $!child.name</td>
+                                <td class='actionArea'>
+                                <span style='font-size:0.7em;'>
+                                    <a href="edit_group.castle?id=$!{child.id}" title="Edit" class="button med pull-left">
+                                        <i class="icon-edit"></i>
+                                    </a>
+                                    <a href="delete_group.castle?id=$!{child.id}" title="Delete" class="button med crimson pull-right">
+                                        <i class="icon-trash"></i>
+                                    </a>
+                                </span>
+                                </td>
+                            </tr>
+                        #set ($c_s=$c_s+1)
+                        #end  
+                    #end  
+				#set ($c=$c+1)
+				#end
+                    
+                    
+                    
+                    
+                </tbody>
+            </table>
+        </fieldset>
+        
+        <fieldset style="width:45%;float:left;">
+            <legend><h3>Admin Groups</h3></legend>
+            <table width="100%" class="ui-widget ui-widget-content">
+              <thead>
+                <tr class="ui-widget-header ">
+                    <th>Name</th>
+                    <th width="85">&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+				#set ($c=0)
+				#foreach($group in $admin_groups)
+					#if(!$group.parent)
+                        <tr #if($c%2>0) class="even" #else class="odd" #end>
+                            <td align="left">$!group.name</td>
+                            <td class='actionArea'>
+                                <span style='font-size:0.7em;'>
+                                    <a href="edit_group.castle?id=$!{group.id}" title="Edit" class="button med pull-left">
+                                        <i class="icon-edit"></i>
+                                    </a>
+                                    <a href="delete_group.castle?id=$!{group.id}" title="Delete" class="button med crimson pull-right">
+                                        <i class="icon-trash"></i>
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        #if($group.children)
+                            #set ($c_s=0)
+                            #foreach($child in $group.children)
+                                <tr #if($c_s%2>0) class="even" #else class="odd" #end>
+                                    <td align="left">--- $!child.name</td>
+                                    <td class='actionArea'>
+                                    <span style='font-size:0.7em;'>
+                                        <a href="edit_group.castle?id=$!{child.id}" title="Edit" class="button med pull-left">
+                                            <i class="icon-edit"></i>
+                                        </a>
+                                        <a href="delete_group.castle?id=$!{child.id}" title="Delete" class="button med crimson pull-right">
+                                            <i class="icon-trash"></i>
+                                        </a>
+                                    </span>
+                                    </td>
+                                </tr>
+                            #set ($c_s=$c_s+1)
+                            #end  
+                        #end  
+                        #set ($c=$c+1)
+                    #end 
+				#end
+              </tbody>
+            </table>
+        </fieldset>  
+		<div class="clear"></div>           
+	</div>
+	<div id="privileges">
+			<p>
+			<a href="new_privilege.castle" class="creation button">
+				<i class="icon-plus inlineIcon"></i>Create a New Privilege
+			</a>
+			</p>
+			<table width="100%" class="ui-widget ui-widget-content">
+			  <thead>
+				<tr class="ui-widget-header ">
+					<th>Name</th>
+					<th>Alias</th>
+					<th>&nbsp;</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				#set ($c=0)
+				#foreach($privilege in $privileges)
+				<tr #if($c%2>0) class="even" #else class="odd" #end>
+					<td align="left">$!privilege.name</td>
+					<td align="left">$!privilege.alias</td>
+					<td class='actionArea'>
+						#if($privilege.editable)
+							<span style='font-size:0.7em;'>
+								<a href="edit_privilege.castle?id=$!{privilege.baseid}" title="Edit" class="button med pull-left">
+									<i class="icon-edit"></i>
+								</a>
+								<a href="delete_privilege.castle?id=$!{privilege.baseid}" title="Delete" class="button med crimson pull-right">
+									<i class="icon-trash"></i>
+								</a>
+							</span>
+						#end
+					</td>
+				</tr>
+				#set ($c=$c+1)
+				#end
+			  </tbody>
+			</table>
+	</div>
+</div>
+	
+
+
+
+
+

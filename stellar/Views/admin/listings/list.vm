@@ -1,0 +1,23 @@
+<br/>
+<form action="massaction.castle">
+	<div id="_Listing" class="tabedArea tabactive" >
+		#parse("/admin/listings/filters.vm")
+		<h3 style="font-size:16px; font-weight:bold;">#if($named_type_dname && $named_type_dname!="")${named_type_dname}#else${controller.getView().Replace("_"," ")}#end List :  <a href="$siteroot/${controller.getView()}/create.castle?post_type=$!{named_type}" class="button" style="display:inline-block;font-size:12px;">
+		  <span class="icon-plus inlineIcon"></span>New #if($named_type_dname && $named_type_dname!="")${named_type_dname}#else${controller.getView().Replace("_"," ")}#end
+		</a></h3>
+		<div style="position:relative;" >
+			
+			#set($list_items=$controller.getVar("filteredResults_list"))
+			#if($list_items)
+				#set($buttons=$controller.getVar("filteredResults_buttonSet"))
+				#parse("admin/listings/list-general.vm")
+			#else
+				#set($buttons=$controller.getVar("AllbuttonSet"))
+				#set($list_items=$controller.getVar("All_list"))
+				#parse("admin/listings/list-general.vm")
+			#end
+			<button type="submit" value="publishmass" name="publishmass" class="button small">Publish</button> | 
+			<button type="submit" value="deletemass" name="deletemass" class="button small">Delete</button>
+		</div>	
+	</div>
+</form>

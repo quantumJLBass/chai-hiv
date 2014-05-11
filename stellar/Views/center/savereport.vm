@@ -1,0 +1,37 @@
+<article class="grid col-full">
+	#if($saved)
+		<h2>Saved the query</h2>
+	#end
+	<h2>All the queries</h2>
+	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
+		<thead>
+			<tr>
+				<th width="15%">Owner</th>
+				<th>Object type</th>
+				<th>SQL</th>
+				<th width="20%">action</th>
+			</tr>
+		</thead>
+		<tbody>
+		#foreach($report in $savedreports)
+			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$report.baseid">
+				#set($typed = $report.meta_key.ToString())
+				#set($user = $report.appuser)
+				<td> $user.nid </td>
+				<td>$objectService.explode($typed,"_").get_Item(1)</td>
+				<td>$report.value</td>
+				<td>
+					<form action="/center/rerunreport.castle" method="post" >	
+						<input type="hidden"  value="$report.value" name="sql"/>
+						<input type="hidden"  value="$objectService.explode($typed,"_").get_Item(1)" name="type"/>
+						<button type="submit" class="button xsmall green">re-Run</button>
+					</from>
+				</td>
+			</tr>
+		#end
+		</tbody>
+		<tfoot>
+	</table>
+	
+	
+</article>

@@ -1,0 +1,186 @@
+#if($viewonly)
+	#parse("center/viewonly/clinical.vm")
+#else
+
+	#* *#
+	#* NOTE: This is where you can change the dropdowns *#
+	#* *#
+	#set($type = "clinical")
+
+	#set($not_props = $objectService.explode("name,alias,publish_time,post_type,outputError,editing,owner,baseid,published,checksum,filehash,static_file,url,position,sort,revision,version,deleted,is_active,is_default,is_visible,is_core,is_visible_to_others,is_frontend,is_admin,admin_url,is_link,is_editable,is_frontend_editable,is_Public,protect_post,is_deletable,is_cachable,is_trackable,loads_file,tmp,gets_media,gets_url,is_tabable_content,is_summarizable,is_taggable,gets_metadata,is_taxonomyable,is_categorized,is_templatable,parent,children,menuoptions,seen,options,theme,users,taxonomy_types,taxonomies,site,meta_data,meta_data_date,meta_data_geo,editable,root,logings,references,updated_date,creation_date,id,record_id,ln_clinical_t,content"))
+	
+	<article class="grid col-full">
+	<form id="contact_form" class="contact_form" action="/center/saveclinical.castle" method="post" name="contact_form">
+	  <input type="hidden" name="item.baseid" value="$!item.baseid" />
+	  
+		<article id="navtabs" class="grid col-full">
+		  <article class="grid col-full">
+			<h2 id="header_title">
+			  #if(!$item.baseid || $item.tmp)New #end Clinical Trial/Study </h2>
+			  <ul class="grid col-one-full mq2-col-full full-input">		  
+					<li>
+					#* name *#
+						#set($daval ="")
+						#set($daval = $!item.name)
+						#feild_textinput("$type" "name" $daval "" "" "" "")
+					</li>
+					<li>
+					#* title *#
+						#set($daval ="")
+						#set($daval = $!item.title)
+						#feild_textarea("$type" "title" $daval "" "" "" "")
+					</li>
+				</ul>
+		  </article>
+		  <hr/>
+		  <div class="">
+			<ul class="tabs clearfix">
+				<li><a href="#tab7">Study</a></li>
+				<li><a href="#tab1">Drugs</a></li>
+				<li><a href="#tab2">Pharmacology</a></li>
+				<li><a href="#tab3">Efficacy</a></li>
+				#*
+				<!--<li><a href="#tab5">Adverse Events</a></li>
+				<li><a href="#tab6">Resistance</a></li>
+				<li><a href="#tab8">Discontinuation</a></li>-->
+				*#
+				<li><a href="#tab4">Durability</a></li>
+			</ul>
+			<div class="tab_container">
+#* *#
+#* tab7 ------------ *#
+#* *#
+			<article id="tab7" class="tab_content">
+				<div style="clear:both;">
+					#tab_notes("$type" "study" "top")
+				</div>
+				#parse("center/types_tabs/clinical/tab7.vm")
+				<div style="clear:both;">
+					#tab_notes("$type" "study" "bottom")
+				</div>
+			</article>
+						
+#* *#
+#* tab1 ------------ *#
+#* *#
+			<article id="tab1" class="tab_content">
+				<div style="clear:both;">
+					#tab_notes("$type" "drugs" "top")
+				</div>
+				#parse("center/types_tabs/clinical/tab1.vm")
+				<div style="clear:both;">
+					#tab_notes("$type" "drugs" "bottom")
+				</div>
+			</article>
+
+#* *#
+#* tab2 ------------ *#
+#* *#
+			<article id="tab2" class="tab_content">
+				<div style="clear:both;">
+					#tab_notes("$type" "pharmacology" "top")
+				</div>
+				#parse("center/types_tabs/clinical/tab2.vm")
+				<div style="clear:both;">
+					#tab_notes("$type" "pharmacology" "bottom")
+				</div>
+			</article>
+
+#* *#
+#* tab3 ------------ *#
+#* *#
+			<article id="tab3" class="tab_content">
+				<div style="clear:both;">
+					#tab_notes("$type" "efficacy" "top")
+				</div>
+				#parse("center/types_tabs/clinical/tab3.vm")
+				<div style="clear:both;">
+					#tab_notes("$type" "efficacy" "bottom")
+				</div>
+			</article>
+
+#* *#
+#* tab5 ------------ *#
+#* *#
+#*	<!--		<article id="tab5" class="tab_content">
+				<div style="clear:both;">
+					#tab_notes("$type" "adverse_events" "top")
+				</div>
+				#parse("center/types_tabs/clinical/tab5.vm")
+				<div style="clear:both;">
+					#tab_notes("$type" "adverse_events" "bottom")
+				</div>
+			</article>
+			-->*#
+#* *#
+#* tab6 ------------ *#
+#* *#
+#*<!--	
+			<article id="tab6" class="tab_content">
+				<div style="clear:both;">
+					#tab_notes("$type" "resistance" "top")
+				</div>
+				#parse("center/types_tabs/clinical/tab6.vm")
+				<div style="clear:both;">
+					#tab_notes("$type" "resistance" "bottom")
+				</div>
+			</article>
+			-->*#
+#* *#
+#* tab8 ------------ *#
+#* *#
+#*	<!--
+			<article id="tab8" class="tab_content">
+				<div style="clear:both;">
+					#tab_notes("$type" "discontinuation" "top")
+				</div>
+				#parse("center/types_tabs/clinical/tab8.vm")
+				<div style="clear:both;">
+					#tab_notes("$type" "discontinuation" "bottom")
+				</div>
+			</article>
+			-->*#
+			
+#* *#
+#* tab4 ------------ *#
+#* *#
+			<article id="tab4" class="tab_content">
+				<div style="clear:both;">
+					#tab_notes("$type" "durability" "top")
+				</div>
+				#parse("center/types_tabs/clinical/tab4.vm")
+				<div style="clear:both;">
+					#tab_notes("$type" "durability" "bottom")
+				</div>
+			</article>
+
+		</div>
+	</article>
+	  <article class="grid col-full">
+		  <hr/>
+		  <ul class="grid col-one-full mq2-col-full full-input">
+			#parse("center/assests/save_bar.vm")
+		  </ul>
+	  </article>
+	  
+	  <article class="grid col-full">
+	  		#if(!$skiplayout && !$item.baseid)
+			<ul>
+				<li><h2>Save to add ties to Drugs or Regimens</h2></li>
+			</ul> #end
+		#if(!$skiplayout && $item.baseid>0)
+		  <hr/>
+		  <ul class="grid col-one-full mq2-col-full full-input">
+				<li>
+					#* Treatmentdata *#
+					#set($typed_list = $item.treatments)
+					#parse("center/model_tie_tables/treatment.vm")
+				</li>
+		  </ul>
+			#set($type="clinical")
+			#parse("center/ref.vm")
+		#end
+		</article>
+	</form>
+	</article>
+#end

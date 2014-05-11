@@ -1,0 +1,30 @@
+<div id="ImageDiv">
+    <h3>${named_type_dname} Images</h3>
+    <a href="#" class="insotryupload button">Upload Images</a>
+	<h6><strong>Note:</strong><em>The first image in the list is the main image.  Any layout that calls the Main image will be calling this "Thumb" or "Featured" image where ever needed.  To make another image be the main image, simply drag the desired image before the first.</em></h6>
+	<span id="img_layout_choice" class="grid"></span><br/>
+    <div id="browserBox" class="ui-corner-all grid">
+        #foreach($item.image in $item.images)
+            #if($item.image.id!=0)
+                <span class="imageBox">
+                    <input type="hidden" name="images[$!{item.image.id}].id" value="$!{item.image.id}" class="cal_eventImages"/>
+                    <img src="/media/download.castle?id=${item.image.id}&postid=${item.id}&m=crop&w=175&h=175&pre=borwser" class="previewImg" width="175" height="175"/>
+                    <a title="$item.image.id" rel="$item.id" style="cursor:pointer;display: inline-block;" class="DeleteImage ui-state-error ui-corner-all">
+                        <span class="ui-icon ui-icon-trash"></span>
+                    </a>
+                    <span class="imgInfo">
+                      <span><label>Caption:</label><input type="text" value="$!{item.image.caption}" name="images[$!{item.image.id}].Caption" class=""/></span>
+                      <span><label>Credit:</label><input type="text" value="$!{item.image.credit}" name="images[$!{item.image.id}].Credit" class="cal_eventCredit"/></span>
+                      <span><label>Order:</label>
+                      <input type="hidden" value="$!{item.image.PlaceImages.get_Item(0).id}" name="PlaceImages[$!{item.image.id}].id" class=""/>
+                      <input type="text" value="$!{item.image.PlaceImages.get_Item(0).cal_eventOrder}" name="PlaceImages[$!{item.image.id}].cal_eventOrder" class="cal_eventOrder"/>
+                      <input type="hidden" value="$!{item.image.id}" name="PlaceImages[$!{item.image.id}].Image.id" class="cal_eventOrderId"/>
+                      </span>
+                    </span>
+                </span>
+            #end
+        #end
+        <div class="clearings" style="clear:both;"></div>
+    </div>
+</div>
+        

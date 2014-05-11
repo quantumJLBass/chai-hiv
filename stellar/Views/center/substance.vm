@@ -1,0 +1,153 @@
+#if($viewonly)
+	#parse("center/viewonly/substance.vm")
+#else
+
+	#* *#
+	#* NOTE: This is where you can change the dropdowns *#
+	#* *#
+	#set($type = "substance")
+	
+	#set($generic_name = $postingService.get_taxonomies("generic_name"))
+#capturefor(generic_names)
+#foreach($part in $generic_name)
+$part.name => $part.alias
+#between
+,
+#end
+#end
+
+	#* NOTE: This is where you can change the dropdowns
+	#set($mechanism_of_action = $objectService.explode("INI"))
+	#set($generic_name = $postingService.get_taxonomies("generic_name"))
+	#set($chemical_name = $postingService.get_taxonomies("chemical_name"))
+	 *#
+<form id="contact_form" class="contact_form" action="/center/savesubstance.castle" method="post" name="contact_form" enctype="multipart/form-data">
+	<input type="hidden" name="item.baseid" value="$!item.baseid" />
+	<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
+
+	<article class="grid col-full">
+		<h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Substance</h2>
+		<ul class="grid col-full full-input">
+
+#* generic_name *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.generic_name)
+				#feild_selectinput($type "generic_name" $daval $generic_names "" "taxed" "")
+			</li>
+#* lab_code *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.lab_code)
+				#feild_textinput("$type" "lab_code" $daval "" "" "" "")
+			</li>
+			
+#* chemical_name *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.chemical_name)
+				#feild_textinput("$type" "chemical_name" $daval "" "" "" "")
+			</li>
+#* molecular_formula *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.molecular_formula)
+				#feild_textinput("$type" "molecular_formula" $daval "" "" "" "")
+			</li>
+
+#* mechanism_of_action *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.mechanism_of_action)
+				#feild_textinput("$type" "mechanism_of_action" $daval "" "" "" "")
+			</li>
+
+#* pro_drug *#
+			<li>
+				<script>
+				$(function() {
+					$("#pro_drug").on("change",function(){
+						var val=$("#pro_drug :selected").val();
+						if(val=="Yes"){
+							$("#active_moiety_area").show();
+						}else{
+							$("#active_moiety_area input").val("");
+							$("#active_moiety_area").hide();
+						}
+					});
+				});
+				</script>
+				#set($daval ="")
+				#set($daval = $!item.pro_drug)
+				#feild_selectinput($type "pro_drug" $daval "Yes,No" "" "" "")
+				<div id="active_moiety_area" #if($!item.pro_drug!="Yes")style="display:none;"#end>
+					#set($daval = $!item.active_moiety)
+					#feild_textinput("$type" "active_moiety" $daval "" "" "" "")
+				</div>
+			</li>
+
+#* metabolites *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.major_metabolites)
+				#feild_textinput("$type" "major_metabolites" $daval "" "molecule drug broken down to, %" "" "")
+			</li>
+#* active_agent_structure *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.active_agent_structure)
+				#feild_textinput("$type" "active_agent_structure" $daval "" "" "" "")
+				<label>Optional structure file:
+				#if($!item.static_file)<br/>
+					<input type="hidden" name="item.static_file" value="$item.static_file" />
+					<a href="$!item.static_file" target="_blank">$!item.static_file</a> (remove:<input type="checkbox" name="remove_file" value="1" />)<br/>
+				#end
+				<input type="file" name="newfile" />
+				</label>
+			</li>
+
+#* cas_reg_number *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.cas_reg_number)
+				#feild_textinput("$type" "cas_reg_number" $daval "" "0000000000000" "" "")
+			</li>
+
+#* japanese_accepted_name *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.japanese_accepted_name)
+				#feild_textinput("$type" "japanese_accepted_name" $daval "" "" "" "")
+			</li>
+
+#* british_accepted_name *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.british_accepted_name)
+				#feild_textinput("$type" "british_accepted_name" $daval "" "" "" "")
+			</li>
+
+			#parse("center/assests/save_bar.vm")
+		
+		</ul>
+	</article>
+	<article class="grid col-full">
+		#if(!$skiplayout && !$item.baseid)
+		<ul>
+			<li><h2>Save to add ties to Drugs</h2></li>
+		</ul> #end
+		#if(!$skiplayout && $item.baseid>0)
+			<ul class="grid col-one-full mq2-col-full full-input">
+				<li>
+					#* drugdata *#
+					#set($typed_list = $item.drugs)
+					#parse("center/model_tie_tables/drug.vm")
+				</li>
+			</ul>
+			#set($type="substance")
+			#parse("center/ref.vm")
+		#end
+	</article>
+
+</form>
+#end

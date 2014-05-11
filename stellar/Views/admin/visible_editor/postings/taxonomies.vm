@@ -1,0 +1,51 @@
+<h3 class="switch">Taxonomies<em>( + )</em></h3>
+
+<div class="tabed"><hr/>
+    <h4  class="switch">Categories <em>( + )</em></h4>
+    
+    <div class="content tabed"><hr/>
+        <h6><em>Use Ctrl/Option + click to select or deselect items in the lists.</em></h6>
+        <div class="col2"  style="display:inline-block;">
+            <em style="float:right;">All <input type="checkbox" class="all" #if($item.categories.count==$categories.count)checked="checked"#end value="all"/></em>
+            <label for="LocationModelSelect" style="font-size:13px;"><strong>All Categories</strong></label><br/>
+            <select id="LocationModelSelect" name="item.categories[]"  class="" multiple="multiple" size="5" style="width:205px;">
+                #foreach($cat in $categories)
+                    <option class="model" value="$cat.id" #if($item.categories.Contains($cat)) selected="selected" #end > $htmlService.repeatStr("- ",$cat.level) $!cat.name</option>
+                #end
+            </select>
+        </div>
+    </div>
+    <hr/>
+	<h4  class="switch">Tags <em>( + )</em></h4>
+    <div class="content tabed">
+    <hr/>
+        <h6><em>Use Ctrl/Option + click to select or deselect items in the lists.</em></h6>
+        <div class="col2"  style="display:inline-block;">
+            <em style="float:right;">All <input type="checkbox" class="all" #if($item.categories.count==$categories.count)checked="checked"#end value="all"/></em>
+            <label for="LocationModelSelect" style="font-size:13px;"><strong>All Categories</strong></label><br/>
+            <select id="LocationModelSelect" name="item.categories[]"  class="" multiple="multiple" size="5" style="width:205px;">
+                #foreach($cat in $categories)
+                    <option class="model" value="$cat.id" #if($item.categories.Contains($cat)) selected="selected" #end > $htmlService.repeatStr("- ",$cat.level) $!cat.name</option>
+                #end
+            </select>
+        </div>
+    </div>
+    <hr/>
+	<h4  class="switch">WSU poperties <em>( + )</em></h4>
+    <div class="content tabed">
+    <hr/>
+        <h6><em>Use Ctrl/Option + click to select or deselect items in the lists.</em></h6>
+        <div class="col2"  style="display:inline-block;">
+            <em style="float:right;">All <input type="checkbox" class="all" #if($item.categories.count==$categories.count)checked="checked"#end value="all"/></em>
+            <label for="LocationModelSelect" style="font-size:13px;"><strong>All Categories</strong></label><br/>
+            <select id="LocationModelSelect" name="item.categories[]"  class="" multiple="multiple" size="5" style="width:205px;">
+                #foreach($cat in $categories)
+                    <option class="model" value="$cat.id" #if($item.categories.Contains($cat)) selected="selected" #end > $htmlService.repeatStr("- ",$cat.level) $!cat.name</option>
+                #end
+            </select>
+        </div>
+    </div>
+    <hr/>
+    
+</div>    
+    

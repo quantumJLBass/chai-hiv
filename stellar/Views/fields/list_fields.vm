@@ -1,0 +1,45 @@
+    <a href="$siteroot/${controller.getView()}/new_field.castle" class="creation button small" style="display:inline-block;float:right;margin-top:6px;">
+	  <span class="ui-icon ui-icon-plusthick inlineIcon"></span>New Field
+	</a>
+	<div id="_Listing" class="tabedArea tabactive" >
+		<div style="position:relative;" >
+            #set($list_items=$fields)
+            #set($Pagination_location='top inhead')
+            #set($target = 'fields')
+            #parse("admin/listings/areas/pagination.vm")		 
+            <table  width="100%" class="ui-widget ui-widget-content">
+                <thead>
+                    <tr class="ui-widget-header ">
+                        <th>Name</th>
+                        <th style="width:75px;">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                #set ($c=0)
+                #foreach($field in $fields)
+                    <tr class="#if($c%2>0) even #else odd #end #if($field.adminRead==false) ui-state-highlight #end ">
+                        <td><a href="edit_field.castle?id=$!{field.baseid}" title="Edit" class="name">
+                            $field.name
+                            </a>
+                        </td>
+                        <td>
+                            <span style='font-size:0.7em;'>
+                                <a href="edit_field.castle?id=$!{field.baseid}" title="Edit" class="button small">
+                                    <span class="ui-icon ui-icon-pencil"></span>
+                                </a>
+                                <a href="delete_field.castle?id=$!{field.baseid}" title="Delete" class="button small">
+                                    <span class="ui-icon ui-icon-trash"></span>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                    #set ($c=$c+1)
+                #end
+                </tbody>
+            </table>
+            #set($list_items=$fields)
+            #set($Pagination_location='')
+            #set($target = 'fields')
+            #parse("admin/listings/areas/pagination.vm")	
+  		</div>	
+	</div>

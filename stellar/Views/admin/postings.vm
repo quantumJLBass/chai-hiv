@@ -1,0 +1,24 @@
+#set($ptype = $httpService.get_request("ptype") )
+#if($ptype=="" || !$ptype) #set( $ptype= "posts" ) #end
+
+<div id="_Listing" class="tabedArea tabactive" >
+	<div class="listTitle">$ptype Types</div>
+	<!--<a href="#" class="button med" style="display:inline-block;float:left;margin-top:6px;">
+    	<span class="icon-plus inlineIcon"></span>New Posting Type
+	</a>-->
+    <br style="clear:both;"/>
+    <div style="position:relative;" >
+        <h2>View Posts for these types.</h2>
+        #set($menuItems = $postingService.get_post_types())
+        #set($baseurl="/post/posting_list.castle")
+        <ul>
+            #foreach($item in $menuItems)
+				#if($item.admin_url.Contains($ptype) && !$post.alias.Contains("comment"))
+					<li>
+						<a  hidefocus="true" href='$!baseurl?post_type=$!{item.alias}#if($is_admin)&is_admin=1#end'><em>$!item.name.Replace("&","&amp;")</em></a>
+					</li>
+				 #end
+            #end
+        </ul>
+    </div>	
+</div>

@@ -1,0 +1,73 @@
+<div class='summaryCol'>
+        <ul>
+        #if($item.name)
+            #set($name=$!item.name)
+        #end
+        
+        #if($name)<li class='name #if($name.Length>35)
+        fsize_1
+        #elseif($name.Length>28)
+        fsize_2
+        #elseif($name.Length>24)
+        fsize_3
+        #elseif($name.Length>20)
+        fsize_4
+        #elseif($name.Length>15)
+        fsize_5
+        #end'><h3><span>Name: </span>$!name</h3><hr/></li>
+        #end
+        #if($item.coordinate || $item.encoded)
+            #if($item.coordinate)
+                <li class='previewMap'>
+                    <img src="$siteroot/media/getmap.castle?path=$siteroot${item.staticMap}#*http://maps.google.com/staticmap?center=${item.getLat()},${item.getLong()}&amp;size=250x145&amp;maptype=mobile&amp;markers=${item.getLat()},${item.getLong()},red&amp;sensor=false*#" alt="map #if($item.prime_name)of $!item.prime_name#elseif($item.name)of $!item.name#end @${item.getLat()},${item.getLong()}"/>
+                </li>
+            #else
+            #set($fill="")
+            #set($sfill="")
+                <li class='previewMap'>
+                #if($item.default_type.name == 'polygon' || $item.default_type.name == 'rectangle')
+                        #if($item.style.Count()>0)
+                            #set($fill = $item.style.get_item(0).getoptionValue("rest","fillColor").Replace("#",""))
+                        #end
+                        #if($fill=="")#set($fill="981F32")#end
+                        #if($item.style.Count()>0)
+                            #set($sfill = $item.style.get_item(0).getoptionValue("rest","strokeColor").Replace("#",""))
+                        #end
+                        #if($sfill=="")
+                            #set($stroke = "weight:0")
+                        #else
+                            #set($stroke = "weight:3%7Ccolor:0x${sfill}")
+                        #end
+                        <img src="http://maps.googleapis.com/maps/api/staticmap?size=250x145&amp;path=${stroke}%7Cfillcolor:0x${fill}%7Cenc:${item.encoded}&amp;sensor=false" alt="map #if($item.prime_name)of $!item.prime_name#elseif($item.name)of $!item.name#end"/>
+                #elseif($item.default_type.name == 'polyline')
+                        #if($item.style.Count()>0)
+                            #set($fill = $item.style.get_item(0).getoptionValue("rest","strokeColor").Replace("#",""))
+                        #end
+                        #if($fill=="")#set($fill = "981F32")#end
+                        <img src="http://maps.googleapis.com/maps/api/staticmap?size=250x145&amp;path=weight:3%7Ccolor:0x${fill}%7Cenc:${item.encoded}&amp;sensor=false" alt="map #if($item.prime_name)of $!item.prime_name#elseif($item.name)of $!item.name#end"/>
+                    #end
+                </li>
+            #end
+        #else
+			<li class="name" style="padding:2px 5px !important;height: auto;"><span> Revisions:</span> $helperService.getRevisionCount($item)  available.</li>
+			<li class="name" style="padding:2px 5px !important;height: auto;"><span> Owner:</span>$item.owner.display_name.</li>
+            #if($item.users && $item.users!='')<li class='Authors' style="padding:2px 5px !important;"><span> Authors:</span>
+                #foreach($user in $item.users)
+                    $user.display_name
+                #between
+                    ,
+                #end</li>
+            #end
+              #if($item.tags && $item.tags!="")
+                  <li class="Body"><span>Tag: </span>
+                    #foreach($tag in $item.tags)
+                        $!tag.name
+                    #between
+                        ,
+                    #end
+                  </li>
+              #end
+          #end
+        </ul>
+   
+</div>

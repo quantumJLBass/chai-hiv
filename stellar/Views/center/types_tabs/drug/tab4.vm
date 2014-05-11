@@ -1,0 +1,53 @@
+<ul class="grid col-one-half mq2-col-full full-input">
+	#* clin_phase_1 *#
+	<li>
+		<script>//move on clean up
+		//todo
+			$(function() {
+				$("select[name^='item.clin_phase_']").on("change",function () {
+					var val=$(this).val();
+					if(val=="Failed")$(this).closest("li").nextAll().hide();
+					if(val!="Failed")$(this).closest("li").nextAll().show();
+					if(val=="Succeeded" || val=="Failed"){
+						$(this).next(".clin_date").show();
+					}else{
+						$(this).next(".clin_date").hide();
+						$(this).next(".clin_date").find("input").val("");
+					}
+				});
+			});
+		</script>
+		<div class="clin_date">
+		#set($daval ="")
+				#set($daval = $!item.clin_phase_1)
+		#feild_selectinput($type "clin_phase_1" $daval "TBD,Failed,Succeeded,On going" "" "" "")
+		 <div class="clin_date" #if($!item.clin_phase_1!="Succeeded" && $!item.clin_phase_1!="Failed")style="display:none;"#end >
+			#set($daval ="")
+				#set($daval = $!item.clin_phase_1_date)
+			#feild_dateinput("$type" "clin_phase_1_date" $daval "Date" "MM/DD/YYYY" "" "")
+		 </div>
+		 </div>
+	</li>				  
+	#* clin_phase_2 *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.clin_phase_2)
+		#feild_selectinput($type "clin_phase_2" $daval "TBD,Failed,Succeeded,On going" "" "" "")
+		 <div class="clin_date" #if($!item.clin_phase_2!="Succeeded" && $!item.clin_phase_2!="Failed")style="display:none;"#end >
+			#set($daval ="")
+				#set($daval = $!item.clin_phase_2_date)
+			 #feild_dateinput("$type" "clin_phase_2_date" $daval "Date" "MM/DD/YYYY" "" "")
+		 </div>
+	</li>				  
+	#* clin_phase_3 *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.clin_phase_3)
+		#feild_selectinput($type "clin_phase_3" $daval "TBD,Failed,Succeeded,On going" "" "" "")
+		 <div class="clin_date" #if($!item.clin_phase_3!="Succeeded" && $!item.clin_phase_3!="Failed")style="display:none;"#end >
+			#set($daval ="")
+				#set($daval = $!item.clin_phase_3_date)
+			 #feild_dateinput("$type" "clin_phase_3_date" $daval "Date" "MM/DD/YYYY" "" "")
+		 </div>
+	</li>				  
+</ul>

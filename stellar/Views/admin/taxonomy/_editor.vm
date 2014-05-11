@@ -1,0 +1,41 @@
+<form action="update_taxonomy.castle" method="post">
+	<input type="hidden" value="$!item.baseid" name="taxonomy.baseid" />
+	#set($type = $action)
+	#set($title = $action.Replace('_',' '))
+	<h3>$htmlService.capitalize($title)</h3>
+	<p>Name:<br/>
+	
+		<input type="hidden" value="$!item.alias" name="oldtax_alias"/>
+		<input type="hidden" value="$!item.taxonomy_type.alias" name="oldtax_type_alias"/>
+
+		<input type="text" value="$!item.name" name="taxonomy.name" id="type_name" class="ui-widget ui-widget-content ui-corner-all w500" />
+	</p>
+	<p>alias:<br/>
+		<input type="text" value="$!item.alias" name="taxonomy.alias" id="type_alias" class="ui-widget ui-widget-content ui-corner-all w500" />
+		<br/><b>Note: changing the alias runs the risk of orphaning any entry that is tied to this value.  All measures are taken to help prevent that but it is possible for the entries to lose its tie.</b>
+	</p>
+	#if(!$skiplayout)
+	  <p>Url:<br/>
+		  <input type="text" value="$!item.url" name="taxonomy.url" id="type_url" class="ui-widget ui-widget-content ui-corner-all w500" />
+	  </p>
+	  <p>Content:<br/>
+		  <textarea name="taxonomy.content" class="ui-widget ui-widget-content ui-corner-all w500">$!item.content</textarea>
+		  <br/><b>Note: This is often used for the help/tip bubbles.</b>
+	  </p>
+	  <p>taxonomy_type:<br/>
+		<select name="taxonomy.taxonomy_type.id" id="manufacturer" >
+			<option value="">Select</option>
+			#foreach($part in $taxonomy_types)
+				<option #if($item.taxonomy_type==$part||$action==$part.alias)selected #end value="$part.id" >$part.name</option>
+			#end
+		</select>
+	  </p>
+	#else
+		#foreach($part in $taxonomy_types)
+			#if($type==$part.alias)
+				<input name="taxonomy.taxonomy_type.id" type="hidden" value="$part.id"/>
+			#end
+		#end
+	#end
+  <p><input type="submit" value="Submit" /></p>
+</form>

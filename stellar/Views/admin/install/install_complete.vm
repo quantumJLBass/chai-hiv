@@ -1,0 +1,8 @@
+#if($state)
+<h1>Already installed</h1>
+<h3>This status comes from the web.config showing the install to get "True" and the database contiaining the minimum tables and data.</h3>
+#else
+<h1>Install Complete</h1>
+#end
+<h3><a href="/admin">Go To admin</a></h3>
+<h3><a href="/install/run_install.castle">Rerun Install <em style="font-size:50%;"><strong>Note:</strong> you will lose any changes</em></a></h3>

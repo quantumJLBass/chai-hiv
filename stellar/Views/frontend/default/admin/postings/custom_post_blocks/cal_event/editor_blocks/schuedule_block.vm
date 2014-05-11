@@ -1,0 +1,123 @@
+        
+<fieldset style="">
+    #capturefor(locationblock)
+        #set($c=0)
+        #foreach($event in $cal_event.event_dateTime)
+            <!-- eventTime -->
+            <span class="pod event" style=" position:relative;">  
+                <fieldset style="padding-right:0px;padding-right: 11px; ">
+            
+                    <input type="hidden" name="cal_event.event_dateTime[$c].baseid" value="$event.baseid"/>
+                        
+                    <span class="w200" style="display:inline-block;float:left; margin-right:10px;">
+                        Date/Time:<hr/>
+                        From: <input class="w150 datepicker optionsA" style="float:right;" type="datetime" value="$!event.startdate" placeholder="choose date/time" name="fromdatetime" title="Choose the starting date and time for your event segment"/>
+                        <hr style="clear:right;"/>
+                        To:   <input class="w150 datepicker optionsA" style="float:right;" type="datetime" value="$!event.endDate" placeholder="choose date/time" name="todatetime" title="Choose the ending date and time for your event segment <strong>Note:</strong> This should be on the same day unless your doing a over night type of event."/>
+                    </span>
+                    <span class="w250" style="border-left: 1px solid #C1C1C1; display: inline-block; float: left; padding-left: 5px;">Locations:
+                        <ul class="locationBed" style="list-style-type: none; margin: 0px; padding: 0px;">
+                            <li style=" position:relative;    padding: 2px 0 2px 26px;width: 236px;"><span class="marked">0</span>):
+                                <select name="cal_event.event_dateTime[$c].locations[0].baseid"  class="LocationSelect" >
+                                    <option class="model" value="">WSU wide</option>
+                                    #set($pt=$event.locations.getItem(0).baseid)
+                                    #foreach($pTypes in $locations)
+                                        <option class="model" value="$pTypes.baseid" #if($pt == $pTypes.baseid) selected="selected" #end> $!pTypes.name</option>
+                                    #end
+                               </select><a href="#" title="Creat a new Location" class="creatLocation ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="position: absolute; right: 4px; top: 2px;"><span class="ui-icon ui-icon-plusthick"></span></a>
+                            </li>
+                        
+                            #if($event.locations.Count>0)
+                            #set($Lcount=0)
+                                #foreach($loca in $event.locations)
+                                    <li style=" position:relative;    padding: 2px 0 2px 26px;width: 236px;"><span class="marked">$Lcount</span>):
+                                        <select name="cal_event_names[$c].label.baseid"  class="LocationSelect" >
+                                            <option class="model" value="">Select location</option>
+                                            #set($pt=$altname.label.baseid)
+                                            #foreach($pTypes in $locations)
+                                                <option class="model" value="$pTypes.id" #if($pt == $pTypes.baseid) selected="selected" #end> $!pTypes.type</option>
+                                            #end
+                                       </select><a href="#" title="Delete Location" class="deleteLocation ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="position: absolute; top: 0px; left: -22px;"><span class="ui-icon ui-icon-trash"></span></a>
+                                    </li>
+                                    #set($Lcount=$Lcount+1)
+                                #end
+                            #end
+                        </ul>
+                        <a href="#" class="newLocation">additional +</a>
+                    </span>
+                    <a href="#" title="Delete option" class="deleteOption ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="position:absolute; top:5px; right:5px;"><span class="ui-icon ui-icon-closethick"></span></a>
+                    
+                    <span style="clear:both;display:block;">
+                    	<hr/>
+                        <strong>Note:</strong> there are 5 other WSU related events going on this day. <a href="#">View</a>
+                    </span>
+                </fieldset>
+            </span>
+            #set($c=$c+1)
+        #end  
+    #end
+    <fieldset><legend>Schuedule (<span id="nameCount">$c</span> event#if($c==0||$c>1)s#end) <em>+</em></legend>               
+        <div id="events">
+            <div id="names" class="podContainer">
+                $!locationblock
+            </div>
+            
+            <a href="#" id="add_event_schuedule" class=" creation button small">
+                <span class="ui-icon ui-icon-plusthick inlineIcon"></span>Add event time
+            </a> 
+        </div>
+    </fieldset>
+</fieldset>
+
+<!-- cloningBeds -->
+	<!-- eventTime -->
+    <div id="name_clonebed" class="clonebed">         
+        <span class="pod event" style=" position:relative;">  
+            <fieldset style="padding-right:0px;padding-right: 11px; ">
+               	<input type="hidden" name="||cal_event.event_dateTime[9999].id" value=""/>
+                <span class="w200" style="display:inline-block;float:left; margin-right:10px;">
+                    Date/Time:<hr/>
+                    From: <input class="w150 datepicker optionsA" style="float:right;" type="datetime" value="" placeholder="choose date/time" name="||cal_event.event_dateTime[9999].startdate" title="Choose the starting date and time for your event segment"/>
+                    <hr style="clear:right;"/>
+                    To:   <input class="w150 datepicker optionsA" style="float:right;" type="datetime" value="" placeholder="choose date/time" name="||cal_event.event_dateTime[9999].endDate" title="Choose the ending date and time for your event segment <strong>Note:</strong> This should be on the same day unless your doing a over night type of event."/>
+                </span>
+                <span class="w250" style="border-left: 1px solid #C1C1C1; display: inline-block; float: left; padding-left: 5px;">Locations:
+                    <ul class="locationBed" style="list-style-type: none; margin: 0px; padding: 0px;">
+                    
+                        <li style=" position:relative;    padding: 2px 0 2px 26px;width: 236px;"><span class="marked">0</span>):
+                            <select name="||cal_event.event_dateTime[9999].locations[0].id"  class="LocationSelect" >
+                                <option class="model" value="">WSU wide</option>
+                                #set($pt=$altname.label.id)
+                                #foreach($pTypes in $locations)
+                                    <option class="model" value="$pTypes.id" #if($pt == $pTypes.id) selected="selected" #end> $!pTypes.name</option>
+                                #end
+                           </select><a href="#" title="Creat a new Location" class="creatLocation ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="position: absolute; right: 4px; top: 2px;"><span class="ui-icon ui-icon-plusthick"></span></a>
+                        </li>
+                    </ul>
+                    <a href="#" class="newLocation">additional +</a>
+                </span>
+                <a href="#" title="Delete option" class="deleteOption ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="position:absolute; top:5px; right:5px;"><span class="ui-icon ui-icon-closethick"></span></a>
+            </fieldset>
+        </span>
+    </div>
+	<!-- eventTime locations -->
+    <div id="locations_clonebed" class="clonebed">         
+		<li style=" position:relative;    padding: 2px 0 2px 26px;width: 236px;"><span class="marked">9999</span>):
+            <select name="cal_event_names[$c].label.id"  class="LocationSelect" >
+            	<option class="model" value="">WSU wide</option>
+                #set($pt=$altname.label.id)
+                #foreach($pTypes in $locations)
+                    <option class="model" value="$pTypes.id" #if($pt == $pTypes.id) selected="selected" #end> $!pTypes.type</option>
+                #end
+           </select><a href="#" title="Delete Location" class="deleteLocation ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="position: absolute; left: 8px; top: 2px;"><span class="ui-icon ui-icon-trash"></span></a>
+           <a href="#" title="Creat a new Location" class="creatLocation ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="position: absolute; right: 4px; top: 2px;"><span class="ui-icon ui-icon-plusthick"></span></a>
+        </li>
+    </div>
+<!-- EOF cloningBeds -->
+
+
+
+
+
+
+

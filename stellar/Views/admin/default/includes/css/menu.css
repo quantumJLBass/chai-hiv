@@ -1,0 +1,69 @@
+
+#main{padding:0px;
+    width: 100%;position: relative;}
+#mainNavArea{float: left;left: 0; position: static;top: 0;width: 201px;z-index: 999;background: url(../../../../../Content/images/bg-nav.png) no-repeat scroll -99px 0 transparent;}
+/* Nav */
+#navwrap_outer{
+	left: 0;    position: static;
+    top: 0;
+    z-index: 999;
+	width: 201px;
+	float:left;
+	padding-top:10px;
+	
+	}
+#navwrap_outer.active{background: url("../../../../Content/images/nav_top_scroll_shadow.png") no-repeat scroll 6px  0 transparent;}
+#navwrap .jspContainer{}
+#nav{
+	background:none;
+    margin-left: 16px;
+height:100%;padding:0px 0 10px 18px;
+	}
+#nav ul ul, #nav ul ul ul {
+    margin: 0;
+    padding: 3px 0 3px 3px;
+}
+#main_nav{}
+#main_nav li{width: 153px;}
+
+#main_nav li li{width: 115px;}
+
+#main_nav li a{display: block !important; color:#5e6a71;}
+#main_nav li:hover{font-weight: normal;}
+#main_nav li a:hover{color: #981e32 !important;}
+#main_nav li.sep{cursor:default;min-height:3px;}
+#main_nav li.endcap{cursor:default;min-height:15px;}
+#main_nav li.quickActions{border-right:3px solid #300;width: 150px;}
+
+#nav ul ul.action_nav{margin-left: -14px;}
+#nav ul ul.action_nav li{width: 147px;}
+#nav ul ul{padding: 0;}
+#nav ul li.ui-state-active ul{
+	 margin: 0 0 0 -14px;
+}
+#mob{margin:0px !important;padding:0px;}
+#mob_link{position:absolute;top:-9999em;left:-9999em;}
+#mob_li{padding:0px !important;}
+#nav #main_nav li a em{font-style: normal;}
+
+
+#nav #main_nav{padding: 0;}
+#nav #main_nav li{}
+#nav #main_nav ul{margin-left:14px;}
+#nav #main_nav li.active a {color:#981e32; }
+
+
+#nav #main_nav li.active ul{display:block;}
+#nav #main_nav ul li{padding-bottom: 2px;}
+
+#nav #main_nav li.active li{
+	
+	
+	}
+#nav #main_nav li.active a.parentalLink.childSelected{ color:#5E6A71;}
+#nav #main_nav li.active li a{padding-left:13px;color:#5E6A71;background: url("../../Content/images/assests_central/unchecked_menu.png") no-repeat scroll left center transparent;}
+#nav #main_nav li.active li.checked {
+	
+	}
+#nav #main_nav li.active li.checked a{color:#981e32;background: url("../../Content/images/assests_central/checked_menu.png") no-repeat scroll left center transparent;}
+#nav #main_nav ul li.subNarrow{font-style:italic;background: none repeat scroll 0 0 transparent;}

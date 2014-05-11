@@ -1,0 +1,22 @@
+#if($lastversions.Count()>0)
+    <div class="ui-widget-content ui-corner-all">
+        <h3 class="ui-widget-header ui-corner-top">revision</h3>
+        <div class="content rev">
+            <ul>
+                #set($i=0)
+                #foreach($version in $lastversions)
+                    #if($i<5 || $full)
+                       <li><input type="checkbox" name="rev" value="${version.revision}" /><a href="/post/edit_post.castle?id=${version.parent.baseid}&rev=${version.revision}">$version.revision - (<em>$version.updated_date</em>)</a></li>
+                       #set($i=$i+1)
+                    #end
+                    
+                #end
+                #if($lastversions.Count()>5 && !$full)<li><a href="/post/list_revisions.castle?id=#if($item.revision>0)${item.parent.baseid}#else$!{item.baseid}#end">... more &#187;</a></li>#end
+            </ul>
+            
+            <input type="hidden" name="rev_parent_id"  value="#if($item.revision>0)${item.parent.baseid}#else$!{item.baseid}#end" />
+            
+            <a href="#" id="compare">Compare</a>
+        </div>
+    </div>
+#end

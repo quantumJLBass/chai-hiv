@@ -1,0 +1,1606 @@
+﻿#region Directives
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Castle.ActiveRecord;
+using Castle.ActiveRecord.Queries;
+using Castle.MonoRail.Framework;
+using Castle.MonoRail.ActiveRecordSupport;
+using stellar.Models;
+//using MonoRailHelper;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Web;
+using NHibernate.Criterion;
+using System.Xml;
+using System.Xml.XPath;
+using System.Text.RegularExpressions;
+using System.Text;
+using System.Net.Sockets;
+using System.Web.Mail;
+using stellar.Services;
+using System.Dynamic;
+using System.Web.Script.Serialization;
+using System.Runtime.Serialization;
+using Microsoft.Exchange.WebServices.Data;
+using System.Collections.Specialized;
+using System.Reflection;
+using log4net;
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Management.Sdk.Sfc;
+using System.Data.SqlClient;
+using Microsoft.SqlServer.Management.Common;
+using System.Configuration;
+using Castle.ActiveRecord.Framework;
+using Castle.Core.Configuration;
+using System.Data;
+using NHibernate.Engine;
+using System.Web.Configuration;
+using System.Xml.Linq;
+
+#endregion
+namespace stellar.Controllers {
+    [Layout("admin")]
+    public class installController : SecureBaseController {
+
+        ILog log = log4net.LogManager.GetLogger("installController");
+
+
+
+        /// <summary>
+        /// This checks the config file for the state of installation.  We are reading from the web.config
+        /// to insure that we are going about this the fastest way possible since the config is loaded and 
+        /// cached.  Also when changed, it restarts the app.
+        /// </summary>
+        /// <returns></returns>
+        public static Boolean is_installed() {
+            Boolean installed = false;
+            NameValueCollection section = (NameValueCollection)ConfigurationManager.GetSection("site_config");
+            string setting = section["installed"];
+            installed = Convert.ToBoolean(setting);
+
+            return installed;
+        }
+        /// <summary>
+        /// This is what changes the web.config.  After which the app restarts and the install state is True/False
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        private Boolean set_installed_state(String state) {
+            var config = XDocument.Load(HttpContext.Current.Server.MapPath("~/Web.config"));
+
+            //should be little more like.. which one? maybe the node with key = installed? yeah that's right.. come on.
+            var targetNode = config.Root.Element("site_config").Element("add").Attribute("value");
+            targetNode.Value = state;
+            config.Save(HttpContext.Current.Server.MapPath("~/Web.config"));
+            return true;
+        }
+
+
+        public static void start_install() {
+            /* this is for later for a install wizard
+             */
+            HttpContext.Current.Response.Redirect("/install/install.castle");
+        }
+        public void install() {
+            CancelLayout();
+            //Start form
+
+            RenderView("../admin/install/install_start");
+        }
+
+        public static List<String> load_core_folders(String site) {
+            List<String> struture = new List<String>();
+            String BASEPATH = file_info.root_path() + "site_content/" + site + "/";
+            struture.Add(BASEPATH);
+
+            struture.Add(BASEPATH);
+            struture.Add(BASEPATH + "/cache/");
+            struture.Add(BASEPATH + "/cache/files/");
+            struture.Add(BASEPATH + "/cache/files/images");
+            struture.Add(BASEPATH + "/cache/postings/");
+            struture.Add(BASEPATH + "/cache/scripts/");
+            struture.Add(BASEPATH + "/cache/scripts/css");
+            struture.Add(BASEPATH + "/cache/scripts/js");
+
+            struture.Add(BASEPATH + "/published/");
+            struture.Add(BASEPATH + "/working/");
+            struture.Add(BASEPATH + "/revision/");
+
+            struture.Add(BASEPATH + "uploads/");
+            struture.Add(BASEPATH + "uploads/files/");
+            struture.Add(BASEPATH + "uploads/files/images/");
+
+            file_handler.DirectoryCopy(new DirectoryInfo(file_info.root_path() + "install/default_content/"), BASEPATH, true);
+
+            return struture;
+        }
+
+        public Boolean clean_system() {
+            
+            set_installed_state("False");
+
+            string connectionSting = ConfigurationManager.ConnectionStrings[0].ConnectionString;
+            var sfimpl = ActiveRecordMediator.GetSessionFactoryHolder().GetSessionFactory(typeof(object));
+            IDbConnection conn = ((ISessionFactoryImplementor)sfimpl).ConnectionProvider.GetConnection();
+            //set with a fresh data base.  Later an update script will be needed
+            SqlConnection sqlConnection = new SqlConnection(conn.ConnectionString);
+            ServerConnection svrConnection = new ServerConnection(sqlConnection);
+            Server server = new Server(svrConnection);
+            server.ConnectionContext.ExecuteNonQuery(File.ReadAllText(Context.Server.MapPath("/config/export.sql")));
+
+            clear_core_folders();
+
+            return true;
+        }
+
+        public static Boolean clear_core_folders() {
+            List<String> struture = new List<String>();
+
+            struture.Add(file_info.root_path() + "site_content/");
+
+            foreach (String dir in struture) {
+                try {
+                    Directory.Delete(dir,true);
+                    logger.writelog( String.Format("The directory {0} was deleted successfully.", dir) );
+                } catch (Exception e) {
+                    logger.writelog( String.Format("The Deletetion process failed: {0}", e.ToString()) );
+                } finally {
+                }
+            }
+            return true;
+        }
+        public static Boolean make_core_folders(site site) {
+            List<String> struture = load_core_folders(site.alias);
+
+            //This would be on some option controll type thing... 
+            seoService.regen_sitemap(file_info.relative_site_content_path().Trim('/') + "/" + site.get_option("sitemap_location").Trim('/'), "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\"><url> <loc>" + site.base_url + "</loc> <changefreq>daily</changefreq></url></urlset>");
+            seoService.regen_robots_txt(file_info.relative_site_content_path().Trim('/') + "/" + site.get_option("sitemap_location").Trim('/'),"User-Agent: *\r\nDisallow:\r\nDisallow: /admin\r\n\r\nSitemap: " + site.base_url + "/sitemap.xml\r\n");
+            foreach (String dir in struture) {
+                try {
+                    // Determine whether the directory exists. 
+                    if (Directory.Exists(dir)) {
+                        //Console.WriteLine("That path exists already.");
+                        return true;
+                    }
+                    DirectoryInfo di = Directory.CreateDirectory(dir);
+                    logger.writelog(String.Format("The directory was created successfully at {0}.", Directory.GetCreationTime(dir)));
+                } catch (Exception e) {
+                    logger.writelog(String.Format("The process failed: {0}", e.ToString()));
+                } finally {
+                }
+            }
+            return true;
+        }
+
+
+
+        [SkipFilter()]
+        public void run_install(){
+            CancelLayout();
+            CancelView();
+            String renderPath = file_info.root_path();
+            String theme = "default";
+            echo("<html><head></head><body><script type='text/javascript'>document.write('Starting install<br/>');</script>");
+            //HttpContext.Current.Response.Flush();
+            clean_system();
+            
+            
+            /* WILD WEST install
+             * so the deal is that we are going to have an xml to load from
+             * it'll install so that the site could be anything we need it 
+             * to be, from a Script service to a Calendar or a blog or a 
+             * file service, and even a redirection and print service.
+             * This is done via discribing what is what and all the options of the posts.
+             * by doing this we are able to discribe pages, files, events and more.
+             */
+
+
+            /* set up the site .. most of this part would be in the WIZ */
+            site site = new site() {
+                name = "WSU Campus Calendar",
+                alias = "campus-calendar",
+                is_default = true,
+                base_url = "http://localhost",
+                local_path = file_info.root_path()
+            };
+            //it seems that we need to flush the session that has the default site in it.  
+            //look into this.  For now just rerun install again and the session clears
+            ActiveRecordMediator<site>.Save(site);
+            site.options = new List<options>(){
+                    #region(siteoptions)
+                   new options() {
+                        option_key = "use_static",
+                        value = "0"
+                    }, 
+
+                    new options(){
+                        option_key = "filters_only_wsu",
+                        value = @"0"
+                    },
+                    new options(){
+                        option_key = "filters_only_wsu_expression",
+                        value = @"^134\.121\.|^192\.94\.2[1-2]\.|^192\.138\.182\.|^198\.17\.13\.|^69\.166\.([3-5][0-9]|6[0-3])\.|^172\.16\.([0-9]|1[0-9]|2[0-3])\.|^172\.17\.(([0-9]|1[0-5]|[2-7][0-9]|8[0-7])\.|255\.([0-9]|[1-9][0-9]|1[0-5][0-9])$)|^172\.18\.[1-6]\."
+                    },
+                    new options(){
+                        option_key = "filters_allowed_ips",
+                        value = @"0"
+                    },
+                    new options(){
+                        option_key = "filters_allowed_ips_expression",
+                        value = @""
+                    },
+                    new options() {
+                        option_key = "state_debug",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "filters_debug_ips",
+                        value = @""
+                    },
+                    new options() {
+                        option_key = "filters_debug_ips_expression",
+                        value = @""
+                    },                    
+
+                    new options() {
+                        option_key = "site_ext",
+                        value = "html"
+                    },
+                    new options() {
+                        option_key = "usedev",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "use_print_service",
+                        value = "1"
+                    },
+                    new options() {
+                        option_key = "print_notable",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "current_site_theme",
+                        value = "default"
+                    },
+                    new options() {
+                        option_key = "default_head_html_title",
+                        value = "Stellar AMS"
+                    },
+                    new options() {
+                        option_key = "default_head_html_description",
+                        value = "An Amorphic Management System you can shape to your heart's content. ;) "
+                    },
+                    new options() {
+                        option_key = "default_head_html_keywords",
+                        value = "site cms, stuff"
+                    },
+                    new options() {
+                        option_key = "default_head_html_robots",
+                        value = "INDEX,FOLLOW"
+                    },
+                    new options() {
+                        option_key = "email_asHtml",
+                        value = "1"
+                    },
+                    new options() {
+                        option_key = "default_sender_name",
+                        value = "Admin"
+                    }, 
+                    new options() {
+                        option_key = "default_sender_email",
+                        value = "noreply@wsu.edu"
+                    },
+                    new options() {
+                        option_key = "tidy_html",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "minify_html",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "minify_js",
+                        value = "1"
+                    },
+                    new options() {
+                        option_key = "minify_css",
+                        value = "1"
+                    },
+                    new options() {
+                        option_key = "GA_account_id",
+                        value = "UA-25040747-1"
+                    },
+                    new options() {
+                        option_key = "google_site_verification",
+                        value = "hMQT0jjLAQ7ZvVY91SCAMHNNBjEWVgpJMqIbzt0XAd0"
+                    },
+                    new options() {
+                        option_key = "ga_track_events",
+                        value = "1"
+                    },
+                    new options() {
+                        option_key = "ga_use_custom",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "bing_site_verification",
+                        value = "73B464C828058D51A426DC1B61D99824"
+                    },
+                    new options() {
+                        option_key = "generate_sitemap",
+                        value = "1"
+                    },
+                    new options() {
+                        option_key = "generate_robots_txt",
+                        value = "1"
+                    },
+                    new options() {
+                        option_key = "use_faceabook",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "use_twitter",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "use_linkedin",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "use_tumblr",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "use_yahoo",
+                        value = "0"
+                    },
+                    new options() {
+                        option_key = "use_tinymce",
+                        value = "1"
+                    },
+                    new options() {
+                        option_key = "code_theme",
+                        value = "rubyblue",
+                        is_overwritable = true
+                    }
+                    #endregion
+            };
+            ActiveRecordMediator<site>.Save(site);
+            String site_folder_name = site.alias;
+            make_core_folders(site);
+
+          
+
+
+            #region(add users)
+                // NOTE THIS IS WIZDAR MATERIAL
+                // add event models
+                ActiveRecordMediator<users>.Save(new users() {
+                    nid = "jeremy.bass",
+                    display_name = "Jeremy Bass",
+                    site = site,
+                    groups = ActiveRecordBase<user_groups>.FindFirst(
+                        new List<AbstractCriterion>() { Expression.Eq("name", "system_admin") }.ToArray()
+                        ),
+                    contact_profiles = new List<contact_profile>() {        
+                            new contact_profile() {
+                                title="Mr",
+                                first_name="Jeremy",
+                                middle_name="Lee",
+                                last_name="Bass",
+                                email="jeremy.bass@wsu.edu",
+                                isDefault=true,
+                                isPublic=true,
+                                allowContact=true
+                            }
+                    },
+                    user_meta_data = new List<user_meta_data>(){
+                        new user_meta_data(){
+                            meta_key = "code_theme",
+                            value = "ambiance"
+                        },
+                        new user_meta_data(){
+                            meta_key = "use_tinymce",
+                            value = "1"
+                        },
+                        new user_meta_data(){
+                            meta_key = "user_stealth",
+                            value = "1"
+                        },
+                        new user_meta_data(){
+                            meta_key = "user_hotkeys",
+                            value = "1"
+                        },
+                        new user_meta_data(){
+                            meta_key = "display_name_as",
+                            value = "display_name"
+                        }
+                    }
+                });
+
+                ActiveRecordMediator<users>.Save(new users() {
+                    nid = "nate_owen",
+                    display_name = "Nate",
+                    site = site,
+                    groups = ActiveRecordBase<user_groups>.FindFirst(
+                        new List<AbstractCriterion>() { Expression.Eq("name", "admin") }.ToArray()
+                        ),
+                    user_meta_data = new List<user_meta_data>(){
+                        new user_meta_data(){
+                            meta_key = "code_theme",
+                            value = "rubyblue"
+                        },
+                        new user_meta_data(){
+                            meta_key = "use_tinymce",
+                            value = "1"
+                        },
+                        new user_meta_data(){
+                            meta_key = "user_stealth",
+                            value = "0"
+                        },
+                        new user_meta_data(){
+                            meta_key = "user_hotkeys",
+                            value = "1"
+                        },
+                        new user_meta_data(){
+                            meta_key = "display_name_as",
+                            value = "nid"
+                        }
+                    }
+                });
+            #endregion
+
+            //SINCE THIS WOULD BE APART OF THE WIZ, REMOVE
+            users user = ActiveRecordBase<users>.FindFirst( new List<AbstractCriterion>() { Expression.Eq("nid", "jeremy.bass") }.ToArray() );
+
+
+            #region(ContentBlocks)
+
+            dynamic blockslist = file_info.DirSearch(versionService.working_path().Trim('/') + "/contentblock/");
+            foreach (String block in blockslist) {
+                posting contentblock = postingService.create_post_from_file(file_handler.normalize_path(block), "contentblock");
+                if (contentblock.baseid > 0) {
+                    contentblock.loads_file = false;
+                    contentblock.is_Public = true;
+                    contentblock.useTiny = false;
+                    contentblock.is_Code = true;
+                    contentblock.is_default = true;
+                    contentblock.is_deletable = true;
+                    contentblock.is_frontend_editable = true;
+                    contentblock.is_core = true;
+                    contentblock.site = site;
+                    ActiveRecordMediator<posting>.Save(contentblock);
+                    versionService.make_post_revision(contentblock);//make the first revision as would happen in the saving process
+                    versionService.publish_post(contentblock);// push it to a published state
+                }
+            }
+
+
+            posting contentblock_tmp = new posting();
+            dynamic content_blockslist = file_info.DirSearch(versionService.working_path().Trim('/') + "/contentblock/");
+
+            foreach (String block in content_blockslist) {
+                posting contentblock = postingService.create_post_from_file(file_handler.normalize_path(block), "contentblock");
+                if (contentblock.baseid > 0) {
+                    contentblock.loads_file = false;
+                    contentblock.is_Public = true;
+                    contentblock.useTiny = false;
+                    contentblock.is_Code = true;
+                    contentblock.is_default = true;
+                    contentblock.is_deletable = true;
+                    contentblock.is_frontend_editable = true;
+                    contentblock.is_core = true;
+                    contentblock.site = site;
+                    ActiveRecordMediator<posting>.Save(contentblock);
+                    versionService.make_post_revision(contentblock);//make the first revision as would happen in the saving process
+                    versionService.publish_post(contentblock);// push it to a published state
+                }
+            }
+
+
+
+            #endregion
+            echo("<script type='text/javascript'>document.write('did content blocks<br/>');</script>");
+            //HttpContext.Current.Response.Flush();
+
+            #region(Fields)
+
+
+
+
+
+            #endregion
+
+
+
+            #region(add default WSU hoilday events)
+            pType = ActiveRecordBase<posting_type>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("alias", "cal_event") }.ToArray());
+           
+            //cal_events cal_events_tmp = new cal_events();
+            posting cal_events_tmp = new posting();
+            cal_events_tmp = new posting() {
+                name = "Christmas Holiday",
+                alias = "christmas-holiday-2012",
+                //url = "http://en.wikipedia.org/wiki/Christmas", // this would be a field
+                version = 1,
+                revision = 0,
+                post_type = pType,
+                content = "*WSU observes a Christmas holiday in lieu of President's Day",
+                taxonomies = new List<taxonomy>() { 
+                   ActiveRecordBase<taxonomy>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("name", "WSU Holiday") }.ToArray()),
+                   ActiveRecordBase<taxonomy>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("name", "VEVENT") }.ToArray())
+                },
+                owner = user,
+                editors = new List<users>() { user }
+                /*event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2012-12-24 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2012-12-24 23:59:59.000")
+                                        }
+                                    }*/
+            };
+            ActiveRecordMediator<posting>.Save(cal_events_tmp);
+
+            posting Parent = cal_events_tmp;
+            posting child = new posting() {
+                name = "Summary",
+                post_type = ActiveRecordBase<posting_type>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("alias", "blobs") }.ToArray()),
+                alias = "summary",
+                content = "Christmas is a relious day off",
+                owner = user,
+                editors = new List<users>() { user },
+                parent = Parent
+            };
+            ActiveRecordMediator<posting>.Save(child);
+
+            Parent.children = new List<posting>() { child }.ToArray();
+            ActiveRecordMediator<posting>.Save(Parent);
+
+
+            
+
+
+
+
+
+
+            /*
+            cal_events_tmp = new posting() {
+                name = "Christmas Day",
+                alias = "christmas-day-2012",
+                url = "http://en.wikipedia.org/wiki/Christmas",
+                summary = "Christmas is a relious day off",
+                description = "Christmas (Old English: Crīstesmæsse, meaning \"Christ's Mass\") is an annual commemoration of the birth of Jesus Christ and a widely observed holiday, celebrated generally on December 25 by billions of people around the world.",
+                status = eStatus,
+                event_type = eType,
+                event_model = eModel,
+                owner = user,
+                users = new List<users>() { user },
+                event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2012-12-25 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2012-12-25 23:59:59.000")
+                                        }
+                                    }
+            };
+            ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+            cal_events_tmp = new posting() {
+                name = "New Year's Day",
+                alias = "new-years-day-2013",
+                url = "http://en.wikipedia.org/wiki/New_Year%27s_Day",
+                summary = "First day of a year",
+                description = "<em>\"Your success and happiness lies in you. Resolve to keep happy, and your joy and you shall form an invincible host against difficulties.\"</em> &mdash; Helen Keller",
+                status = eStatus,
+                event_type = eType,
+                event_model = eModel,
+                owner = user,
+                users = new List<users>() { user },
+                event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-1-1 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-1-1 23:59:59.000")
+                                        }
+                                    }
+            };
+            ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+            cal_events_tmp = new posting() {
+                name = "Martin Luther King Jr. Day",
+                alias = "mlk-day-2013",
+                url = "http://en.wikipedia.org/wiki/Martin_Luther_King,_Jr._Day",
+                summary = "A United States federal holiday marking the birthday of Rev. Dr. Martin Luther King, Jr.",
+                description = "King was the chief spokesman for nonviolent activism in the civil rights movement, which successfully protested racial discrimination in federal and state law. The campaign for a federal holiday in King''s honor began soon after his assassination in 1968. Ronald Reagan signed the holiday into law in 1983, and it was first observed on January 20, 1986. At first, some states resisted observing the holiday as such, giving it alternative names or combining it with other holidays. It was officially observed in all 50 states for the first time in 2000.",
+                status = eStatus,
+                event_type = eType,
+                event_model = eModel,
+                owner = user,
+                users = new List<users>() { user },
+                event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-1-21 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-1-21 23:59:59.000")
+                                        }
+                                    }
+            };
+            ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+            cal_events_tmp = new posting() {
+                name = "Memorial Day",
+                alias = "memorial-day-2013",
+                url = "http://en.wikipedia.org/wiki/Memorial_Day",
+                summary = "An American federal holiday observed annually on the last Monday of May.  Memorial Day is a day of remembering the men and women who died while serving in the United States Armed Forces.",
+                description = "Formerly known as Decoration Day, it originated after the American Civil War to commemorate the Union and Confederate soldiers who died in the Civil War. By the 20th century Memorial Day had been extended to honor all Americans who have died in all wars. It typically marks the start of the summer vacation season, while Labor Day marks its end.  Many people visit cemeteries and memorials, particularly to honor those who have died in military service. Many volunteers place an American flag on each grave in national cemeteries.",
+                status = eStatus,
+                event_type = eType,
+                event_model = eModel,
+                owner = user,
+                users = new List<users>() { user },
+                event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-5-27 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-5-27 23:59:59.000")
+                                        }
+                                    }
+            };
+            ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+            cal_events_tmp = new posting() {
+                name = "Independence Day",
+                alias = "independence-day-2013",
+                url = "http://en.wikipedia.org/wiki/Independence_Day_(United_States)",
+                summary = "Commonly known as the Fourth of July, is a federal holiday in the United States commemorating the adoption of the Declaration of Independence on July 4, 1776, declaring independence from the Kingdom of Great Britain.",
+                description = "Independence Day is commonly associated with fireworks, parades, barbecues, carnivals, fairs, picnics, concerts, baseball games, family reunions, and political speeches and ceremonies, in addition to various other public and private events celebrating the history, government, and traditions of the United States. Independence Day is the national day of the United States.",
+                status = eStatus,
+                event_type = eType,
+                event_model = eModel,
+                owner = user,
+                users = new List<users>() { user },
+                event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-7-4 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-7-4 23:59:59.000")
+                                        }
+                                    }
+            };
+            ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+            cal_events_tmp = new posting() {
+                name = "Labor Day",
+                alias = "labor-day-2013",
+                url = "http://en.wikipedia.org/wiki/Labor_Day",
+                summary = "An American federal holiday observed on the first Monday in September, that celebrates the economic and social contributions of workers.",
+                description = "Oregon was the first state to make it a holiday on February 21, 1887. By the time it became a federal holiday in 1894, thirty states officially celebrated Labor Day.  Following the deaths of a number of workers at the hands of the U.S. military and U.S. Marshals during the Pullman Strike, the United States Congress unanimously voted to approve rush legislation that made Labor Day a national holiday; President Grover Cleveland signed it into law a mere six days after the end of the strike.",
+                status = eStatus,
+                event_type = eType,
+                event_model = eModel,
+                owner = user,
+                users = new List<users>() { user },
+                event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-9-2 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-9-2 23:59:59.000")
+                                        }
+                                    }
+            };
+            ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+            cal_events_tmp = new posting() {
+                name = "Veterans Day",
+                alias = "veterans-day-2013",
+                url = "http://en.wikipedia.org/wiki/Labor_Day",
+                summary = "An official United States holiday which honors people who have served in armed service also known as veterans.",
+                description = "It is a federal holiday that is observed on November 11th. It coincides with other holidays such as Armistice Day and Remembrance Day, which are celebrated in other parts of the world and also mark the anniversary of the end of World War I. (Major hostilities of World War I were formally ended at the 11th hour of the 11th day of the 11th month of 1918, with the German signing of the Armistice.)  Veterans Day is not to be confused with Memorial Day; Veterans Day celebrates the service of all of veterans, while Memorial Day is a day of remembering the men and women who died while serving.",
+                status = eStatus,
+                event_type = eType,
+                event_model = eModel,
+                owner = user,
+                users = new List<users>() { user },
+                event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-11-11 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-11-11 23:59:59.000")
+                                        }
+                                    }
+            };
+            ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+            cal_events_tmp = new posting() {
+                name = "Thanksgiving Day",
+                alias = "thanksgiving-day-2013",
+                url = "http://en.wikipedia.org/wiki/Thanksgiving_Day",
+                summary = "A national holiday celebrated primarily in the United States and Canada. Several other places around the world observe similar celebrations.",
+                description = "It is celebrated on the fourth Thursday of November in the United States and on the second Monday of October in Canada. Thanksgiving has its historical roots in religious and cultural traditions, but today is celebrated in a more secular manner.",
+                status = eStatus,
+                event_type = eType,
+                event_model = eModel,
+                owner = user,
+                users = new List<users>() { user },
+                event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-11-28 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-11-28 23:59:59.000")
+                                        }
+                                    }
+            };
+            ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+
+            cal_events_tmp = new posting() {
+                name = "Thanksgiving Holiday",
+                alias = "thanksgiving-holiday-2013",
+                url = "http://en.wikipedia.org/wiki/Thanksgiving_Day",
+                summary = "A national holiday celebrated primarily in the United States and Canada. Several other places around the world observe similar celebrations.",
+                description = "It is celebrated on the fourth Thursday of November in the United States and on the second Monday of October in Canada. Thanksgiving has its historical roots in religious and cultural traditions, but today is celebrated in a more secular manner.",
+                status = eStatus,
+                event_type = eType,
+                event_model = eModel,
+                owner = user,
+                users = new List<users>() { user },
+                event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-11-29 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-11-29 23:59:59.000")
+                                        }
+                                    }
+            };
+            ActiveRecordMediator<posting_type>.Save(cal_events_tmp);*/
+            #endregion
+            echo("<script type='text/javascript'>document.write('starting docs<br/>');</script>");
+            //HttpContext.Current.Response.Flush();
+            #region(documentation)
+
+
+
+            //make the doc post type
+            ActiveRecordMediator<posting_type>.Save(new posting_type() {
+                name = "Docs",
+                alias = "documentation",
+                is_Code = true,
+                is_visible = false,
+                is_templatable = true,
+                use_posting_templates = true,
+                use_layout_templates = false,
+                is_admin = true,
+                url = "/help",
+                position = 0,
+                sort = 1,
+                site = site,
+                actions = new List<posting_type_actions>() {        
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "new")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "edit")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "delete")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "publish")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "copy")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "share")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "view")}.ToArray()
+                        )
+                    }
+            });
+            postingService.make_postype_folders("documentation");
+
+            //make the doc menu template
+            posting doc_template = postingService.create_post_from_file(file_handler.normalize_path(versionService.working_path().Trim('/') + "/posting_template/documentation.html"), "documentation");
+            if (doc_template.baseid > 0) {
+                doc_template.name = "Documentation Layout";
+                doc_template.alias = "documentation";
+                doc_template.loads_file = true;
+                doc_template.is_Public = true;
+                doc_template.useTiny = false;
+                doc_template.is_Code = true;
+                doc_template.is_default = true;
+                doc_template.is_deletable = false;
+                doc_template.is_core = true;
+                doc_template.site = site;
+                ActiveRecordMediator<posting>.Save(doc_template);
+                versionService.make_post_revision(doc_template);//make the first revision as would happen in the saving process
+                versionService.publish_post(doc_template);// push it to a published state
+            }
+
+
+                //make the doc menu template
+            posting docnav = postingService.create_post_from_file(file_handler.normalize_path(versionService.working_path().Trim('/') + "/menu_template/doc_menu.html"), "documentation");
+                if (docnav.baseid > 0) {
+                    docnav.name = "Documentation nav";
+                    docnav.alias = "doc_menu";
+                    docnav.loads_file = true;
+                    docnav.is_Public = true;
+                    docnav.useTiny = false;
+                    docnav.is_Code = true;
+                    docnav.is_default = true;
+                    docnav.is_deletable = false;
+                    docnav.is_core = true;
+                    docnav.site = site;
+                    ActiveRecordMediator<posting>.Save(docnav);
+                    versionService.make_post_revision(docnav);//make the first revision as would happen in the saving process
+                    versionService.publish_post(docnav);// push it to a published state
+                }
+
+
+                //make the doc pages
+                // this is the working revision
+                pagelist = file_info.DirSearch(versionService.working_path().Trim('/') + "/documentation/");
+                int sort = 1;
+                foreach(String file in pagelist){
+                    String file_n_path = file_handler.normalize_path(file);
+                    posting post = postingService.create_post_from_file(file_n_path, "documentation");
+                    if(post.baseid>0){
+                        post.loads_file = true;
+                        post.position = post.static_file.Split('/').Length - 1;
+                        post.sort = (file_n_path.Contains("help.vm")) ? 0 : sort;
+                        post.theme = theme;
+                        post.useTiny = false;
+                        post.is_Code = true;
+                        post.is_templatable = true;
+                        post.is_Public = false;
+                        post.is_default = (file_n_path.Contains("help.vm")) ? true : false;
+                        post.is_core = true;
+                        post.is_admin = true;
+                        post.site = site;
+                        post.is_frontend_editable = false;
+                        post.is_deletable = true;
+                        post.postparents = new List<posting>() {
+                        ActiveRecordBase<posting>.FindFirst(
+                                    new List<AbstractCriterion>() {
+                                        Expression.Eq("post_type", ActiveRecordBase<posting_type>.FindFirst(
+                                            new List<AbstractCriterion>() { 
+                                                Expression.Eq("alias", "posting_template")
+                                            }.ToArray())),
+                                        Expression.Eq("alias", "documentation") }.ToArray()
+                                )
+                        };
+                        ActiveRecordMediator<posting>.Save(post);
+                        versionService.make_post_revision(post);//make the first revision as would happen in the saving process
+                        versionService.publish_post(post);// push it to a published state
+                        /*post.meta_data = new List<meta_data>(){
+                            new meta_data(){
+                                meta_key = "title",
+                                post = post,
+                                value = name
+                            }
+                        };
+                        ActiveRecordMediator<posting>.Save(doc_tmp);*/
+                        sort++;
+                    }
+                }
+
+                // create the menu for the doc pages created
+                menu = new posting() {
+                    name = "Help menu",
+                    alias = "help_menu",
+                    post_type = ActiveRecordBase<posting_type>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("alias", "menu") }.ToArray()),
+                    owner = user,
+                    editors = new List<users>() { user },
+                    theme = theme,
+                    version = 1,
+                    is_core = true,
+                    is_admin = true,
+                    is_deletable = false,
+                    is_Public = false,
+                    published = true,
+                    is_templatable = true,
+                    site = site,
+                    postparents = new List<posting>() { ActiveRecordBase<posting>.FindFirst(
+                                new List<AbstractCriterion>() {
+                                    Expression.Eq("post_type", ActiveRecordBase<posting_type>.FindFirst(
+                                        new List<AbstractCriterion>() { 
+                                            Expression.Eq("alias", "menu_template")
+                                        }.ToArray())),
+                                    Expression.Eq("alias", "doc_menu") }.ToArray()
+                            )},
+                    menuoptions = new List<menu_option>()
+                };
+                ActiveRecordMediator<posting>.Save(menu);
+                page_list = ActiveRecordBase<posting>.FindAll(new List<AbstractCriterion>() { Expression.Eq("published", true), Expression.Eq("post_type", ActiveRecordBase<posting_type>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("alias", "documentation") }.ToArray())) }.ToArray());
+                if (page_list.Count() > 0) {
+                    IList<menu_option> tmplist = menu.menuoptions;
+                    menu.menuoptions.Clear();
+                    foreach (menu_option kill in tmplist) {
+                        ActiveRecordMediator<menu_option>.DeleteAndFlush(kill);
+                    }
+
+                    foreach (posting post in page_list) {
+                        menu_option tmp = new menu_option() {
+                            sort = post.sort,
+                            position = post.position,
+                            post = post,
+                            site = site,
+                            published = true
+                        };
+                        ActiveRecordMediator<menu_option>.Save(tmp);
+                        menu.menuoptions.Add(tmp);
+                    }
+                    ActiveRecordMediator<posting>.Save(menu);
+                }
+                versionService.make_post_revision(menu);
+                versionService.publish_post(menu);
+
+
+            #endregion
+            echo("<script type='text/javascript'>document.write('did documentation<br/>');</script>");
+            //HttpContext.Current.Response.Flush();
+
+            #region(Email)
+                //make the doc post type
+                ActiveRecordMediator<posting_type>.Save(new posting_type() {
+                    name = "Email",
+                    alias = "email",
+                    is_Code = true,
+                    is_visible = false,
+                    is_templatable = true,
+                    use_posting_templates = true,
+                    use_layout_templates = false,
+                    is_admin = false,
+                    admin_url = "/content",
+                    position = 0,
+                    sort = 1,
+                    site = site,
+                    actions = new List<posting_type_actions>() {        
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "new")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "edit")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "delete")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "publish")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "copy")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "share")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "view")}.ToArray()
+                        )
+                    },
+                });
+
+
+                ActiveRecordMediator<posting_type>.Save(new posting_type() {
+                    name = "Email Template",
+                    alias = "email_template",
+                    gets_media = false,
+                    is_summarizable = false,
+                    is_tabable_content = false,
+                    is_taggable = false,
+                    is_taxonomyable = false,
+                    is_categorized = false,
+                    is_default = false,
+                    is_Code = true,
+                    is_visible = true,
+                    site = site,
+                    actions = new List<posting_type_actions>() {        
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "new")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "edit")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "delete")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "copy")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "share")}.ToArray()
+                        )
+                    },
+                    admin_url = "/layout",
+                    position = 0,
+                    sort = 1
+                });
+
+
+            /* add the email templates
+                //make the doc posting template
+                ActiveRecordMediator<posting>.Save(new posting() {
+                    name = "Documentation Layout",
+                    content = System.IO.File.ReadAllText(renderPath + "themes/admin/" + theme + "/view/posting_template/documentation.html"),
+                    alias = "documentation",
+                    version = 1,
+                    revision = 0,
+                    post_type = ActiveRecordBase<posting_type>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("alias", "posting_template") }.ToArray()),
+                    is_Public = false,
+                    useTiny = false,
+                    is_Code = true,
+                    is_default = true,
+                    is_deletable = false,
+                    //is_core = true,
+                    is_admin = true,
+                    owner = user,
+                    theme = theme,
+                    editors = new List<users>() { user }
+                });
+            */
+                #endregion
+            echo("<script type='text/javascript'>document.write('did emails<br/>');</script>");
+            // HttpContext.Current.Response.Flush();
+
+            #region(Error pages and links)
+            ActiveRecordMediator<posting>.Save(new posting() {
+                name = "General error layout",
+                content = System.IO.File.ReadAllText(renderPath + "themes/" + theme + "/frontend/layout_template/error.html"),
+                alias = "error",
+                loads_file = true,
+                static_file = "/layout_template/error.html",
+                version = 1,
+                revision = 0,
+                post_type = ActiveRecordBase<posting_type>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("alias", "layout_template") }.ToArray()),
+                is_Public = true,
+                useTiny = false,
+                is_Code = true,
+                is_default = true,
+                is_deletable = false,
+                is_core = true,
+                is_admin = false,
+                owner = user,
+                theme = theme,
+                site = site,
+                editors = new List<users>() { user }
+            });
+
+
+            ActiveRecordMediator<posting>.Save(new posting() {
+                name = "404",
+                url = "/404.html",
+                content = "page content that is content we want to show.",
+                loads_file = true,
+                static_file = "/errors/404.html",
+                alias = "404",
+                version = 1,
+                revision = 0,
+                position = 1,
+                post_type = ActiveRecordBase<posting_type>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("alias", "page") }.ToArray()),
+                gets_media = false,
+                is_tabable_content = false,
+                is_categorized = false,
+                is_summarizable = false,
+                is_taggable = false,
+                is_taxonomyable = false,
+                useTiny = false,
+                is_Code = true,
+                is_Public = true,
+                is_default = false,
+                is_frontend_editable = false,
+                is_deletable = false,
+                is_core = true,
+                is_admin = false,
+                is_templatable = true,
+                is_visible = false,
+                sort = 5,
+                theme = theme,
+                owner = user,
+                site = site,
+                editors = new List<users>() { user },
+                postparents = new List<posting>() {
+                      ActiveRecordBase<posting>.FindFirst(
+                             new List<AbstractCriterion>() {
+                                 Expression.Eq("post_type", ActiveRecordBase<posting_type>.FindFirst(
+                                        new List<AbstractCriterion>() { 
+                                            Expression.Eq("alias", "layout_template")
+                                        }.ToArray())),
+                                 Expression.Eq("alias", "error") }.ToArray()
+                         )
+                }
+            });
+
+
+            #endregion
+            echo("<script type='text/javascript'>document.write('did error pages<br/>');</script>");
+            //HttpContext.Current.Response.Flush();
+
+            #region(Media with sample images)
+
+
+            #region(taxonomy_type media_ext with taxonomy)
+            ActiveRecordMediator<taxonomy_type>.Save(new taxonomy_type() {
+                alias = "media_ext",
+                name = "Media Extension",
+                allows_multiple = false,
+                is_core = true,
+                is_visible = false
+            });
+            
+            ActiveRecordMediator<taxonomy>.Save(new taxonomy() {
+                name = "Jpeg",
+                alias = "jpg",
+                taxonomy_type = ActiveRecordBase<taxonomy_type>.FindFirst(
+                    new List<AbstractCriterion>() { Expression.Eq("alias", "media_ext") }.ToArray()
+                ),
+                site = site,
+                is_active = true,
+            });
+            ActiveRecordMediator<taxonomy>.Save(new taxonomy() {
+                name = "Jpeg",
+                alias = "jpeg",
+                taxonomy_type = ActiveRecordBase<taxonomy_type>.FindFirst(
+                    new List<AbstractCriterion>() { Expression.Eq("alias", "media_ext") }.ToArray()
+                ),
+                site = site,
+                is_active = true,
+            });
+            ActiveRecordMediator<taxonomy>.Save(new taxonomy() {
+                name = "Gif",
+                alias = "gif",
+                taxonomy_type = ActiveRecordBase<taxonomy_type>.FindFirst(
+                    new List<AbstractCriterion>() { Expression.Eq("alias", "media_ext") }.ToArray()
+                ),
+                site = site,
+                is_active = true,
+            });
+            ActiveRecordMediator<taxonomy>.Save(new taxonomy() {
+                name = "Png",
+                alias = "png",
+                taxonomy_type = ActiveRecordBase<taxonomy_type>.FindFirst(
+                    new List<AbstractCriterion>() { Expression.Eq("alias", "media_ext") }.ToArray()
+                ),
+                site = site,
+                is_active = true,
+            });
+            #endregion
+
+            #region(taxonomy_type media_types with taxonomy)
+                ActiveRecordMediator<taxonomy_type>.Save(new taxonomy_type() {
+                    alias = "media_type",
+                    name = "Media Types",
+                    allows_multiple = false,
+                    is_core = true,
+                    is_visible = false
+                });
+                ActiveRecordMediator<taxonomy>.Save(new taxonomy() {
+                    name = "Image",
+                    alias = "image",
+                    site = site,
+                    taxonomy_type = ActiveRecordBase<taxonomy_type>.FindFirst(
+                        new List<AbstractCriterion>() { Expression.Eq("alias", "media_type") }.ToArray()
+                    ),
+                    taxonomies = new List<taxonomy>(){
+                            ActiveRecordBase<taxonomy>.FindFirst(
+                                new List<AbstractCriterion>() { 
+                                                    Expression.Eq("taxonomy_type",ActiveRecordBase<taxonomy_type>.FindFirst(
+                                                                            new List<AbstractCriterion>() { Expression.Eq("alias", "media_ext") }.ToArray()
+                                                                        )
+                                                        ),
+                                                    Expression.Eq("alias", "jpg")
+                                                }.ToArray()
+                            ),
+                            ActiveRecordBase<taxonomy>.FindFirst(
+                                new List<AbstractCriterion>() { 
+                                                    Expression.Eq("taxonomy_type",ActiveRecordBase<taxonomy_type>.FindFirst(
+                                                                            new List<AbstractCriterion>() { Expression.Eq("alias", "media_ext") }.ToArray()
+                                                                        )
+                                                        ),
+                                                    Expression.Eq("alias", "jpeg")
+                                                }.ToArray()
+                            ),
+                            ActiveRecordBase<taxonomy>.FindFirst(
+                                new List<AbstractCriterion>() { 
+                                                    Expression.Eq("taxonomy_type",ActiveRecordBase<taxonomy_type>.FindFirst(
+                                                                            new List<AbstractCriterion>() { Expression.Eq("alias", "media_ext") }.ToArray()
+                                                                        )
+                                                        ),
+                                                    Expression.Eq("alias", "gif")
+                                                }.ToArray()
+                            ),
+                            ActiveRecordBase<taxonomy>.FindFirst(
+                                new List<AbstractCriterion>() { 
+                                                    Expression.Eq("taxonomy_type",ActiveRecordBase<taxonomy_type>.FindFirst(
+                                                                            new List<AbstractCriterion>() { Expression.Eq("alias", "media_ext") }.ToArray()
+                                                                        )
+                                                        ),
+                                                    Expression.Eq("alias", "png")
+                                                }.ToArray()
+                            )
+                        },
+                    is_active = true,
+                });
+            #endregion
+
+
+            ActiveRecordMediator<posting_type>.Save(new posting_type() {
+                name = "Media",
+                alias = "media",
+                loads_file = true,
+                is_Code = false,
+                useTiny = false,
+                is_visible = true,
+                is_templatable = true,
+                is_taxonomyable = true,
+                overwriteable = true,
+                actions = new List<posting_type_actions>() {        
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "new")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "edit")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "delete")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "copy")}.ToArray()
+                        ),
+                        ActiveRecordBase<posting_type_actions>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "share")}.ToArray()
+                        )
+                    },
+                taxonomy_types = new List<taxonomy_type>() {
+                        ActiveRecordBase<taxonomy_type>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "tags")}.ToArray()
+                        ),
+                        ActiveRecordBase<taxonomy_type>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "groupings")}.ToArray()
+                        ),
+                        ActiveRecordBase<taxonomy_type>.FindFirst(
+                            new List<AbstractCriterion>(){Expression.Eq("alias", "media_type")}.ToArray()
+                        )
+                    }.ToArray(),
+                admin_url = "/content",
+                url = "/media",
+                position = 0,
+                sort = 1,
+                site = site
+            });
+
+            //make the doc pages
+            pagelist = file_info.DirSearch("/install/default_content/uploads/files/images/");
+            foreach (String file in pagelist) {
+                string filepath = file.Replace('\\', '/');
+                string ext = filepath.Split('.').Last();
+
+                String[] fileparts = filepath.Split(new string[] { "files/images" }, StringSplitOptions.None);
+                String final = "/uploads/" + site_folder_name + "/files/images/" + (fileparts[fileparts.Length-1]).Trim('/');
+
+                //file_handler.write_to_file("/uploads/" + site_folder_name + "/files/images/text.txt", "text");
+
+                //file_handler.copyfile(filepath, final);
+
+                posting post = postingService.create_post_from_file(file, "media");
+
+                post.site = site;
+                post.static_file = final;
+                post.loads_file = true;
+                post.content = "";//content,
+                
+                post.version = 1;
+                post.revision = 0;
+                post.position = (sort % 2 == 0) ? 0 : 1;
+                post.sort = (file.Contains("help.vm")) ? 0 : sort;
+                post.theme = theme;
+                post.post_type = ActiveRecordBase<posting_type>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("alias", "media") }.ToArray());
+                post.useTiny = false;
+                post.is_Code = false;
+                post.is_Public = true;
+                post.is_templatable = true;
+                post.is_Public = false;
+                post.is_default = false;
+                post.is_core = false;
+                post.is_admin = false;
+                post.is_frontend_editable = false;
+                post.is_deletable = true;
+                post.taxonomies = new List<taxonomy>(){
+                            ActiveRecordBase<taxonomy>.FindFirst(
+                                new List<AbstractCriterion>() { 
+                                                Expression.Eq("taxonomy_type",ActiveRecordBase<taxonomy_type>.FindFirst(
+                                                                        new List<AbstractCriterion>() { Expression.Eq("alias", "media_type") }.ToArray()
+                                                                    )
+                                                    ),
+                                                Expression.Eq("alias", "image")
+                                            }.ToArray()
+                            ),
+ActiveRecordBase<taxonomy>.FindFirst(
+                                new List<AbstractCriterion>() { 
+                                                Expression.Eq("taxonomy_type",ActiveRecordBase<taxonomy_type>.FindFirst(
+                                                                        new List<AbstractCriterion>() { Expression.Eq("alias", "media_ext") }.ToArray()
+                                                                    )
+                                                    ),
+                                                Expression.Eq("alias", ext)
+                                            }.ToArray()
+                            )
+                        };
+
+
+
+
+                ActiveRecordMediator<posting>.Save(post);
+                /*post.meta_data = new List<meta_data>(){
+                        new meta_data(){
+                            meta_key = "title",
+                            post = post,
+                            value = name
+                        }
+                };
+                ActiveRecordMediator<posting>.Save(doc_tmp);*/
+                sort++;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            #endregion
+            echo("<script type='text/javascript'>document.write('did smaple media<br/>');</script>");
+            //HttpContext.Current.Response.Flush();
+
+
+
+
+            #region(OLD ---- add default WSU hoilday events)
+            /* //Default events are all wsu hoildays
+            event_type eType = ActiveRecordBase<event_type>.FindFirst( new List<AbstractCriterion>() { Expression.Eq("name", "WSU Holiday") }.ToArray() );
+            event_model eModel =  ActiveRecordBase<event_model>.FindFirst( new List<AbstractCriterion>() { Expression.Eq("name", "VEVENT") }.ToArray() );
+            
+                cal_events cal_events_tmp = new cal_events();
+
+                cal_events_tmp = new cal_events() {
+                    name = "Christmas Holiday",
+                    alias = "christmas-holiday-2012",
+                    url = "http://en.wikipedia.org/wiki/Christmas",
+                    summary = "Christmas is a relious day off",
+                   description = "*WSU observes a Christmas holiday in lieu of President's Day",
+                    status = eStatus,
+                    event_type = eType,
+                    event_model = eModel,
+                    owner = user,
+                    users = new List<users>() { user },
+                    event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2012-12-24 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2012-12-24 23:59:59.000")
+                                        }
+                                    }
+                };
+                ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+                cal_events_tmp = new cal_events() {
+                    name = "Christmas Day",
+                    alias = "christmas-day-2012",
+                    url = "http://en.wikipedia.org/wiki/Christmas",
+                    summary = "Christmas is a relious day off",
+                    description = "Christmas (Old English: Crīstesmæsse, meaning \"Christ's Mass\") is an annual commemoration of the birth of Jesus Christ and a widely observed holiday, celebrated generally on December 25 by billions of people around the world.",
+                    status = eStatus,
+                    event_type = eType,
+                    event_model = eModel,
+                    owner = user,
+                    users = new List<users>() { user },
+                    event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2012-12-25 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2012-12-25 23:59:59.000")
+                                        }
+                                    }
+                };
+                ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+                cal_events_tmp = new cal_events() {
+                    name = "New Year's Day",
+                    alias = "new-years-day-2013",
+                    url = "http://en.wikipedia.org/wiki/New_Year%27s_Day",
+                    summary = "First day of a year",
+                    description = "<em>\"Your success and happiness lies in you. Resolve to keep happy, and your joy and you shall form an invincible host against difficulties.\"</em> &mdash; Helen Keller",
+                    status = eStatus,
+                    event_type = eType,
+                    event_model = eModel,
+                    owner = user,
+                    users = new List<users>() { user },
+                    event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-1-1 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-1-1 23:59:59.000")
+                                        }
+                                    }
+                };
+                ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+                cal_events_tmp = new cal_events() {
+                    name = "Martin Luther King Jr. Day",
+                    alias = "mlk-day-2013",
+                    url = "http://en.wikipedia.org/wiki/Martin_Luther_King,_Jr._Day",
+                    summary = "A United States federal holiday marking the birthday of Rev. Dr. Martin Luther King, Jr.",
+                    description = "King was the chief spokesman for nonviolent activism in the civil rights movement, which successfully protested racial discrimination in federal and state law. The campaign for a federal holiday in King''s honor began soon after his assassination in 1968. Ronald Reagan signed the holiday into law in 1983, and it was first observed on January 20, 1986. At first, some states resisted observing the holiday as such, giving it alternative names or combining it with other holidays. It was officially observed in all 50 states for the first time in 2000.",
+                    status = eStatus,
+                    event_type = eType,
+                    event_model = eModel,
+                    owner = user,
+                    users = new List<users>() { user },
+                    event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-1-21 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-1-21 23:59:59.000")
+                                        }
+                                    }
+                };
+                ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+                cal_events_tmp = new cal_events() {
+                    name = "Memorial Day",
+                    alias = "memorial-day-2013",
+                    url = "http://en.wikipedia.org/wiki/Memorial_Day",
+                    summary = "An American federal holiday observed annually on the last Monday of May.  Memorial Day is a day of remembering the men and women who died while serving in the United States Armed Forces.",
+                    description = "Formerly known as Decoration Day, it originated after the American Civil War to commemorate the Union and Confederate soldiers who died in the Civil War. By the 20th century Memorial Day had been extended to honor all Americans who have died in all wars. It typically marks the start of the summer vacation season, while Labor Day marks its end.  Many people visit cemeteries and memorials, particularly to honor those who have died in military service. Many volunteers place an American flag on each grave in national cemeteries.",
+                    status = eStatus,
+                    event_type = eType,
+                    event_model = eModel,
+                    owner = user,
+                    users = new List<users>() { user },
+                    event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-5-27 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-5-27 23:59:59.000")
+                                        }
+                                    }
+                };
+                ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+                cal_events_tmp = new cal_events() {
+                    name = "Independence Day",
+                    alias = "independence-day-2013",
+                    url = "http://en.wikipedia.org/wiki/Independence_Day_(United_States)",
+                    summary = "Commonly known as the Fourth of July, is a federal holiday in the United States commemorating the adoption of the Declaration of Independence on July 4, 1776, declaring independence from the Kingdom of Great Britain.",
+                    description = "Independence Day is commonly associated with fireworks, parades, barbecues, carnivals, fairs, picnics, concerts, baseball games, family reunions, and political speeches and ceremonies, in addition to various other public and private events celebrating the history, government, and traditions of the United States. Independence Day is the national day of the United States.",
+                    status = eStatus,
+                    event_type = eType,
+                    event_model = eModel,
+                    owner = user,
+                    users = new List<users>() { user },
+                    event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-7-4 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-7-4 23:59:59.000")
+                                        }
+                                    }
+                };
+                ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+                cal_events_tmp = new cal_events() {
+                    name = "Labor Day",
+                    alias = "labor-day-2013",
+                    url = "http://en.wikipedia.org/wiki/Labor_Day",
+                    summary = "An American federal holiday observed on the first Monday in September, that celebrates the economic and social contributions of workers.",
+                    description = "Oregon was the first state to make it a holiday on February 21, 1887. By the time it became a federal holiday in 1894, thirty states officially celebrated Labor Day.  Following the deaths of a number of workers at the hands of the U.S. military and U.S. Marshals during the Pullman Strike, the United States Congress unanimously voted to approve rush legislation that made Labor Day a national holiday; President Grover Cleveland signed it into law a mere six days after the end of the strike.",
+                    status = eStatus,
+                    event_type = eType,
+                    event_model = eModel,
+                    owner = user,
+                    users = new List<users>() { user },
+                    event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-9-2 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-9-2 23:59:59.000")
+                                        }
+                                    }
+                };
+                ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+                cal_events_tmp = new cal_events() {
+                    name = "Veterans Day",
+                    alias = "veterans-day-2013",
+                    url = "http://en.wikipedia.org/wiki/Labor_Day",
+                    summary = "An official United States holiday which honors people who have served in armed service also known as veterans.",
+                    description = "It is a federal holiday that is observed on November 11th. It coincides with other holidays such as Armistice Day and Remembrance Day, which are celebrated in other parts of the world and also mark the anniversary of the end of World War I. (Major hostilities of World War I were formally ended at the 11th hour of the 11th day of the 11th month of 1918, with the German signing of the Armistice.)  Veterans Day is not to be confused with Memorial Day; Veterans Day celebrates the service of all of veterans, while Memorial Day is a day of remembering the men and women who died while serving.",
+                    status = eStatus,
+                    event_type = eType,
+                    event_model = eModel,
+                    owner = user,
+                    users = new List<users>() { user },
+                    event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-11-11 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-11-11 23:59:59.000")
+                                        }
+                                    }
+                };
+                ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+                cal_events_tmp = new cal_events() {
+                    name = "Thanksgiving Day",
+                    alias = "thanksgiving-day-2013",
+                    url = "http://en.wikipedia.org/wiki/Thanksgiving_Day",
+                    summary = "A national holiday celebrated primarily in the United States and Canada. Several other places around the world observe similar celebrations.",
+                    description = "It is celebrated on the fourth Thursday of November in the United States and on the second Monday of October in Canada. Thanksgiving has its historical roots in religious and cultural traditions, but today is celebrated in a more secular manner.",
+                    status = eStatus,
+                    event_type = eType,
+                    event_model = eModel,
+                    owner = user,
+                    users = new List<users>() { user },
+                    event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-11-28 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-11-28 23:59:59.000")
+                                        }
+                                    }
+                };
+                ActiveRecordMediator<posting_type>.Save(cal_events_tmp);
+
+
+                cal_events_tmp = new cal_events() {
+                    name = "Thanksgiving Holiday",
+                    alias = "thanksgiving-holiday-2013",
+                    url = "http://en.wikipedia.org/wiki/Thanksgiving_Day",
+                    summary = "A national holiday celebrated primarily in the United States and Canada. Several other places around the world observe similar celebrations.",
+                    description = "It is celebrated on the fourth Thursday of November in the United States and on the second Monday of October in Canada. Thanksgiving has its historical roots in religious and cultural traditions, but today is celebrated in a more secular manner.",
+                    status = eStatus,
+                    event_type = eType,
+                    event_model = eModel,
+                    owner = user,
+                    users = new List<users>() { user },
+                    event_dateTime = new List<event_dateTime>() {        
+                                        new event_dateTime() {
+                                            startdate=Convert.ToDateTime("2013-11-29 00:00:00.000"),
+                                            endDate=Convert.ToDateTime("2013-11-29 23:59:59.000")
+                                        }
+                                    }
+                };
+                ActiveRecordMediator<posting_type>.Save(cal_events_tmp);*/
+            #endregion
+                /*
+               // maybe later on the rest
+                INSERT INTO [user_tracking_actions]
+                    ([name],[code])
+                    VALUES
+                    ('creating',000),
+                    ('opening',100),
+                    ('editing',200),
+                    ('closing',300),
+                    ('deleting',400)
+                GO
+                */
+            set_installed_state("True");// the redirect act will insure a app restart and your now installed.
+            //HttpContext.Current.Response.Redirect("/install/finish_install.castle");
+
+            echo("<script type='text/javascript'>document.write('Finsihing<br/>');</script>");
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.Write("<script type='text/javascript'>window.location = '/install/finish_install.castle'</script>");
+            HttpContext.Current.Response.Flush();
+
+        }
+
+
+        public void finish_install() {
+            CancelLayout();
+            CancelView();
+            RenderView("../admin/install/install_complete");
+        }
+
+
+    }
+}

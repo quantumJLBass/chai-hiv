@@ -1,0 +1,23 @@
+<form action="update_posting_type.castle" method="post">
+  $Form.HiddenField("item.Id")
+  <h3>Place Type</h3>
+  <p>Name:<br/>
+      <input type="text" value="$!item.name" name="item.name" id="item_name" class="ui-widget ui-widget-content ui-corner-all " />
+  </p>
+  <p>Alias:<br/>
+      <input type="text" value="$!item.alias" name="item.alias" id="item_alias" class="ui-widget ui-widget-content ui-corner-all " />
+  </p>
+  
+    <div class="col2"  style="display:inline-block; float:left;margin-right:13px;">
+        <em style="float:right;">All <input type="checkbox" class="all" #if($actions.count==$item.actions.count)checked="checked"#end value="all"/></em>
+        <label for="item.actions" style="font-size:13px;"><strong>Campus</strong></label><br/>
+        <select id="item.actions" name="item.actions[]"  class="" multiple="multiple" size="9" style="width:205px;">
+            #foreach($action in $actions)
+                <option class="model" value="$action.id" #if($item.actions.Contains($action)) selected="selected" #end >$!action.name</option>
+            #end
+        </select>
+    </div>  
+  
+  
+  <p><input type="submit" value="Submit" /></p>
+</form>

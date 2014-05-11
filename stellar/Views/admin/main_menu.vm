@@ -1,0 +1,140 @@
+#*
+    This needs to be adjusted so that we can had it more dynamic
+    the way to do this will be to use the admin_url that fill hard coded
+    slots.  that is one possible solution.
+    
+    So use content blobs as the custom links in the menu, 
+    use the menu editor to reconfigure since post types have
+    sort and positions along with the admin_url to make it 
+    logical.  The blob's alias will be that the admin_url sorts under.
+*#
+
+
+
+
+#set($baseClass="ui-button ui-widget ui-state-default mItem")
+#set($quickaction_BaseClass="ui-button ui-widget ui-state-active")
+
+<div id="navWrap">
+	<div id="adminNav">
+		<ul class="menu formAction Submit"><li class="nosub"><a class="open " href="#"><b>Submit</b> <i class="icon-double-angle-right"></i></a></li></ul>
+		<ul class="menu formAction Apply"><li class="nosub"><a class="open " href="#"><i class="icon-save"></i><b>Apply</b></a></li></ul>
+		<ul class="menu formAction Cancel"><li class="nosub"><a class="open " href="#"><i class="icon-remove-sign"></i><b>Cancel</b></a></li></ul>
+		
+		#if($userService.checkPrivleage("empty_trashbin"))<ul class="menu" style="float:right;"><li class="nosub"><a class="open ui-state-default iconed" href="/admin/trashbin.castle" title="trashbin" style="background-image: none ! important; border: medium none; background-color: transparent;"><b>Trashbin</b><i class="icon-trash white"></i></a></li></ul>#end
+		<ul class="menu posRight">
+			<li class="nosub"><a class="open" href="../admin"><b>Admin Home</b></a></li>
+		</ul>
+<!--		
+    	<ul class="menu posRight">
+			<li class="nosub"><a class="open" href="../post/posting_list.castle?post_type=page"><b>Pages</b></a></li>
+		</ul>    
+
+		#if($userService.checkPrivleage("modify_postings"))
+        <ul class="menu">
+                <li class="liTop"><a class="open" href="../admin/postings.castle"><b>Posts</b></a>
+                    <ul class="drop">
+                    #foreach($post in $post_types)
+						#if($post.admin_url.Contains("posts") && !$post.alias.Contains("comment"))
+							#if($post.is_visible)
+                                <li><a href="../post/posting_list.castle?post_type=${post.alias}">${post.name}s</a></li>
+                            #end
+                        #end
+                    #end
+                    <li><hr/></li>
+                    #if($userService.checkPrivleage("modify_comments"))
+                        <li><a href="../post/posting_list.castle?post_type=comment">Comments</a></li>
+                    #end
+                    </ul>
+                </li>
+                <li class="close"><a href="#"></a></li>
+            </ul>
+        #end
+		-->
+<!--
+		#if($userService.checkPrivleage("modify_layouts"))
+			<ul class="menu">
+				<li class="liTop"><a class="open" href="../admin/postings.castle?ptype=layout"><b>Layout</b></a>
+					<ul class="drop">
+                        #foreach($post in $post_types)
+                            #if($post.admin_url.Contains("layout") && $post.alias!="menu")
+                                #if($post.is_visible)
+                                    <li><a href="../post/posting_list.castle?post_type=${post.alias}">${post.name}s</a></li>
+                                #end
+                            #end
+                        #end
+                        #if($userService.checkPrivleage("modify_global_nav"))
+                            <li><hr/></li>
+                            <li><a href="../post/posting_list.castle?post_type=menu">Menus</a></li>
+                        #end
+					</ul>
+				</li>
+				<li class="close"><a href="#"></a></li>
+			</ul>
+		#end
+		
+		<ul class="menu">
+			<li class="liTop"><a class="open #if($controller.getView()=='media')active#end" href="../admin/postings.castle?ptype=content"><b>Content</b></a>
+				<ul class="drop">
+                #foreach($post in $post_types)
+                    #if($post.admin_url.Contains("content"))
+                        #if($post.is_visible && $post.name!="File")
+                            #if($userService.checkPrivleage("modify_media"))
+                                <li><a href="../post/posting_list.castle?post_type=${post.alias}">${post.name}</a></li>
+                            #end
+                        #end
+                    #end
+                #end
+				<li><a href="../file/filebrowser.castle">File Browser</a></li>
+				#*#if($userService.checkPrivleage("modify_tags"))
+					<li class="liTop"><a class="open #if($controller.getView()=='tags')active#end" href="../tags/index.castle">Tags</a>
+						<ul class="drop">
+							<li><a href="../tags/index.castle">List</a></li>
+							<li><a href="../tags/new.castle">New Tag</a></li>
+							<li><a href="../tags/index.castle#usertag">User Tags</a></li>
+						</ul>
+					</li>
+				#end	*#
+				</ul>
+			</li>
+			<li class="close"><a href="#"></a></li>
+		</ul>
+-->
+		<ul class="menu">
+			<li class="liTop"><a class="open #if($controller.getView()=='users')active#end" #if($userService.checkPrivleage("modify_users"))href="../users/list_users.castle"#end><b>Users</b></a>
+				<ul class="drop">
+                	#if($userService.checkPrivleage("modify_users"))<li><a href="../users/list_users.castle">Users List</a></li>#end
+					#if($userService.checkPrivleage("modify_users"))<li><a href="../users/new_user.castle">New User</a></li>#end
+					<li><hr/></li>
+					#if($userService.getUser()==$user)<li><a href="../users/edit_user.castle?id=$userService.getUser().baseid">Your Settings</a></li>#end
+                    <li><hr/></li>
+                    #if($userService.checkPrivleage("modify_groups"))<li><a href="../group/list_groups.castle">Groups</a></li>#end
+                    
+				</ul>
+			</li>
+			<li class="close"><a href="#"></a></li>
+		</ul>
+		#if($userService.checkPrivleage("modify_site_settings"))
+		<ul class="menu">
+			<li class="liTop"><a class="open #if($controller.getView()=='comment')ui-state-active#end" href="../admin/sites.castle"><b>Sites</b></a>
+				<ul class="drop">
+                    #*#if($userService.checkPrivleage("modify_users"))<li><a href="../users/list_users.castle">List</a></li>#end*#
+                    #if($userService.checkPrivleage("modify_taxonomy"))<li><a href="../admin/taxonomy.castle">Taxonomies</a></li>#end
+                    <!--#if($userService.checkPrivleage("modify_taxonomy"))<li><a href="../fields/list_fields.castle">Fields</a></li>#end
+                    #if($userService.checkPrivleage("modify_site_settings"))<li><a href="../admin/configuration.castle">Configuration</a></li>#end
+                    #if($userService.checkPrivleage("modify_site_settings"))<li><a href="../admin/connections.castle">API connections</a></li>#end-->
+                    #if($userService.checkPrivleage("view_logs"))<li><a href="../admin/logs.castle">Logs</a></li>#end
+				</ul>
+			</li>
+			<li class="close"><a href="#"></a></li>
+		</ul>
+		#end	
+
+		<ul class="menu"><li class="sep"><b>::</b></li></ul>
+		<ul class="menu"><li class="nosub"><a class="open ui-state-default iconed" href="/" title="Help" style="background-image: none ! important; border: medium none; background-color: transparent;"><i class="icon-home white"></i><b>Frontend</b></a></li></ul>
+		
+		
+        <ul class="menu"><li class="nosub"><a class="open ui-state-default iconed" href="/admin/help.castle" title="Help" style="background-image: none ! important; border: medium none; background-color: transparent;"><i class="icon-question-sign white"></i><b>Help</b></a></li></ul>
+        <ul class="menu"><li class="nosub"><a class="open ui-state-default iconed" href="/center/logout.castle" title="Logout" style="background-image: none ! important; border: medium none; background-color: transparent;"><i class="icon-signout white"></i><b>Logout</b></a></li></ul>
+	</div>
+</div>

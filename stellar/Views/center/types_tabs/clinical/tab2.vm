@@ -1,0 +1,164 @@
+	<ul class="grid col-one-half mq2-col-full full-input">		
+#* biological_half_life *#
+		<li>
+			#set($daval ="")
+#set($daval = $!item.biological_half_life)
+			#feild_textinput("$type" "biological_half_life" $daval "" "" "" "")
+		</li>
+	</ul>	
+	<ul class="grid col-one-half mq2-col-full full-input">	
+	
+#* metabolites_of_parent *#
+		<li>
+			#set($daval ="")
+#set($daval = $!item.metabolites_of_parent)
+			#feild_textinput("$type" "metabolites_of_parent" $daval "" "" "" "")
+		</li>
+	</ul>	
+	<hr/>
+	
+	<fieldset class="grid col-one-half mq2-col-full full-input" style="border:1px solid #ccc">
+	<legend>Fasting:</legend>
+	<ul>	
+
+#* fasting_cmax *#
+		<li>
+			#set($daval ="")
+			#set($daval = $!item.fasting_cmax)
+			#feild_textinput("$type" "fasting_cmax" $daval "" "(ng/ml)" "" "")
+		</li>
+
+#* fasting_tmax *#
+		<li>
+			#set($daval ="")
+			#set($daval = $!item.fasting_tmax)
+			#feild_textinput("$type" "fasting_tmax" $daval "" "(hours)" "" "")
+		</li>
+
+#* fasting_auc *#
+		<li>
+			<div class="grid col-one-half">	
+				#set($daval ="")
+				#set($daval = $!item.fasting_auc)
+				#feild_textinput("$type" "fasting_auc" $daval "" "" "" "")
+			</div>	
+			<div class="grid col-one-half">	
+				#set($daval ="")
+				#set($daval = $!item.fasting_auc_unit)
+				#feild_selectinput($type "fasting_auc_unit" $daval "inf.,0-24,0-last" "" "" "")
+			</div>	<div style="clear"></div>
+		#* fasting_auc_last_value *#
+			#set($daval ="")
+			#set($daval = $!item.fasting_auc_last_value)
+			#feild_textinput("$type" "fasting_auc_last_value" $daval "" "" "" "")
+		</li>
+
+
+#* fasting_bioavailability *#
+		<li>
+			#set($daval ="")
+#set($daval = $!item.fasting_bioavailability)
+			#feild_textinput("$type" "fasting_bioavailability" $daval "" "(%)" "" "")
+		</li>
+		
+	</ul>		  
+	</fieldset>	 
+	 
+	<fieldset class="grid col-one-half mq2-col-full full-input" style="border:1px solid #ccc">
+	<legend>Fed:</legend>
+	<ul>	  
+
+
+#* fed_cmax *#
+		<li>
+		  	#set($daval ="")
+			#set($daval = $!item.fed_cmax)
+			#feild_textinput("$type" "fed_cmax" $daval "" "(ng/ml)" "" "")
+		</li>
+
+#* fed_tmax *#
+		<li>
+		  	#set($daval ="")
+			#set($daval = $!item.fed_tmax)
+			#feild_textinput("$type" "fed_tmax" $daval "" "(hours)" "" "")
+		</li>
+		
+
+#* fed_aucinf *#
+		<li>
+			<div class="grid col-one-half">	
+				#set($daval ="")
+				#set($daval = $!item.fed_auc)
+				#feild_textinput("$type" "fed_auc" $daval "" "" "" "")
+			</div>	
+			<div class="grid col-one-half">	
+				#set($daval ="")
+				#set($daval = $!item.fed_auc_unit)
+				#feild_selectinput($type "fed_auc_unit" $daval "inf.,0-24,0-last" "" "" "")
+			</div>
+			<div style="clear"></div>
+		#* fed_auc_last_value *#
+			#set($daval ="")
+			#set($daval = $!item.fed_auc_last_value)
+			#feild_textinput("$type" "fed_auc_last_value" $daval "" "" "" "")
+		</li>
+
+
+#* fed_bioavailability *#
+		<li>
+			#set($daval ="")
+			#set($daval = $!item.fed_bioavailability)
+			#feild_textinput("$type" "fed_bioavailability" $daval "" "(%)" "" "")
+		</li>
+		
+	</ul>
+	</fieldset>
+	
+	<fieldset class="grid col-one-full mq2-col-full full-input" style="border:1px solid #ccc">
+	<legend>Steady State:</legend>
+	<ul  class="grid col-one-half mq2-col-full full-input">
+#* steady_state_cmax *#
+		<li>
+		  	#set($daval ="")
+			#set($daval = $!item.steady_state_cmax)
+			#feild_textinput("$type" "steady_state_cmax" $daval "" "(ng/ml)" "" "")
+		</li>
+		
+#* steady_state_cmin *#
+		<li>
+		  	#set($daval ="")
+			#set($daval = $!item.steady_state_cmin)
+			#feild_textinput("$type" "steady_state_cmin" $daval "" "(ng/ml)" "" "")
+		</li>
+	</ul>
+	<ul  class="grid col-one-half mq2-col-full full-input">	
+#* steady_state_auc *#
+		<li>
+			<div class="grid col-one-half">	
+				#set($daval ="")
+				#set($daval = $!item.steady_state_auc)
+				#feild_textinput("$type" "steady_state_auc" $daval "" "(ng/ml)" "" "")
+			</div>	
+			<div class="grid col-one-half">	
+				#set($daval ="")
+				#set($daval = $!item.steady_state_auc_unit)
+				#feild_selectinput($type "steady_state_auc_unit" $daval "inf.,0-24,0-last" "" "" "")
+			</div>
+		</li>
+
+#* steady_state_tmax *#
+		<li>
+			#set($daval ="")
+			#set($daval = $!item.steady_state_tmax)
+			#feild_textinput("$type" "steady_state_tmax" $daval "" "(ng/ml)" "" "")
+		</li>
+	</ul>
+	</fieldset>	
+	
+	<fieldset class="grid col-one-full mq2-col-full full-input" style="border:1px solid #ccc">
+		<legend style="border-bottom:1px solid #494949">Pharmacology comments</legend>
+		<textarea name="item.pharmacology_comments" rows="7">
+			$!item.pharmacology_comments
+		</textarea>
+	</fieldset>
+				

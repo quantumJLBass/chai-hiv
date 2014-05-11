@@ -1,0 +1,38 @@
+    <a href="$siteroot/${controller.getView()}/create.castle?post_type=$!{named_type}" class="button" style="display:inline-block;float:right;margin-top:6px;">
+	  <span class="ui-icon ui-icon-plusthick inlineIcon"></span>New #if($named_type_dname && $named_type_dname!="")${named_type_dname}#else${controller.getView().Replace("_"," ")}#end
+	</a>
+	<div id="_Listing" class="tabedArea tabactive" >
+
+		<div style="position:relative;" >
+			#parse("/admin/listings/filters.vm")
+			#set($list_items=$controller.getVar("filteredResults_list"))
+			#if($list_items)
+				#set($buttons=$controller.getVar("filteredResults_buttonSet"))
+				#parse("admin/listings/general.vm")
+			#else
+				<div id="tabs" class="${controller.getView()}list ui-tabs ui-widget ui-widget-content ui-corner-all">
+					<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+						#set($c=0)
+						#foreach($status in $statuses)
+                        	#if($controller.getVar("${status.name}_list").TotalItems>0)
+							<li class="ui-state-default ui-corner-top #if($c<=0) ui-tabs-selected ui-state-active #end">
+								<a href="#${status.name}">${status.name} ($controller.getVar("${status.name}_list").TotalItems)</a>
+							</li>
+							#set($c=$c+1)
+                            #end
+						#end
+					</ul>
+					#foreach($STATUS in $statuses)
+                        #if($controller.getVar("${status.name}_list").TotalItems>0)
+                          <div id="${STATUS.name}" class="ui-tabs-panel ui-widget-content ui-corner-bottom #if(!$ajax)ui-tabs-hide#end">
+                                #set($buttons=$controller.getVar("${STATUS.name}buttonSet"))
+                                #set($list_items=$controller.getVar("${STATUS.name}_list"))
+                                #parse("admin/listings/general.vm")
+                                
+                          </div>
+                        #end
+					#end
+				</div>
+			#end
+		</div>	
+	</div>

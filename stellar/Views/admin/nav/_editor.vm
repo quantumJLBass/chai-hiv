@@ -1,0 +1,38 @@
+
+#if($Flash.error)
+<p style="color: red; font-weight: bold;">
+    $Flash.error
+</p>
+#end
+
+<form action="../view/update_nav.castle" method="post">
+  $Form.HiddenField("nav.id")
+  <h3>Place Type</h3>
+  <p>Name:<br/>
+      <input type="text" value="$!nav.name" name="nav.name" id="nav_name" class="ui-widget ui-widget-content ui-corner-all " />
+	  <h6><em>This is the name that is shown in the menu</em></h6>
+  </p>
+  <hr/>
+  <p>Code Friendly name:<br/>
+      <input type="text" value="$!nav.friendly_name" name="nav.friendly_name" id="nav_friendly_name" class="ui-widget ui-widget-content ui-corner-all " />
+	  <h6><em>This is the name is called in all querys and such.</em></h6>
+  </p>
+  <hr/>
+  <p>As a Link:<br/>
+      <input type="checkbox" value="1"  name="nav.asLink" id="nav_asLink" class="ui-widget ui-widget-content ui-corner-all " />
+	  <h6><em>Insead of leting the system use the defaults, you can override it with a url for the user to follow</em></h6>
+  </p>    
+  <p>Url:<br/>
+      <input type="text" value="$!nav.url" name="nav.url" id="nav_url" class="ui-widget ui-widget-content ui-corner-all " />
+	  <h6><em>When set as a link this is the url that is used.</em></h6>
+  </p>
+  <hr/>
+   <p>Active:<br/>
+      <input type="checkbox" value="1" checked="checked" name="nav.active" id="nav_active" class="ui-widget ui-widget-content ui-corner-all " />
+	  <h6><em>When set as a link this is the url that is used.</em></h6>
+  </p> 
+  <p><input type="submit" value="Submit" /></p>
+</form>
+
+
+

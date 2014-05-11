@@ -1,0 +1,77 @@
+<div style="max-width:80%; margin:0 auto;">
+<form action="reorder_nav.castle" method="post">
+	<h1> Global Navagation editor</h1>
+	<hr/>
+	<a href="$siteroot/view/new_nav.castle" class="button" style="display:inline-block;float:right;">
+		<span class="ui-icon ui-icon-plusthick inlineIcon"></span>New ${controller.getView()}
+	</a>
+	<h5>Simply drag the nodes around to chang it's order and level.  To change the names use the edit icons on the right.</h5>
+	<hr/>
+
+	<div style="max-width:85%; margin:0 auto; padding:20px;" class="ui-widget-content ui-corner-bottom">
+	
+	
+		#set($baseClass="parent")
+		#set($subULClass="")
+		#set($subNarrowClass="subNarrow")
+		#set($subClass="")
+		
+		#set($lastLevel=1)
+		#set($ulOpen="false")
+		#set($liOpen="false")
+		#set($c=0)
+		<ol class="sortable nav">
+			#foreach($item in $nav)
+				
+					#if($lastLevel == ${item.level} && $liOpen=="true" && $c>0)
+						</li>
+					#end
+					#if($lastLevel > ${item.level} && $ulOpen=="true")
+						#set($deepth=${lastLevel}-${item.level})
+						$Controller.repeatStr("</li></ol>",$deepth)
+						#set($ulOpen="false")
+					#end
+					#if($lastLevel != ${item.level} && $c>0)
+						#if($lastLevel < ${item.level})
+							<ol class='$subULClass'>#set($ulOpen="true")
+						#end
+					#end
+					
+					<li id="list_${c}" class='#if($item.level==1) $baseClass #elseif($item.level>1) $subClass #end #if($item.active) #else inactive #end  #if($item.asLink && $item.url) altAction #end' >
+						<div>
+							<input type="hidden" value="$!item.id" name="navs[${c}].id"/>
+							<input type="hidden" value="$!item.level" name="navs[${c}].level" class="nav_level"/>
+							<input type="hidden" value="$!item.position" name="navs[${c}].position" class="nav_position"/>
+							<span style='font-size:0.5em; float:right;'>
+							  <a href="../view/edit_nav.castle?id=$!{item.id}" title="Edit" class="button">
+								<span class="ui-icon ui-icon-pencil"></span>
+							  </a>
+							  <a href="../view/delete_nav.castle?id=$!{item.id}" title="Delete" class="button">
+								<span class="ui-icon ui-icon-trash"></span>
+							  </a>
+							</span>
+							<span style='font-size:0.5em; float:left; margin-right:15px;'>
+							  <a href="#" title="Toggle Visibility Children" class="childVisable disabled button">
+								<span class="ui-icon ui-icon-plus"></span>
+							  </a>
+							</span>
+							$!item.name&nbsp;&nbsp;(<span class="nav_level_display">depth:<span class="value">$!item.level</span></span><span class="nav_position_display">order:<span class="value">$!item.position</span></span>)&nbsp;-#if($item.active) active #else inactive #end
+						</div>
+			
+					#*$Controller.repeatStr("- ",$cat.level)*#
+					#set($lastLevel=${item.level})
+					#set($liOpen="true")
+					#set($c=$c+1)
+				
+			#end
+			#if($ulOpen=="true")</li></ol>#end
+			</li>
+		</ol>
+		<div style="display:none;" class="menu formAction Submit"> 
+			<hr/>
+			<input type="submit" value="Submit Changes" class="submit_btn button " />
+			<br/><br/>
+		</div>
+	</div>
+</form>
+</div>

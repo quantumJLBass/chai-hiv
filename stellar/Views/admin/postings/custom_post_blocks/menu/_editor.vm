@@ -1,0 +1,296 @@
+#if($item.post_type.alias == "page")#set($VISIBLE_ID = $item.baseid) #end
+    #set($baseClass="parent")
+    #set($subULClass="")
+    #set($subNarrowClass="subNarrow")
+    #set($subClass="")
+    #set($baseurl="${baseurl}/posting.castle")
+
+
+
+
+
+
+
+
+<h1 id="actiontitle">Edit ${named_type_dname} <!--<a href="#" class="button med" >Add New</a>--></h1>
+
+#if($item.revision>0)
+    <div style="margin-top: 20px; padding: 0 .7em;" class="ui-state-highlight ui-corner-all">
+      <p style="line-height: 15px;padding-bottom: 0;">
+        <span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-info"></span><strong>Note:</strong>You are working off revision $item.revision from $item.updated_date.  If you save or apply, it will make this the current version. (<a href="/post/edit_post.castle?id=${item.parent.baseid}">Cancel and use current</a>)
+      </p>
+    </div>
+#end
+
+#capturefor(admin_js)
+<script type="text/javascript">
+  #* set up images*#
+  #set($availableImages='')
+  #capturefor(availableImages)
+  #foreach ($image in $cal_event.Images)
+  #each
+  {id:"${Image.id}",name:"${Image.FileName}",url:"/media/download.castle?id=${Image.id}&cal_eventid=${cal_event.id}&m=crop&w=250&h=250&pre=TMP"}
+  #between
+  ,
+  #end
+  #end
+  #* EOF set up  *#
+
+  var tinyMCEImageList = new Array($!availableImages);
+
+  var post=$item.baseid;
+</script>
+#end
+
+
+
+#* we are loading code mirror in the <head> *#
+
+    #capturefor(PageStyles)
+        #* code editor options *#
+
+        #* remove to the css *#
+        <style>
+			#dialog label, #dialog input { display:block; }
+			#dialog label { margin-top: 0.5em; }
+			#dialog input, #dialog textarea { width: 95%; }
+			#tabs { margin-top: 1em; }
+			#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+			#add_tab { cursor: pointer; }
+			#shortcodes{height:0px;}
+			#main_content_title{display:inline-block;}
+			.btn.btn-success.fileinput-button,button[type="submit"]{margin-left:5px;display:inline-block;}
+			
+			.content.rev{}
+			.content.rev em{font-size:10px;}
+        
+        </style>
+
+
+	$scriptsService.Css("/codemirror/codemirror.css,/codemirror/addon/dialog/dialog.css,/codemirror/theme/neat.css,/codemirror/theme/elegant.css,/codemirror/theme/erlang-dark.css,/codemirror/theme/night.css,/codemirror/theme/monokai.css,/codemirror/theme/cobalt.css,/codemirror/theme/eclipse.css,/codemirror/theme/rubyblue.css,/codemirror/theme/lesser-dark.css,/codemirror/theme/xq-dark.css,/codemirror/theme/ambiance.css,/codemirror/theme/blackboard.css,/codemirror/theme/vibrant-ink.css,/codemirror/theme/solarized.css,/codemirror/theme/twilight.css","admin",false)
+    
+    <style type="text/css">
+      .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+		max-height:750px;
+      }
+      .CodeMirror-scroll {
+        overflow-y: hidden;
+        overflow-x: auto;
+      }
+	   .CodeMirror-foldmarker {
+        color: blue;
+        text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
+        font-family: arial;
+        line-height: .3;
+        cursor: pointer;
+      }
+    </style>
+   
+    
+    #end
+    #capturefor(PagePlugins)
+		$scriptsService.Js("/admin/codemirror/codemirror.js,/admin/codemirror/addon/runmode/runmode.js,/admin/codemirror/mode/css/css.js,/admin/codemirror/mode/xml/xml.js,/admin/codemirror/mode/javascript/javascript.js,/admin/codemirror/mode/htmlmixed/htmlmixed.js,/admin/codemirror/addon/hint/simple-hint.js,/admin/codemirror/addon/hint/javascript-hint.js,/admin/codemirror/addon/dialog/dialog.js,/admin/codemirror/addon/search/searchcursor.js,/admin/codemirror/addon/search/search.js,/admin/codemirror/addon/fold/foldcode.js",true)
+     #if($item.post_type.is_Code)	    #end
+    #end
+#if($skiplayout) $PageStyles #end
+
+<form action="update.castle" method="post" id="editor_form" class=" ui-widget ui-widget-content ui-corner-all " style="padding:5px;">
+    
+    <input type="hidden" name="item.baseid" value="#if($item.parent)${item.parent.baseid}#else$!{item.baseid}#end" />
+    #if( $item.baseid==0 || $item.tmp)
+        <input type="hidden" name="forced_tmp" value="1" />
+    #end
+
+    #parse("/admin/postings/post_blocks/publishing_sidebar.vm")
+    #parse("/admin/postings/post_blocks/identification_simple_block.vm")
+   
+    <div id="tabs" class=" ui-tabs ui-widget ui-widget-content ui-corner-all cal_event_new">
+        <ul class="short ui-tabs-nav ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top">
+            	<a href="#tabs_Text">Content</a>
+            </li>
+            <li class="ui-state-default ui-corner-top">
+            	<a href="#tabs_Detail">Detail</a>
+            </li>
+            #if(${user_fields.count}>0||${fields.count}>0)<li class="ui-state-default ui-corner-top">
+            	<a href="#tabs_FIELDS">Fields</a>
+            </li>#end
+            #if($item.post_type.gets_media)<li class="ui-state-default ui-corner-top">
+            	<a href="#tabs_IMAGES">Images</a>
+            </li>#end
+            #if($comments.TotalItems&&$comments.TotalItems!=0)<li class="ui-state-default ui-corner-top">
+            	<a href="#tabs_COMMENTS">Comments</a>
+            </li>#end
+        </ul>
+
+        <div id="tabs_Text" class="mainAreaTabs">
+            <div style="display:none;" id="nav_candidates">
+				#foreach($item in $objectService.explode("page,link"))
+					<h3 style="padding-right:15px;">${item}s</h3>
+					<ol class="sortable nav pool" id="${item}_items">
+						#set($aviliableItems = ${postingService.get_published_postings($item)})
+						#foreach($_item in $aviliableItems)
+							<li class='#if($_item.is_link && $_item.url) altAction #end #if($menuItems.Contains(${_item}))disable#end' >
+								<div data-post="${_item.baseid}"><a href="#" title="" class="ADDELE button med"  style="float:right">
+										<span class="ui-icon ui-icon-plusthick"></span>
+									  </a>
+									<span class="disclose"><span></span></span>
+									<input type="hidden" value="" name="_menuoptions[9999].baseid"/>
+									<input type="hidden" value="$!_item.position" name="_menuoptions[9999].position" class="nav_position"/>
+									<input type="hidden" value="$!_item.sort" name="_menuoptions[9999].sort" class="nav_sort"/>
+									<input type="hidden" value="$!_item.baseid" name="_menuoptions[9999].post.baseid" class="post_item"/>
+									<span style='font-size:0.5em; float:right;'>
+										  <a href="#" title="Edit" class=" quickedit button ui-button-text-only med">
+											<span class="ui-icon ui-icon-pencil"></span>
+										  </a>
+										  <a href="#" title="Remove from menu" class=" remove_menu_item button ui-button-text-only med">
+											<span class="ui-icon ui-icon-trash"></span>
+										  </a>
+									</span>
+									<span style='font-size:0.5em; float:left; margin-right:15px;'>
+									  <a href="#" title="Toggle Visibility Children" class="childVisable disabled button med">
+										<span class="ui-icon ui-icon-plus"></span>
+									  </a>
+									</span>
+									$!_item.name&nbsp;&nbsp;<span class="node_detail">(<span class="nav_level_display">depth:<span class="value">0</span></span><span class="nav_position_display">order:<span class="value">0</span></span>)</span>
+								</div>
+							</li>
+						#end
+					</ol>
+				#end
+            </div>
+			<div style="">
+					<a href="#" id="create_new_menu_item" class="button" style="display:inline-block;float:right;">
+                        <span class="ui-icon ui-icon-plusthick inlineIcon"></span>New navagation item
+                    </a>
+                    <h1>Navagation editor</h1>
+                    <hr/>
+                    
+                    <h5>Simply drag the nodes around to chang it's order and level.  To change the names use the edit icons on the right.</h5>
+                    <hr/>
+                
+                    <div style="max-width:85%; margin:0 auto; padding:20px;" class="ui-widget-content ui-corner-bottom">
+            
+                        #set($lastLevel = 0 )
+                        #set($c=0)
+                        <ol class="sortable nav" id="nav_items" >
+                            #foreach($item in $menuItems)
+                                #* $velocityCount  *#
+                            
+                                #set($Lev=${item.position})
+                                #if($Lev > $lastLevel)
+                                    #set($val=${Lev}-${lastLevel})
+                                    $htmlService.repeat_str("<ol class='$subULClass'>",$val)
+                                #elseif( $Lev < $lastLevel )
+                                    #set($val=${lastLevel}-${Lev})
+                                    $htmlService.repeat_str("</li></ol>",$val)
+                                    </li>
+                                #elseif( $Lev > 1 )
+                                    </li>
+                                #end
+                                #* this must be replace with the url as well logic here is bad for just a url !!! *#
+                                <li class='#if($item.is_link && $item.url) altAction #end depth_${item.position} #if($item.position==0)$!baseClass#elseif($item.position>0)$!subClass#end #if($selectedCats.Contains(${item.alias}))active#end' >
+                                    <div><span class="disclose"><span></span></span>
+                                        <input type="hidden" value="$!item.baseid" name="menuoptions[${c}].baseid"/>
+                                        <input type="hidden" value="$!item.position" name="menuoptions[${c}].position" class="nav_position"/>
+                                        <input type="hidden" value="$!item.sort" name="menuoptions[${c}].sort" class="nav_sort"/>
+                                        <input type="hidden" value="$!item.post.baseid" name="menuoptions[${c}].post.baseid" class="post_item"/>
+                                        <span style='font-size:0.5em; float:right;'>
+                                          <a href="#" title="Edit" class=" quickedit button ui-button-text-only med">
+                                            <span class="ui-icon ui-icon-pencil"></span>
+                                          </a>
+                                          <a href="#" title="Remove from menu" class=" remove_menu_item button ui-button-text-only med">
+                                            <span class="ui-icon ui-icon-trash"></span>
+                                          </a>
+                                        </span>
+                                        <span style='font-size:0.5em; float:left; margin-right:15px;'>
+                                          <a href="#" title="Toggle Visibility Children" class="childVisable disabled button med">
+                                            <span class="ui-icon ui-icon-plus"></span>
+                                          </a>
+                                        </span>
+                                        $item.name()&nbsp;&nbsp;<span class="node_detail">(<span class="nav_level_display">depth:<span class="value">$!item.position</span></span><span class="nav_position_display">order:<span class="value">$!item.sort</span></span>)&nbsp;-#if($item.active) active #else inactive #end</span>
+                                    </div>
+                                    #set($lastLevel=${item.position})
+                                    #set($c=$c+1) 
+                            #end
+                            #set($end = 1 )
+                                #set($val=${lastLevel}-${end})
+                                $htmlService.repeat_str("</li></ol>",$val)
+                            </li>
+                        </ol>
+                        <div style="display:none;" class="menu formAction Submit"> 
+                            <hr/>
+                            <input type="submit" value="Submit Changes" class="submit_btn button " />
+                            <br/><br/>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="clear"></div>
+        </div>
+        <div id="tabs_Detail" class="mainAreaTabs">
+            #set($i = 0 )
+            #capturefor(block)
+                <div id="templates_tab">
+                    <h3>Templates</h3>
+                    <fieldset><legend>Menu Template</legend>    
+                        <div id="posting_templates"> $item.get_template_obj("menu_template").alias
+                        <h6><em>Select a template for the menu</em></h6>
+                        <select name="item.postparents[]" class="userSelect">
+                            <option class="" value="">-select-</option>
+                            #foreach($template in $menu_templates)
+                                <option value="$template.baseid" #if($item.get_template_obj("menu_template")==$template) selected="selected" #end>$!template.name</option>
+                            #end
+                        </select>
+                        <div class="lightLine"></div>
+                        </div>
+                    </fieldset>
+                    #set($i = $i+1)
+                </div>
+                <div id="permisions_tab">
+                    #parse("/admin/postings/post_blocks/users_block.vm")
+                </div>
+            #end
+            <div class="tabs left ui-tabs ui-widget ui-widget-content ui-corner-all cal_event_new">
+                <ul class="main ui-tabs-nav ui-widget-header ui-corner-all">
+                    #if($item.post_type.is_summarizable)<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#summary_tab">Summary</a></li>#end
+                    #if($item.post_type.gets_metadata)<li class="ui-state-default ui-corner-top"><a href="#seo_tab">SEO / Meta</a></li>#end
+                    #if($item.post_type.is_templatable)<li class="ui-state-default ui-corner-top"><a href="#templates_tab">Templates</a></li>#end
+                    #if($item.post_type.is_taggable)<li class="ui-state-default ui-corner-top"><a href="#tags_tab">Tags</a></li>#end
+                    <li class="ui-state-default ui-corner-top"><a href="#permisions_tab">Permisions</a></li>
+                    #if($item.post_type.is_taxonomyable)<li class="ui-state-default ui-corner-top"><a href="#taxonomies_tab">Taxonomies</a></li>#end
+                    <li class="ui-state-default ui-corner-top"><a href="#administration_tab">Administration</a></li>
+                </ul>
+                $block
+                <div id="administration_tab">
+                    #parse("/admin/postings/post_blocks/administration.vm")		
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+#if( !$ajaxed )
+    <div style="position:absolute;top:-9999em;left:-9999em; z-index: 1;">
+        <div class="ui-widget ui-widget-content ui-corner-left" >
+          <div id="searchwell"></div>
+        </div>
+        
+        <div id="mapSearch">
+            <h3>Search types</h3>
+            <h4>Geo coded</h4>
+            <input type="text" value="" id="searchbox"  />
+            <h4>cal_events</h4>
+            <input id="searchTextField" type="text" size="50" cal_eventholder="Anything you want!" />
+            <div>
+                <h4>local search</h4>
+                <input type="text" id="queryInput" value="pullman" style="width: 250px;"/>
+                <input type="button" value="Find" onclick="doSearch()"/>
+            </div>
+        </div>
+    </div>
+#end
+<div class="clear"></div>

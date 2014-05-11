@@ -1,0 +1,9 @@
+#if($userService.checkPrivleage("make_edits") && !$item.editing   && $item.owner.baseid == $userService.getUser().baseid)
+	<li class="delete_btn">
+		<a href="$siteroot/${controller.getView()}/delete#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}" title="Delete" class=" button small">
+		  <span class="ui-button-icon-primary ui-icon ui-icon-trash"> </span>
+		  <span class="actionText">Delete</span>
+		  <span class="actionpropt">&#187;</span>
+		</a>
+	</li>
+#end

@@ -1,0 +1,67 @@
+#if($Flash.error)
+<p style="color: red; font-weight: bold;">
+    $Flash.error
+</p>
+#end
+<h3>Authorized User</h3>
+<br/>
+<form action="update_user.castle" method="post" enctype="multipart/form-data" >
+$Form.HiddenField("user.baseid")
+$Form.HiddenField("image.baseid") 
+
+
+<p>Display Name : <br/>
+  <input type="text" value="$!user.display_name" name="user.display_name" id="user_display_name" class="ui-widget ui-widget-content ui-corner-all " />
+  </p>
+<p>User Network ID:<br/>
+<input type="text" value="$!user.Nid" name="user.Nid" id="user_Nid" class="ui-widget ui-widget-content ui-corner-all " /></p>
+
+#if($userService.checkPrivleage("modify_groups"))
+    <p>Group Memeber of:<br/>
+        <select name="user.groups" >
+            <option value="" #if(!${user.groups.name})selected='selected'#end>-select-</option>
+            #foreach($group in $groups)
+                <option value="$group.baseid" #if(${user.groups.baseid}==$group.baseid)selected='selected'#end>${group.name}</option>
+            #end
+        </select>
+    </p>
+#end
+    <table width="100%" class="ui-widget ui-widget-content">
+      <thead>
+        <tr class="ui-widget-header ">
+        	<th>ID</th>
+            <th>Name</th>
+            <th>Public</th>
+            <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        #set ($c=0)
+        #foreach($profile in $user.contact_profiles)
+            <tr #if($c%2>0) class="even" #else class="odd" #end>
+              <td align="center">$!profile.baseid</td>
+              <td align="left">$!profile.first_name $!profile.middle_name  $!profile.last_name</td>
+              <td align="left">#if($profile.isPublic)Yes#else No #end</td>
+              <td class='actionArea'>
+                <span style='font-size:0.7em;'>
+                  <a href="/users/edit_user.castle?id=$!{profile.baseid}" title="Edit" class="button small">
+                    <span class="ui-icon ui-icon-pencil"></span>
+                  </a>
+                </span>
+              </td>
+            </tr>
+            #set ($c=$c+1)
+        #end
+      </tbody>
+      <tfoot>
+      <tr>
+      <td colspan="4" align="right"><input type="submit" value="Add Profile" /></td>
+      </tr>
+      </tfoot>
+    </table>
+
+
+<br/>
+<p><input type="submit" value="Submit" /></p>
+
+</form>

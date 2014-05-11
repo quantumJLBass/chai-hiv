@@ -1,0 +1,28 @@
+<h2>Site options</h2>
+<hr/>
+<h3>Nameing conventions</h3>
+<p>Althou you may change the site option's name, there are a few key words that are looked for in the system:</p>
+<ul>
+<li><strong>gen_</strong>xxxxx</li>
+<li><strong>state_</strong>xxxxx</li>
+<li><strong>admin_</strong>xxxx (<em>note this is not able to be used out side the admin</em>)</li>
+<li><strong>filters_</strong>xxxx</li>
+<li>xxxx<strong>_expression</strong></li>
+</ul>
+
+<p>An example case here is that you want to have a option for the site to end up in the general grouping of site options.  You simple pick the name of the option you are going to use and append <strong>gen_</strong> to that name.  IE: You make a site option with the name "prevent_access" and you want it to be loaded in the site option group "general" it would look like, "<strong>gen_</strong>prevent_access"</p>
+
+<h4>Usage Example</h4>
+<p>&#36;{siteService.json_site_options()} would output all site option groups where &#36;{siteService.json_site_options("gen_")} would output all "general" site options under that group</p>
+
+<h4>Output Example</h4>
+<h5>&#36;{siteService.json_site_options("state_")}</h5>
+<p>${siteService.json_site_options("state_")}</p>
+
+
+<h3>Related</h3>
+<a href="#json_site_options">siteService - json_site_options</a><br/>
+<a href="#json_site_admin_options">siteService - json_site_admin_options</a><br/>
+
+<br/><hr/><br/>
+<div style="clear:both;"></div>

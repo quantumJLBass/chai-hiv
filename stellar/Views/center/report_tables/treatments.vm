@@ -1,0 +1,19 @@
+	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
+		<thead>
+			<tr>
+				<th width="15%">Record ID</th>
+				<th>Acroynm</th>
+				<th width="20%">action</th>
+			</tr>
+		</thead>
+		<tbody>
+		#foreach($item in $items)
+			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
+				<td>$item.record_id <input type="hidden" name="items[$velocityCount]" value="$item.baseid"/></td>
+				<td>$item.acroynm</td>
+				<td><a href="#" class="button xsmall crimson defocus removal">Remove</a></td>
+			</tr>
+		#end
+		</tbody>
+		<tfoot>
+	</table>

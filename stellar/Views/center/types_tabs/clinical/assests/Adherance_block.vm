@@ -1,0 +1,247 @@
+<article >  
+	<div class="uitabs min ${controller.getView()}list ui-tabs ui-widget ui-widget-content ui-corner-all" style="background-color: transparent;">
+		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+			<li class="ui-state-default ui-corner-top"><a href="#Convenience">Convenience</a> </li>
+			<li class="ui-state-default ui-corner-top"><a href="#Pill_Burden">Pill Burden</a> </li>
+			<li class="ui-state-default ui-corner-top"><a href="#Palatability">Palatability</a> </li>
+			<li class="ui-state-default ui-corner-top"><a href="#Tolerability">Tolerability</a> </li>
+		</ul>			
+
+
+
+		<div id="Convenience" style="">
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_adherance_convenience" "top")
+			</div>
+		
+			<ul class="grid col-full mq2-col-full full-input">
+#* adherance_convenience_diet_constraints *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+					#set($daval ="")
+					#set($daval = $!item.adherance_convenience_diet_constraints)
+					#feild_textinput("$type" "adherance_convenience_diet_constraints" $daval "" "" "has_moa_dmpk" "")
+					</li>
+				</ul>
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						<span class="moa_dmpk">
+						#set($daval ="")
+						#set($daval = $!item.adherance_convenience_diet_constraints_moa_dmpk)
+						#feild_selectinput($type "adherance_convenience_diet_constraints_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
+					</li>
+				</ul><div style="clear:both;"></div>
+			</li>
+			
+#* adherance_convenience_co_dosing_constraints *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+					#set($daval ="")
+					#set($daval = $!item.adherance_convenience_co_dosing_constraints)
+					#feild_textinput("$type" "adherance_convenience_co_dosing_constraints" $daval "" "" "has_moa_dmpk" "")
+					</li>
+				</ul>
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						<span class="moa_dmpk">
+						#set($daval ="")
+						#set($daval = $!item.adherance_convenience_co_dosing_constraints_moa_dmpk)
+						#feild_selectinput($type "adherance_convenience_co_dosing_constraints_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
+					</li>
+				</ul><div style="clear:both;"></div>
+			</li>		
+#* adherance_convenience_dose_timing_constraints *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+					#set($daval ="")
+					#set($daval = $!item.adherance_convenience_dose_timing_constraints)
+					#feild_textinput("$type" "adherance_convenience_dose_timing_constraints" $daval "" "" "has_moa_dmpk" "")
+					</li>
+				</ul>
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						<span class="moa_dmpk">
+						#set($daval ="")
+						#set($daval = $!item.adherance_convenience_dose_timing_constraints_moa_dmpk)
+						#feild_selectinput($type "adherance_convenience_dose_timing_constraints_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
+					</li>
+				</ul><div style="clear:both;"></div>
+			</li>		
+#* adherance_convenience_frequency *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+					#set($daval ="")
+					#set($daval = $!item.adherance_convenience_frequency)
+					#feild_textinput("$type" "adherance_convenience_frequency" $daval "" "" "has_moa_dmpk" "")
+					</li>
+				</ul>
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						<span class="moa_dmpk">
+						#set($daval ="")
+						#set($daval = $!item.adherance_convenience_frequency_moa_dmpk)
+						#feild_selectinput($type "adherance_convenience_frequency_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
+					</li>
+				</ul><div style="clear:both;"></div>
+			</li>
+			</ul>
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_adherance_convenience" "bottom")
+			</div>
+		</div>
+		<div id="Pill_Burden" style="display:none;">
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_adherance_pill_burden" "top")
+			</div>
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						#set($daval ="")
+						#set($daval = $!item.adherance_convenience_pillburden)
+						#feild_textinput("$type" "adherance_convenience_pillburden" $daval "" "" "" "")
+					</li>
+				</ul>
+				<div style="clear:both;"></div>		
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_adherance_pill_burden" "bottom")
+			</div>
+		</div>
+		<div id="Palatability" style="display:none;">
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_adherance_palatability" "top")
+			</div>
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						#set($daval ="")
+						#set($daval = $!item.adherance_convenience_palatablilty)
+						#feild_textinput("$type" "adherance_convenience_palatablilty" $daval "" "" "" "")
+					</li>
+				</ul>
+				<div style="clear:both;"></div>	
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_adherance_palatability" "bottom")
+			</div>
+		</div>
+		<div id="Tolerability" style="display:none;">
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_adherance_tolerability" "top")
+			</div>
+			
+			<ul class="grid col-full mq2-col-full full-input">
+<!--			
+			
+#* adherance_tolerability_lost_to_follow_up *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-full mq2-col-full full-input">
+					<li>
+					#set($daval ="")
+					#set($daval = $!item.adherance_tolerability_lost_to_follow_up)
+					#feild_textinput("$type" "adherance_tolerability_lost_to_follow_up" $daval "" "" "" "")
+					</li>
+				</ul>
+				<div style="clear:both;"></div>
+			</li>
+	-->		
+	
+<!--#* adherance_tolerability_ae_acute *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+					#set($daval ="")
+					#set($daval = $!item.adherance_tolerability_ae_acute)
+					#feild_textinput("$type" "adherance_tolerability_ae_acute" $daval "" "" "has_moa_dmpk" "")
+					</li>
+				</ul>
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						<span class="moa_dmpk">
+						#set($daval ="")
+						#set($daval = $!item.adherance_tolerability_ae_acute_moa_dmpk)
+						#feild_selectinput($type "adherance_tolerability_ae_acute_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
+					</li>
+				</ul>
+				<div style="clear:both;"></div>
+			</li>		
+#* adherance_tolerability_ae_mild_grade *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+					#set($daval ="")
+					#set($daval = $!item.adherance_tolerability_ae_mild_grade)
+					#feild_textinput("$type" "adherance_tolerability_ae_mild_grade" $daval "" "" "has_moa_dmpk" "")
+					</li>
+				</ul>
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						<span class="moa_dmpk">
+						#set($daval ="")
+						#set($daval = $!item.adherance_tolerability_ae_mild_grade_moa_dmpk)
+						#feild_selectinput($type "adherance_tolerability_ae_mild_grade_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
+					</li>
+				</ul>
+				<div style="clear:both;"></div>
+			</li>	-->
+
+<li>
+			
+#set($taxorder = 0)
+#set($adverse_events = $postingService.get_taxonomies("adverse_events"))
+  <ul class="grid col-one-half mq2-col-full full-input">
+#* max_dose *#
+<li>
+	<label for="max_dose">Adverse Events, Subjective: <i class="icon-question-sign blue" title=""></i></label>
+		<select name="" id="adverse_events" class="adverse_events" >
+			<option value="">Add an event</option> 
+			#foreach($part in $adverse_events)
+				<option #if($item.taxonomies.Contains($part))disabled #end value="$part.baseid" data-content="$part.content" data-baseid="$part.baseid" data-alias="$part.alias">$part.name</option>
+			#end
+		</select>
+	</li>
+	
+	#set($tax_type = $taxonomyService.get_taxonomy_type("adverse_events"))
+	#foreach($part in $item.taxonomies)
+		#if($part.taxonomy_type== $tax_type)
+			<li data-taxorder="$taxorder">
+				 <i class="icon-remove-circle red right remove"></i>
+
+				 <label>$part.name #if($!part.content)<i class="icon-question-sign blue" title="$!part.content"></i>#end
+				 </label>
+				 <input type="text" name="value[$taxorder]" id="" required  value="$!item.get_meta(${part.baseid.ToString()})"/>
+				 <input type="hidden" name="option_key[$taxorder]" value="$part.baseid" />
+			 </li>
+			 #set($taxorder = $taxorder+1)
+		#end
+	#end
+  </ul>
+  </li>
+  #* adherance_tolerability_other_tolerabilities *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-full mq2-col-full full-input">
+					<li>
+					#set($daval ="")
+					#set($daval = $!item.adherance_tolerability_other_tolerabilities)
+					#feild_textinput("$type" "adherance_tolerability_other_tolerabilities" $daval "" "" "has_moa_dmpk" "")
+					</li>
+				</ul>
+				
+				<div style="clear:both;"></div>
+			</li>	
+  
+  
+  
+  
+			</ul>
+			
+			
+			
+			
+			<div style="clear:both;">
+			Lost to follow-up can be found under discontinuation
+				#tab_notes("$type" "durability_adherance_tolerability" "bottom")
+			</div>
+		</div>
+	</div>								
+</article>

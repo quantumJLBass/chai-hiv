@@ -1,0 +1,6 @@
+
+    Name:<br/>
+    <input type="text" name="item.name" value="$!item.name" class="text ui-widget-content ui-corner-all"  size="50" maxlength="1025" placeholder="Name of item" title="It is best to name your event with something that clearly tell people what it is with out needing the summaries."/><br/>
+    Alias:<br/>
+    <input type="text" name="item.alias" value="$!item.alias" class="alias_input text ui-widget-content ui-corner-all"  size="50" maxlength="1025" placeholder="alias-of-item" />
+ 

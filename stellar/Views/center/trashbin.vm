@@ -1,0 +1,55 @@
+<article class="grid col-full">
+	
+<form action="$siteroot/center/massaction.castle" method="post" enctype="multipart/form-data" >
+    <h2>Trashbin</h2>
+    #capturefor(trashbinblock)
+        #set ($empty=0)
+		#set($items="")
+		#set ($c=0)
+		#capturefor(items)
+			#foreach($item in $trashbin)
+				<tr #if($c%2>0) class="even" #else class="odd" #end>
+				  <td width="35" align="center"><input type="checkbox" value="${item.baseid}" name="mass[]"/></td>
+				  <td width="50" align="center">${item.baseid}</td>
+				  <td >$!{item.name} $!postingService.get_taxonomy($item.brand_name).name</td>
+				  <td width="125">
+					<span style='font-size:0.7em;'>
+						<a href="$siteroot/center/restore_item.castle?id=${item.baseid}" title="Click to restore" class=" button small">restore&#187;</a>
+					</span>
+				  </td>
+				</tr>
+				#set ($c=$c+1)
+				#set ($empty=$empty+1)
+			#end
+		#end
+		#if($c>0 &&$items.Trim()!="")
+		<fieldset>
+			<table  width="100%" class="ui-widget ui-widget-content">
+			  <thead>
+				<tr class="ui-widget-header ">
+				<th width="35" align="center"></th>
+				<th width="50" align="center">Id</th>
+				<th>Name</th>
+				<th>&nbsp;</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				$items
+			  </tbody>
+			</table>
+			<legend><h3>Deleted item#if($c>0)s#end</h3></legend>
+		</fieldset>
+		#end
+        #if($empty>0)
+            <br/><input type="submit" value="Restore Selected" name="restoremass"/>
+        #else
+            <h3>Clean as a whistle</h3>
+        #end
+    #end
+    $trashbinblock
+</form>
+</article>
+	
+
+
+

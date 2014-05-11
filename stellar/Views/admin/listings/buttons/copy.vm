@@ -1,0 +1,9 @@
+#if(!$item.editing)
+	<li class="copy_btn">
+		<a href="$siteroot/${controller.getView()}/copy#if($itemNamed)_${itemNamed}#end.castle?id=$!{item.baseid}" title="Copy this item" class=" editIt button small">
+		  <span class="ui-button-icon-primary ui-icon ui-icon-copy"> </span>
+		  <span class="actionText">Copy</span>
+		  <span class="actionpropt">&#187;</span>
+		</a>
+	</li>
+#end

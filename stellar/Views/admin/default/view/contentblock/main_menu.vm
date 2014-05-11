@@ -1,0 +1,39 @@
+#set($baseClass="parent")
+#set($subULClass="")
+#set($subNarrowClass="subNarrow")
+#set($subClass="")
+
+#set($baseurl="admin/help.castle")
+
+
+#set($menuItems = $postingService.get_published_postings("documentation"))
+#set($lastLevel = 1 )
+#set($c=0)
+
+<ul class='sidebar_nav'>
+	#foreach($item in $menuItems)
+		#* $velocityCount  *#
+		#set($Lev=${item.position})
+		#if($Lev > $lastLevel)
+			#set($val=${Lev}-${lastLevel})
+			$htmlService.repeat_str("<div class='parentarea'><ul>",$val)
+		#elseif( $Lev < $lastLevel )
+			#set($val=${lastLevel}-${Lev})
+			$htmlService.repeat_str("</li></ul></div>",$val)
+			</li>
+		#elseif( $Lev > 1 )
+			</li>
+		#end
+		#* this must be replace with the url as well logic here is bad for just a url !!! *#
+		<li class='#if($item.is_link && $item.url)altAction#end depth_${item.position} #if($item.position==1)$baseClass#elseif($item.position>1)$subClass#end #if($selectedCats.Contains(${item.alias}))active#end' >
+			<a  hidefocus="true" href='#if($item.is_link && $item.url)${item.url}#else/$!baseurl?iid=$!{item.baseid}#end#if($dev)&dev=1#end' #if($item.position==1) class='parentalLink' #end  #if($item.is_link && $item.url) target='_blank' #end><em>$!item.name.Replace("&","&amp;")</em></a>
+		#set($lastLevel=${item.position})
+	#end
+	#set($end = 2 )
+		#set($val=${lastLevel}-${end})
+		$htmlService.repeat_str("</li></ul></div>",$val)
+	</li>
+</ul>
+
+
+

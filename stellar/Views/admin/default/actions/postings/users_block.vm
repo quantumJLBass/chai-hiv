@@ -1,0 +1,33 @@
+<h3>Authors</h3>
+#if($item.owner)<h4>Owner:</h4>$item.owner.display_name <hr/>#end
+
+
+<h4>Shared with:</h4>
+
+<div id="AuthorDiv">
+  <h6><em>Select a user to have editing access to this ${named_type_dname}</em></h6>
+  #set($count = 0)
+  #set($id = 0)
+  #foreach($itemsusers in $items.users)
+    <div id="div_user$itemsusers.baseid">
+        <select name="Authors[$!count].baseid" id="user$itemsusers.baseid" class="userSelect">
+            <option class="" value="">-select-</option>
+            #foreach($user in $users)
+                <option class="user" value="$user.id" #if($itemsusers == $user) selected="selected" #end>$!user.display_name</option>
+                #set($id = $user.baseid)
+            #end
+        </select>
+        #if($id!=0)
+            <a title="$id" rel="$item.id"  style="cursor:pointer;display: inline-block;" class="deleteAuthor ui-state-error ui-corner-all">
+                <span class="ui-icon ui-icon-trash"></span>
+            </a>
+        #end
+        <div class="lightLine"></div>
+    </div>
+    #set($count = $count + 1)
+  #end
+  <div class="lightLine"></div>
+  <input type="hidden" id="NextAuthorID" name="NextAuthorID" value="$my_var"/>
+  <div id="NewAuthorHolderDiv"></div>
+</div>
+<a style="cursor:pointer;" onclick="AddAuthor()">+ add additional users</a>

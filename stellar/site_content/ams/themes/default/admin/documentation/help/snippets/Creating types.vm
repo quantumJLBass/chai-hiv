@@ -1,0 +1,10 @@
+<h2>Creating types</h2>
+<p>When creating types it's helpful to remeber to discribe it's needs as well as what difines it.</p>
+
+<h3>Media type</h3>
+<h5>Base Object Needs</h5>
+<ul>
+    <li> <strong>loads_file</strong> = <em>true</em> </li>
+    <li> <strong>is_code</strong> = <em>false</em> </li>
+    <li> <strong>useTiny</strong> = <em>false</em> </li>
+</ul>

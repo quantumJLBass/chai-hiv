@@ -1,0 +1,102 @@
+<article class="${controller.getView()}list ui-tabs ui-widget ui-widget-content ui-corner-all">  
+	<div style="clear:both;">
+		#tab_notes("$type" "durability_forgiveness" "top")
+	</div>
+	<div id="durability_forgiveness" style="">
+	
+	
+		<ul class="grid col-full mq2-col-full full-input">	
+		#* resistance *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.resistance)
+				#feild_textinput("$type" "resistance" $daval "" "(Time +/- SD to failure)" "" "")
+			</li>
+		</ul>
+		<ul class="grid col-full mq2-col-full full-input">	
+		#* genetic_mutation *#
+			<li>
+				#set($daval ="")
+				#set($daval = $!item.genetic_mutation)
+				#feild_textinput("$type" "genetic_mutation" $daval "" "(Time +/- SD to resistance)" "" "")
+			</li>
+				<div style="clear:both;"></div>
+		</ul>
+	<ul class="grid col-full mq2-col-full full-input">
+	<!--
+		
+		#* forgiveness_genetic_barrier_to_resistance *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						#set($daval ="")
+						#set($daval = $!item.toxicity_sae)
+						#feild_textinput("$type" "forgiveness_genetic_barrier_to_resistance" $daval "" "" "" "")
+					</li>
+				</ul>
+			#* forgiveness_virological_failure *#
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						#set($daval ="")
+						#set($daval = $!item.toxicity_sae)
+						#feild_textinput("$type" "forgiveness_virological_failure" $daval "" "" "" "")
+					</li>
+				</ul>
+				
+				<div style="clear:both;"></div>
+			</li>	
+		
+		#* forgiveness_forgiveness *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						#set($daval ="")
+						#set($daval = $!item.forgiveness_forgiveness)
+						#feild_textinput("$type" "forgiveness_forgiveness" $daval "" "" "has_moa_dmpk" "")
+					</li>
+				</ul>
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						<span class="moa_dmpk">
+							#set($daval ="")
+							#set($daval = $!item.forgiveness_forgiveness_moa_dmpk)
+							#feild_selectinput($type "forgiveness_forgiveness_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
+						</span>
+					</li>
+				</ul>
+				<div style="clear:both;"></div>
+			</li>	
+		-->
+		#* forgiveness_drug_to_drug_interactions_efficacy_reduction *#
+			<li class="moa_dmpk_block">
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+				#set($daval ="")
+				#set($daval = $!item.forgiveness_drug_to_drug_interactions_efficacy_reduction)
+				#feild_textinput("$type" "forgiveness_drug_to_drug_interactions_efficacy_reduction" $daval "" "" "has_moa_dmpk" "")
+					</li>
+				</ul>
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li>
+						<span class="moa_dmpk">
+					#set($daval ="")
+					#set($daval = $!item.forgiveness_drug_to_drug_interactions_efficacy_reduction_moa_dmpk)
+					#feild_selectinput($type "forgiveness_drug_to_drug_interactions_efficacy_reduction_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
+						</span>
+					</li>
+				</ul><div style="clear:both;"></div>
+			</li>
+			
+			
+			<li>Virological failure can be found under discontinuation</li>
+			
+		</ul>
+		
+		
+
+		
+	</div>
+	<div style="clear:both;">
+		#tab_notes("$type" "durability_forgiveness" "bottom")
+	</div>							
+</article>

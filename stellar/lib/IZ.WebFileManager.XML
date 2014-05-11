@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IZ.WebFileManager</name>
+    </assembly>
+    <members>
+        <member name="P:IZ.WebFileManager.FileManagerControlBase.AllowDelete">
+            <summary>
+            When is set true, Delete, Move and Rename are not allowed, Default value it true.
+            </summary>
+        </member>
+        <member name="P:IZ.WebFileManager.FileManagerController.AllowDelete">
+            <summary>
+            When is set true, Delete, Move and Rename are not allowed, Default value it true.
+            </summary>
+        </member>
+        <member name="M:IZ.WebFileManager.RootDirectory.ToString">
+            <summary>
+            Overridden
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:IZ.WebFileManager.RootDirectory.ExpandDepth">
+            <summary>
+            Gets or sets the number of levels that are expanded in the folder tree when a FileManager control is displayed for the first time. 
+            </summary>
+            <value>
+            The depth to display in the folder tree when the FileManager is initially displayed. The default is -1, which displays all the nodes.
+            </value>
+        </member>
+        <member name="P:IZ.WebFileManager.RootDirectory.Text">
+            <summary>
+            Gets or sets the text displayed for the node in the folder tree of FileManager control.
+            </summary>
+        </member>
+        <member name="T:Legend.Web.HtmlAttributeManager">
+            <summary>
+            Handles the writing of attributes to the HtmlTextWriter specified
+            in the constructor.
+            </summary>
+        </member>
+        <member name="M:Legend.Web.HtmlAttributeManager.#ctor(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="writer">The writer to use for writing.</param>
+        </member>
+        <member name="M:Legend.Web.HtmlAttributeManager.Attr(System.Web.UI.HtmlTextWriterAttribute,System.String)">
+            <summary>
+            Applies the value to the specified attribute to the HtmlTextWriter
+            this instance contains.
+            </summary>
+            <param name="key">The attribute to set.</param>
+            <param name="value">The value to set to the attribute.</param>
+            <returns>The attribute manager.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlAttributeManager.Class(System.String)">
+            <summary>
+            Adds the class attribute to the tag being rendered.
+            </summary>
+            <param name="className">The name of the class.</param>
+            <returns>The attribute manager.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlAttributeManager.Class(System.String[])">
+            <summary>
+            Adds the class attribute to the tag being rendered.
+            </summary>
+            <param name="classNames">The names of the classes to set to the attribute.</param>
+            <returns>The attribute manager.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlAttributeManager.Id(System.String)">
+            <summary>
+            Adds the id attribute to the tag being rendered.
+            </summary>
+            <param name="elementId">The id to set.</param>
+            <returns>The attribute manager.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlAttributeManager.Name(System.String)">
+            <summary>
+            Adds the name attribute to the tag being rendered.
+            </summary>
+            <param name="elementName">The name to set.</param>
+            <returns>The attribute manager.</returns>
+        </member>
+        <member name="P:Legend.Web.HtmlAttributeManager.Writer">
+            <summary>
+            The writer this manager writes to.
+            </summary>
+        </member>
+        <member name="T:Legend.Web.HtmlTextWriterExtensions">
+            <summary>
+            Provides extension methods for the HtmlTextWriterClass.
+            </summary>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Tag(System.Web.UI.HtmlTextWriter,System.Web.UI.HtmlTextWriterTag,System.Func{Legend.Web.HtmlAttributeManager,Legend.Web.HtmlAttributeManager})">
+            <summary>
+            Renders a start tag, the tag is closed by a call to the EndTag-method.
+            </summary>
+            <param name="writer">The writer to render to.</param>
+            <param name="tag">The tag to render the start tag of.</param>
+            <param name="appender">A delegate that takes in an HtmlAttributeManager for appending
+            attributes to the start tag.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Div(System.Web.UI.HtmlTextWriter,System.Func{Legend.Web.HtmlAttributeManager,Legend.Web.HtmlAttributeManager})">
+            <summary>
+            Renders a Div start tag.
+            </summary>
+            <param name="writer">The writer to render to.</param>
+            <param name="attributes">A delegate that takes in an HtmlAttributeManager for appending
+            attributes to the start tag.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Body(System.Web.UI.HtmlTextWriter,System.Func{Legend.Web.HtmlAttributeManager,Legend.Web.HtmlAttributeManager})">
+            <summary>
+            Renders a Body start tag.
+            </summary>
+            <param name="writer">The writer to render to.</param>
+            <param name="attributes">A delegate that takes in an HtmlAttributeManager for appending
+            attributes to the start tag.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Html(System.Web.UI.HtmlTextWriter,System.Func{Legend.Web.HtmlAttributeManager,Legend.Web.HtmlAttributeManager})">
+            <summary>
+            Renders a Html start tag.
+            </summary>
+            <param name="writer">The writer to render to.</param>
+            <param name="attributes">A delegate that takes in an HtmlAttributeManager for appending
+            attributes to the start tag.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Span(System.Web.UI.HtmlTextWriter,System.Func{Legend.Web.HtmlAttributeManager,Legend.Web.HtmlAttributeManager})">
+            <summary>
+            Renders a Span start tag.
+            </summary>
+            <param name="writer">The writer to render to.</param>
+            <param name="attributes">A delegate that takes in an HtmlAttributeManager for appending
+            attributes to the start tag.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Href(System.Web.UI.HtmlTextWriter,System.String,System.String)">
+            <summary>
+            Renders an anchor tag.
+            </summary>
+            <param name="writer">The writer to render to.</param>
+            <param name="url">The url of the hyperlink.</param>
+            <param name="title">The title of the hyperlink.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.EndTag(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Closes the latest started tag.
+            </summary>
+            <param name="writer">The writer to render the end tag to.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.EndTag(System.Web.UI.HtmlTextWriter,System.Web.UI.HtmlTextWriterTag)">
+            <summary>
+            Closes the latest started tag.
+            </summary>
+            <param name="writer">The writer to render the end tag to.</param>
+            <param name="ignored">The tag this call closes, only specified for readability,
+            this parameter is ignored.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Text(System.Web.UI.HtmlTextWriter,System.String)">
+            <summary>
+            Renders a text literal to the writer.
+            </summary>
+            <param name="writer">The writer to render the text to.</param>
+            <param name="text">The text to render.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Text(System.Web.UI.HtmlTextWriter,System.String,System.Boolean)">
+            <summary>
+            Renders a text literal to the writer.
+            </summary>
+            <param name="writer">The writer to render the text to.</param>
+            <param name="text">The text to render.</param>
+            <param name="htmlEncode">If set to true the text will be html-encoded.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Text(System.Web.UI.HtmlTextWriter,System.Object)">
+            <summary>
+            Renders a text literal to the writer.
+            </summary>
+            <param name="writer">The writer to render the text to.</param>
+            <param name="value">An object that represents the text to be written.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Bind``1(System.Web.UI.HtmlTextWriter,System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Int32,System.Web.UI.HtmlTextWriter,System.Web.UI.HtmlTextWriter})">
+            <summary>
+            Repeats over the specified collection.
+            </summary>
+            <typeparam name="T">The type of items in the collection.</typeparam>
+            <param name="writer">The writer to render to.</param>
+            <param name="collection">The collection to repeat over.</param>
+            <param name="binder">A function that will be called for each of the elements
+            in the collection, the first parameter is the item in the collection, the second
+            parameter the index of the item in the collection, and the third is the writer
+            to render to.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="M:Legend.Web.HtmlTextWriterExtensions.Repeat(System.Web.UI.HtmlTextWriter,System.Int32,System.Func{System.Int32,System.Web.UI.HtmlTextWriter,System.Web.UI.HtmlTextWriter})">
+            <summary>
+            Repeats the specified number of times.
+            </summary>
+            <param name="writer">The writer to render to.</param>
+            <param name="times">The number of times to repeat.</param>
+            <param name="binder">A function that will be called the specified number of times,
+            the first parameter is the number of the call (starting with one), the
+            second parameter is the writer to render to.</param>
+            <returns>The writer.</returns>
+        </member>
+        <member name="T:System.IO.xDirectory">
+            <summary>
+            xDirectory v2.0 - Copy a Source Directory and it's SubDirectories/Files.
+            Coder: John Storer II
+            Date: Thursday, May 18, 2006
+            </summary>
+        </member>
+        <member name="F:System.IO.xDirectory._DefaultOverwrite">
+            <summary>
+            Default Overwrite Value - Change to Preference.
+            </summary>
+        </member>
+        <member name="F:System.IO.xDirectory._DefaultIterationLimit">
+            <summary>
+            Default Folder Iteration Limit - Change to Preference.
+            </summary>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.String,System.String)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="sSource">The Source Directory</param>
+            <param name="sDestination">The Destination Directory</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.String,System.String,System.Boolean)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="sSource">The Source Directory</param>
+            <param name="sDestination">The Destination Directory</param>
+            <param name="Overwrite">Whether or not to Overwrite a Destination File if it Exists.</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.String,System.String,System.String)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="sSource">The Source Directory</param>
+            <param name="sDestination">The Destination Directory</param>
+            <param name="FileFilter">The File Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="sSource">The Source Directory</param>
+            <param name="sDestination">The Destination Directory</param>
+            <param name="FileFilter">The File Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="Overwrite">Whether or not to Overwrite a Destination File if it Exists.</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.String,System.String,System.String,System.String)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="sSource">The Source Directory</param>
+            <param name="sDestination">The Destination Directory</param>
+            <param name="FileFilter">The File Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="DirectoryFilter">The Directory Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="sSource">The Source Directory</param>
+            <param name="sDestination">The Destination Directory</param>
+            <param name="FileFilter">The File Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="DirectoryFilter">The Directory Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="Overwrite">Whether or not to Overwrite a Destination File if it Exists.</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.String,System.String,System.String,System.String,System.Boolean,System.Int32)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="sSource">The Source Directory</param>
+            <param name="sDestination">The Destination Directory</param>
+            <param name="FileFilter">The File Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="DirectoryFilter">The Directory Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="Overwrite">Whether or not to Overwrite a Destination File if it Exists.</param>
+            <param name="FolderLimit">Iteration Limit - Total Number of Folders/SubFolders to Copy</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="diSource">The Source Directory</param>
+            <param name="diDestination">The Destination Directory</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.Boolean)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="diSource">The Source Directory</param>
+            <param name="diDestination">The Destination Directory</param>
+            <param name="Overwrite">Whether or not to Overwrite a Destination File if it Exists.</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.String)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="diSource">The Source Directory</param>
+            <param name="diDestination">The Destination Directory</param>
+            <param name="FileFilter">The File Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.String,System.Boolean)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="diSource">The Source Directory</param>
+            <param name="diDestination">The Destination Directory</param>
+            <param name="FileFilter">The File Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="Overwrite">Whether or not to Overwrite a Destination File if it Exists.</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.String,System.String)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="diSource">The Source Directory</param>
+            <param name="diDestination">The Destination Directory</param>
+            <param name="FileFilter">The File Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="DirectoryFilter">The Directory Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.String,System.String,System.Boolean)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="diSource">The Source Directory</param>
+            <param name="diDestination">The Destination Directory</param>
+            <param name="FileFilter">The File Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="DirectoryFilter">The Directory Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="Overwrite">Whether or not to Overwrite a Destination File if it Exists.</param>
+        </member>
+        <member name="M:System.IO.xDirectory.Copy(System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.String,System.String,System.Boolean,System.Int32)">
+            <summary>
+            xDirectory.Copy() - Copy a Source Directory and it's SubDirectories/Files
+            </summary>
+            <param name="diSource">The Source Directory</param>
+            <param name="diDestination">The Destination Directory</param>
+            <param name="FileFilter">The File Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="DirectoryFilter">The Directory Filter (Standard Windows Filter Parameter, Wildcards: "*" and "?")</param>
+            <param name="Overwrite">Whether or not to Overwrite a Destination File if it Exists.</param>
+            <param name="FolderLimit">Iteration Limit - Total Number of Folders/SubFolders to Copy</param>
+        </member>
+    </members>
+</doc>

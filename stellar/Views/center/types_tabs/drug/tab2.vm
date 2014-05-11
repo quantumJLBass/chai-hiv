@@ -1,0 +1,76 @@
+<ul class="grid col-one-half mq2-col-full full-input">				  
+#* label_claim *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.label_claim)
+		#feild_textinput("$type" "label_claim" $daval "" "" "" "")
+	</li>				  
+#* dosing *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.dosing)
+		#feild_selectinput($type "dosing" $daval "" "taxed" "")
+	</li>				  
+#* dose_form *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.dose_form)
+		#feild_selectinput($type "dose_form" $daval $!dose_forms  "" "taxed" "")
+	</li>				  
+#* route_of_administration *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.route_of_administration)
+		#feild_textinput("$type" "route_of_administration" $daval "" "" "" "")
+	</li>
+#* frequency *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.frequency)
+		#feild_selectinput($type "frequency" $daval $!frequencys  "" "taxed" "")
+	</li>
+#* pill_burden *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.pill_burden)
+		#feild_textinput("$type" "pill_burden" $daval "" "" "" "")
+	</li>
+</ul>
+
+<ul class="grid col-one-half mq2-col-full full-input"> 
+#* inactive_ingredients *#
+	<li>
+		
+		#set($daval ="")
+
+		#set($daval = $!item.inactive_ingredients)
+		#feild_multipleselectinput($type "inactive_ingredients" $daval $!inactive_ingredientss  "" "" "" "tt")
+		<input name="item.inactive_ingredients" type="hidden" value="$!item.inactive_ingredients" />
+		<a href="#" class="tax_add button xsmall blue" data-select="#inactive_ingredients" data-type="inactive_ingredients" >Add New</a>
+		<i><b>Note:</b> Use Ctrl+ click or Shift + click to select more then one item</i>
+	</li>				  
+#* alternative_indications *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.alternative_indications)
+		#feild_textinput("$type" "alternative_indications" $daval "" "(Hep B, etc.)" "" "")
+	</li>				  
+#* special_considerations *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.special_considerations)
+		#feild_textinput("$type" "special_considerations" $daval "" "(w/food, dietary restrictions, etc.)" "" "")
+	</li>				  
+#* special_populations *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.special_populations)
+		#feild_textinput("$type" "special_populations" $daval "" "(TB patients, pregnant women, etc.)" "" "")
+	</li>				  
+#* storage_condition *#
+	<li>
+		#set($daval ="")
+				#set($daval = $!item.storage_condition)
+		#feild_textinput("$type" "storage_condition" $daval "" "storage conditions as listed on label or literature" "" "")
+	</li>
+</ul>

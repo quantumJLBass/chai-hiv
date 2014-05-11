@@ -1,0 +1,101 @@
+<!--
+<ul>		  
+#* adherence *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.adherence)
+		#feild_textinput("$type" "adherence" $daval "" "" "" "")
+	</li>
+#* durability_tolerability *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.durability_tolerability)
+		#feild_textinput("$type" "durability_tolerability" $daval "" "" "" "")
+	</li>
+#* durability_resistance_barrier *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.durability_resistance_barrier)
+		#feild_textinput("$type" "durability_resistance_barrier" $daval "" "" "" "")
+	</li>
+#* durability_missed_dose *#
+	<li>
+		#set($daval ="")
+		#set($daval = $!item.durability_missed_dose)
+		#feild_textinput("$type" "durability_missed_dose" $daval "" "" "" "")
+	</li>
+</ul>
+-->
+
+
+	#set($MoA_DMPK = $postingService.get_taxonomies("MoA_DMPK"))
+#capturefor(MoA_DMPKs)
+#foreach($part in $MoA_DMPK)
+$part.name => $part.alias
+#between
+,
+#end
+#end
+
+
+
+<div class="">
+	<style>
+		.ui-tabs-vertical { width: 55em; }
+		.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+		.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+		.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+		.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+		.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+	</style>
+	<div class="uitabs left ui-tabs ui-widget ui-widget-content ui-corner-all" style="width:70%">
+		<ul class=" clearfix">
+			<li><a href="#Adherance">Adherance</a></li>
+			<li><a href="#Forgiveness">Forgiveness</a></li>
+			<li><a href="#Toxicity">Toxicity</a></li>
+			<li><a href="#discontinuation">Discontinuation</a></li>
+		</ul>
+		
+		<div id="Adherance">
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_adherance" "top")
+			</div>
+			#parse("center/types_tabs/clinical/assests/Adherance_block.vm")
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_adherance" "bottom")
+			</div>
+		</div>
+
+		<div id="Forgiveness">
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_forgiveness" "top")
+			</div>
+			#parse("center/types_tabs/clinical/assests/Forgiveness_block.vm")
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_forgiveness" "bottom")
+			</div>
+		</div>
+		<div id="Toxicity">
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_toxicity" "top")
+			</div>
+			#parse("center/types_tabs/clinical/assests/Toxicity_block.vm")
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_toxicity" "bottom")
+			</div>
+		</div>
+		<div id="discontinuation">
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_timetofailure" "top")
+			</div>
+			#parse("center/types_tabs/clinical/tab8.vm")
+			<div style="clear:both;">
+				#tab_notes("$type" "durability_timetofailure" "bottom")
+			</div>
+		</div>
+
+
+			 
+
+	</div>
+</div>

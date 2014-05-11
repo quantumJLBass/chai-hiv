@@ -1,0 +1,45 @@
+#if($types)
+
+    #set($list_items=$types)
+	#set($Pagination_location='top inhead')
+	#set($target = 'types')
+	#parse("admin/listings/areas/pagination.vm")	
+
+	<table  width="100%" class="ui-widget ui-widget-content">
+	  <thead>
+		<tr class="ui-widget-header ">
+		<th>Name</th>
+		<th style="width:75px;">&nbsp;</th>
+		</tr>
+	  </thead>
+	  <tbody>
+	
+		#set ($c=0)
+		#foreach($type in $types)
+		<tr class="#if($c%2>0) even #else odd #end #if($type.adminRead==false) ui-state-highlight #end ">
+		  <td><a href="edit_type.castle?id=$!{type.Id}" title="Edit" class="name">
+				#if($type.friendly)$type.friendly#else$type.name#end
+			  </a></td>
+		  <td>
+			<span style='font-size:0.7em;'>
+			  <a href="edit_type.castle?id=$!{type.Id}" title="Edit" class="button">
+				<span class="ui-icon ui-icon-pencil"></span>
+			  </a>
+			  <a href="delete_type.castle?id=$!{type.Id}" title="Delete" class="button">
+				<span class="ui-icon ui-icon-trash"></span>
+			  </a>
+			</span>
+		  </td>
+		</tr>
+		#set ($c=$c+1)
+		#end
+	  </tbody>
+	</table>
+    #set($list_items=$types)
+	#set($Pagination_location='')
+	#set($target = 'types')
+	#parse("admin/listings/areas/pagination.vm")		
+
+#else
+	<h1>There are currently no types</h1>
+#end

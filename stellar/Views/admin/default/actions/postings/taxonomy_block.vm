@@ -1,0 +1,13 @@
+<h3>WSU Properties</h3>
+<h6><em>Use Ctrl/Option + click to select or deselect items in the lists.</em></h6>
+#foreach($node in $item.post_type.taxonomy_types)
+    <div class="col2"  style="display:inline-block; float:left;margin-right:13px;">
+        #if($node.allows_multiple)<em style="float:right;">All <input type="checkbox" class="all" value="all"/></em> #end
+        <label for="item.taxonomies" style="font-size:13px;"><strong>$node.name</strong></label><br/>
+        <select id="item.taxonomies" name="item.taxonomies[]"  class="" #if($node.allows_multiple)multiple="multiple" size="9" #end style="width:205px;">
+            #foreach($crossNode in $node.taxonomies)
+                <option class="model" value="$crossNode.baseid" #if($item.taxonomies.Contains($crossNode)) selected="selected" #end >$!crossNode.name</option>
+            #end
+        </select>
+    </div>
+#end

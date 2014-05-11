@@ -1,0 +1,24 @@
+<form action="update_taxonomy.castle" method="post">
+  <input type="hidden" value="$!itmes.id" name="taxonomy.id" />
+	<input type="hidden" name="_site.baseid" value="$!site.baseid" />
+	<input type="hidden" name="appuser.baseid" value="$!user.baseid" />
+    
+    <ul>
+        <li>group:<input type="text" name="item._group" value="$!item._group" /></li>
+
+        <li>api_url:<input type="text" name="item.api_url" value="$!item.api_url" /></li>
+    
+        <li>access_token:<input type="text" name="item.access_token" value="$!item.access_token" /></li>
+    
+        <li>client_id:<input type="text" name="item.client_id" value="$!item.client_id" /></li>
+    
+        <li>_key:<input type="text" name="item._key" value="$!item._key" /></li>
+    
+        <li>secret:<input type="text" name="item.secret" value="$!item.secret" /></li>
+    
+        <li>callback_url:<input type="text" name="item.callback_url" value="$!item.callback_url" /></li>
+            
+        <li>notes:<textarea name="notes" >$!item.notes</textarea></li>
+	</ul>
+  <p><input type="submit" value="Submit" /></p>
+</form>

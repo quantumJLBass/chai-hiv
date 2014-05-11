@@ -1,0 +1,12 @@
+<div id="field_textinput" #if(${ele.type}!='textinput')style="display:none;" #end  class="default_bed_item">
+    <span>Default Value</span>
+    #set($o=0)
+    #foreach($opt in ${ele.options}) 
+        #if(${opt.val}!='' && $o==0)
+           #set($opValue=$!{opt.val}) 
+        #end
+        #set($o=$o+1)
+    #end
+    <br/>
+    <input type="text" value="$!opValue" name="ele.options[0].val"  class="opVal" style="float:left;width:94px;"/>
+</div>

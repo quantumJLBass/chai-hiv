@@ -1,0 +1,78 @@
+<h1>Site Settings</h1>
+<div id="tabs" class="${controller.getView()}list ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active">
+                <a href="#posting_types">Posting Types</a>
+        </li>
+        <li class="ui-state-default ui-corner-top">
+                <a href="#posting_type_actions">Posting Type Actions</a>
+        </li>
+    </ul>
+    <div id="posting_types" class="ui-tabs-panel ui-widget-content ui-corner-bottom #if(!$ajax)ui-tabs-hide#end">
+        <table  width="100%" class="ui-widget ui-widget-content">
+          <thead>
+            <tr class="ui-widget-header ">
+            <th width="50">Id</th>
+            <th>Name</th>
+            <th>Alias</th>
+            <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            #set ($c=0)
+            #foreach($item in $posting_types)
+                <tr class="#if($c%2>0) even #else odd #end #if($comment.adminRead==false) ui-state-highlight #end ">
+                  <td>$!item.id</td>
+                  <td>$!item.name</td>
+                  <td>$!item.alias</td>
+                  <td class='actionArea'>
+                    <span style='font-size:0.7em;'>
+                      <a href="edit_posting_type.castle?id=$!{item.Id}" title="Edit" class="button">
+                        <span class="ui-icon ui-icon-pencil"></span>
+                      </a>
+                      <a href="delete_posting_type.castle?id=$!{item.Id}" title="Delete" #*onclick="return confirm('Are you sure you want to Delete?(Y/N)?')"*# class="button">
+                        <span class="ui-icon ui-icon-trash"></span>
+                      </a>
+                    </span>
+                  </td>
+                </tr>
+                #set ($c=$c+1)
+            #end
+          </tbody>
+        </table>                                
+    </div>
+    <div id="posting_type_actions" class="ui-tabs-panel ui-widget-content ui-corner-bottom #if(!$ajax)ui-tabs-hide#end">
+        <table  width="100%" class="ui-widget ui-widget-content">
+          <thead>
+            <tr class="ui-widget-header ">
+            <th width="50">Id</th>
+            <th>Name</th>
+            <th>Alias</th>
+           
+            <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            #set ($c=0)
+            #foreach($item in $posting_type_actions)
+                <tr class="#if($c%2>0) even #else odd #end #if($comment.adminRead==false) ui-state-highlight #end ">
+                  <td>$!item.id</td>
+                  <td>$!item.name</td>
+                  <td>$!item.alias</td>
+                  <td class='actionArea'>
+                    <span style='font-size:0.7em;'>
+                      <a href="edit_posting_type.castle?id=$!{item.Id}" title="Edit" class="button">
+                        <span class="ui-icon ui-icon-pencil"></span>
+                      </a>
+                      <a href="delete_posting_type.castle?id=$!{item.Id}" title="Delete" #*onclick="return confirm('Are you sure you want to Delete?(Y/N)?')"*# class="button">
+                        <span class="ui-icon ui-icon-trash"></span>
+                      </a>
+                    </span>
+                  </td>
+                </tr>
+                #set ($c=$c+1)
+            #end
+          </tbody>
+        </table>                                
+    </div>
+</div>
