@@ -1,1 +1,0 @@
-var map_creation;
