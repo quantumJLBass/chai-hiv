@@ -1,8 +1,0 @@
-
-#set ($c=0)
-#foreach($image in $images)
-
-  <img id="selectedImage" width='300px' src="$siteroot/media/download.castle?id=$image.id"/>
-
-#set ($c=$c+1)
-#end
