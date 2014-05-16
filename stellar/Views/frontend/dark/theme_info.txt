@@ -1,5 +1,0 @@
-/*
-* theme:dark
-* author:Jeremy Bass
-* version:1
-*/

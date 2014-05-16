@@ -1,5 +1,0 @@
-/*
-* theme:vivid
-* author:Jeremy Bass
-* version:1
-*/
