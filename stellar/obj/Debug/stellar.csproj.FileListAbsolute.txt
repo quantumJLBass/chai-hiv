@@ -820,9 +820,6 @@ E:\_REPO_\HIV PROJECT\stellar\bin\zh-TW\Castle.MonoRail.Framework.resources.dll
 E:\_REPO_\HIV PROJECT\stellar\obj\Debug\stellar.csprojResolveAssemblyReference.cache
 E:\_REPO_\HIV PROJECT\stellar\obj\Debug\stellar.dll
 E:\_REPO_\HIV PROJECT\stellar\obj\Debug\stellar.pdb
-E:\_GIT\chai-hiv\stellar\obj\Debug\stellar.csprojResolveAssemblyReference.cache
-E:\_GIT\chai-hiv\stellar\obj\Debug\stellar.dll
-E:\_GIT\chai-hiv\stellar\obj\Debug\stellar.pdb
 E:\_GIT\chai-hiv\stellar\bin\Services\file_services\mimeTypes.txt
 E:\_GIT\chai-hiv\stellar\bin\stellar.dll.config
 E:\_GIT\chai-hiv\stellar\bin\stellar.xml
@@ -909,10 +906,8 @@ E:\_GIT\chai-hiv\stellar\bin\Castle.Components.Binder.xml
 E:\_GIT\chai-hiv\stellar\bin\Castle.Components.Pagination.xml
 E:\_GIT\chai-hiv\stellar\bin\Castle.Components.Validator.pdb
 E:\_GIT\chai-hiv\stellar\bin\Castle.Components.Validator.xml
-E:\_GIT\chai-hiv\stellar\bin\Castle.Components.Common.EmailSender.xml
 E:\_GIT\chai-hiv\stellar\bin\Castle.Core.pdb
 E:\_GIT\chai-hiv\stellar\bin\Castle.Core.xml
-E:\_GIT\chai-hiv\stellar\bin\Castle.DynamicProxy.xml
 E:\_GIT\chai-hiv\stellar\bin\Castle.Facilities.ActiveRecordIntegration.pdb
 E:\_GIT\chai-hiv\stellar\bin\Castle.Facilities.ActiveRecordIntegration.xml
 E:\_GIT\chai-hiv\stellar\bin\Castle.Facilities.AutomaticTransactionManagement.xml
@@ -954,10 +949,7 @@ E:\_GIT\chai-hiv\stellar\bin\HtmlAgilityPack.pdb
 E:\_GIT\chai-hiv\stellar\bin\HtmlAgilityPack.xml
 E:\_GIT\chai-hiv\stellar\bin\Iesi.Collections.xml
 E:\_GIT\chai-hiv\stellar\bin\log4net.xml
-E:\_GIT\chai-hiv\stellar\bin\MonoRailHelper.pdb
 E:\_GIT\chai-hiv\stellar\bin\Newtonsoft.Json.xml
-E:\_GIT\chai-hiv\stellar\bin\Nullables.xml
-E:\_GIT\chai-hiv\stellar\bin\Nullables.NHibernate.xml
 E:\_GIT\chai-hiv\stellar\bin\NVelocity.xml
 E:\_GIT\chai-hiv\stellar\bin\Omu.ValueInjecter.xml
 E:\_GIT\chai-hiv\stellar\bin\SquishIt.Framework.pdb
@@ -986,3 +978,6 @@ E:\_GIT\chai-hiv\stellar\bin\ru\Castle.Components.Validator.resources.dll
 E:\_GIT\chai-hiv\stellar\bin\sv\Castle.Components.Validator.resources.dll
 E:\_GIT\chai-hiv\stellar\bin\pt-BR\Castle.MonoRail.Framework.resources.dll
 E:\_GIT\chai-hiv\stellar\bin\zh-TW\Castle.MonoRail.Framework.resources.dll
+E:\_GIT\chai-hiv\stellar\obj\Debug\stellar.csprojResolveAssemblyReference.cache
+E:\_GIT\chai-hiv\stellar\obj\Debug\stellar.dll
+E:\_GIT\chai-hiv\stellar\obj\Debug\stellar.pdb
