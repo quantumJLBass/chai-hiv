@@ -4,6 +4,46 @@
         <name>stellar</name>
     </assembly>
     <members>
+        <member name="M:stellar.Controllers.installController.is_installed">
+            <summary>
+            This checks the config file for the state of installation.  We are reading from the web.config
+            to insure that we are going about this the fastest way possible since the config is loaded and 
+            cached.  Also when changed, it restarts the app.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:stellar.Controllers.installController.set_installed_state(System.String)">
+            <summary>
+            This is what changes the web.config.  After which the app restarts and the install state is True/False
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:stellar.Controllers.installController.load_from_content_xml">
+            <summary>
+            what should happen is load file choose mode, loop thru model properties and check for them
+            If found in the xml then apply to the new object created. save objects
+            </summary>
+        </member>
+        <member name="M:stellar.Controllers.installController.load_from_xml(System.String,stellar.Models.site)">
+            <summary>
+            This it the
+            </summary>
+            <param name="type"></param>
+            <param name="site"></param>
+        </member>
+        <member name="M:stellar.Controllers.installController.xml_to_object(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement},stellar.Models.site)">
+            <summary>
+            we are going to make and fill objects the best we can by first taking the roor 
+            element and looking at it's child nodes and it's attributes.  An node will repersent a 
+            list to match AR in the sense that it's a HasMany or HasManyBelongsTo.  All attributes
+            are the other flat properties of the object.
+            
+            Note: The root element name is the object name.
+            </summary>
+            <param name="elements"></param>
+            <param name="site"></param>
+        </member>
         <member name="P:stellar.Models._base.taxonomies">
             
         </member>
@@ -241,46 +281,6 @@
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
-        </member>
-        <member name="M:stellar.Controllers.installController.is_installed">
-            <summary>
-            This checks the config file for the state of installation.  We are reading from the web.config
-            to insure that we are going about this the fastest way possible since the config is loaded and 
-            cached.  Also when changed, it restarts the app.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:stellar.Controllers.installController.set_installed_state(System.String)">
-            <summary>
-            This is what changes the web.config.  After which the app restarts and the install state is True/False
-            </summary>
-            <param name="state"></param>
-            <returns></returns>
-        </member>
-        <member name="M:stellar.Controllers.installController.load_from_content_xml">
-            <summary>
-            what should happen is load file choose mode, loop thru model properties and check for them
-            If found in the xml then apply to the new object created. save objects
-            </summary>
-        </member>
-        <member name="M:stellar.Controllers.installController.load_from_xml(System.String,stellar.Models.site)">
-            <summary>
-            This it the
-            </summary>
-            <param name="type"></param>
-            <param name="site"></param>
-        </member>
-        <member name="M:stellar.Controllers.installController.xml_to_object(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement},stellar.Models.site)">
-            <summary>
-            we are going to make and fill objects the best we can by first taking the roor 
-            element and looking at it's child nodes and it's attributes.  An node will repersent a 
-            list to match AR in the sense that it's a HasMany or HasManyBelongsTo.  All attributes
-            are the other flat properties of the object.
-            
-            Note: The root element name is the object name.
-            </summary>
-            <param name="elements"></param>
-            <param name="site"></param>
         </member>
         <member name="M:stellar.Controllers.mediaController.New">
             
