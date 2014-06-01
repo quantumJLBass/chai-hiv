@@ -1,0 +1,3 @@
+[submodule "stellar/config"]
+	path = stellar/config
+	url = https://github.com/jeremyBass/chai-hiv-private.git
