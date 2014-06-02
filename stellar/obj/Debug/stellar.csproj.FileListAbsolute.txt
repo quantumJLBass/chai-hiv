@@ -1150,3 +1150,7 @@ C:\_GIT_\chai-hiv\stellar\bin\zh-TW\Castle.MonoRail.Framework.resources.dll
 C:\_GIT_\chai-hiv\stellar\obj\Debug\stellar.csprojResolveAssemblyReference.cache
 C:\_GIT_\chai-hiv\stellar\obj\Debug\stellar.dll
 C:\_GIT_\chai-hiv\stellar\obj\Debug\stellar.pdb
+E:\_GIT\chai-hiv\stellar\bin\Castle.Components.Common.EmailSender.xml
+E:\_GIT\chai-hiv\stellar\bin\Castle.DynamicProxy.xml
+E:\_GIT\chai-hiv\stellar\bin\Nullables.xml
+E:\_GIT\chai-hiv\stellar\bin\Nullables.NHibernate.xml

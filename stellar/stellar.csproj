@@ -5419,7 +5419,9 @@
   <ItemGroup>
     <Content Include="bin\Photos.dll" />
     <Content Include="bin\Photos.pdb" />
-    <Content Include="config\controllers.config" />
+    <Content Include="config\controllers.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="config\facilities.config">
       <SubType>Designer</SubType>
     </Content>
@@ -5668,24 +5670,12 @@
     <Content Include="Views\admin\visible_editor\settings.vm" />
     <None Include="Views\users\list.vm" />
     <None Include="Views\users\new.vm" />
-    <None Include="Views\collections\_editor.vm" />
     <None Include="Views\layouts\public.vm" />
     <None Include="Views\layouts\error.vm" />
     <None Include="Views\layouts\admin.vm" />
     <None Include="Views\public\errors\error.vm" />
     <None Include="Views\public\errors\general404.vm" />
     <None Include="Views\Macros\results.vm" />
-    <None Include="Views\Mail\directions.vm" />
-    <None Include="Views\Mail\hello.vm" />
-    <None Include="Views\Mail\place_errors.vm" />
-    <None Include="Views\media\browser.vm" />
-    <None Include="Views\media\inlineupload.vm" />
-    <None Include="Views\media\list.vm" />
-    <None Include="Views\media\listings.vm" />
-    <None Include="Views\media\massUpload\download_template.vm" />
-    <None Include="Views\media\massUpload\massUploadForm.vm" />
-    <None Include="Views\media\massUpload\upload_template.vm" />
-    <None Include="Views\media\new.vm" />
     <None Include="Views\public\event.vm" />
     <None Include="Views\rescues\generalerror.vm" />
   </ItemGroup>
