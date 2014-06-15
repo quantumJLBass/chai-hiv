@@ -1061,7 +1061,7 @@ namespace stellar.Controllers {
             taxonomy feildObj = postingService.get_taxonomy(datatype, model_prop,"SYSTEM__feild_helpers");
             String field_helper = "";
 	        if(feildObj.content!=""){
-		        field_helper="<i class='icon-question-sign blue' title='"+feildObj.content+"></i>";
+		        field_helper="<i class='icon-question-sign blue' title='"+feildObj.content+"'></i>";
 	        }
 
             if(feildObj.name!=""){

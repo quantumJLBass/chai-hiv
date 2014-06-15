@@ -10,10 +10,10 @@
 <ul class="grid col-one-half mq2-col-full full-input">
 #* study_phase *#
 	<li>
-		#set($daval ="")
+		#*#set($daval ="")
 		#set($daval = $!item.study_phase)
-		#feild_textinput("$type" "study_phase" $daval "" "only if clinical trial" "" "")
-		$Controller.feilds("textinput","$type","study_phase",$daval,"","only if clinical trial","","")
+		#feild_textinput("$type" "study_phase" $daval "" "only if clinical trial" "" "")*#
+		$Controller.feilds("textinput","$type","study_phase", $!item.study_phase ,"","only if clinical trial","","")
 	</li>		
 </ul>	
 <div style="clear:both;"></div>
