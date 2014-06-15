@@ -393,8 +393,9 @@ namespace stellar.Controllers {
             Redirect("center", "clinicals", new Hashtable());
         }
         #endregion
-        #region(treatments)
-         public void treatments(Boolean skiplayout, String exclude, Boolean pub) {
+        #region(trials)
+         public void trials(Boolean skiplayout, String exclude, Boolean pub)
+         {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
@@ -411,7 +412,7 @@ namespace stellar.Controllers {
             } else {
                 PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
             }
-            RenderView("treatments");
+            RenderView("trials");
         }
          public static int make_treatment_tmp() {
              treatment tmp = new treatment();
