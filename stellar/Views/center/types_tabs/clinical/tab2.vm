@@ -1,18 +1,14 @@
 	<ul class="grid col-one-half mq2-col-full full-input">		
 #* biological_half_life *#
 		<li>
-			#set($daval ="")
-#set($daval = $!item.biological_half_life)
-			#feild_textinput("$type" "biological_half_life" $daval "" "" "" "")
+			$Controller.feilds("textinput","$type","biological_half_life", $!item.biological_half_life ,"","","","")
 		</li>
 	</ul>	
 	<ul class="grid col-one-half mq2-col-full full-input">	
 	
 #* metabolites_of_parent *#
 		<li>
-			#set($daval ="")
-#set($daval = $!item.metabolites_of_parent)
-			#feild_textinput("$type" "metabolites_of_parent" $daval "" "" "" "")
+			$Controller.feilds("textinput","$type","metabolites_of_parent", $!item.metabolites_of_parent ,"","","","")
 		</li>
 	</ul>	
 	<hr/>
@@ -23,24 +19,18 @@
 
 #* fasting_cmax *#
 		<li>
-			#set($daval ="")
-			#set($daval = $!item.fasting_cmax)
-			#feild_textinput("$type" "fasting_cmax" $daval "" "(ng/ml)" "" "")
+			$Controller.feilds("textinput","$type","fasting_cmax", $!item.fasting_cmax ,"","(ng/ml)","","")
 		</li>
 
 #* fasting_tmax *#
 		<li>
-			#set($daval ="")
-			#set($daval = $!item.fasting_tmax)
-			#feild_textinput("$type" "fasting_tmax" $daval "" "(hours)" "" "")
+			$Controller.feilds("textinput","$type","fasting_cmax", $!item.fasting_tmax ,"","(hours)","","")
 		</li>
 
 #* fasting_auc *#
 		<li>
 			<div class="grid col-one-half">	
-				#set($daval ="")
-				#set($daval = $!item.fasting_auc)
-				#feild_textinput("$type" "fasting_auc" $daval "" "" "" "")
+				$Controller.feilds("textinput","$type","fasting_auc", $!item.fasting_auc ,"","","","")
 			</div>	
 			<div class="grid col-one-half">	
 				#set($daval ="")
@@ -48,17 +38,13 @@
 				#feild_selectinput($type "fasting_auc_unit" $daval "inf.,0-24,0-last" "" "" "")
 			</div>	<div style="clear"></div>
 		#* fasting_auc_last_value *#
-			#set($daval ="")
-			#set($daval = $!item.fasting_auc_last_value)
-			#feild_textinput("$type" "fasting_auc_last_value" $daval "" "" "" "")
+			$Controller.feilds("textinput","$type","fasting_auc_last_value", $!item.fasting_auc_last_value ,"","","","")
 		</li>
 
 
 #* fasting_bioavailability *#
 		<li>
-			#set($daval ="")
-#set($daval = $!item.fasting_bioavailability)
-			#feild_textinput("$type" "fasting_bioavailability" $daval "" "(%)" "" "")
+			$Controller.feilds("textinput","$type","fasting_bioavailability", $!item.fasting_bioavailability ,"","(%)","","")
 		</li>
 		
 	</ul>		  
@@ -71,44 +57,35 @@
 
 #* fed_cmax *#
 		<li>
-		  	#set($daval ="")
-			#set($daval = $!item.fed_cmax)
-			#feild_textinput("$type" "fed_cmax" $daval "" "(ng/ml)" "" "")
+			$Controller.feilds("textinput","$type","fed_cmax", $!item.fed_cmax ,"","(ng/ml)","","")
 		</li>
 
 #* fed_tmax *#
 		<li>
-		  	#set($daval ="")
-			#set($daval = $!item.fed_tmax)
-			#feild_textinput("$type" "fed_tmax" $daval "" "(hours)" "" "")
+			$Controller.feilds("textinput","$type","fed_tmax", $!item.fed_tmax ,"","(hours)","","")
 		</li>
 		
 
 #* fed_aucinf *#
 		<li>
 			<div class="grid col-one-half">	
-				#set($daval ="")
-				#set($daval = $!item.fed_auc)
-				#feild_textinput("$type" "fed_auc" $daval "" "" "" "")
+				$Controller.feilds("textinput","$type","fed_auc", $!item.fed_auc ,"","","","")
 			</div>	
 			<div class="grid col-one-half">	
 				#set($daval ="")
 				#set($daval = $!item.fed_auc_unit)
 				#feild_selectinput($type "fed_auc_unit" $daval "inf.,0-24,0-last" "" "" "")
+				
 			</div>
 			<div style="clear"></div>
 		#* fed_auc_last_value *#
-			#set($daval ="")
-			#set($daval = $!item.fed_auc_last_value)
-			#feild_textinput("$type" "fed_auc_last_value" $daval "" "" "" "")
+			$Controller.feilds("textinput","$type","fed_auc_last_value", $!item.fed_auc_last_value ,"","","","")
 		</li>
 
 
 #* fed_bioavailability *#
 		<li>
-			#set($daval ="")
-			#set($daval = $!item.fed_bioavailability)
-			#feild_textinput("$type" "fed_bioavailability" $daval "" "(%)" "" "")
+			$Controller.feilds("textinput","$type","fed_bioavailability", $!item.fed_bioavailability ,"","(%)","","")
 		</li>
 		
 	</ul>
@@ -119,25 +96,19 @@
 	<ul  class="grid col-one-half mq2-col-full full-input">
 #* steady_state_cmax *#
 		<li>
-		  	#set($daval ="")
-			#set($daval = $!item.steady_state_cmax)
-			#feild_textinput("$type" "steady_state_cmax" $daval "" "(ng/ml)" "" "")
+			$Controller.feilds("textinput","$type","steady_state_cmax", $!item.steady_state_cmax ,"","(ng/ml)","","")
 		</li>
 		
 #* steady_state_cmin *#
 		<li>
-		  	#set($daval ="")
-			#set($daval = $!item.steady_state_cmin)
-			#feild_textinput("$type" "steady_state_cmin" $daval "" "(ng/ml)" "" "")
+			$Controller.feilds("textinput","$type","steady_state_cmin", $!item.steady_state_cmin ,"","(ng/ml)","","")
 		</li>
 	</ul>
 	<ul  class="grid col-one-half mq2-col-full full-input">	
 #* steady_state_auc *#
 		<li>
 			<div class="grid col-one-half">	
-				#set($daval ="")
-				#set($daval = $!item.steady_state_auc)
-				#feild_textinput("$type" "steady_state_auc" $daval "" "(ng/ml)" "" "")
+				$Controller.feilds("textinput","$type","steady_state_auc", $!item.steady_state_auc ,"","(ng/ml)","","")
 			</div>	
 			<div class="grid col-one-half">	
 				#set($daval ="")
@@ -148,9 +119,7 @@
 
 #* steady_state_tmax *#
 		<li>
-			#set($daval ="")
-			#set($daval = $!item.steady_state_tmax)
-			#feild_textinput("$type" "steady_state_tmax" $daval "" "(ng/ml)" "" "")
+			$Controller.feilds("textinput","$type","steady_state_tmax", $!item.steady_state_tmax ,"","(ng/ml)","","")
 		</li>
 	</ul>
 	</fieldset>	
