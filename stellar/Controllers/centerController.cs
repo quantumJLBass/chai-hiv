@@ -428,7 +428,7 @@ namespace stellar.Controllers {
             PropertyBag["skiplayout"] = skiplayout;
             if (id <= 0) id = make_trial_tmp();
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<trial>.Find(id);
-            RenderView("treatment");
+            RenderView("trial");
         }
         [SkipFilter()]
          public void savetrial([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] trial item,
@@ -443,7 +443,7 @@ namespace stellar.Controllers {
             PropertyBag["skiplayout"] = skiplayout;
             if (cancel != null) {
                 if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<trial>.Delete(item);
-                Redirect("center", "treatments", new Hashtable());
+                Redirect("center", "trials", new Hashtable());
                 return;
             }
             item.tmp = false;
