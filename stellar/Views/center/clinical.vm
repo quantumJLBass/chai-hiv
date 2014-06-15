@@ -16,7 +16,7 @@
 		<article id="navtabs" class="grid col-full">
 		  <article class="grid col-full">
 			<h2 id="header_title">
-			  #if(!$item.baseid || $item.tmp)New #end Clinical Trial/Study </h2>
+			  #if(!$item.baseid || $item.tmp)New #end Clinical Trial Arms </h2>
 			  <ul class="grid col-one-full mq2-col-full full-input">		  
 					<li>
 					#* name *#

@@ -1,6 +1,6 @@
 <article class="grid col-full">
 	<h2 id="header_title">
-		Clinical Trials/Studies 
+		Clinical Trials Arms 
 		#parse("center/assests/display_pub.vm") 
 		#if(!$skiplayout && !$viewonly)<a href="clinical.castle" class="button  xl right"><i class="icon-plus blue" title="Add"></i> New</a>#end
 	</h2>
