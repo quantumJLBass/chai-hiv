@@ -1059,6 +1059,10 @@ namespace stellar.Controllers {
              */
             String lable = "";
             taxonomy feildObj = postingService.get_taxonomy(datatype, model_prop,"SYSTEM__feild_helpers");
+            String field_helper = "";
+	        if(feildObj.content!=""){
+		        field_helper="<i class='icon-question-sign blue' title='"+feildObj.content+"></i>";
+	        }
 
             if(feildObj.name!=""){
                 lable=feildObj.name;
@@ -1068,7 +1072,7 @@ namespace stellar.Controllers {
             }
 
             if (is_viewonly()) {
-                html = "<label >" + lable + ": #feild_helper($feildObj)</label> " + value;
+                html = "<label >" + lable + ": " + field_helper + "</label> " + value;
             } else {
 
                 String feild_name = "item." + model_prop;
@@ -1076,7 +1080,7 @@ namespace stellar.Controllers {
                 html_class = (html_class != "") ? "class='" + html_class + "'" : "";
                 value = (value != "" && value != "System.String[]") ? "value='" + value + "'" : "";
 
-                html = "<label for='"+model_prop+"'>" + lable + ": #feild_helper($feildObj)</label>"+
+                html = "<label for='" + model_prop + "'>" + lable + ": " + field_helper + "</label>" +
                 "<input type='text' name='" + feild_name + "' id='" + model_prop + "' " + placeholder + " " + html_class + " " + value + " " + html_attr + " />";
             }
 
