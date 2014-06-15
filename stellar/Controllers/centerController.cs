@@ -1060,16 +1060,19 @@ namespace stellar.Controllers {
             String lable = "";
             taxonomy feildObj = postingService.get_taxonomy(datatype, model_prop,"SYSTEM__feild_helpers");
             String field_helper = "";
-	        if(feildObj.content!=""){
-		        field_helper="<i class='icon-question-sign blue' title='"+feildObj.content+"'></i>";
-	        }
 
-            if(feildObj.name!=""){
-                lable=feildObj.name;
-		    }
+            if (feildObj != null) { 
+	            if(feildObj.content!=""){
+		            field_helper="<i class='icon-question-sign blue' title='"+feildObj.content+"'></i>";
+	            }
+                if(feildObj.name!=""){
+                    lable=feildObj.name;
+		        }
+            }
 		    if(custom_lable!=""){
                 lable=custom_lable;
             }
+
 
             if (is_viewonly()) {
                 html = "<label >" + lable + ": " + field_helper + "</label> " + value;
