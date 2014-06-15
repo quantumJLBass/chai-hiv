@@ -1066,16 +1066,16 @@ namespace stellar.Controllers {
 		            field_helper="<i class='icon-question-sign blue' title='"+feildObj.content+"'></i>";
 	            }
                 if(feildObj.name!=""){
-                    lable=feildObj.name;
+                    lable = feildObj.name + ": ";
 		        }
             }
 		    if(custom_lable!=""){
-                lable=custom_lable;
+                lable = custom_lable + ": ";
             }
 
 
             if (is_viewonly()) {
-                html = "<label >" + lable + ": " + field_helper + "</label> " + value;
+                html = "<label >" + lable + field_helper + "</label> " + value;
             } else {
 
                 String feild_name = "item." + model_prop;
