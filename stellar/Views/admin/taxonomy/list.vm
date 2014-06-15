@@ -45,7 +45,7 @@
 				#if($type.is_visible && $type.alias.Contains("SYSTEM__"))
 					<div id="$type.alias" style="display:none;">
 						<div class="tabs min ${controller.getView()}list ui-tabs ui-widget ui-widget-content ui-corner-all">
-							#set($model_types = $objectService.explode("substance,clinical,drug,treatment"))
+							#set($model_types = $objectService.explode("substance,clinical,drug,trial"))
 							<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 								#foreach($model_type in $model_types)	
 									#if($items)

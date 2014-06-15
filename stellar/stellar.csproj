@@ -5294,7 +5294,7 @@
     <Compile Include="Models\drug.cs" />
     <Compile Include="Models\reference.cs" />
     <Compile Include="Models\substance.cs" />
-    <Compile Include="Models\treatment.cs" />
+    <Compile Include="Models\trial.cs" />
     <Compile Include="Services\oAuth_provider\Client.cs" />
     <Compile Include="Services\oAuth_provider\DatabaseKeyNonceStore.cs" />
     <Compile Include="Services\oAuth_provider\DataClasses.designer.cs" />
