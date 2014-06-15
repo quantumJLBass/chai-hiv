@@ -1,23 +1,17 @@
 <ul class="grid col-one-half mq2-col-full full-input">		
-#* time_to_loapercentage_achieving_viral_load_suppressiond_suppression *#
+#* percentage_achieving_viral_load_suppression *#
 	<li>
-		#set($daval ="")
-		#set($daval = $!item.percentage_achieving_viral_load_suppression)
-		#feild_textinput("$type" "percentage_achieving_viral_load_suppression" $daval "" "(%)" "" "")
+		$Controller.feilds("textinput","$type","percentage_achieving_viral_load_suppression", $!item.percentage_achieving_viral_load_suppression ,"","(%)","","")
 	</li>
 
 #* viral_load_suppression_cutoff *#
 	<li>
-		#set($daval ="")
-		#set($daval = $!item.viral_load_suppression_cutoff)
-		#feild_textinput("$type" "viral_load_suppression_cutoff" $daval "" "(e.g. 1000 cps)" "" "")
+		$Controller.feilds("textinput","$type","viral_load_suppression_cutoff", $!item.viral_load_suppression_cutoff ,"","(e.g. 1000 cps)","","")
 	</li>
 
 #* time_to_load_suppression *#
 	<li>
-		#set($daval ="")
-		#set($daval = $!item.time_to_load_suppression)
-		#feild_textinput("$type" "time_to_load_suppression" $daval "" "(days +/- SD)" "" "")
+		$Controller.feilds("textinput","$type","time_to_load_suppression", $!item.time_to_load_suppression ,"","(days +/- SD)","","")
 	</li>
 </ul>	
 

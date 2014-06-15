@@ -1,34 +1,4 @@
-<!--
-<ul>		  
-#* adherence *#
-	<li>
-		#set($daval ="")
-		#set($daval = $!item.adherence)
-		#feild_textinput("$type" "adherence" $daval "" "" "" "")
-	</li>
-#* durability_tolerability *#
-	<li>
-		#set($daval ="")
-		#set($daval = $!item.durability_tolerability)
-		#feild_textinput("$type" "durability_tolerability" $daval "" "" "" "")
-	</li>
-#* durability_resistance_barrier *#
-	<li>
-		#set($daval ="")
-		#set($daval = $!item.durability_resistance_barrier)
-		#feild_textinput("$type" "durability_resistance_barrier" $daval "" "" "" "")
-	</li>
-#* durability_missed_dose *#
-	<li>
-		#set($daval ="")
-		#set($daval = $!item.durability_missed_dose)
-		#feild_textinput("$type" "durability_missed_dose" $daval "" "" "" "")
-	</li>
-</ul>
--->
-
-
-	#set($MoA_DMPK = $postingService.get_taxonomies("MoA_DMPK"))
+#set($MoA_DMPK = $postingService.get_taxonomies("MoA_DMPK"))
 #capturefor(MoA_DMPKs)
 #foreach($part in $MoA_DMPK)
 $part.name => $part.alias
@@ -93,9 +63,6 @@ $part.name => $part.alias
 				#tab_notes("$type" "durability_timetofailure" "bottom")
 			</div>
 		</div>
-
-
-			 
 
 	</div>
 </div>

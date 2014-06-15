@@ -26,7 +26,7 @@
 		#set($daval ="")
 		#set($daval = $!item.study_sick_healthy)
 		#feild_selectinput($type "study_sick_healthy" $daval "HIV infected,HIV uninfected,Health Human volunteer" "" "" "")
-	</li>	
+	</li>
 </ul>
 
 <ul class="grid col-one-half mq2-col-full full-input">	
