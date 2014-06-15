@@ -1,14 +1,14 @@
 #if($viewonly)
-	#parse("center/viewonly/treatment.vm")
+	#parse("center/viewonly/trial.vm")
 #else
 	<article class="grid col-full">
-		<h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Clinical Summary #if($item.acroynm)( $item.acroynm ) #end</h2>
-		<form id="contact_form" class="contact_form" action="/center/savetreatment.castle" method="post" name="contact_form">
+		<h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Clinical trial #if($item.acroynm)( $item.acroynm ) #end</h2>
+		<form id="contact_form" class="contact_form" action="/center/savetrial.castle" method="post" name="contact_form">
 		<input type="hidden" name="item.baseid" value="$!item.baseid" />	
 			<ul class="grid col-one-full mq2-col-full full-input">
 				<li>
 #* acroynm *#
-					<label for="acroynm">Treatment Acronym:</label>
+					<label for="acroynm">Trial Acronym:</label>
 					<input type="text" name="item.acronym" id="acroynm" required placeholder="XXXXX" class="required" value="$!item.acronym">
 				</li>	
 			</ul>
