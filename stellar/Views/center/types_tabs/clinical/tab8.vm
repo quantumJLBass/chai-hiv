@@ -2,22 +2,22 @@
 
 #* discontinuation_af *#
 	<li>
-		$Controller.feilds("textinput","$type","discontinuation_adverse_events", $!item.discontinuation_adverse_events ,"","00% / number of patients","","")
+		$Controller.feilds("textinput","$type","discontinuation_adverse_events", $!item.discontinuation_adverse_events ,"","00% / # of patients","","")
 	</li>
-  
+
 #* discontinuation_virologic_failure *#
 	<li>
-		$Controller.feilds("textinput","$type","discontinuation_virologic_failure", $!item.discontinuation_virologic_failure ,"","00% / number of patients","","")
+		$Controller.feilds("textinput","$type","discontinuation_virologic_failure", $!item.discontinuation_virologic_failure ,"","00% / # of patients","","")
 	</li>
 
 #* discontinuation_followup *#
 	<li>
-		$Controller.feilds("textinput","$type","discontinuation_followup", $!item.discontinuation_followup ,"","00% / number of patients","","")
+		$Controller.feilds("textinput","$type","discontinuation_followup", $!item.discontinuation_followup ,"","00% / # of patients","","")
 	</li>
-	
+
 #* discontinuation_other *#
 	<li>
-		$Controller.feilds("textinput","$type","discontinuation_other", $!item.discontinuation_other ,"","00% / number of patients","","")
+		$Controller.feilds("textinput","$type","discontinuation_other", $!item.discontinuation_other ,"","00% / # of patients","","")
 	</li>
-	
-</ul>  
+
+</ul>
