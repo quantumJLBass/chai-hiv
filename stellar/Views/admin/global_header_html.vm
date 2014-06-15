@@ -32,8 +32,8 @@
 
   <link type='text/css' href='//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css' rel='stylesheet' media='screen' />
 
-  $scriptsService.Css("/reset.css,/base.css,/forms.css,/admin_styles.css,admin_menu.css,/common/colorpicker/css/jpicker-1.1.6.min.css,common/scrollbar/style/jquery.jscrollpane.css,common/scrollbar/style/jquery.jscrollpane.lozenge.css,/map_admin.css,/common/calendar/fullcalendar.css,/colorbox.css,admin_responsive.css,/common/filebrowser/elfinder.min.css,/common/filebrowser/theme.css","admin",true)
-  <link media='print' href='/themes/base/content/css/common/calendar/fullcalendar.print.css' 	type='text/css' rel='stylesheet' />
+  $scriptsService.Css("/reset.css,/base.css,/forms.css,/admin_styles.css,admin_menu.css,/common/colorpicker/css/jpicker-1.1.6.min.css,/map_admin.css,/colorbox.css,admin_responsive.css","admin",true)
+
 
   $!PageStyles
 
@@ -41,7 +41,7 @@
   <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.js"></script>
   <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-  $scriptsService.Js("plugin.js,/tinymce/tinymce/jscripts/tiny_mce/tiny_mce.js,/diff/diff_match_patch_uncompressed.js,/common/modernizr/modernizr.2.6.2.min.js,/utilities_general.js,/common/calendar/fullcalendar.min.js,/common/calendar/gcal.js,/common/maps/google/jquery.ui.map.js,/jquery.mjs.nestedSortable.js,/common/colorpicker/jpicker-1.1.6.min.js,/external/jquery.cookie.js,/jquery.defaultvalue.js,/jquery.colorbox-min.js,common/scrollbar/jquery.mousewheel.js,/common/scrollbar/jquery.jscrollpane.min.js,/zeroclipboard/ZeroClipboard.js,/common/filebrowser/elfinder.min.js","admin",false)
+  $scriptsService.Js("plugin.js,/tinymce/tinymce/jscripts/tiny_mce/tiny_mce.js,/diff/diff_match_patch_uncompressed.js,/common/modernizr/modernizr.2.6.2.min.js,/utilities_general.js,/jquery.mjs.nestedSortable.js,/common/colorpicker/jpicker-1.1.6.min.js,/external/jquery.cookie.js,/jquery.defaultvalue.js,/jquery.colorbox-min.js,/zeroclipboard/ZeroClipboard.js","admin",false)
 
   $!PagePlugins
 
