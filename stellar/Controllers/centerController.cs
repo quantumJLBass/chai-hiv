@@ -1022,22 +1022,22 @@ namespace stellar.Controllers {
             }
             return viewstate;
         }
-        
-        
-        public string feilds(string formfeild, string datatype, string model_prop, string value, string custom_lable, string placholder, string html_class, string html_attr) {
+
+
+        public string feilds(string formfeild, string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
             String html = "";
             switch (formfeild)
             {
                 case "textinput":
                     {
-                        html=feild_textinput(datatype, model_prop, value, custom_lable, placholder, html_class, html_attr); break;
+                        html = feild_textinput(datatype, model_prop, value, custom_lable, placeholder, html_class, html_attr); break;
                     }
             }
 
             return html;
         }
 
-        public string feild_textinput(string datatype, string model_prop, string value, string custom_lable, string placholder, string html_class, string html_attr) {
+        public string feild_textinput(string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
             String html = "A text input";
 
             /*
@@ -1057,12 +1057,27 @@ namespace stellar.Controllers {
 		<input type="text" name="item.$model_prop" id="$model_prop" #if($placholder!="")placeholder="$placholder"#end #if($class!="")class="$class"#end #if($value && $!value!="" && $!value!="System.String[]") value="$!value" #end $attr />
 	#end
              */
+            String lable = "";
+            taxonomy feildObj = postingService.get_taxonomy(datatype, model_prop,"SYSTEM__feild_helpers");
 
+            if(feildObj.name!=""){
+                lable=feildObj.name;
+		    }
+		    if(custom_lable!=""){
+                lable=custom_lable;
+            }
 
             if (is_viewonly()) {
-                html = "A text input viewonly";
+                html = "<label >" + lable + ": #feild_helper($feildObj)</label> " + value;
             } else {
-                html = "A text input normal non-viewonly";
+
+                String feild_name = "item." + model_prop;
+                placeholder = (placeholder != "") ? "placeholder='" + placeholder + "'" : "";
+                html_class = (html_class != "") ? "class='" + html_class + "'" : "";
+                value = (value != "" && value != "System.String[]") ? "value='" + value + "'" : "";
+
+                html = "<label for='"+model_prop+"'>" + lable + ": #feild_helper($feildObj)</label>"+
+                "<input type='text' name='" + feild_name + "' id='" + model_prop + "' " + placeholder + " " + html_class + " " + value + " " + html_attr + " />";
             }
 
 
