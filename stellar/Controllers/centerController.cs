@@ -399,12 +399,12 @@ namespace stellar.Controllers {
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
             //do the auth
-            userService.clearTmps<treatment>();
+            userService.clearTmps<trial>();
             if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
             String[] drop = exclude.Split(',');
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
-            IList<treatment> items = ActiveRecordBase<treatment>.FindAll();
+            IList<trial> items = ActiveRecordBase<trial>.FindAll();
             PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
             if (skiplayout) {
                 PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
@@ -414,11 +414,11 @@ namespace stellar.Controllers {
             RenderView("trials");
         }
          public static int make_trial_tmp() {
-             treatment tmp = new treatment();
+             trial tmp = new trial();
              tmp.tmp = true;
              appuser user = userService.getUserFull();
              tmp.editing = user;
-             ActiveRecordMediator<treatment>.Save(tmp);
+             ActiveRecordMediator<trial>.Save(tmp);
              return tmp.baseid;
          }
          public void trial(int id, Boolean skiplayout) {
@@ -427,11 +427,11 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             if (id <= 0) id = make_trial_tmp();
-            if (id > 0) PropertyBag["item"] = ActiveRecordBase<treatment>.Find(id);
+            if (id > 0) PropertyBag["item"] = ActiveRecordBase<trial>.Find(id);
             RenderView("treatment");
         }
         [SkipFilter()]
-         public void savetrial([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] treatment item,
+         public void savetrial([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] trial item,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -442,13 +442,13 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             if (cancel != null) {
-                if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<treatment>.Delete(item);
+                if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<trial>.Delete(item);
                 Redirect("center", "treatments", new Hashtable());
                 return;
             }
             item.tmp = false;
             if (item.published) item.content = "";
-            ActiveRecordMediator<treatment>.Save(item);
+            ActiveRecordMediator<trial>.Save(item);
 
             //do the auth
             if (apply != null || ajaxed_update) {
@@ -470,7 +470,7 @@ namespace stellar.Controllers {
                 item.editing = null;
                 logger.writelog("Saved " + item.record_id + " edits on", getView(), getAction(), item.baseid);
                 Flash["message"] = "Saved " + item.record_id + " edits for " + item.acronym;
-                ActiveRecordMediator<treatment>.Save(item);
+                ActiveRecordMediator<trial>.Save(item);
                 /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();
                 //hashtable.Add("post_type", item.post_type.alias);
@@ -482,7 +482,7 @@ namespace stellar.Controllers {
         [SkipFilter()]
         public void remove_trial(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
-            delete_post<treatment>(id);
+            delete_post<trial>(id);
             Flash["message"] = "Removed Item";
             Redirect("center", "trials", new Hashtable());
         }
@@ -839,7 +839,7 @@ namespace stellar.Controllers {
                 PropertyBag["items"] = pq.Execute();
             }
             if (type == "trial") {
-                SimpleQuery<treatment> pq = new SimpleQuery<treatment>(typeof(treatment), sql);
+                SimpleQuery<trial> pq = new SimpleQuery<trial>(typeof(trial), sql);
                 PropertyBag["items"] = pq.Execute();
             }
             PropertyBag["type"] = type;
@@ -876,7 +876,7 @@ namespace stellar.Controllers {
                 PropertyBag["items"] = pq.Execute();
             }
             if (type == "trial") {
-                SimpleQuery<treatment> pq = new SimpleQuery<treatment>(typeof(treatment), sql);
+                SimpleQuery<trial> pq = new SimpleQuery<trial>(typeof(trial), sql);
                 PropertyBag["items"] = pq.Execute();
             }
             PropertyBag["type"] = type;

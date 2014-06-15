@@ -259,8 +259,6 @@ namespace stellar.Models {
         virtual public string forgiveness_drug_to_drug_interactions_efficacy_reduction { get; set; }
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string forgiveness_drug_to_drug_interactions_efficacy_reduction_moa_dmpk { get; set; }
-        
-        
 
 
 
@@ -269,8 +267,10 @@ namespace stellar.Models {
 
 
 
-        [HasAndBelongsToMany(typeof(treatment), Lazy = true, Table = "clinical_to_treatments", ColumnKey = "clinical_id", ColumnRef = "treatment_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<treatment> treatments { get; set; }
+
+
+        [HasAndBelongsToMany(typeof(trial), Lazy = true, Table = "clinical_to_trials", ColumnKey = "clinical_id", ColumnRef = "trial_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        virtual public IList<trial> trials { get; set; }
 
         [HasAndBelongsToMany(typeof(drug), Lazy = true, Table = "clinical_to_drugs", ColumnKey = "clinical_id", ColumnRef = "drug_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug> drugs { get; set; }

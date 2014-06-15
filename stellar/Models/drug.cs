@@ -149,8 +149,8 @@ namespace stellar.Models {
             virtual public string patients_on_therapy_year { get; set; }
         #endregion
 
-        [HasAndBelongsToMany(typeof(treatment), Lazy = true, Table = "treatment_to_drugs", ColumnKey = "drug_id", ColumnRef = "treatment_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<treatment> treatments { get; set; }
+        [HasAndBelongsToMany(typeof(trial), Lazy = true, Table = "trial_to_drugs", ColumnKey = "drug_id", ColumnRef = "trial_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+            virtual public IList<trial> trials { get; set; }
 
         [HasAndBelongsToMany(typeof(clinical), Lazy = true, Table = "clinical_to_drugs", ColumnKey = "drug_id", ColumnRef = "clinical_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<clinical> clinicals { get; set; }
