@@ -8,8 +8,8 @@
 			<ul class="grid col-one-full mq2-col-full full-input">
 				<li>
 #* acroynm *#
-					<label for="acroynm">Trial Acronym:</label>
-					<input type="text" name="item.acronym" id="acroynm" required placeholder="XXXXX" class="required" value="$!item.acronym">
+					<label for="acroynm">Trial Number:</label>
+					<input type="text" name="item.number" id="number" required placeholder="" class="required" value="$!item.number">
 				</li>	
 			</ul>
 			<ul>

@@ -27,7 +27,7 @@ namespace stellar.Models {
         virtual public string record_id { get; set; }
 
         [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string acronym { get; set; }
+        virtual public string number { get; set; }
 
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string discription { get; set; }
