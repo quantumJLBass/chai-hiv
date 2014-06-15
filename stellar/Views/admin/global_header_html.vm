@@ -1,67 +1,54 @@
 
-<title>$!current_site.get_option("default_head_html_title")</title>
+  <title>$!current_site.get_option("default_head_html_title")</title>
 
-<style type="text/css">
-  body{font: normal 14px Verdana, Geneva, Arial, Helvetica, sans-serif !important;}
-  .at300bs.at15t_compact{background-image:none;}
-  .at300bs{display:inline;}
-</style>
+  <style type="text/css">
+    body{font: normal 14px Verdana, Geneva, Arial, Helvetica, sans-serif !important;}
+    .at300bs.at15t_compact{background-image:none;}
+    .at300bs{display:inline;}
+  </style>
 
-#capturefor(site)
-	#if($Controller.isLocal()==false)
-		$Controller.getRootUrl()
-	#else
-		#if($siteroot && $siteroot !='/')
-			$siteroot
-		#elseif($Controller.isLocal())
-			$Controller.getRootUrl()
-		#else
-			http://map.wsu.edu/
-		#end
-	#end
-#end
-#capturefor(view)$Controller.getView()#end
-#capturefor(mcv_action)$Controller.getAction()#end
+  #capturefor(site)
+	  #if($Controller.isLocal()==false)
+		  $Controller.getRootUrl()
+	  #else
+		  #if($siteroot && $siteroot !='/')
+			  $siteroot
+		  #elseif($Controller.isLocal())
+			  $Controller.getRootUrl()
+		  #else
+			  
+		  #end
+	  #end
+  #end
+  #capturefor(view)$Controller.getView()#end
+  #capturefor(mcv_action)$Controller.getAction()#end
+  <script type="text/javascript">
+	  var siteroot = #if($site.Trim()=="")'/'#else '$site.Trim()' #end;
+	  var view = #if($view!="")'$view.Trim()/'#else""#end;
+	  var mcv_action = #if($mcv_action!="")'$mcv_action.Trim()'#else""#end;
+	  #*var site_options = #if(${siteService.json_site_admin_options("state_")})$!{siteService.json_site_admin_options("state_")}#else {} #end;*#
+  </script>
+  #set($siteroot=$site.Trim().TrimEnd("/"))
 
-<script type="text/javascript">
-	var siteroot = #if($site.Trim()=="")'/'#else '$site.Trim()' #end;
-	var view = #if($view!="")'$view.Trim()/'#else""#end;
-	var mcv_action = #if($mcv_action!="")'$mcv_action.Trim()'#else""#end;
+  <link type='text/css' href='//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css' rel='stylesheet' media='screen' />
 
-	#*var site_options = #if(${siteService.json_site_admin_options("state_")})$!{siteService.json_site_admin_options("state_")}#else {} #end;*#
-</script>
-#set($siteroot=$site.Trim().TrimEnd("/"))
-<!--
-<link href="http://designer.wsu.edu/template/css2.aspx?key=0ea2b8zs010" type="text/css" rel="stylesheet" />-->
-<link type='text/css' href='//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css' rel='stylesheet' media='screen' />
-<!--<link media='screen' href='http://images.wsu.edu/css/wsu_ui_default/jquery-ui-1.9.0.custom.min.css' type='text/css' rel='stylesheet' />-->
+  $scriptsService.Css("/reset.css,/base.css,/forms.css,/admin_styles.css,admin_menu.css,/common/colorpicker/css/jpicker-1.1.6.min.css,common/scrollbar/style/jquery.jscrollpane.css,common/scrollbar/style/jquery.jscrollpane.lozenge.css,/map_admin.css,/common/calendar/fullcalendar.css,/colorbox.css,admin_responsive.css,/common/filebrowser/elfinder.min.css,/common/filebrowser/theme.css","admin",true)
+  <link media='print' href='/themes/base/content/css/common/calendar/fullcalendar.print.css' 	type='text/css' rel='stylesheet' />
 
+  $!PageStyles
 
-$scriptsService.Css("/reset.css,/base.css,/forms.css,/admin_styles.css,admin_menu.css,/common/colorpicker/css/jpicker-1.1.6.min.css,common/scrollbar/style/jquery.jscrollpane.css,common/scrollbar/style/jquery.jscrollpane.lozenge.css,/map_admin.css,/common/calendar/fullcalendar.css,/colorbox.css,admin_responsive.css,/common/filebrowser/elfinder.min.css,/common/filebrowser/theme.css","admin",true)
-<link media='print' href='/themes/base/content/css/common/calendar/fullcalendar.print.css' 	type='text/css' rel='stylesheet' />
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-$!PageStyles
-<!--
-<script type="text/javascript" src="$httpService./themes/base/content/js/admin/diff/diff_match_patch_uncompressed.js"></script>
--->
+  $scriptsService.Js("plugin.js,/tinymce/tinymce/jscripts/tiny_mce/tiny_mce.js,/diff/diff_match_patch_uncompressed.js,/common/modernizr/modernizr.2.6.2.min.js,/utilities_general.js,/common/calendar/fullcalendar.min.js,/common/calendar/gcal.js,/common/maps/google/jquery.ui.map.js,/jquery.mjs.nestedSortable.js,/common/colorpicker/jpicker-1.1.6.min.js,/external/jquery.cookie.js,/jquery.defaultvalue.js,/jquery.colorbox-min.js,common/scrollbar/jquery.mousewheel.js,/common/scrollbar/jquery.jscrollpane.min.js,/zeroclipboard/ZeroClipboard.js,/common/filebrowser/elfinder.min.js","admin",false)
 
-<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.js"></script>
-<script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  $!PagePlugins
 
-<!--<script type="text/javascript" src="http://script.wsu.edu/f/?f=jQuery_UI_addons/jquery-ui-timepicker-addon.js,jQuery_UI_addons/jquery-ui-combobox.js,jquery.lazyload.js,jqueryFileUpload.js"></script>
+  $scriptsService.Js("/admin_ui.js,/admin_ui__media.js,/admin_ui__tinymce.js,/admin_ui__code_editor.js,/admin_ui__editors.js,/init_test.js,/admin_ini.js,/admin_init.js,common/filebrowser/init.js","admin",true)
 
-<script type="text/javascript" src="$siteroot/themes/base/content/js/tinymce/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
--->
+  $!file_handling
 
-$scriptsService.Js("plugin.js,/tinymce/tinymce/jscripts/tiny_mce/tiny_mce.js,/diff/diff_match_patch_uncompressed.js,/common/modernizr/modernizr.2.6.2.min.js,/utilities_general.js,/common/calendar/fullcalendar.min.js,/common/calendar/gcal.js,/common/maps/google/jquery.ui.map.js,/jquery.mjs.nestedSortable.js,/common/colorpicker/jpicker-1.1.6.min.js,/external/jquery.cookie.js,/jquery.defaultvalue.js,/jquery.colorbox-min.js,common/scrollbar/jquery.mousewheel.js,/common/scrollbar/jquery.jscrollpane.min.js,/zeroclipboard/ZeroClipboard.js,/common/filebrowser/elfinder.min.js","admin",false)
-
-$!PagePlugins
-
-$scriptsService.Js("/admin_ui.js,/admin_ui__media.js,/admin_ui__tinymce.js,/admin_ui__code_editor.js,/admin_ui__editors.js,/init_test.js,/admin_ini.js,/admin_init.js,common/filebrowser/init.js","admin",true)
-
-$!file_handling
-
-#if($admin_js)${admin_js}#end
+  #if($admin_js)${admin_js}#end
 
 
