@@ -10,9 +10,6 @@
 <ul class="grid col-one-half mq2-col-full full-input">
 #* study_phase *#
 	<li>
-		#*#set($daval ="")
-		#set($daval = $!item.study_phase)
-		#feild_textinput("$type" "study_phase" $daval "" "only if clinical trial" "" "")*#
 		$Controller.feilds("textinput","$type","study_phase", $!item.study_phase ,"","only if clinical trial","","")
 	</li>		
 </ul>	
@@ -20,10 +17,8 @@
 
 <ul class="grid col-one-half mq2-col-full full-input">
 #* study_location *#
-	<li>	
-		#set($daval ="")
-		#set($daval = $!item.study_location)
-		#feild_textinput("$type" "study_location" $daval "" "" "" "")
+	<li>
+		$Controller.feilds("textinput","$type","study_location", $!item.study_location ,"","","","")
 	</li>
 	
 #* study_sick_healthy *#
@@ -37,15 +32,11 @@
 <ul class="grid col-one-half mq2-col-full full-input">	
 #* study_sample_size *#
 	<li>
-		#set($daval ="")
-		#set($daval = $!item.study_sample_size)
-		#feild_textinput("$type" "study_sample_size" $daval "" "" "" "")
+		$Controller.feilds("textinput","$type","study_sample_size", $!item.study_sample_size ,"","","","")
 	</li>
 #* study_length *#
 	<li>
-		#set($daval ="")
-		#set($daval = $!item.study_length)
-		#feild_textinput("$type" "study_length" $daval "" "open #" "" "")
+		$Controller.feilds("textinput","$type","study_length", $!item.study_length ,"","open #","","")
 	</li>
 #* study_length_measurement *#
 	<li>
