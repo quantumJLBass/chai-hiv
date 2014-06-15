@@ -8,7 +8,7 @@
 		</ul>
 		<ul class="grid col-one-half mq2-col-full full-input">
 			<li>
-				<label for="acroynm">Treatment Acroynm:</label>
+				<label for="acroynm">Trial Acroynm:</label>
 				$!item.acroynm
 			</li>	
 		</ul>
