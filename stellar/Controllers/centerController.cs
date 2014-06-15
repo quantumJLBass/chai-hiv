@@ -394,8 +394,7 @@ namespace stellar.Controllers {
         }
         #endregion
         #region(trials)
-         public void trials(Boolean skiplayout, String exclude, Boolean pub)
-         {
+         public void trials(Boolean skiplayout, String exclude, Boolean pub) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
@@ -414,7 +413,7 @@ namespace stellar.Controllers {
             }
             RenderView("trials");
         }
-         public static int make_treatment_tmp() {
+         public static int make_trial_tmp() {
              treatment tmp = new treatment();
              tmp.tmp = true;
              appuser user = userService.getUserFull();
@@ -422,17 +421,17 @@ namespace stellar.Controllers {
              ActiveRecordMediator<treatment>.Save(tmp);
              return tmp.baseid;
          }
-        public void treatment(int id, Boolean skiplayout) {
+         public void trial(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             //do the auth
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
-            if (id <= 0) id = make_treatment_tmp();
+            if (id <= 0) id = make_trial_tmp();
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<treatment>.Find(id);
             RenderView("treatment");
         }
         [SkipFilter()]
-        public void savetreatment([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] treatment item,
+         public void savetrial([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] treatment item,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -460,7 +459,7 @@ namespace stellar.Controllers {
                         CancelLayout(); CancelView();
                         RenderText(item.baseid.ToString() + "," + item.acronym);
                     } else {
-                        RedirectToUrl("~/center/treatment.castle?id=" + item.baseid);
+                        RedirectToUrl("~/center/trial.castle?id=" + item.baseid);
                     }
                     return;
                 } else {
@@ -475,17 +474,17 @@ namespace stellar.Controllers {
                 /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();
                 //hashtable.Add("post_type", item.post_type.alias);
-                Redirect("center", "treatments", hashtable);
+                Redirect("center", "trials", hashtable);
                 return;
             }
         }
 
         [SkipFilter()]
-        public void remove_treatment(int id, Boolean skiplayout) {
+        public void remove_trial(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             delete_post<treatment>(id);
             Flash["message"] = "Removed Item";
-            Redirect("center", "treatments", new Hashtable());
+            Redirect("center", "trials", new Hashtable());
         }
         #endregion
         #region(drugs)
@@ -839,7 +838,7 @@ namespace stellar.Controllers {
                 SimpleQuery<substance> pq = new SimpleQuery<substance>(typeof(substance), sql);
                 PropertyBag["items"] = pq.Execute();
             }
-            if (type == "treatment") {
+            if (type == "trial") {
                 SimpleQuery<treatment> pq = new SimpleQuery<treatment>(typeof(treatment), sql);
                 PropertyBag["items"] = pq.Execute();
             }
@@ -876,7 +875,7 @@ namespace stellar.Controllers {
                 SimpleQuery<substance> pq = new SimpleQuery<substance>(typeof(substance), sql);
                 PropertyBag["items"] = pq.Execute();
             }
-            if (type == "treatment") {
+            if (type == "trial") {
                 SimpleQuery<treatment> pq = new SimpleQuery<treatment>(typeof(treatment), sql);
                 PropertyBag["items"] = pq.Execute();
             }
