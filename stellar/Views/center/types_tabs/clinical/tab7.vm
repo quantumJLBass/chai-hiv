@@ -13,6 +13,7 @@
 		#set($daval ="")
 		#set($daval = $!item.study_phase)
 		#feild_textinput("$type" "study_phase" $daval "" "only if clinical trial" "" "")
+		$Controller.feilds("textinput","$type","study_phase",$daval,"","only if clinical trial","","")
 	</li>		
 </ul>	
 <div style="clear:both;"></div>

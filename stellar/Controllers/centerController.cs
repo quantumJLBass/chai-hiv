@@ -1006,5 +1006,27 @@ namespace stellar.Controllers {
             RedirectToAction("trashbin");
         }
 
+        public string feilds(string formfeild, string datatype, string model_prop, string value, string custom_lable, string placholder, string html_class, string html_attr) {
+            String html = "";
+            switch (formfeild)
+            {
+                case "textinput":
+                    {
+                        html=feild_textinput(datatype, model_prop, value, custom_lable, placholder, html_class, html_attr); break;
+                    }
+            }
+
+            return html;
+        }
+
+        public string feild_textinput(string datatype, string model_prop, string value, string custom_lable, string placholder, string html_class, string html_attr) {
+            String html = "A text input";
+            return html;
+        }
+
+
+
+
+
     }
 }
