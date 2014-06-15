@@ -1,5 +1,6 @@
 <article class="grid col-full">
-	<h2 id="header_title">Clinical Summaries #parse("center/assests/display_pub.vm") #if(!$skiplayout && !$viewonly)<a href="treatment.castle" class="button  xl right"><i class="icon-plus blue" title="Add"></i> New</a>#end</h2>
+	<h2 id="header_title">
+    Clinical Trials #parse("center/assests/display_pub.vm") #if(!$skiplayout && !$viewonly)<a href="trial.castle" class="button  xl right"><i class="icon-plus blue" title="Add"></i> New</a>#end</h2>
 		
 	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
 		<thead>
@@ -16,9 +17,9 @@
 				<td>#if($item.acronym)$!item.acronym#else -- #end</td>
 				<td>
 					#if($viewonly)
-						<a href="treatment.castle?id=$item.baseid" class="button small">View</a>
+						<a href="trial.castle?id=$item.baseid" class="button small">View</a>
 					#else
-						#if(!$skiplayout)<a href="treatment.castle?id=$item.baseid" class="button small">Edit</a> | <a href="remove_treatment.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>#else<a href="#ADD" class="additem button med">Add</a>#end
+						#if(!$skiplayout)<a href="trial.castle?id=$item.baseid" class="button small">Edit</a> | <a href="remove_trial.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>#else<a href="#ADD" class="additem button med">Add</a>#end
 					#end
 				</td>
 			</tr>
