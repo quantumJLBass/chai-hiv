@@ -24,7 +24,7 @@
 	<nav class="fright">
 		<ul>
 			<li><a href="/center/clinicals.castle" #if($page=="clinicals"||$page=="clinical")class="navactive"#end>Clinical Trials Arms</a></li>
-			<li><a href="/center/treatments.castle" #if($page=="treatments"||$page=="treatment")class="navactive"#end>Clinical Summaries</a></li>
+			<li><a href="/center/treatments.castle" #if($page=="treatments"||$page=="treatment")class="navactive"#end>Clinical Trials</a></li>
 		</ul>
 		<ul>
 			<li><a href="/center/drugs.castle" #if($page=="drugs"||$page=="drug")class="navactive"#end>Drug Products</a></li>
