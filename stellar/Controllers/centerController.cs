@@ -453,11 +453,11 @@ namespace stellar.Controllers {
             //do the auth
             if (apply != null || ajaxed_update) {
                 logger.writelog("Applied " + item.record_id + " edits", getView(), getAction(), item.baseid);
-                Flash["message"] = "Applied " + item.record_id + " edits for " + item.acronym;
+                Flash["message"] = "Applied " + item.record_id + " edits for " + item.number;
                 if (item.baseid > 0) {
                     if (ajaxed_update) {
                         CancelLayout(); CancelView();
-                        RenderText(item.baseid.ToString() + "," + item.acronym);
+                        RenderText(item.baseid.ToString() + "," + item.number);
                     } else {
                         RedirectToUrl("~/center/trial.castle?id=" + item.baseid);
                     }
@@ -469,7 +469,7 @@ namespace stellar.Controllers {
             } else {
                 item.editing = null;
                 logger.writelog("Saved " + item.record_id + " edits on", getView(), getAction(), item.baseid);
-                Flash["message"] = "Saved " + item.record_id + " edits for " + item.acronym;
+                Flash["message"] = "Saved " + item.record_id + " edits for " + item.number;
                 ActiveRecordMediator<trial>.Save(item);
                 /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();

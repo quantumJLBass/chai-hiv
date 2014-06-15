@@ -30,7 +30,10 @@ namespace stellar.Models {
         virtual public string number { get; set; }
 
         [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string discription { get; set; }
+        virtual public string title { get; set; }
+
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string results { get; set; }
 
         [HasAndBelongsToMany(typeof(drug), Lazy = true, Table = "trial_to_drugs", ColumnKey = "trial_id", ColumnRef = "drug_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug> drugs { get; set; }

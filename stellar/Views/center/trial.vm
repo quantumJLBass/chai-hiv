@@ -11,6 +11,14 @@
 					<label for="acroynm">Trial Number:</label>
 					<input type="text" name="item.number" id="number" required placeholder="" class="required" value="$!item.number">
 				</li>	
+
+				<li>
+#* title *#
+					<label for="acroynm">Trial Title:</label>
+					<input type="text" name="item.title" id="title" required placeholder="" class="required" value="$!item.title">
+				</li>	
+				
+
 			</ul>
 			<ul>
 				<li>
