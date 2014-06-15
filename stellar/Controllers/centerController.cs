@@ -1006,6 +1006,24 @@ namespace stellar.Controllers {
             RedirectToAction("trashbin");
         }
 
+        public Boolean is_viewonly() {
+
+            Boolean viewstate = false;
+            if (Controllers.BaseController.authenticated()) {
+                viewstate = userService.checkPrivleage("is_view_only");
+            }
+            HttpCookie myCookie = Controllers.BaseController.context().Request.Cookies["hivviewonly"];
+
+            if (Controllers.BaseController.context().Request.Params["viewonly"] == "1")  {
+                viewstate = true;
+            }
+            if (myCookie != null) {
+                viewstate = Convert.ToBoolean(myCookie.Value);
+            }
+            return viewstate;
+        }
+        
+        
         public string feilds(string formfeild, string datatype, string model_prop, string value, string custom_lable, string placholder, string html_class, string html_attr) {
             String html = "";
             switch (formfeild)
@@ -1021,6 +1039,35 @@ namespace stellar.Controllers {
 
         public string feild_textinput(string datatype, string model_prop, string value, string custom_lable, string placholder, string html_class, string html_attr) {
             String html = "A text input";
+
+            /*
+		#set($feildObj=$!postingService.get_taxonomy($datatype, $model_prop,"SYSTEM__feild_helpers"))
+		#if($feildObj && $feildObj.name!="")
+			#set($lable=$feildObj.name)
+		#end
+		#if($custom_lable && $custom_lable!="")
+			#set($lable=$custom_lable)
+		#end
+
+	#if($viewonly)
+		<label >$lable: #feild_helper($feildObj)</label>
+		$!value
+	#else
+		<label for="$model_prop">$lable: #feild_helper($feildObj)</label>
+		<input type="text" name="item.$model_prop" id="$model_prop" #if($placholder!="")placeholder="$placholder"#end #if($class!="")class="$class"#end #if($value && $!value!="" && $!value!="System.String[]") value="$!value" #end $attr />
+	#end
+             */
+
+
+            if (is_viewonly()) {
+                html = "A text input viewonly";
+            } else {
+                html = "A text input normal non-viewonly";
+            }
+
+
+
+
             return html;
         }
 
