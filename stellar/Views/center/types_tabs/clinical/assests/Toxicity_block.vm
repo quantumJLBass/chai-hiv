@@ -4,13 +4,11 @@
 	</div>
 	<div id="durability_forgiveness" style="">
 		<ul class="grid col-full mq2-col-full full-input">
-		#* toxicity_sae *#
+#* toxicity_sae *#
 			<li class="moa_dmpk_block">
 				<ul class="grid col-one-half mq2-col-full full-input">
 					<li>
-						#set($daval ="")
-						#set($daval = $!item.toxicity_sae)
-						#feild_textinput("$type" "toxicity_sae" $daval "" "" "has_moa_dmpk" "")
+						$Controller.feilds("textinput","$type","toxicity_sae", $!item.toxicity_sae ,"","","has_moa_dmpk","")
 					</li>
 				</ul>
 				<ul class="grid col-one-half mq2-col-full full-input">
@@ -23,117 +21,62 @@
 					</li>
 				</ul>
 				<div style="clear:both;"></div>
-			</li>	
-		
-
-
-<li class="moa_dmpk_block">			
-#set($taxorder = 0)
-  #set($adverse_events_severe = $postingService.get_taxonomies("adverse_events_severe"))
-  <ul class="grid col-one-half mq2-col-full full-input">
+			</li>
+			<li class="moa_dmpk_block">			
+				#set($taxorder = 0)
+				#set($adverse_events_severe = $postingService.get_taxonomies("adverse_events_severe"))
+				<ul class="grid col-one-half mq2-col-full full-input">
 #* max_dose *#
-<li>
-	<label for="max_dose">Adverse Events, Objective: <i class="icon-question-sign blue" title=""></i></label>
-		<select name="" id="adverse_events_severe" class="adverse_events" >
-			<option value="">Add an event</option> 
-			#foreach($part in $adverse_events_severe)
-			
-				<option #if($item.taxonomies.Contains($part))disabled #end value="$part.baseid" data-content="$part.content" data-baseid="$part.baseid" data-alias="$part.alias">$part.name</option>
-			#end
-		</select>
-	</li>
-	#set($tax_type = $taxonomyService.get_taxonomy_type("adverse_events_severe"))
-	#foreach($part in $item.taxonomies)
-		#if($part.taxonomy_type == $tax_type)
-			<li data-taxorder="$taxorder">
-				 <i class="icon-remove-circle red right remove"></i>
-				 <label>$part.name #if($!part.content)<i class="icon-question-sign blue" title="$!part.content"></i>#end
-				 </label>
-				 <input type="text" name="value[$taxorder]" id="" required  value="$!item.get_meta(${part.baseid.ToString()})"/>
-				 <input type="hidden" name="option_key[$taxorder]" value="$part.baseid" />
-			 </li>
-			 #set($taxorder = $taxorder+1)
-		#end
-	#end
-  </ul>
-  
- 
+					<li>
+						<label for="max_dose">Adverse Events, Objective: <i class="icon-question-sign blue" title=""></i></label>
+						<select name="" id="adverse_events_severe" class="adverse_events" >
+							<option value="">Add an event</option> 
+							#foreach($part in $adverse_events_severe)
+							
+								<option #if($item.taxonomies.Contains($part))disabled #end value="$part.baseid" data-content="$part.content" data-baseid="$part.baseid" data-alias="$part.alias">$part.name</option>
+							#end
+						</select>
+					</li>
+					#set($tax_type = $taxonomyService.get_taxonomy_type("adverse_events_severe"))
+					#foreach($part in $item.taxonomies)
+						#if($part.taxonomy_type == $tax_type)
+							<li data-taxorder="$taxorder">
+								 <i class="icon-remove-circle red right remove"></i>
+								 <label>$part.name #if($!part.content)<i class="icon-question-sign blue" title="$!part.content"></i>#end
+								 </label>
+								 <input type="text" name="value[$taxorder]" id="" required  value="$!item.get_meta(${part.baseid.ToString()})"/>
+								 <input type="hidden" name="option_key[$taxorder]" value="$part.baseid" />
+							 </li>
+							 #set($taxorder = $taxorder+1)
+						#end
+					#end
+				  </ul>
 				<div style="clear:both;"></div>
 			</li>	
-		 
-  
-  
- 
-<!--		
-		#* toxicity_ae_chronic *#
+
+#* toxicity_other *#
 			<li class="moa_dmpk_block">
 				<ul class="grid col-one-half mq2-col-full full-input">
 					<li>
-				#set($daval ="")
-				#set($daval = $!item.toxicity_ae_chronic)
-				#feild_textinput("$type" "toxicity_ae_chronic" $daval "" "" "has_moa_dmpk" "")
+						$Controller.feilds("textinput","$type","toxicity_other", $!item.toxicity_other ,"","","has_moa_dmpk","")
 					</li>
 				</ul>
 				<ul class="grid col-one-half mq2-col-full full-input">
 					<li>
 						<span class="moa_dmpk">
-					#set($daval ="")
-					#set($daval = $!item.toxicity_ae_chronic_moa_dmpk)
-					#feild_selectinput($type "toxicity_ae_chronic_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
-						</span>
-					</li>
-				</ul><div style="clear:both;"></div>
-			</li>	
-		
-		#* toxicity_ae_advanced_grade *#
-			<li class="moa_dmpk_block">
-				<ul class="grid col-one-half mq2-col-full full-input">
-					<li>
-				#set($daval ="")
-				#set($daval = $!item.toxicity_ae_advanced_grade)
-				#feild_textinput("$type" "toxicity_ae_advanced_grade" $daval "" "" "has_moa_dmpk" "")
-					</li>
-				</ul>
-				<ul class="grid col-one-half mq2-col-full full-input">
-					<li>
-						<span class="moa_dmpk">
-					#set($daval ="")
-					#set($daval = $!item.toxicity_ae_advanced_grade_moa_dmpk)
-					#feild_selectinput($type "toxicity_ae_advanced_grade_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
+							#set($daval ="")
+							#set($daval = $!item.toxicity_sae_moa_dmpk)
+							#feild_selectinput($type "toxicity_other_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
 						</span>
 					</li>
 				</ul><div style="clear:both;"></div>
 			</li>
-			-->
-			
-		#* toxicity_other *#
+
+#* toxicity_drug_to_drug_interactions *#
 			<li class="moa_dmpk_block">
 				<ul class="grid col-one-half mq2-col-full full-input">
 					<li>
-				#set($daval ="")
-				#set($daval = $!item.toxicity_other)
-				#feild_textinput("$type" "toxicity_other" $daval "" "" "has_moa_dmpk" "")
-					</li>
-				</ul>
-				<ul class="grid col-one-half mq2-col-full full-input">
-					<li>
-						<span class="moa_dmpk">
-					#set($daval ="")
-					#set($daval = $!item.toxicity_sae_moa_dmpk)
-					#feild_selectinput($type "toxicity_other_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
-						</span>
-					</li>
-				</ul><div style="clear:both;"></div>
-			</li>
-			
-			
-		#* toxicity_drug_to_drug_interactions *#
-			<li class="moa_dmpk_block">
-				<ul class="grid col-one-half mq2-col-full full-input">
-					<li>
-						#set($daval ="")
-						#set($daval = $!item.toxicity_drug_to_drug_interactions)
-						#feild_textinput("$type" "toxicity_drug_to_drug_interactions" $daval "" "" "has_moa_dmpk" "")
+						$Controller.feilds("textinput","$type","toxicity_drug_to_drug_interactions", $!item.toxicity_drug_to_drug_interactions ,"","","has_moa_dmpk","")
 					</li>
 				</ul>
 				<ul class="grid col-one-half mq2-col-full full-input">
