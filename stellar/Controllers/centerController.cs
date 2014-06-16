@@ -1032,34 +1032,23 @@ namespace stellar.Controllers {
                     {
                         html = feild_textinput(datatype, model_prop, value, custom_lable, placeholder, html_class, html_attr); break;
                     }
+                case "textarea":
+                    {
+                        html = feild_textarea(datatype, model_prop, value, custom_lable, placeholder, html_class, html_attr); break;
+                    }
+
             }
 
             return html;
         }
 
         public string feild_textinput(string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
-            String html = "A text input";
-
-            /*
-		#set($feildObj=$!postingService.get_taxonomy($datatype, $model_prop,"SYSTEM__feild_helpers"))
-		#if($feildObj && $feildObj.name!="")
-			#set($lable=$feildObj.name)
-		#end
-		#if($custom_lable && $custom_lable!="")
-			#set($lable=$custom_lable)
-		#end
-
-	#if($viewonly)
-		<label >$lable: #feild_helper($feildObj)</label>
-		$!value
-	#else
-		<label for="$model_prop">$lable: #feild_helper($feildObj)</label>
-		<input type="text" name="item.$model_prop" id="$model_prop" #if($placholder!="")placeholder="$placholder"#end #if($class!="")class="$class"#end #if($value && $!value!="" && $!value!="System.String[]") value="$!value" #end $attr />
-	#end
-             */
+            String html = "";
             String lable = "";
-            taxonomy feildObj = postingService.get_taxonomy(datatype, model_prop,"SYSTEM__feild_helpers");
             String field_helper = "";
+            String feild_name = "";
+
+            taxonomy feildObj = postingService.get_taxonomy(datatype, model_prop,"SYSTEM__feild_helpers");
 
             if (feildObj != null) { 
 	            if(feildObj.content!=""){
@@ -1073,12 +1062,10 @@ namespace stellar.Controllers {
                 lable = custom_lable + ": ";
             }
 
-
             if (is_viewonly()) {
                 html = "<label >" + lable + field_helper + "</label> " + value;
             } else {
-
-                String feild_name = "item." + model_prop;
+                feild_name = "item." + model_prop;
                 placeholder = (placeholder != "") ? "placeholder='" + placeholder + "'" : "";
                 html_class = (html_class != "") ? "class='" + html_class + "'" : "";
                 value = (value != "" && value != "System.String[]") ? "value='" + value + "'" : "";
@@ -1086,14 +1073,42 @@ namespace stellar.Controllers {
                 html = "<label for='" + model_prop + "'>" + lable + ": " + field_helper + "</label>" +
                 "<input type='text' name='" + feild_name + "' id='" + model_prop + "' " + placeholder + " " + html_class + " " + value + " " + html_attr + " />";
             }
-
-
-
-
             return html;
         }
 
+        public string feild_textarea(string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
+            String html = "";
+            String lable = "";
+            String field_helper = "";
+            String feild_name = "";
 
+            taxonomy feildObj = postingService.get_taxonomy(datatype, model_prop, "SYSTEM__feild_helpers");
+
+            if (feildObj != null) {
+                if (feildObj.content != "") {
+                    field_helper = "<i class='icon-question-sign blue' title='" + feildObj.content + "'></i>";
+                }
+                if (feildObj.name != "") {
+                    lable = feildObj.name + ": ";
+                }
+            }
+            if (custom_lable != "") {
+                lable = custom_lable + ": ";
+            }
+
+            if (is_viewonly()) {
+                html = "<label >" + lable + field_helper + "</label> " + value;
+            } else {
+                feild_name = "item." + model_prop;
+                placeholder = (placeholder != "") ? "placeholder='" + placeholder + "'" : "";
+                html_class = (html_class != "") ? "class='" + html_class + "'" : "";
+                value = (value != "" && value != "System.String[]") ? "" + value + "" : "";
+
+                html = "<label for='" + model_prop + "'>" + lable + ": " + field_helper + "</label>" +
+                "<textarea name='" + feild_name + "' id='" + model_prop + "' " + placeholder + " " + html_class + " " + html_attr + " >" + value + "</textarea>";
+            }
+            return html;
+        }
 
 
 

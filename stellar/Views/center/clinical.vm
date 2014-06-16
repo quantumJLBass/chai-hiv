@@ -20,15 +20,11 @@
 			  <ul class="grid col-one-full mq2-col-full full-input">		  
 					<li>
 					#* name *#
-						#set($daval ="")
-						#set($daval = $!item.name)
-						#feild_textinput("$type" "name" $daval "" "" "" "")
+						$Controller.feilds("textinput","$type","name", $!item.name ,"","","","")
 					</li>
 					<li>
 					#* title *#
-						#set($daval ="")
-						#set($daval = $!item.title)
-						#feild_textarea("$type" "title" $daval "" "" "" "")
+						$Controller.feilds("textarea","$type","title", $!item.title ,"","","","")
 					</li>
 				</ul>
 		  </article>

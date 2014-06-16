@@ -38,8 +38,8 @@
 								#tab_notes("$type" "regulatory_information" "top")
 							</div>
 #* results *#
-					<label for="results">Results:</label>
-					<textarea name="item.discription" id="description" cols="100" rows="6" required placeholder="Enter discription"  class="required" >$!item.discription</textarea>
+							<label for="results">Results:</label>
+							<textarea name="item.discription" id="description" cols="100" rows="6" required placeholder="Enter discription"  class="required" >$!item.discription</textarea>
 							<div style="clear:both;">
 								#tab_notes("$type" "regulatory_information" "bottom")
 							</div>
