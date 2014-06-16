@@ -1050,11 +1050,11 @@ namespace stellar.Controllers {
 
             taxonomy feildObj = postingService.get_taxonomy(datatype, model_prop,"SYSTEM__feild_helpers");
 
-            if (feildObj != null) { 
-	            if(feildObj.content!=""){
+            if (feildObj != null) {
+                if (feildObj.content!=null && feildObj.content != "") {
 		            field_helper="<i class='icon-question-sign blue' title='"+feildObj.content+"'></i>";
 	            }
-                if(feildObj.name!=""){
+                if (feildObj.name != null && feildObj.name != "") {
                     lable = feildObj.name + ": ";
 		        }
             }
@@ -1085,10 +1085,10 @@ namespace stellar.Controllers {
             taxonomy feildObj = postingService.get_taxonomy(datatype, model_prop, "SYSTEM__feild_helpers");
 
             if (feildObj != null) {
-                if (feildObj.content != "") {
+                if (feildObj.content != null && feildObj.content != "") {
                     field_helper = "<i class='icon-question-sign blue' title='" + feildObj.content + "'></i>";
                 }
-                if (feildObj.name != "") {
+                if (feildObj.name != null && feildObj.name != "") {
                     lable = feildObj.name + ": ";
                 }
             }
