@@ -1,3 +1,4 @@
+#set($type = "trial")
 #if($viewonly)
 	#parse("center/viewonly/trial.vm")
 #else
