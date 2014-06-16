@@ -156,30 +156,6 @@ namespace stellar.Models {
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string toxicity { get; set; }
 
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string study_type { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string study_phase { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string study_sample_size { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string study_location { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string study_sick_healthy { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string study_length { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string study_length_measurement { get; set; }
-
-
-
-
 
 
         /*toxicity*/

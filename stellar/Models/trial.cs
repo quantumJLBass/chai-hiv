@@ -35,6 +35,33 @@ namespace stellar.Models {
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string results { get; set; }
 
+
+
+
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_type { get; set; }
+
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_phase { get; set; }
+
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_sample_size { get; set; }
+
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_location { get; set; }
+
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_sick_healthy { get; set; }
+
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_length { get; set; }
+
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_length_measurement { get; set; }
+
+
+
+
         [HasAndBelongsToMany(typeof(drug), Lazy = true, Table = "trial_to_drugs", ColumnKey = "trial_id", ColumnRef = "drug_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug> drugs { get; set; }
 

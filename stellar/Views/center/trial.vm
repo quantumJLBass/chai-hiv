@@ -27,12 +27,28 @@
 			<article id="navtabs" class="grid col-full">
 				<div class="">
 					<ul class="tabs clearfix">
+						<li><a href="#study">Study</a></li>
 						<li><a href="#tab1">Rresults</a></li>
 					</ul>
 					<div class="tab_container">
-		#* *#
-		#* tab1 ------------ *#
-		#* *#
+#* *#
+#* study ------------ *#
+#* *#
+					<article id="study" class="tab_content">
+						<div style="clear:both;">
+							#tab_notes("$type" "study" "top")
+						</div>
+						#parse("center/types_tabs/trial/study.vm")
+						<div style="clear:both;">
+							#tab_notes("$type" "study" "bottom")
+						</div>
+					</article>
+
+					
+					
+#* *#
+#* tab1 ------------ *#
+#* *#
 						<article id="tab1" class="tab_content">
 							<div style="clear:both;">
 								#tab_notes("$type" "regulatory_information" "top")
