@@ -4,7 +4,11 @@
 	<article class="grid col-full">
 		<h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Clinical trial #if($item.number)( $item.number ) #end</h2>
 		<form id="contact_form" class="contact_form" action="/center/savetrial.castle" method="post" name="contact_form">
-		<input type="hidden" name="item.baseid" value="$!item.baseid" />	
+		<input type="hidden" name="item.baseid" value="$!item.baseid" />
+		
+
+		
+			
 			<ul class="grid col-one-full mq2-col-full full-input">
 				<li>
 #* acroynm *#
@@ -20,13 +24,29 @@
 				
 
 			</ul>
-			<ul>
-				<li>
-#* description *#
-					<label for="description">Full Description:</label>
+			<article id="navtabs" class="grid col-full">
+				<div class="">
+					<ul class="tabs clearfix">
+						<li><a href="#tab1">Rresults</a></li>
+					</ul>
+					<div class="tab_container">
+		#* *#
+		#* tab1 ------------ *#
+		#* *#
+						<article id="tab1" class="tab_content">
+							<div style="clear:both;">
+								#tab_notes("$type" "regulatory_information" "top")
+							</div>
+#* results *#
+					<label for="results">Results:</label>
 					<textarea name="item.discription" id="description" cols="100" rows="6" required placeholder="Enter discription"  class="required" >$!item.discription</textarea>
-				</li>
-			</ul>
+							<div style="clear:both;">
+								#tab_notes("$type" "regulatory_information" "bottom")
+							</div>
+						</article>
+					</div>
+				</div>
+			</article>
 			#if(!$skiplayout && !$item.baseid)
 				<ul>
 					<li><h2>Save to add Drugs or Clinicals</h2></li>
