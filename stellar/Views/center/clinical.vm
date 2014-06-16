@@ -1,3 +1,5 @@
+#set($type = "clinical")
+
 #if($viewonly)
 	#parse("center/viewonly/clinical.vm")
 #else
@@ -5,7 +7,7 @@
 	#* *#
 	#* NOTE: This is where you can change the dropdowns *#
 	#* *#
-	#set($type = "clinical")
+	
 
 	#set($not_props = $objectService.explode("name,alias,publish_time,post_type,outputError,editing,owner,baseid,published,checksum,filehash,static_file,url,position,sort,revision,version,deleted,is_active,is_default,is_visible,is_core,is_visible_to_others,is_frontend,is_admin,admin_url,is_link,is_editable,is_frontend_editable,is_Public,protect_post,is_deletable,is_cachable,is_trackable,loads_file,tmp,gets_media,gets_url,is_tabable_content,is_summarizable,is_taggable,gets_metadata,is_taxonomyable,is_categorized,is_templatable,parent,children,menuoptions,seen,options,theme,users,taxonomy_types,taxonomies,site,meta_data,meta_data_date,meta_data_geo,editable,root,logings,references,updated_date,creation_date,id,record_id,ln_clinical_t,content"))
 	
