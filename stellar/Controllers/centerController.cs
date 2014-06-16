@@ -1070,7 +1070,7 @@ namespace stellar.Controllers {
                 html_class = (html_class != "") ? "class='" + html_class + "'" : "";
                 value = (value != "" && value != "System.String[]") ? "value='" + value + "'" : "";
 
-                html = "<label for='" + model_prop + "'>" + lable + ": " + field_helper + "</label>" +
+                html = "<label for='" + model_prop + "'>" + lable + field_helper + "</label>" +
                 "<input type='text' name='" + feild_name + "' id='" + model_prop + "' " + placeholder + " " + html_class + " " + value + " " + html_attr + " />";
             }
             return html;
@@ -1104,7 +1104,7 @@ namespace stellar.Controllers {
                 html_class = (html_class != "") ? "class='" + html_class + "'" : "";
                 value = (value != "" && value != "System.String[]") ? "" + value + "" : "";
 
-                html = "<label for='" + model_prop + "'>" + lable + ": " + field_helper + "</label>" +
+                html = "<label for='" + model_prop + "'>" + lable + field_helper + "</label>" +
                 "<textarea name='" + feild_name + "' id='" + model_prop + "' " + placeholder + " " + html_class + " " + html_attr + " >" + value + "</textarea>";
             }
             return html;
