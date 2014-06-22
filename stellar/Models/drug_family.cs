@@ -42,7 +42,6 @@ namespace stellar.Models {
         [HasAndBelongsToMany(typeof(drug_market), Lazy = true, Table = "drug_family_to_drug_market", ColumnKey = "drug_family_id", ColumnRef = "drug_market_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug_market> markets { get; set; }
 
-
     }
 
     [ActiveRecord(Lazy = true, BatchSize = 5)]
