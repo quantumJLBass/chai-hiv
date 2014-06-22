@@ -33,9 +33,7 @@
 				$Controller.feilds("textinput","$type","fasting_auc", $!item.fasting_auc ,"","","","")
 			</div>	
 			<div class="grid col-one-half">	
-				#set($daval ="")
-				#set($daval = $!item.fasting_auc_unit)
-				#feild_selectinput($type "fasting_auc_unit" $daval "inf.,0-24,0-last" "" "" "")
+				$Controller.feilds("select","$type","fasting_auc_unit", $!item.fasting_auc_unit ,"inf.,0-24,0-last","","","","")
 			</div>	<div style="clear"></div>
 		#* fasting_auc_last_value *#
 			$Controller.feilds("textinput","$type","fasting_auc_last_value", $!item.fasting_auc_last_value ,"","","","")
@@ -72,10 +70,7 @@
 				$Controller.feilds("textinput","$type","fed_auc", $!item.fed_auc ,"","","","")
 			</div>	
 			<div class="grid col-one-half">	
-				#set($daval ="")
-				#set($daval = $!item.fed_auc_unit)
-				#feild_selectinput($type "fed_auc_unit" $daval "inf.,0-24,0-last" "" "" "")
-				
+				$Controller.feilds("select","$type","fed_auc_unit", $!item.fed_auc_unit ,"inf.,0-24,0-last","","","","")
 			</div>
 			<div style="clear"></div>
 		#* fed_auc_last_value *#
@@ -111,9 +106,7 @@
 				$Controller.feilds("textinput","$type","steady_state_auc", $!item.steady_state_auc ,"","(ng/ml)","","")
 			</div>	
 			<div class="grid col-one-half">	
-				#set($daval ="")
-				#set($daval = $!item.steady_state_auc_unit)
-				#feild_selectinput($type "steady_state_auc_unit" $daval "inf.,0-24,0-last" "" "" "")
+				$Controller.feilds("select","$type","steady_state_auc_unit", $!item.steady_state_auc_unit ,"inf.,0-24,0-last","","","","")
 			</div>
 		</li>
 
@@ -126,8 +119,7 @@
 	
 	<fieldset class="grid col-one-full mq2-col-full full-input" style="border:1px solid #ccc">
 		<legend style="border-bottom:1px solid #494949">Pharmacology comments</legend>
-		<textarea name="item.pharmacology_comments" rows="7">
-			$!item.pharmacology_comments
-		</textarea>
+#* pharmacology_comments *#
+		$Controller.feilds("textarea","$type","pharmacology_comments", $!item.pharmacology_comments ,"","",""," rows='7'")		
 	</fieldset>
 				
