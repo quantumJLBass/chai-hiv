@@ -1027,7 +1027,7 @@ namespace stellar.Controllers {
         public string notes(string datatype, string name, string position) {
             String html = "";
             taxonomy tab_noteObj = postingService.get_taxonomy(datatype, "tab_note_" + name, "SYSTEM__tab_notes_" + position);
-	        if(tab_noteObj != null && tab_noteObj.content != ""){
+            if (tab_noteObj != null && !String.IsNullOrWhiteSpace(tab_noteObj.content)) {
 		        html = "<div style='clear:both;'>"+
                     "<p class='noteblock'>"+
 			        tab_noteObj.content +
