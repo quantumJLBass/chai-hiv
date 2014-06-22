@@ -135,19 +135,6 @@ namespace stellar.Models {
             //virtual public string clin_phase_4 { get; set; }
         #endregion
 
-        #region(Market)
-            [Property(SqlType = "nvarchar(MAX)")]
-            virtual public string chai_ceiling_price { get; set; }
-
-            [Property(SqlType = "nvarchar(MAX)")]
-            virtual public string chai_ceiling_price_date { get; set; }
-
-            [Property(SqlType = "nvarchar(MAX)")]
-            virtual public string patients_on_therapy { get; set; }
-
-            [Property(SqlType = "nvarchar(MAX)")]
-            virtual public string patients_on_therapy_year { get; set; }
-        #endregion
 
         [HasAndBelongsToMany(typeof(trial), Lazy = true, Table = "trial_to_drugs", ColumnKey = "drug_id", ColumnRef = "trial_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
             virtual public IList<trial> trials { get; set; }
@@ -155,11 +142,7 @@ namespace stellar.Models {
         [HasAndBelongsToMany(typeof(clinical), Lazy = true, Table = "clinical_to_drugs", ColumnKey = "drug_id", ColumnRef = "clinical_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<clinical> clinicals { get; set; }
 
-        [HasAndBelongsToMany(typeof(substance), Lazy = true, Table = "drug_to_substances", ColumnKey = "drug_id", ColumnRef = "substance_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<substance> substances { get; set; }
 
-        [HasAndBelongsToMany(typeof(drug_market), Lazy = true, Table = "drug_to_drug_market", ColumnKey = "drug_id", ColumnRef = "drug_market_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<drug_market> markets { get; set; }
 
         [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "drug_to_drug_family", ColumnKey = "drug_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug_family> famlies { get; set; }
@@ -180,40 +163,6 @@ namespace stellar.Models {
 
     }
 
-
-
-    [ActiveRecord(Lazy = true, BatchSize = 5)]
-    public class drug_market : publish_base {
-        [JoinedKey("drug_market_id")]
-        virtual public int id { get; set; }
-
-        
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string year { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string chai_ceiling_price { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string patients_on_therapy { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string source_one { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string source_one_price { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string source_two { get; set; }
-
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string source_two_price { get; set; }
-
-
-        [HasAndBelongsToMany(typeof(drug), Lazy = true, Table = "drug_to_drug_market", ColumnKey = "drug_market_id", ColumnRef = "drug_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<drug> drugs { get; set; }
-
-    }
 
 
 
