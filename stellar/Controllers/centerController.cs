@@ -1024,6 +1024,18 @@ namespace stellar.Controllers {
         }
 
 
+        public string notes(string datatype, string name, string position) {
+            String html = "";
+            taxonomy tab_noteObj = postingService.get_taxonomy(datatype, "tab_note_" + name, "SYSTEM__tab_notes_" + position);
+	        if(tab_noteObj != null && tab_noteObj.content != ""){
+		        html = "<div style='clear:both;'>"+
+                    "<p class='noteblock'>"+
+			        tab_noteObj.content +
+                "</p></div>";
+	        }
+            return html;
+        }
+
         public string feilds(string formfeild, string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
             String html = "";
             switch (formfeild)
