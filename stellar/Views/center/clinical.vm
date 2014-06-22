@@ -34,7 +34,7 @@
 		  <div class="">
 			<ul class="tabs clearfix">
 				
-				<li><a href="#tab1">Drugs</a></li>
+				<li><a href="#drug_products">Drug Products</a></li>
 				<li><a href="#tab2">Pharmacology</a></li>
 				<li><a href="#tab3">Efficacy</a></li>
 				#*
@@ -47,29 +47,25 @@
 			<div class="tab_container">
 						
 #* *#
-#* tab1 ------------ *#
+#* drug_products ------------ *#
 #* *#
-			<article id="tab1" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "drugs" "top")
-				</div>
-				#parse("center/types_tabs/clinical/tab1.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "drugs" "bottom")
-				</div>
+			<article id="drug_products" class="tab_content">
+				$Controller.notes("$type","drug_products","top")
+				
+				#parse("center/types_tabs/clinical/drug_products.vm")
+				
+				$Controller.notes("$type","drug_products","bottom")
 			</article>
 
 #* *#
-#* tab2 ------------ *#
+#* pharmacology ------------ *#
 #* *#
 			<article id="tab2" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "pharmacology" "top")
-				</div>
-				#parse("center/types_tabs/clinical/tab2.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "pharmacology" "bottom")
-				</div>
+				$Controller.notes("$type","pharmacology","top")
+				
+				#parse("center/types_tabs/clinical/pharmacology.vm")
+				
+				$Controller.notes("$type","pharmacology","bottom")
 			</article>
 
 #* *#

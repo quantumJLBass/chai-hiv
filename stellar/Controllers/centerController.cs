@@ -1043,14 +1043,11 @@ namespace stellar.Controllers {
 
         public string feilds(string formfeild, string datatype, string model_prop, string value, string options, string custom_lable, string placeholder, string html_class, string html_attr) {
             String html = "";
-            switch (formfeild)
-            {
-                case "textinput":
-                    {
+            switch (formfeild) {
+                case "textinput":  {
                         html = feild_textinput(datatype, model_prop, value, custom_lable, placeholder, html_class, html_attr); break;
                     }
-                case "textarea":
-                    {
+                case "textarea": {
                         html = feild_textarea(datatype, model_prop, value, custom_lable, placeholder, html_class, html_attr); break;
                     }
                 case "select": {
