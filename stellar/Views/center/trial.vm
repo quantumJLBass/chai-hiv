@@ -12,17 +12,14 @@
 			
 			<ul class="grid col-one-full mq2-col-full full-input">
 				<li>
-#* acroynm *#
-					<label for="acroynm">Trial Number:</label>
-					<input type="text" name="item.number" id="number" required placeholder="" class="required" value="$!item.number">
+#* number *#
+					$Controller.feilds("textinput","$type","number", $!item.number ,"Trial Number","","required","")
 				</li>	
 
 				<li>
 #* title *#
-					<label for="acroynm">Trial Title:</label>
-					<input type="text" name="item.title" id="title" required placeholder="" class="required" value="$!item.title">
+					$Controller.feilds("textinput","$type","title", $!item.title ,"Trial Title","","required","")
 				</li>	
-				
 
 			</ul>
 			<article id="navtabs" class="grid col-full">
