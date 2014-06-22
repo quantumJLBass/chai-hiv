@@ -1036,7 +1036,12 @@ namespace stellar.Controllers {
             return html;
         }
 
+
         public string feilds(string formfeild, string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
+            return feilds(formfeild, datatype, model_prop, value, "", custom_lable, placeholder, html_class, html_attr);
+        }
+
+        public string feilds(string formfeild, string datatype, string model_prop, string value, string options, string custom_lable, string placeholder, string html_class, string html_attr) {
             String html = "";
             switch (formfeild)
             {
@@ -1047,6 +1052,9 @@ namespace stellar.Controllers {
                 case "textarea":
                     {
                         html = feild_textarea(datatype, model_prop, value, custom_lable, placeholder, html_class, html_attr); break;
+                    }
+                case "select": {
+                        html = feild_select( datatype, model_prop, value, options, custom_lable, html_class, html_attr); break;
                     }
 
             }
@@ -1122,7 +1130,59 @@ namespace stellar.Controllers {
             return html;
         }
 
+        public string feild_select(string datatype, string model_prop, string value, string options, string custom_lable, string html_class, string html_attr) {
+            String html = "";
+            String lable = "";
+            String field_helper = "";
+            String feild_name = "";
 
+            taxonomy feildObj = postingService.get_taxonomy(datatype, model_prop, "SYSTEM__feild_helpers");
+
+            if (feildObj != null) {
+                if (feildObj.content != null && feildObj.content != "") {
+                    field_helper = "<i class='icon-question-sign blue' title='" + feildObj.content + "'></i>";
+                }
+                if (feildObj.name != null && feildObj.name != "") {
+                    lable = feildObj.name + ": ";
+                }
+            }
+            if (custom_lable != "") {
+                lable = custom_lable + ": ";
+            }
+
+            if (is_viewonly()) {
+                html = "<label >" + lable + field_helper + "</label> " + value;
+            } else {
+                feild_name = "item." + model_prop;
+                html_class = (html_class != "") ? "class='" + html_class + "'" : "";
+                value = (value != "" && value != "System.String[]") ? "" + value + "" : "";
+
+
+                dynamic opts = objectService.explode(options);
+
+                html = "<label for='" + model_prop + "'>" + lable + field_helper + "</label>" +
+                    
+                        "<select name='" + feild_name + "' id='" + model_prop + "' " + html_class + " " + html_attr + " >" + 
+                        "<option value=''>Select</option>";
+                        foreach(dynamic part in opts) {
+                            dynamic selval = part.Trim();
+                            dynamic opt = part.Trim();
+
+					        if( part.Contains("=>") ){
+						        dynamic opval = objectService.explode(part,"=>");
+						        selval = opval[1].Trim();
+						        opt = opval[0].Trim();
+					        }
+
+                            String selected = ( !String.IsNullOrWhiteSpace(value) && value == selval ) ?  "selected" : "";
+
+					        html += "<option value='" + selval + "' data='" + value + " -- " + selval + "' " + selected + " >" + opt + "</option>";
+                          }
+                    
+                html += "</select>";
+            }
+            return html;
+        }
 
     }
 }
