@@ -2,9 +2,7 @@
 <ul class="grid col-one-half mq2-col-full full-input">
 #* study_type *#
 	<li>
-		#set($daval ="")
-		#set($daval = $!item.study_type)
-		#feild_selectinput($type "study_type" $daval "Clinical trial,Patient records,Data review" "" "" "")
+		$Controller.feilds("select","$type","study_type", $!item.study_type ,"Clinical trial,Patient records,Data review","","","","")
 	</li>
 </ul>	
 <ul class="grid col-one-half mq2-col-full full-input">
@@ -23,9 +21,7 @@
 	
 #* study_sick_healthy *#
 	<li>
-		#set($daval ="")
-		#set($daval = $!item.study_sick_healthy)
-		#feild_selectinput($type "study_sick_healthy" $daval "HIV infected,HIV uninfected,Health Human volunteer" "" "" "")
+		$Controller.feilds("select","$type","study_sick_healthy", $!item.study_sick_healthy ,"HIV infected,HIV uninfected,Health Human volunteer","","","","")
 	</li>
 </ul>
 
@@ -40,9 +36,7 @@
 	</li>
 #* study_length_measurement *#
 	<li>
-		#set($daval ="")
-		#set($daval = $!item.study_length_measurement)
-		#feild_selectinput($type "study_length_measurement" $daval "Days,Weeks,Months,Years" "" "" "")
+		$Controller.feilds("select","$type","study_length_measurement", $!item.study_length_measurement ,"Days,Weeks,Months,Years","","","","")
 	</li>
 </ul>	  
 
