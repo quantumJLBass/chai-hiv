@@ -35,14 +35,9 @@
 			<ul class="tabs clearfix">
 				
 				<li><a href="#drug_products">Drug Products</a></li>
-				<li><a href="#tab2">Pharmacology</a></li>
-				<li><a href="#tab3">Efficacy</a></li>
-				#*
-				<!--<li><a href="#tab5">Adverse Events</a></li>
-				<li><a href="#tab6">Resistance</a></li>
-				<li><a href="#tab8">Discontinuation</a></li>-->
-				*#
-				<li><a href="#tab4">Durability</a></li>
+				<li><a href="#pharmacology">Pharmacology</a></li>
+				<li><a href="#efficacy">Efficacy</a></li>
+				<li><a href="#durability">Durability</a></li>
 			</ul>
 			<div class="tab_container">
 						
@@ -60,7 +55,7 @@
 #* *#
 #* pharmacology ------------ *#
 #* *#
-			<article id="tab2" class="tab_content">
+			<article id="pharmacology" class="tab_content">
 				$Controller.notes("$type","pharmacology","top")
 				
 				#parse("center/types_tabs/clinical/pharmacology.vm")
@@ -69,71 +64,21 @@
 			</article>
 
 #* *#
-#* tab3 ------------ *#
+#* efficacy ------------ *#
 #* *#
-			<article id="tab3" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "efficacy" "top")
-				</div>
-				#parse("center/types_tabs/clinical/tab3.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "efficacy" "bottom")
-				</div>
+			<article id="efficacy" class="tab_content">
+				$Controller.notes("$type","efficacy","top")
+				#parse("center/types_tabs/clinical/efficacy.vm")
+				$Controller.notes("$type","efficacy","bottom")
 			</article>
-
-#* *#
-#* tab5 ------------ *#
-#* *#
-#*	<!--		<article id="tab5" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "adverse_events" "top")
-				</div>
-				#parse("center/types_tabs/clinical/tab5.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "adverse_events" "bottom")
-				</div>
-			</article>
-			-->*#
-#* *#
-#* tab6 ------------ *#
-#* *#
-#*<!--	
-			<article id="tab6" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "resistance" "top")
-				</div>
-				#parse("center/types_tabs/clinical/tab6.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "resistance" "bottom")
-				</div>
-			</article>
-			-->*#
-#* *#
-#* tab8 ------------ *#
-#* *#
-#*	<!--
-			<article id="tab8" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "discontinuation" "top")
-				</div>
-				#parse("center/types_tabs/clinical/tab8.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "discontinuation" "bottom")
-				</div>
-			</article>
-			-->*#
 			
 #* *#
-#* tab4 ------------ *#
+#* durability ------------ *#
 #* *#
-			<article id="tab4" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "durability" "top")
-				</div>
-				#parse("center/types_tabs/clinical/tab4.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "durability" "bottom")
-				</div>
+			<article id="durability" class="tab_content">
+				$Controller.notes("$type","durability","top")
+				#parse("center/types_tabs/clinical/durability.vm")
+				$Controller.notes("$type","durability","bottom")
 			</article>
 
 		</div>
