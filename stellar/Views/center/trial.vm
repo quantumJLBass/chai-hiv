@@ -29,7 +29,7 @@
 				<div class="">
 					<ul class="tabs clearfix">
 						<li><a href="#study">Study</a></li>
-						<li><a href="#tab1">Rresults</a></li>
+						<li><a href="#results">Results</a></li>
 					</ul>
 					<div class="tab_container">
 #* *#
@@ -48,9 +48,9 @@
 					
 					
 #* *#
-#* tab1 ------------ *#
+#* results ------------ *#
 #* *#
-						<article id="tab1" class="tab_content">
+						<article id="results" class="tab_content">
 							<div style="clear:both;">
 								#tab_notes("$type" "regulatory_information" "top")
 							</div>
