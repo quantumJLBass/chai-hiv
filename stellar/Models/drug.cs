@@ -161,6 +161,11 @@ namespace stellar.Models {
         [HasAndBelongsToMany(typeof(drug_market), Lazy = true, Table = "drug_to_drug_market", ColumnKey = "drug_id", ColumnRef = "drug_market_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug_market> markets { get; set; }
 
+        [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "drug_to_drug_family", ColumnKey = "drug_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        virtual public IList<drug_family> famlies { get; set; }
+
+        
+
 
 
         virtual public String get_named() {
