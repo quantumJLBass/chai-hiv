@@ -62,9 +62,9 @@
 #* *#
 						<article id="results" class="tab_content">
 							$Controller.notes("$type","regulatory_information","top")
-#* results *#
-							<label for="results">Results:</label>
-							<textarea name="item.discription" id="description" cols="100" rows="6" required placeholder="Enter discription"  class="required" >$!item.discription</textarea>
+
+							#* Results *#
+							$Controller.feilds("textarea","$type","discription", $!item.discription , "Results","Enter trial discription and details","required"," cols='100' rows='6' ")
 							
 							$Controller.notes("$type","regulatory_information","bottom")
 						</article>
