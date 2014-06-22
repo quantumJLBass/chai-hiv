@@ -59,7 +59,11 @@ namespace stellar.Models {
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string study_length_measurement { get; set; }
 
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_primary_end_point { get; set; }
 
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_secondary_end_point { get; set; }
 
 
         [HasAndBelongsToMany(typeof(drug), Lazy = true, Table = "trial_to_drugs", ColumnKey = "trial_id", ColumnRef = "drug_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]

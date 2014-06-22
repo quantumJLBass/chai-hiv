@@ -40,7 +40,16 @@
 	</li>
 </ul>	  
 
-
+<ul class="grid col-full full-input">	
+#* study_sample_size *#
+	<li>
+		$Controller.feilds("textarea","$type","study_primary_end_point", $!item.study_primary_end_point ,"","",""," row='7' ")
+	</li>
+#* study_length *#
+	<li>
+		$Controller.feilds("textarea","$type","study_secondary_end_point", $!item.study_secondary_end_point ,"","",""," row='7' ")
+	</li>
+</ul>	
 		
 
 
