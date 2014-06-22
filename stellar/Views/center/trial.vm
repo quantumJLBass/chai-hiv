@@ -29,6 +29,7 @@
 				<div class="">
 					<ul class="tabs clearfix">
 						<li><a href="#study">Study</a></li>
+						<li><a href="#trial_arms">Trial Arms</a></li>
 						<li><a href="#results">Results</a></li>
 					</ul>
 					<div class="tab_container">
@@ -45,7 +46,22 @@
 						</div>
 					</article>
 
-					
+#* *#
+#* trial_arms ------------ *#
+#* *#
+					<article id="trial_arms" class="tab_content">
+						<div style="clear:both;">
+							#tab_notes("$type" "trial_arms" "top")
+						</div>
+						
+						#* drugdata *#
+						#set($typed_list = $item.clinicals)
+						#parse("center/model_tie_tables/clinical.vm")
+						
+						<div style="clear:both;">
+							#tab_notes("$type" "trial_arms" "bottom")
+						</div>
+					</article>					
 					
 #* *#
 #* results ------------ *#
