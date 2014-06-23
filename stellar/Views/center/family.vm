@@ -105,7 +105,7 @@ $part.name => $part.alias
 	#* *#
 #capturefor(fam_sub_code)
 #foreach($part in  $item.substances)
-$!postingService.get_taxonomy($part.generic_name).name
+$part.lab_code
 #between
 <em>:</em>
 #end
@@ -124,20 +124,19 @@ $!postingService.get_taxonomy($part.generic_name).name
 			<ul id="sortable">
 
 				
-                #foreach($substance in $substances)
+                #foreach($substance in $item.substances)
                     #if($substance.baseid!=0)
 						<li class='substance_item'>
 							<i title="edit" class="icon-trash"></i>
 							<span class='sortable_handle'>handle</span>
 							$!postingService.get_taxonomy($substance.generic_name).name (<span class='sub_code'> $!postingService.get_taxonomy($substance.generic_name).name </span>)
-							<input type="hidden" name="item.substances[]" value="$part.baseid" />
-						</li>
-                    	<input type="hidden" name="substances[$!{substance.baseid}].baseid" value="$!{substance.baseid}" class="substance"/>
 
-				  		<input type="hidden" value="$!{substance.family_substance.get_Item(0).baseid}" name="family_substance[$!{substance.baseid}].baseid" class=""/>
-				  		<input type="hidden" value="$!{substance.family_substance.get_Item(0).substance_order}" name="family_substance[$!{substance.baseid}].substance_order" class="placeOrder"/>
-				  		<input type="hidden" value="$!{substance.id}" name="family_substance[$!{substance.baseid}].substance.baseid" class="placeOrderId"/>
-       
+							<input type="hidden" name="substances[$!{substance.baseid}].baseid" value="$!{substance.baseid}" class="substance"/>	
+							<input type="hidden" name="family_substance[$!{substance.baseid}].baseid" value="$!{substance.family_substance.get_Item(0).baseid}" class="substance"/>	
+							<input type="hidden" name="family_substance[$!{substance.baseid}].family.baseid" value="$!{item.baseid}" class=""/>
+							<input type="hidden" name="family_substance[$!{substance.baseid}].substance_order" value="$!{substance.family_substance.get_Item(0).substance_order}" class="substanceOrder"/>
+							<input type="hidden" name="family_substance[$!{substance.baseid}].substance.baseid" value="$!{substance.id}" class=""/>
+      					 </li>
                     #end
                 #end
 
