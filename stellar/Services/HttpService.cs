@@ -23,6 +23,8 @@ using System.Drawing;
 #endregion
 
 namespace stellar.Services {
+    /// <summary>
+    /// </summary>
     public class httpService {
         ILog log = log4net.LogManager.GetLogger("HTTPService");
         logger logService = new logger();
@@ -119,6 +121,9 @@ namespace stellar.Services {
             }
             return queryparams;
         }
+
+        /// <summary>
+        /// </summary>
         public static Dictionary<string, string> getPostParmasAsObj_obj(string name) {
             Dictionary<string, string> queryparams = new Dictionary<string, string>();
             foreach (String key in System.Web.HttpContext.Current.Request.Form.AllKeys) {
@@ -128,6 +133,9 @@ namespace stellar.Services {
             }
             return queryparams;
         }
+
+        /// <summary>
+        /// </summary>
         public static Dictionary<string, string> get_request_parmas_obj() {
             Dictionary<string, string> queryparams = new Dictionary<string, string>();
             foreach (String key in System.Web.HttpContext.Current.Request.Params.AllKeys) {
@@ -135,6 +143,9 @@ namespace stellar.Services {
             }
             return queryparams;
         }
+
+        /// <summary>
+        /// </summary>
         public static string get_request(string name) {
             string queryparams = "";
             foreach (String key in System.Web.HttpContext.Current.Request.Form.AllKeys) {
@@ -319,6 +330,8 @@ namespace stellar.Services {
             //return "false";
         }
 
+        /// <summary>
+        /// </summary>
         public static byte[] DownloadBinary(string url) {
             byte[] file;
             using (WebClient wc = new WebClient()) {
@@ -330,7 +343,8 @@ namespace stellar.Services {
             return file;
         }
 
-
+        /// <summary>
+        /// </summary>
         public static String get_post_str(){
             //Page.Response.ContentType = "application/x-www-form-urlencoded"; 
             StreamReader sr = new StreamReader(System.Web.HttpContext.Current.Request.InputStream);
@@ -341,10 +355,14 @@ namespace stellar.Services {
 
 
 
+        /// <summary>
+        /// </summary>
         public string HttpPost(string uri, string parameters, String referrer) {
             return HttpAction(uri, parameters, "POST", referrer);
         }
 
+        /// <summary>
+        /// </summary>
         public string HttpGetWithCache(string uri, string parameters, String referrer) {
             String cache = "";// cacheService.getCacheContents(uri + parameters) as String;
             if (cache == null)
@@ -358,11 +376,16 @@ namespace stellar.Services {
             return result;
         }
 
+        /// <summary>
+        /// </summary>
         public string HttpGet(string uri, string parameters, String referrer) {
             return HttpAction(uri, parameters, "GET", referrer);
         }
 
         // callback used to validate the certificate in an SSL conversation
+
+        /// <summary>
+        /// </summary>
         private static bool ValidateRemoteCertificate(
         object sender,
             X509Certificate certificate,
@@ -378,6 +401,8 @@ namespace stellar.Services {
             }
         }
 
+        /// <summary>
+        /// </summary>
         public string HttpAction(string uri, string parameters, String method, String referrer) {
             if (HttpContext.Current.Cache[uri + parameters] != null)
                 return HttpContext.Current.Cache[uri + parameters] as String;
@@ -466,6 +491,8 @@ namespace stellar.Services {
             return null;
         } // end HttpPost 
 
+        /// <summary>
+        /// </summary>
         public String ConvertRelativePathsToAbsolute(String text, String absoluteUrl) {
             // Absolute url could be http://research.wsu.edu/Innovators/
             // Site root would be http://research.wsu.edu/
