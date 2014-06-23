@@ -527,7 +527,7 @@ namespace stellar.Controllers {
             } else {
                 PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
             }
-            RenderView("drug_families");
+            RenderView("families");
         }
         /// <summary> </summary>
         public static int make_family_tmp() {
@@ -544,7 +544,7 @@ namespace stellar.Controllers {
             //do the auth
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
-            if (id <= 0) id = make_drug_tmp();
+            if (id <= 0) id = make_family_tmp();
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<drug_family>.Find(id);
             RenderView("drug");
         }
