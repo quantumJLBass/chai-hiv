@@ -96,7 +96,18 @@
 }));
 
 $(document).ready(function() {
+	/*$("#sortable").sortable({
+		handle: $("#sortable").children().children(".handle")
+	});*/
 	
+	$("#famSubAdd").on("on",function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		alert("hello");
+		$("<li class='ui-state-highlight'><span class='handle'>handle</span> newthing</li>").appendTo("#sortable");
+		
+		//$("#sortable").sortable("refresh");
+	});
 	
 	function make_maskes(){
 		$.mask.definitions['~'] = "[+-]";
@@ -1203,16 +1214,7 @@ $(document).ready(function() {
 	}
 	
 
-	var container = $("#sortable");
-	container.sortable({
-		handle: container.children().children(".handle")
-	});
-	
-	$('#fam_add_sub').on("on",function() {
-		$('<li class="ui-state-highlight"><span class="handle">handle</span> newthing</li>').appendTo('#sortable');
-		alert("hello");
-		$("#sortable").sortable('refresh');
-	});
+
 
 });
 })(jQuery);
