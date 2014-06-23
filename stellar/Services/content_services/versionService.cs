@@ -540,8 +540,6 @@ namespace stellar.Services {
             /// The post partent will be updated with the latest content and setting.  
             /// Also this is push a file copy to the published folder as well as make the copies.
             /// </summary>
-            /// <param name="working_copy"></param>
-            /// <param name="version"></param>
             /// <returns></returns>
             public static posting make_post_publised_version(posting working_copy) {
                 //first since the working version is the start of the edit saving process, we will 

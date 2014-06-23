@@ -246,9 +246,9 @@ namespace cms.utils
       h = null; // free up hashtable memory (maybe)
 
       int MAX = DataA.Length + DataB.Length + 1;
-      /// vector for the (0,0) to (x,y) search
+      // vector for the (0,0) to (x,y) search
       int[] DownVector = new int[2 * MAX + 2];
-      /// vector for the (u,v) to (N,M) search
+      // vector for the (u,v) to (N,M) search
       int[] UpVector = new int[2 * MAX + 2];
 
       LCS(DataA, 0, DataA.Length, DataB, 0, DataB.Length, DownVector, UpVector);
@@ -301,9 +301,9 @@ namespace cms.utils
       DiffData DataB = new DiffData(ArrayB);
 
       int MAX = DataA.Length + DataB.Length + 1;
-      /// vector for the (0,0) to (x,y) search
+      // vector for the (0,0) to (x,y) search
       int[] DownVector = new int[2 * MAX + 2];
-      /// vector for the (u,v) to (N,M) search
+      // vector for the (u,v) to (N,M) search
       int[] UpVector = new int[2 * MAX + 2];
 
       LCS(DataA, 0, DataA.Length, DataB, 0, DataB.Length, DownVector, UpVector);
@@ -315,9 +315,6 @@ namespace cms.utils
     /// This function converts all textlines of the text into unique numbers for every unique textline
     /// so further work can work only with simple numbers.
     /// </summary>
-    /// <param name="aText">the input text</param>
-    /// <param name="h">This extern initialized hashtable is used for storing all ever used textlines.</param>
-    /// <param name="trimSpace">ignore leading and trailing space characters</param>
     /// <returns>a array of integers.</returns>
     private static int[] DiffCodes(string aText, Hashtable h, bool trimSpace, bool ignoreSpace, bool ignoreCase) {
       // get all codes of the text
@@ -594,7 +591,6 @@ namespace cms.utils
     /// <summary>
     /// Initialize the Diff-Data buffer.
     /// </summary>
-    /// <param name="data">reference to the buffer</param>
     internal DiffData(int[] initData) {
       data = initData;
       Length = initData.Length;

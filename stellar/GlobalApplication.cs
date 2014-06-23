@@ -239,13 +239,14 @@ namespace stellar {
 
 
         }
+        /// <summary> </summary>
         protected void Session_Start(object sender, EventArgs e) {
             if ( Controllers.BaseController.authenticated() ) {
                 Services.logger.writelog("User loged in");
             }
         }
 
-
+        /// <summary> </summary>
         protected void Session_End(object sender, EventArgs e) {
 
         }
@@ -263,14 +264,15 @@ namespace stellar {
 
         }
         */
+        /// <summary> </summary>
         protected void Application_AuthenticateRequest(object sender, EventArgs e) {
 
         }
-
+        /// <summary> </summary>
         protected void Application_Error(object sender, EventArgs e) {
 
         }
-
+        /// <summary> </summary>
         protected void Session_OnEnd(Object sender, EventArgs e) {
             try {
                 if (HttpContext.Current.Request.Cookies["unldap"] != null) {
@@ -282,7 +284,7 @@ namespace stellar {
 
             }
         }
-
+        /// <summary> </summary>
         public void Application_OnEnd() {
 
             container.Dispose();

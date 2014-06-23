@@ -253,7 +253,7 @@ namespace stellar.Controllers {
                 logger.writelog("Saved reference edits on", getView(), getAction(), item.baseid);
                 Flash["message"] = "Saved reference  edits ";
                 ActiveRecordMediator<reference>.Save(item);
-                /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+                // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();
                 //hashtable.Add("post_type", item.post_type.alias);
                 Redirect("center", "references", hashtable);
@@ -393,7 +393,7 @@ namespace stellar.Controllers {
                 logger.writelog("Saved " + item.alias + " edits on", getView(), getAction(), item.baseid);
                 Flash["message"] = "Saved " + item.alias + " edits for " + item.ln_clinical_t;
                 ActiveRecordMediator<clinical>.Save(item);
-                /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+                // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();
                 //hashtable.Add("post_type", item.post_type.alias);
                 Redirect("center", "clinicals", hashtable);
@@ -636,7 +636,7 @@ namespace stellar.Controllers {
                 logger.writelog("Saved " + item.baseid + " edits on", getView(), getAction(), item.baseid);
                 Flash["message"] = "Saved " + item.baseid + " edits for " + item.name;
                 ActiveRecordMediator<drug_family>.Save(item);
-                /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+                // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();
                 //hashtable.Add("post_type", item.post_type.alias);
                 Redirect("center", "families", hashtable);
@@ -780,7 +780,7 @@ namespace stellar.Controllers {
                 logger.writelog("Saved " + item.baseid + " edits on", getView(), getAction(), item.baseid);
                 Flash["message"] = "Saved " + item.baseid + " edits for " + item.brand_name;
                 ActiveRecordMediator<drug>.Save(item);
-                /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+                // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();
                 //hashtable.Add("post_type", item.post_type.alias);
                 Redirect("center", "drugs", hashtable);
@@ -912,7 +912,7 @@ namespace stellar.Controllers {
                 logger.writelog("Saved " + item.lab_code + " edits on", getView(), getAction(), item.baseid);
                 Flash["message"] = "Saved " + item.lab_code + " edits for " + item.generic_name;
                 ActiveRecordMediator<substance>.Save(item);
-                /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+                // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();
                 //hashtable.Add("post_type", item.post_type.alias);
                 Redirect("center", "substances", hashtable);
@@ -920,7 +920,7 @@ namespace stellar.Controllers {
             }
 
             //do the auth
-            RenderView("substance");
+            //RenderView("substance");
         }
         /// <summary> </summary>
          [SkipFilter()]

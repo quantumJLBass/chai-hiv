@@ -589,7 +589,6 @@ namespace stellar.Controllers {
                     uploadPath += @"mugshots\";
                 }
 
-                /**/
                 if (eventsid != 0) {
                     posting events = ActiveRecordBase<posting>.Find(eventsid);
                     uploadPath += @"events\" + events.id + @"\";

@@ -97,7 +97,10 @@ namespace stellar.Controllers {
         }
         /// <summary> </summary>
         public void merge(int[] ids, string newname) {
-            if (!String.IsNullOrEmpty(Request.Params["deleteTags"])) massDeleteTags(ids); return;
+            if (!String.IsNullOrEmpty(Request.Params["deleteTags"])) {
+                massDeleteTags(ids);
+                return;
+            }
             dynamic places = new List<_base>();
             string name = "";
             foreach (int id in ids) {

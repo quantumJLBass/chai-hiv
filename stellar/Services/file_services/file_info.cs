@@ -257,12 +257,6 @@ namespace stellar.Services {
         /// <summary>
         /// Function to loop thru the directories and complie a list of files
         /// </summary>
-        /// <param name="sDir">Directory path to be checked</param>
-        /// <param name="splitOn">Return only the back half of the path (make relative)</param>
-        /// <param name="ext">Find only this extension</param>
-        /// <param name="start">Start Depth of recursion return</param>
-        /// <param name="end">Stop Depth of recursion</param>
-        /// <param name="recursion">Current depth of recursion no start</param>
         /// <returns>List - Return list of paths found</returns>
         public static List<string> DirSearch(string sDir) {
             return DirSearch(sDir, "", "", 0, 999, 0);

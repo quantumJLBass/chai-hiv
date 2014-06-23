@@ -233,8 +233,9 @@ namespace stellar.Models {
     /// <summary> </summary>
     [ActiveRecord(Lazy = true, BatchSize = 5)]
     public class user_group : _base {
-        /// <summary> </summary>
+        
         private int _id = 0;
+        /// <summary> </summary>
         [JoinedKey("user_groups_id")]
         virtual public int id { get { return base.baseid; } set { _id = value; } }
 
@@ -244,7 +245,7 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [Property]
-        virtual public String alias { get; set; }
+        virtual new public String alias { get; set; }
 
         /// <summary> </summary>
         [Property(Default = "0")]
@@ -286,7 +287,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property]
         [ValidateNonEmpty("Privilege alias is required.")]
-        virtual public String alias { get; set; }
+        virtual new public String alias { get; set; }
 
         /// <summary> </summary>
         [Property(Default = "0")]
@@ -320,7 +321,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property]
         [ValidateNonEmpty("privilege_type alias is required.")]
-        virtual public String alias { get; set; }
+        virtual new public String alias { get; set; }
 
         /// <summary> </summary>
         [Property]

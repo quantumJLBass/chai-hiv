@@ -189,6 +189,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(Default = "0")]
         virtual public Boolean gets_media { get; set; }
+        /// <summary> </summary>
         virtual public Boolean this_gets_media() {
             posting post_obj = ActiveRecordBase<posting>.Find(this.baseid);
             return (!post_obj.post_type.is_overwriteable(post_obj)) ? post_obj.post_type.gets_media : post_obj.gets_media;
@@ -205,6 +206,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(Default = "0")]
         virtual public Boolean is_tabable_content { get; set; }
+        /// <summary> </summary>
         virtual public Boolean this_is_tabable_content() {
             posting post_obj = ActiveRecordBase<posting>.Find(this.baseid);
             return (!post_obj.post_type.is_overwriteable(post_obj)) ? post_obj.post_type.is_tabable_content : post_obj.is_tabable_content;
@@ -213,6 +215,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(Default = "0")]
         virtual public Boolean is_summarizable { get; set; }
+        /// <summary> </summary>
         virtual public Boolean this_is_summarizable() {
             posting post_obj = ActiveRecordBase<posting>.Find(this.baseid);
             return (!post_obj.post_type.is_overwriteable(post_obj)) ? post_obj.post_type.is_summarizable : post_obj.is_summarizable;
@@ -222,6 +225,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(Default = "1")]
         virtual public Boolean is_taggable { get; set; }
+        /// <summary> </summary>
         virtual public Boolean this_is_taggable() {
             posting post_obj = ActiveRecordBase<posting>.Find(this.baseid);
             return (!post_obj.post_type.is_overwriteable(post_obj)) ? post_obj.post_type.is_taggable : post_obj.is_taggable;
@@ -231,6 +235,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(Default = "1")]
         virtual public Boolean gets_metadata { get; set; }
+        /// <summary> </summary>
         virtual public Boolean this_gets_metadata() {
             posting post_obj = ActiveRecordBase<posting>.Find(this.baseid);
             return (!post_obj.post_type.is_overwriteable(post_obj)) ? post_obj.post_type.gets_metadata : post_obj.gets_metadata;
@@ -239,6 +244,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(Default = "1")]
         virtual public Boolean is_taxonomyable { get; set; }
+        /// <summary> </summary>
         virtual public Boolean this_is_taxonomyable() {
             posting post_obj = ActiveRecordBase<posting>.Find(this.baseid);
             return (!post_obj.post_type.is_overwriteable(post_obj)) ? post_obj.post_type.is_taxonomyable : post_obj.is_taxonomyable;
@@ -247,6 +253,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(Default = "1")]
         virtual public Boolean is_categorized { get; set; }
+        /// <summary> </summary>
         virtual public Boolean this_is_categorized() {
             posting post_obj = ActiveRecordBase<posting>.Find(this.baseid);
             return (!post_obj.post_type.is_overwriteable(post_obj)) ? post_obj.post_type.is_categorized : post_obj.is_categorized;
@@ -255,6 +262,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(Default = "1")]
         virtual public Boolean is_templatable { get; set; }
+        /// <summary> </summary>
         virtual public Boolean this_is_templatable() {
             posting post_obj = ActiveRecordBase<posting>.Find(this.baseid);
             return (!post_obj.post_type.is_overwriteable(post_obj)) ? post_obj.post_type.is_templatable : post_obj.is_templatable;
@@ -267,8 +275,9 @@ namespace stellar.Models {
 
         /* relation */
 
-        /// <summary> </summary>
+        
         private _base _parent = null;
+        /// <summary> </summary>
         [BelongsTo(NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public _base parent {
             get { return _parent; }
@@ -309,7 +318,6 @@ namespace stellar.Models {
         /// <summary> </summary>
         [HasAndBelongsToMany(typeof(taxonomy_type), Lazy = true, Table = "_base_to_taxonomy_types", ColumnKey = "baseid", ColumnRef = "taxonomy_type_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<taxonomy_type> taxonomy_types { get; set; }
-        /**/
 
         /// <summary> </summary>
         [HasAndBelongsToMany(typeof(taxonomy), Lazy = true, Table = "_base_to_taxonomy", ColumnKey = "baseid", ColumnRef = "taxonomy_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
@@ -579,8 +587,9 @@ namespace stellar.Models {
         [Property]
         virtual public string meta_key { get; set; }
 
-        /// <summary> </summary>
+        
         private DateTime _value;
+        /// <summary> </summary>
         [Property]
         virtual public DateTime value {
             get {
@@ -651,8 +660,9 @@ namespace stellar.Models {
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string content { get; set; }
 
-        /// <summary> </summary>
+        
         private DateTime _publish_time;
+        /// <summary> </summary>
         [Property(NotNull = true,Default = "GETDATE()")]
         virtual public DateTime publish_time {
             get {
@@ -669,8 +679,9 @@ namespace stellar.Models {
         virtual public posting_type post_type { get; set; }
 
 
-        /// <summary> </summary>
+        
         private DateTime? _outputError;
+        /// <summary> </summary>
         [Property]
         virtual public DateTime? outputError {
             get {
@@ -876,7 +887,7 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string content { get; set; }
+        virtual new public string content { get; set; }
 
         /// <summary> </summary>
         [Property]
@@ -929,11 +940,11 @@ namespace stellar.Models {
         virtual public posting post { get; set; }
 
         /// <summary> </summary>
-        virtual public string url(){
+        virtual new public string url(){
             return url(System.Web.HttpContext.Current.Request.IsLocal ? "/ams" : "");
         }
         /// <summary> </summary>
-        virtual public string url(String base_url){
+        virtual new public string url(String base_url){
             if(Controllers.BaseController.current_controller=="visible_editor"){
                 if( (this.post.is_link) ){
                     return "#Simulated-external-link," + this.post.url;
@@ -953,7 +964,7 @@ namespace stellar.Models {
         }
 
         /// <summary> </summary>
-        virtual public string name(){
+        virtual new public string name(){
             String name = "";
             if (this.post != null) {
                 name = this.post.name.Replace("&", "&amp;").Replace("&&amp;", "&amp;");

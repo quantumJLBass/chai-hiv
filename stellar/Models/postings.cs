@@ -194,7 +194,7 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [Property]
-        virtual public String alias { get; set; }
+        virtual new public String alias { get; set; }
 
         /// <summary> </summary>
         [HasAndBelongsToMany(typeof(posting_type_action), Lazy = true, Table = "posting_type_to_action", ColumnKey = "posting_type_actions_id", ColumnRef = "posting_type_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]

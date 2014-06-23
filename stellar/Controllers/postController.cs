@@ -227,7 +227,7 @@ namespace stellar.Controllers {
                 }else{
                     item.editing = null;
                     ActiveRecordMediator<posting>.Save(item);
-                    /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+                    // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                     Hashtable hashtable = new Hashtable();
                     hashtable.Add("post_type", item.post_type.alias);
                     Redirect("post", "posting_list", hashtable);
@@ -323,7 +323,7 @@ namespace stellar.Controllers {
 
 
 
-            /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+            // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
 
             //this will com later
             //Redirect(item.post_type.alias, "list");
@@ -358,7 +358,7 @@ namespace stellar.Controllers {
                     Flash["Error"] = "Opps, something failed by you Saved just not Published a " + item.post_type.name + " named " + item.name + "(" + item.baseid + ")";
                 }
 
-                /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+                // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();
                 hashtable.Add("post_type", item.post_type.alias);
                 Redirect("post", "posting_list", hashtable );
@@ -394,7 +394,7 @@ namespace stellar.Controllers {
 
         //note that the xxxxxxmass arg should be a switch
         /// <summary> </summary>
-        public void massaction(int[] mass, String deletemass, String publishmass) {
+        public new void massaction(int[] mass, String deletemass, String publishmass) {
             foreach (int id in mass) {
                 if (!String.IsNullOrWhiteSpace(publishmass)) {
                     dynamic item = ActiveRecordBase<_base>.Find(id);

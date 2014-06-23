@@ -260,7 +260,7 @@ namespace stellar.Services {
         public static Hashtable marge_params(IDictionary PropertyBag, Hashtable paramtable) {
             return PropertyBag_to_params(PropertyBag,paramtable);
         }
-        /**/
+
 
 
        
