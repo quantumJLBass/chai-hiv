@@ -115,10 +115,10 @@ $part.name => $part.alias
 		  <div class=" #if(!$item.baseid || $item.tmp) open #else closed #end ">
 			<ul id="sortable">
 				#foreach($part in  $item.substances)
-					<li class="ui-state-default #if($velocityCount%2<1)even #else odd #end" data-order="">$!postingService.get_taxonomy($part.generic_name).name</li>
+					<li class="ui-state-default #if($velocityCount%2<1)even #else odd #end" data-order=""><span class="handle">handle</span> $!postingService.get_taxonomy($part.generic_name).name</li>
 				#end
 			</ul>
-		  	<a href="#" class="button">Add new substance</a>
+		  	<a href="#" id="fam_add_sub" class="button">Add new substance</a>
 			<br/><br/>
 		  </div>
 		  
