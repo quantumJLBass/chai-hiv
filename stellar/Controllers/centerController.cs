@@ -487,6 +487,144 @@ namespace stellar.Controllers {
             Redirect("center", "trials", new Hashtable());
         }
         #endregion
+        #region(drug_families)
+        public void families(Boolean skiplayout, String exclude, Boolean pub) {
+            if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+            pub = is_pubview(pub);
+            PropertyBag["published"] = pub;
+            //do the auth
+            userService.clearTmps<drug_family>();
+            if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
+            String[] drop = exclude.Split(',');
+            if (skiplayout) CancelLayout();
+            PropertyBag["skiplayout"] = skiplayout;
+            IList<drug_family> items = ActiveRecordBase<drug_family>.FindAll();
+            PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+            if (skiplayout) {
+                PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
+            } else {
+                PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+            }
+            RenderView("drug_families");
+        }
+        public static int make_family_tmp() {
+            drug_family tmp = new drug_family();
+            tmp.tmp = true;
+            appuser user = userService.getUserFull();
+            tmp.editing = user;
+            ActiveRecordMediator<drug_family>.Save(tmp);
+            return tmp.baseid;
+        }
+        public void family(int id, Boolean skiplayout) {
+            if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+            //do the auth
+            if (skiplayout) CancelLayout();
+            PropertyBag["skiplayout"] = skiplayout;
+            if (id <= 0) id = make_drug_tmp();
+            if (id > 0) PropertyBag["item"] = ActiveRecordBase<drug_family>.Find(id);
+            RenderView("drug");
+        }
+
+        public void copyfamily(int id, String name) {
+            CancelLayout();
+            CancelView();
+            var newObj = versionService._copy<drug_family>(id, name, false);
+            if (newObj != null && newObj.baseid > 0) {
+                Flash["message"] = "New copy saved to the system.  You may now edit " + name;
+                RedirectToUrl("~/center/family.castle.castle?id=" + newObj.baseid);
+            } else {
+                Flash["error"] = "Failed to copy item.";
+                Hashtable hashtable = new Hashtable();
+                Redirect("center", "families", hashtable);
+            }
+
+        }
+        [SkipFilter()]
+        public void savedrug([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug_family item,
+            Boolean ajaxed_update,
+            Boolean forced_tmp,
+            String apply,
+            String cancel,
+            String transition,
+            Boolean skiplayout) {
+            if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+
+            if (skiplayout) CancelLayout();
+            PropertyBag["skiplayout"] = skiplayout;
+            if (cancel != null) {
+                if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<drug_family>.Delete(item);
+                Redirect("center", "families", new Hashtable());
+                return;
+            }
+
+            item.markets.Clear();
+            String[] keys = HttpContext.Current.Request.Params.AllKeys.Where(x => x.StartsWith("markets_counts[")).ToArray();
+            for (int i = 1; i <= keys.Count(); i++) {
+                String param_id = HttpContext.Current.Request.Form["markets_counts[" + i + "]"];
+                String baseid = HttpContext.Current.Request.Form["markets[" + param_id + "].baseid"];
+                String year = HttpContext.Current.Request.Form["markets[" + param_id + "].year"];
+                String chai_ceiling_price = HttpContext.Current.Request.Form["markets[" + param_id + "].chai_ceiling_price"];
+                String patients_on_therapy = HttpContext.Current.Request.Form["markets[" + param_id + "].patients_on_therapy"];
+                String source_one = HttpContext.Current.Request.Form["markets[" + param_id + "].source_one"];
+                String source_one_price = HttpContext.Current.Request.Form["markets[" + param_id + "].source_one_price"];
+                String source_two = HttpContext.Current.Request.Form["markets[" + param_id + "].source_two"];
+                String source_two_price = HttpContext.Current.Request.Form["markets[" + param_id + "].source_two_price"];
+
+                drug_market market = new drug_market() {
+                    year = year,
+                    chai_ceiling_price = chai_ceiling_price,
+                    patients_on_therapy = patients_on_therapy,
+                    source_one = source_one,
+                    source_one_price = source_one_price,
+                    source_two = source_two,
+                    source_two_price = source_two_price
+                };
+
+                ActiveRecordMediator<drug_market>.Save(market);
+                item.markets.Add(market);
+            }
+
+
+            item.tmp = false;
+            if (item.published) item.content = "";
+            ActiveRecordMediator<drug_family>.Save(item);
+
+            //do the auth
+            if (apply != null || ajaxed_update) {
+                logger.writelog("Applied " + item.baseid + " edits", getView(), getAction(), item.baseid);
+                Flash["message"] = "Applied " + item.baseid + " edits for " + item.name;
+                if (item.baseid > 0) {
+                    if (ajaxed_update) {
+                        CancelLayout(); CancelView();
+                        RenderText(item.baseid.ToString() + "," + item.name);
+                    } else {
+                        RedirectToUrl("~/center/family.castle?id=" + item.baseid);
+                    }
+                    return;
+                } else {
+                    RedirectToReferrer();
+                    return;
+                }
+            } else {
+                item.editing = null;
+                logger.writelog("Saved " + item.baseid + " edits on", getView(), getAction(), item.baseid);
+                Flash["message"] = "Saved " + item.baseid + " edits for " + item.name;
+                ActiveRecordMediator<drug_family>.Save(item);
+                /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+                Hashtable hashtable = new Hashtable();
+                //hashtable.Add("post_type", item.post_type.alias);
+                Redirect("center", "families", hashtable);
+                return;
+            }
+        }
+        [SkipFilter()]
+        public void remove_family(int id, Boolean skiplayout) {
+            if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+            delete_post<drug_family>(id);
+            Flash["message"] = "Removed Item";
+            Redirect("center", "families", new Hashtable());
+        }
+        #endregion
         #region(drugs)
         public void drugs(Boolean skiplayout, String exclude, Boolean pub) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
