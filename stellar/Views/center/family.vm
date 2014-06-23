@@ -129,13 +129,13 @@ $part.lab_code
 						<li class='substance_item'>
 							<i title="edit" class="icon-trash"></i>
 							<span class='sortable_handle'>handle</span>
-							$!postingService.get_taxonomy($substance.generic_name).name (<span class='sub_code'> $!postingService.get_taxonomy($substance.generic_name).name </span>)
+							$!postingService.get_taxonomy($substance.generic_name).name (<span class='sub_code'> $substance.lab_code </span>)
 
 							<input type="hidden" name="substances[$!{substance.baseid}].baseid" value="$!{substance.baseid}" class="substance"/>	
-							<input type="hidden" name="family_substance[$!{substance.baseid}].baseid" value="$!{substance.family_substance.get_Item(0).baseid}" class="substance"/>	
+							<input type="hidden" name="family_substance[$!{substance.baseid}].baseid" value="$!{substance.family_substance.get_Item(0).id}" class="substance"/>	
 							<input type="hidden" name="family_substance[$!{substance.baseid}].family.baseid" value="$!{item.baseid}" class=""/>
 							<input type="hidden" name="family_substance[$!{substance.baseid}].substance_order" value="$!{substance.family_substance.get_Item(0).substance_order}" class="substanceOrder"/>
-							<input type="hidden" name="family_substance[$!{substance.baseid}].substance.baseid" value="$!{substance.id}" class=""/>
+							<input type="hidden" name="family_substance[$!{substance.baseid}].substance.baseid" value="$!{substance.baseid}" class=""/>
       					 </li>
                     #end
                 #end
