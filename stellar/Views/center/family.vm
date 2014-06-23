@@ -122,8 +122,6 @@ $part.lab_code
 		  <hr/>
 		  <div id="subCodeEdit" class=" #if(!$item.baseid || $item.tmp) open #else closed #end ">
 			<ul id="sortable">
-
-				
                 #foreach($substance in $item.substances)
                     #if($substance.baseid!=0)
 						<li class='substance_item'>
@@ -139,14 +137,6 @@ $part.lab_code
       					 </li>
                     #end
                 #end
-
-				
-				
-				
-				
-				
-				
-				
 			</ul>
 		  	<a href="#" id="famSubAdd" class="button">Add new substance</a> <i title="close" class="icon-power-off"></i>
 			<br/><br/>
