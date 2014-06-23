@@ -95,58 +95,7 @@
 	};
 }));
 
-$(document).ready(function() {
-	
-	
-	function sortedCode(){
-		$('.substance_item .icon-trash').off().on("click",function(){
-			$(this).closest('.substance_item').fadeOut("fast",function(){
-				$(this).remove();
-				sortedCode();
-			});
-		});
-		var code="";
-		$.each($(".substance_item"),function(){
-			code+= (code===""?"":"<em>:</em>") + $(this).find('.sub_code').text();
-		});
-		$("#sub_code").html(code);
-	}
-	$("#sortable").sortable({
-		handle: ".sortable_handle",
-		placeholder: "ui-state-highlight",
-		stop:function(){ sortedCode(); }
-	});
-	
-	$("#famSubAdd").on("click",function(e){
-		e.preventDefault();
-		e.stopPropagation();
-		var sudo_code=Math.random().toString(36).slice(2,5);
-		var baseid=Math.random();
-		$("<li class='substance_item'><i title='edit' class='icon-trash'></i><span class='sortable_handle'>handle</span> newthing (<span class='sub_code'>"+sudo_code+"</span>)<input type='hidden' name='item.substances[]' value='"+baseid+"'></li>").appendTo("#sortable");
-		$("#sortable").sortable("refresh");
-		sortedCode();
-	});
-	
-	$("#famSubCode .icon-edit").on("click",function(){
-		if($("#subCodeEdit").is($('.open'))){
-			$("#subCodeEdit").slideUp("slow", function() {
-				$("#subCodeEdit").removeClass("open");
-				$("#subCodeEdit").addClass("closed");
-			});
-		}else{
-			$("#subCodeEdit").slideDown("slow", function() {
-				$("#subCodeEdit").addClass("open");
-				$("#subCodeEdit").removeClass("closed");
-			});
-		}
-	});
-	$("#subCodeEdit .icon-power-off").on("click",function(){
-		$("#subCodeEdit").slideUp("slow", function() {
-			$("#subCodeEdit").removeClass("open");
-			$("#subCodeEdit").addClass("closed");
-		});
-	});
-	
+
 
 	
 	
@@ -267,7 +216,99 @@ $(document).ready(function() {
 			});
 		});
 	}
-
+$(document).ready(function() {
+	
+	
+	function sortedCode(){
+		$('.substance_item .icon-trash').off().on("click",function(){
+			$(this).closest('.substance_item').fadeOut("fast",function(){
+				$(this).remove();
+				sortedCode();
+			});
+		});
+		var code="";
+		$.each($(".substance_item"),function(){
+			code+= (code===""?"":"<em>:</em>") + $(this).find('.sub_code').text();
+		});
+		$("#sub_code").html(code);
+	}
+	$("#sortable").sortable({
+		handle: ".sortable_handle",
+		placeholder: "ui-state-highlight",
+		stop:function(){ sortedCode(); }
+	});
+	
+	$("#famSubAdd").on("click",function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		//var sudo_code=Math.random().toString(36).slice(2,5);
+		//var baseid=Math.random();
+		$.getJSON("/center/substances.castle?json=true&callback=?",function(data){
+			//alert("got data");
+			var html = "";
+			$.each(data,function(i,v){
+				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-lab_code='"+v.lab_code+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.lab_code+" )</span><br/>";
+				
+			});
+			if($("#substances_list").length<=0){
+				$('body').append('<div id="substances_list">');
+			}
+			$("#substances_list").html( html );
+			$( "#substances_list" ).dialog({
+				autoOpen: true,
+				resizable: false,
+				width: 350,
+				minHeight: 25,
+				modal: true,
+				draggable : false,
+				create:function(){
+					$('.ui-dialog-titlebar').remove();
+					//$(".ui-dialog-buttonpane").remove();
+					$('body').css({overflow:"hidden"});
+				},
+				open:function(){
+					$('.item .icon-plus').on("click",function(){
+						var par = $(this).closest('span');
+						$("<li class='substance_item'><i title='edit' class='icon-trash'></i><span class='sortable_handle'>handle</span> "+par.data("name")+" (<span class='sub_code'>"+par.data("lab_code")+"</span>)<input type='hidden' name='item.substances[]' value='"+par.data("baseid")+"'></li>").appendTo("#sortable");
+						$("#sortable").sortable("refresh");
+						sortedCode();
+					});
+				},
+				buttons:{
+					Ok:function(){
+						$( this ).dialog( "close" );
+					}
+				},
+				close: function() {
+					$('body').css({overflow:"auto"});
+					$( "#substances_list" ).dialog( "destroy" );
+					$( "#substances_list" ).remove();
+				}
+			});
+		});
+		
+	});
+	
+	$("#famSubCode .icon-edit").on("click",function(){
+		if($("#subCodeEdit").is($('.open'))){
+			$("#subCodeEdit").slideUp("slow", function() {
+				$("#subCodeEdit").removeClass("open");
+				$("#subCodeEdit").addClass("closed");
+			});
+		}else{
+			$("#subCodeEdit").slideDown("slow", function() {
+				$("#subCodeEdit").addClass("open");
+				$("#subCodeEdit").removeClass("closed");
+			});
+		}
+	});
+	$("#subCodeEdit .icon-power-off").on("click",function(){
+		$("#subCodeEdit").slideUp("slow", function() {
+			$("#subCodeEdit").removeClass("open");
+			$("#subCodeEdit").addClass("closed");
+		});
+	});
+	
 
 	$("select[name*='inactive_ingredients[]']").on("change",function(){
 		var sel="";
