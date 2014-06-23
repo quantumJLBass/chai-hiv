@@ -227,8 +227,9 @@ $(document).ready(function() {
 			});
 		});
 		var code="";
-		$.each($(".substance_item"),function(){
+		$.each($(".substance_item"),function(i){
 			code+= (code===""?"":"<em>:</em>") + $(this).find('.sub_code').text();
+			$('.substanceOrder').val(i+1);
 		});
 		$("#sub_code").html(code);
 	}
@@ -269,7 +270,19 @@ $(document).ready(function() {
 				open:function(){
 					$('.item .icon-plus').on("click",function(){
 						var par = $(this).closest('span');
-						$("<li class='substance_item'><i title='edit' class='icon-trash'></i><span class='sortable_handle'>handle</span> "+par.data("name")+" (<span class='sub_code'>"+par.data("lab_code")+"</span>)<input type='hidden' name='item.substances[]' value='"+par.data("baseid")+"'></li>").appendTo("#sortable");
+						
+						var html ="<li class='substance_item'>";
+						html+="<i title='edit' class='icon-trash'></i>";
+						html+="<span class='sortable_handle'>handle</span> "+par.data("name")+" (<span class='sub_code'>"+par.data("lab_code")+"</span>)";
+
+						html+="<input type='hidden' name='substances["+par.data("baseid")+"].baseid' value='"+par.data("baseid")+"' class='substance'/>";
+						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].baseid' value='0'  class=''/>";
+						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].family.baseid' value='"+$('[name="item.baseid"]').val()+"'  class=''/>";
+						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].substance_order' value='"+$(".substance_item").length+"'  class='substanceOrder'/>";
+						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].substance.baseid' value='"+par.data("baseid")+"'  class=''/>";
+						html+="</li>";
+
+						$(html).appendTo("#sortable");
 						$("#sortable").sortable("refresh");
 						sortedCode();
 					});
