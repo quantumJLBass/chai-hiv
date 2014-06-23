@@ -610,6 +610,10 @@ ul.page-numbers{float: right;overflow:hidden; display:block;}
 /* -------------------------------------------------------------
 ======	MISC
 ------------------------------------------------------------- */
+
+#subCodeEdit.open{display:block;}
+#subCodeEdit.closed{display:none;}
+
 #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
 #sortable li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; height: 1.5em; }
 html>body #sortable li { height: 1.5em; line-height: 1.2em; }
@@ -635,7 +639,19 @@ html>body #sortable li { height: 1.5em; line-height: 1.2em; }
   border-bottom: 0.125em solid #000;
   
 }
+#sub_code em{ margin:0px 5px; font-size:.75em;}
+#sub_code{ padding:0px 5px;}
+#famSubCode{ position:relative; }
+#famSubCode .icon-edit{
+    font-size: 0.5em;
+    position: absolute;
+    right: -28px;
+	cursor:pointer;
+}
+#famSubCode .icon-edit:hover{ color:#0B7FAA;}
 
+#subCodeEdit .icon-power-off{ margin-left:15px; font-size:1.5em;cursor:pointer;}
+#subCodeEdit .icon-power-off:hover{color:#0B7FAA;}
 
 
 

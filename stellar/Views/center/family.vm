@@ -110,15 +110,15 @@ $part.name => $part.alias
 		<input type="hidden" name="item.baseid" value="$!item.baseid" />
 		<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
 		<article id="navtabs" class="grid col-full">
-		  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Family <span id="fam_code">#if($item.new_drug_code)( $!item.new_drug_code )#end</span> </h2>
+		  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Family  (<span id="famSubCode"><i id="sub_code">#if($item.new_drug_code)( $!item.new_drug_code ) #else #end</i> <i title="edit" class="icon-edit"></i></span>) </h2>
 		  <hr/>
-		  <div class=" #if(!$item.baseid || $item.tmp) open #else closed #end ">
+		  <div id="subCodeEdit" class=" #if(!$item.baseid || $item.tmp) open #else closed #end ">
 			<ul id="sortable">
 				#foreach($part in  $item.substances)
 					<li class="ui-state-default #if($velocityCount%2<1)even #else odd #end" data-order=""><span class="handle">handle</span> $!postingService.get_taxonomy($part.generic_name).name</li>
 				#end
 			</ul>
-		  	<a href="#" id="famSubAdd" class="button">Add new substance</a>
+		  	<a href="#" id="famSubAdd" class="button">Add new substance</a> <i title="close" class="icon-power-off"></i>
 			<br/><br/>
 		  </div>
 		  

@@ -96,16 +96,19 @@
 }));
 
 $(document).ready(function() {
+	
+	
+	function sortedCode(){
+		var code="";
+		$.each($(".substance_item"),function(){
+			code+= (code===""?"":"<em>:</em>") + $(this).find('.sub_code').text();
+		});
+		$("#sub_code").html(code);
+	}
 	$("#sortable").sortable({
 		handle: ".sortable_handle",
 		placeholder: "ui-state-highlight",
-		stop:function(){
-			var code="";
-			$.each($(".substance_item"),function(){
-				code+= (code===""?"":":") + $(this).find('.sub_code').text();
-			});
-			$("#fam_code").text(code);
-		}
+		stop:function(){ sortedCode(); }
 	});
 	
 	$("#famSubAdd").on("click",function(e){
@@ -114,7 +117,32 @@ $(document).ready(function() {
 		var sudo_code=Math.random().toString(36).slice(2,5);
 		$("<li class='substance_item'><span class='sortable_handle'>handle</span> newthing (<span class='sub_code'>"+sudo_code+"</span>)</li>").appendTo("#sortable");
 		$("#sortable").sortable("refresh");
+		sortedCode();
 	});
+	
+	$("#famSubCode .icon-edit").on("click",function(){
+		if($("#subCodeEdit").is($('.open'))){
+			$("#subCodeEdit").slideUp("slow", function() {
+				$("#subCodeEdit").removeClass("open");
+				$("#subCodeEdit").addClass("closed");
+			});
+		}else{
+			$("#subCodeEdit").slideDown("slow", function() {
+				$("#subCodeEdit").addClass("open");
+				$("#subCodeEdit").removeClass("closed");
+			});
+		}
+	});
+	$("#subCodeEdit .icon-power-off").on("click",function(){
+		$("#subCodeEdit").slideUp("slow", function() {
+			$("#subCodeEdit").removeClass("open");
+			$("#subCodeEdit").addClass("closed");
+		});
+	});
+	
+	
+	
+	
 	
 	function make_maskes(){
 		$.mask.definitions['~'] = "[+-]";
