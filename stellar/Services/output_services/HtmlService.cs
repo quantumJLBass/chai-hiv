@@ -25,6 +25,7 @@ using HtmlAgilityPack;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class htmlService {
 
 
@@ -34,15 +35,18 @@ namespace stellar.Services {
         /// </summary>
         /// <param name="html">String - html string to check against</param>
         /// <returns>Boolean - Return true if match</returns>
+        /// <summary> </summary>
         public static bool has_external_link(String html) {
             Regex RgxUrl2 = new Regex(@"(http://)|(https://)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
             return RgxUrl2.IsMatch(html);
         }
 
+        /// <summary> </summary>
         public bool is_empty_url(String url) {
             return (url == String.Empty || url == "/" || url == "./");
         }
 
+        /// <summary> </summary>
         public bool is_anchor(String url) {
             return url.Contains("#");
         }
@@ -71,13 +75,16 @@ namespace stellar.Services {
         /// </summary>
         /// <param name="source">String - String of html to work with</param>
         /// <param name="length">Int - number of tabs to return</param>
-        /// <param name="wrap">String - Text that must have {$i} in it which the source will replace</param>
-        /// <param name="more_txt">String - a string to append to the back of the source string (outside of wrap)</param>
         /// <returns>String - Return formated and truncated</returns>
         /// @TODO use template for this and from site level options
         public static String truncate(String source, int length) {
             return truncate(source, length,"","");
         }
+        /// <summary> </summary>
+        /// <param name="source">String - String of html to work with</param>
+        /// <param name="length">Int - number of tabs to return</param>
+        /// <param name="wrap">String - Text that must have {$i} in it which the source will replace</param>
+        /// <param name="more_txt">String - a string to append to the back of the source string (outside of wrap)</param>
         public static String truncate(String source, int length, String wrap, String more_txt) {
             if (source.Length > length) {
                 source = source.Substring(0, length);
@@ -93,6 +100,7 @@ namespace stellar.Services {
 
 
         //-jb || this will repeate str and {$i} is a the number pattern insertion
+        /// <summary> </summary>
         public static String repeat_str(string str, int n) {
             if(n>0){
                 StringBuilder sb = new StringBuilder(str.Length * n);
@@ -109,6 +117,7 @@ namespace stellar.Services {
             }
             return str;
         }
+        /// <summary> </summary>
         public static string capitalize(string s) {
             // Check for empty string.
             if (string.IsNullOrEmpty(s)) {
@@ -117,6 +126,7 @@ namespace stellar.Services {
             // Return char and concat substring.
             return char.ToUpper(s[0]) + s.Substring(1);
         }
+        /// <summary> </summary>
         public static string capitalize_all(string s) {
             return Regex.Replace(s, @"\b[a-z]\w+", delegate(Match match) {
                 string v = match.ToString();
@@ -124,22 +134,27 @@ namespace stellar.Services {
             });
         }
 
+        /// <summary> </summary>
         public static String htmlSafeEscape(String str) {
             return str.Replace("&", "&amp;").Replace("\"", "&quot;").Replace("\'", "&apos;");
         }
 
+        /// <summary> </summary>
         public static String Escape(String str) {
             return htmlSafeEscape(str).Replace("<", "&lt;").Replace(">", "&gt;");
         }
         const string HTML_TAG_PATTERN = "<.*?>";
+        /// <summary> </summary>
         public static string StripHTML(string inputString) {
             return Regex.Replace
                 (inputString, HTML_TAG_PATTERN, string.Empty);
         }
 
+        /// <summary> </summary>
         public static string stripNonSenseContent(string inputString) {
             return stripNonSenseContent(inputString, false);
         }
+        /// <summary> </summary>
         public static string stripNonSenseContent(string inputString, bool stripComments) {
             String output = Regex.Replace(inputString, @"<p>\s{0,}</p>", string.Empty);
             output = Regex.Replace(output, @"\t{1,}", " ");
@@ -160,6 +175,7 @@ namespace stellar.Services {
             output = Regex.Replace(output, @"\s{2,}", " ");
             return output;
         }
+        /// <summary> </summary>
         public static string jsonEscape(string inputString) {
             String output = stripNonSenseContent(inputString);
             output = output.Replace("\"", @"\""");
@@ -169,12 +185,14 @@ namespace stellar.Services {
 
         #endregion
 
+        /// <summary> </summary>
         public static String decodeString(String text) {
             StringWriter str = new StringWriter();
             HttpUtility.HtmlDecode(text, str);
             string decodedStr = str.ToString();
             return decodedStr;
         }
+        /// <summary> </summary>
         public static String HtmlEncode(String value) {
             String tmp = value
                 .Replace("&", "&amp;")
@@ -189,6 +207,7 @@ namespace stellar.Services {
 
         #region(html cleaning and filters)
 
+        /// <summary> </summary>
         public static String stripAllHTMLElements(String str) {
             return StripTagsCharArray(str);
         }
@@ -245,9 +264,11 @@ namespace stellar.Services {
             return str;
         }*/
 
+        /// <summary> </summary>
         public static string clearMSWordFormating(String text) {
             return clearMSWordFormating(text, false);
         }
+        /// <summary> </summary>
         public static string clearMSWordFormating(String text, Boolean verbosely) {
 
             //Cleans all manner of evils from the rich text editors in IE, Firefox, Word, and Excel
@@ -297,6 +318,7 @@ namespace stellar.Services {
             return text;
         }
 
+        /// <summary> </summary>
         public static string cleanTinyCode(string text) {
             bool has = text.IndexOf("tinyImgHolder") >= 0;
             //<img class="tinyImgHolder" title="#Inline_Iamge(210 434 180 336 ' fLeft')" src="../media/download.castle?id=210&aeventsid=434&m=crop&w=180&h=336&pre=TMP" alt="imagingIt|210" width="180" height="336" />
@@ -330,6 +352,7 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         public static string roughHtmlEncoder(string value) {
             // call the normal HtmlEncode first
             char[] chars = HttpUtility.HtmlEncode(value).ToCharArray();
@@ -346,6 +369,7 @@ namespace stellar.Services {
         }
 
 
+        /// <summary> </summary>
         public static String mailto(String strEmail) {
             String strNewAddress;
             String[] arrEmail;
@@ -450,9 +474,10 @@ namespace stellar.Services {
         }
         */
 
-        
 
 
+
+        /// <summary> </summary>
         public bool PageIsExternal(String url, String sitebaseurl) {
             if (url.IndexOf("http") == -1) {
                 return false;
@@ -479,9 +504,10 @@ namespace stellar.Services {
             }
         }
 
-       
+
 
         // handle pages that returned text even though it was a 404
+        /// <summary> </summary>
         public bool pageIsNice404(String text) {
             if (text.Contains("Oops! You have stumbled onto an invalid address."))
                 return true;
@@ -490,10 +516,12 @@ namespace stellar.Services {
 
 
         #region(url alteration)
+        /// <summary> </summary>
         public string RelativePath(string url, String sitebaseurl) {
             return url.Replace(sitebaseurl, "");
         }
 
+        /// <summary> </summary>
         public string RelativeFilePath(string url, String sitebaseurl) {
             String newurl = RelativePath(url, sitebaseurl);
             return newurl.Replace("/", "\\");
@@ -506,6 +534,7 @@ namespace stellar.Services {
         /// <summary>
         /// Fixes a path. Makes sure it is a fully functional absolute url.
         /// </summary>
+        /// <param name="sitebaseurl"></param>
         /// <param name="originatingUrl">The url that the link was found in.</param>
         /// <param name="link">The link to be fixed up.</param>
         /// <returns>A fixed url that is fit to be fetched.</returns>
@@ -591,6 +620,7 @@ namespace stellar.Services {
 
         /* this should be moved to the http services 
          ::start*/
+        /// <summary> </summary>
         public static string GetAbsoluteUrlString(string baseUrl, string url) {
             var uri = new Uri(url, UriKind.RelativeOrAbsolute);
             if (!uri.IsAbsoluteUri)
@@ -598,15 +628,18 @@ namespace stellar.Services {
             return uri.ToString();
         }
 
+        /// <summary> </summary>
         public static string GetbaseUrl(string url) {
             Uri uriAddress = new Uri(url);
             return uriAddress.GetLeftPart(UriPartial.Authority);
         }
         /*end*/
 
+        /// <summary> </summary>
         public static string filter_file_images_paths(string text, string url) {
             return filter_file_images_paths(text, url, new String[] {"jpg","gif","png","woff","ttf","svg#webfont","svg","eot","eot?"} );
         }
+        /// <summary> </summary>
         public static string filter_file_images_paths(string text, string url, String[] included_ext) {
 
             Boolean has_body_end = false;
@@ -648,6 +681,7 @@ namespace stellar.Services {
 
         #region( agai)
 
+        /// <summary> </summary>
         public static void normalizUrls(HtmlNode root, string baseUrl, string attrName) {
             var query =
                 from node in root.Descendants()
@@ -660,6 +694,7 @@ namespace stellar.Services {
             }
         }
 
+        /// <summary> </summary>
         public static void stripJavasctipt(HtmlNode root, string baseUrl, string attrName) {
             var query =
                 from node in root.Descendants()
@@ -677,7 +712,10 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         static List<string> _notToRemove;
+
+        /// <summary> </summary>
         public static void RemoveEmptyNodes(HtmlNode tag) {
             if (tag.Attributes.Count == 0 && !_notToRemove.Contains(tag.Name) && String.IsNullOrWhiteSpace(tag.InnerText)) {
                 tag.Remove();

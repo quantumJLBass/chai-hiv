@@ -20,12 +20,17 @@ using log4net;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class scriptsService {
         ILog log = log4net.LogManager.GetLogger("scriptsService");
 
-        public static String Css(String files) { return Css(files,"frontend", false); }
-        public static String Css(String files,String mode) { return Css(files,mode, false); }
+        /// <summary> </summary>
+        public static String Css(String files) { return Css(files, "frontend", false); }
+        /// <summary> </summary>
+        public static String Css(String files, String mode) { return Css(files, mode, false); }
+        /// <summary> </summary>
         public static String Css(String files, Boolean debug) { return Css(files, "frontend", debug); }
+        /// <summary> </summary>
         public static String Css(String files,String mode, Boolean debug) {
 
             String name = helperService.CalculateMD5Hash(files);
@@ -68,9 +73,13 @@ namespace stellar.Services {
             }
             return output;
         }
+        /// <summary> </summary>
         public static String Js(String files) { return Js(files, "frontend", false); }
-        public static String Js(String files, String mode) { return Js(files,mode, false); }
+        /// <summary> </summary>
+        public static String Js(String files, String mode) { return Js(files, mode, false); }
+        /// <summary> </summary>
         public static String Js(String files, Boolean debug) { return Js(files, "frontend", debug); }
+        /// <summary> </summary>
         public static String Js(String files,String mode, Boolean debug) {
             String name = helperService.CalculateMD5Hash(files);
             String path = file_info.virtual_site_cache_path().Trim('/') + "/scripts/js/";

@@ -31,14 +31,17 @@ namespace stellar.Controllers {
 
     #endregion
 
+    /// <summary> </summary>
     [Layout("admin")]
     public class fieldsController : adminController {
 
+        /// <summary> </summary>
         public fieldsController() {
             Controllers.BaseController.current_controller = "fields";
         }
 
 
+        /// <summary> </summary>
         public string[] get_feild_short_codes(posting cal_events) {
             //log.Info("________________________________________________________________________________\nLoading feilds For:" + place.prime_name+"("+place.baseid+")\n");
             List<AbstractCriterion> typeEx = new List<AbstractCriterion>();
@@ -58,6 +61,7 @@ namespace stellar.Controllers {
             }
             return codes;
         }
+        /// <summary> </summary>
         public void list_fields(int page) {
             userService.clearConnections<field_types>();
 
@@ -72,6 +76,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void new_field() {
             field_types field = new field_types();
             PropertyBag["field"] = field;
@@ -81,6 +86,7 @@ namespace stellar.Controllers {
 
             RenderView("../admin/fields/new");
         }
+        /// <summary> </summary>
         public void edit_field(int id) {
             field_types field = ActiveRecordBase<field_types>.Find(id);
             PropertyBag["field"] = field;
@@ -108,6 +114,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void delete_field(int id) {
             field_types place_fields = ActiveRecordBase<field_types>.Find(id);
             Flash["message"] = "A field for places, <strong>" + place_fields.name + "</strong>, has been <strong>deleted</strong>.";
@@ -116,6 +123,7 @@ namespace stellar.Controllers {
             RedirectToAction("list");
         }
 
+        /// <summary> </summary>
         public void update_field(
                     [ARDataBind("field", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] field_types field,
                     [DataBind("ele", Validate = false)] elementSet ele,

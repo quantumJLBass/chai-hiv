@@ -36,6 +36,7 @@ namespace stellar.Services {
     public sealed class file_routines {
 
 
+        /// <summary> </summary>
         public static string duplicate(FileInfo file) {
             var parentPath = file.DirectoryName;
 
@@ -71,20 +72,25 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         public static void copy_file_to(FileInfo source, FileInfo destination) {
             copy_file_to(source, destination, CopyFileOptions.None);
         }
 
+        /// <summary> </summary>
         public static void copy_file_to(FileInfo source, FileInfo destination, CopyFileOptions options) {
             copy_file_to(source, destination, options, null);
         }
+        /// <summary> </summary>
         public static void copy_file_to(FileInfo source, FileInfo destination, CopyFileCallback callback) {
             copy_file_to(source, destination, CopyFileOptions.None, callback, null);
         }
+        /// <summary> </summary>
         public static void copy_file_to(FileInfo source, FileInfo destination, CopyFileOptions options, CopyFileCallback callback) {
             copy_file_to(source, destination, options, callback, null);
         }
 
+        /// <summary> </summary>
         public static void copy_file_to(FileInfo source, FileInfo destination, CopyFileOptions options, CopyFileCallback callback, object state) {
             if (source == null)
                 throw new ArgumentNullException("source");
@@ -111,6 +117,7 @@ namespace stellar.Services {
             }
         }
 
+        /// <summary> </summary>
         private class CopyProgressData {
             private FileInfo _source = null;
             private FileInfo _destination = null;
@@ -135,11 +142,13 @@ namespace stellar.Services {
             }
         }
 
+        /// <summary> </summary>
         private delegate int CopyProgressRoutine(
             long totalFileSize, long TotalBytesTransferred, long streamSize,
             long streamBytesTransferred, int streamNumber, int callbackReason,
             IntPtr sourceFile, IntPtr destinationFile, IntPtr data);
 
+        /// <summary> </summary>
         [SuppressUnmanagedCodeSecurity]
         [DllImport("Kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern bool CopyFileEx(
@@ -148,23 +157,35 @@ namespace stellar.Services {
             IntPtr lpData, ref bool pbCancel, int dwCopyFlags);
     }
 
+    /// <summary> </summary>
     public delegate CopyFileCallbackAction CopyFileCallback(
         FileInfo source, FileInfo destination, object state,
         long totalFileSize, long totalBytesTransferred);
 
+    /// <summary> </summary>
     public enum CopyFileCallbackAction {
+        /// <summary> </summary>
         Continue = 0,
+        /// <summary> </summary>
         Cancel = 1,
+        /// <summary> </summary>
         Stop = 2,
+        /// <summary> </summary>
         Quiet = 3
     }
 
+    /// <summary> </summary>
     [Flags]
     public enum CopyFileOptions {
+        /// <summary> </summary>
         None = 0x0,
+        /// <summary> </summary>
         FailIfDestinationExists = 0x1,
+        /// <summary> </summary>
         Restartable = 0x2,
+        /// <summary> </summary>
         AllowDecryptedDestination = 0x8,
+        /// <summary> </summary>
         All = FailIfDestinationExists | Restartable | AllowDecryptedDestination
     }
 }

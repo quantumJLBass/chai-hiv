@@ -10,10 +10,12 @@ using stellar;
 using stellar.Models;
 
 namespace stellar.Code {
+    /// <summary> </summary>
     public class DatabaseTokenManager : IServiceProviderTokenManager {
         #region IServiceProviderTokenManager
 
 
+        /// <summary> </summary>
         public IConsumerDescription GetConsumer(string consumerKey) {
             var consumerRow = GlobalApplication.Consumers.SingleOrDefault(
                 consumerCandidate => consumerCandidate.Key == consumerKey);
@@ -24,6 +26,7 @@ namespace stellar.Code {
             return consumerRow;
         }
 
+        /// <summary> </summary>
         public IServiceProviderRequestToken GetRequestToken(string token) {
 
             var foundToken = GlobalApplication.AuthTokens.FirstOrDefault(t => t.Token == token && t.State != TokenAuthorizationState.AccessToken);
@@ -34,6 +37,7 @@ namespace stellar.Code {
             return foundToken;
         }
 
+        /// <summary> </summary>
         public IServiceProviderAccessToken GetAccessToken(string token) {
             try {
                 return GlobalApplication.AuthTokens.First(t => t.Token == token && t.State == TokenAuthorizationState.AccessToken);
@@ -42,6 +46,7 @@ namespace stellar.Code {
             }
         }
 
+        /// <summary> </summary>
         public void UpdateToken(IServiceProviderRequestToken token) {
             var tokenInDb = GlobalApplication.AuthTokens.SingleOrDefault(x => x.Token == token.Token);
             if (tokenInDb != null) {
@@ -58,6 +63,7 @@ namespace stellar.Code {
 
         #region ITokenManager Members
 
+        /// <summary> </summary>
         public string GetTokenSecret(string token) {
             var tokenRow = GlobalApplication.AuthTokens.SingleOrDefault(
                 tokenCandidate => tokenCandidate.Token == token);
@@ -68,6 +74,7 @@ namespace stellar.Code {
             return tokenRow.TokenSecret;
         }
 
+        /// <summary> </summary>
         public void StoreNewRequestToken(UnauthorizedTokenRequest request, ITokenSecretContainingMessage response) {
             RequestScopedTokenMessage scopedRequest = (RequestScopedTokenMessage)request;
             var consumer = GlobalApplication.Consumers.Single(consumerRow => consumerRow.Key == request.ConsumerKey);
@@ -100,6 +107,7 @@ namespace stellar.Code {
             return tokenFound != null;
         }
 
+        /// <summary> </summary>
         public void ExpireRequestTokenAndStoreNewAccessToken(string consumerKey, string requestToken, string accessToken, string accessTokenSecret) {
 
             var consumerRow = GlobalApplication.Consumers.Single(consumer => consumer.Key == consumerKey);
@@ -131,6 +139,7 @@ namespace stellar.Code {
 
         #endregion
 
+        /// <summary> </summary>
         public void AuthorizeRequestToken(string requestToken, appuser user) {
             if (requestToken == null) {
                 throw new ArgumentNullException("requestToken");
@@ -150,6 +159,7 @@ namespace stellar.Code {
             tokenRow.User = user;
         }
 
+        /// <summary> </summary>
         public OAuthConsumer GetConsumerForToken(string token) {
             if (String.IsNullOrEmpty(token)) {
                 throw new ArgumentNullException("requestToken");

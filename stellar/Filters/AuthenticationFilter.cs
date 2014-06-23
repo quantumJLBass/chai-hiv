@@ -15,8 +15,9 @@ using System.Security.Principal;
 using stellar.Filters;
 
 namespace stellar.Filters {
-    public class AuthenticationFilter : IFilter
-    {
+    /// <summary> </summary>
+    public class AuthenticationFilter : IFilter {
+        /// <summary> </summary>
         public bool Perform(ExecuteWhen exec, IEngineContext context, IController controller, IControllerContext controllerContext) {
             if (context.Request.IsLocal)
                 return true;

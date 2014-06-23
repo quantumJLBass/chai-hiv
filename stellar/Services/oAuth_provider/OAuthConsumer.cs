@@ -7,9 +7,11 @@ using System.Security.Cryptography.X509Certificates;
 using DotNetOpenAuth.OAuth;
 
 namespace stellar.Code {
+    /// <summary> </summary>
     public class OAuthConsumer : IConsumerDescription {
         private Uri _callback;
 
+        /// <summary> </summary>
         public Uri Callback {
             get { return _callback; }
             set { _callback = value; }
@@ -32,6 +34,7 @@ namespace stellar.Code {
 
         private string _secret;
 
+        /// <summary> </summary>
         public string Secret {
             get { return _secret; }
             set { _secret = value; }
@@ -50,6 +53,7 @@ namespace stellar.Code {
             get { return _verCodeLength; }
         }
 
+        /// <summary> </summary>
         public string Key {
             set { _key = value; }
             get { return _key; }

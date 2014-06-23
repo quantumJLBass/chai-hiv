@@ -24,6 +24,7 @@ using System.Globalization;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class postingService {
 
         #region(queries)
@@ -35,6 +36,7 @@ namespace stellar.Services {
                 return get_post_types(false);
             }
 
+            /// <summary> </summary>
             public static IList<taxonomy> get_taxonomies(String taxonomy_type) {
                 List<AbstractCriterion> filtering = new List<AbstractCriterion>();
                 filtering.Add(Expression.Eq("taxonomy_type", ActiveRecordBase<taxonomy_type>.FindAll(
@@ -45,6 +47,7 @@ namespace stellar.Services {
 
 
 
+            /// <summary> </summary>
             public static taxonomy get_taxonomy(String alias) {
                 List<AbstractCriterion> filtering = new List<AbstractCriterion>();
                 filtering.Add(Expression.Eq("alias", alias));
@@ -52,9 +55,11 @@ namespace stellar.Services {
                 taxonomy taxonomy = ActiveRecordBase<taxonomy>.FindFirst(filtering.ToArray());
                 return taxonomy;
             }
+            /// <summary> </summary>
             public static taxonomy get_taxonomy(String alias, String taxonomy_type) {
                 return get_taxonomy("", alias, taxonomy_type);
             }
+            /// <summary> </summary>
             public static taxonomy get_taxonomy(String prefix, String alias, String taxonomy_type) {
                 List<AbstractCriterion> filtering = new List<AbstractCriterion>();
                 filtering.Add(Expression.Eq("alias", String.IsNullOrWhiteSpace(prefix) ? "" : prefix + "__" + alias));
@@ -69,6 +74,7 @@ namespace stellar.Services {
 
 
 
+            /// <summary> </summary>
             public static IList<posting_type> get_post_types(Boolean is_admin){
                 List<AbstractCriterion> filtering = new List<AbstractCriterion>();
                 filtering.Add(Expression.Eq("is_admin", is_admin));
@@ -76,6 +82,7 @@ namespace stellar.Services {
             }
 
 
+            /// <summary> </summary>
             public static posting_type get_post_type(String alias) {
                 List<AbstractCriterion> filtering = new List<AbstractCriterion>();
                 filtering.Add(Expression.Eq("alias", alias));
@@ -83,6 +90,7 @@ namespace stellar.Services {
             }
 
 
+            /// <summary> </summary>
             public static int get_postype_id(dynamic item) {
                 posting_type posting_type = ActiveRecordBase<posting_type>.FindAll(new Order("revision", false),
                            new List<AbstractCriterion>() { Expression.Eq("alias", item) }.ToArray()
@@ -90,16 +98,19 @@ namespace stellar.Services {
                 return posting_type.baseid;
             }
 
+            /// <summary> </summary>
             public static String get_published_path(String type) {
                 String tmptype = !String.IsNullOrWhiteSpace(type) ? type + "/" : "";
                 String basePath = file_info.relative_site_content_path() + "published/" + tmptype;
                 return basePath;
             }
+            /// <summary> </summary>
             public static String get_working_path(String type) {
                 String tmptype = !String.IsNullOrWhiteSpace(type) ? type + "/" : "";
                 String basePath = file_info.relative_site_content_path() + "working/" + tmptype;
                 return basePath;
             }
+            /// <summary> </summary>
             public static String get_revision_path(String type) {
                 String tmptype = !String.IsNullOrWhiteSpace(type) ? type + "/" : "";
                 String basePath = file_info.relative_site_content_path() + "revision/" + tmptype;
@@ -107,21 +118,26 @@ namespace stellar.Services {
             }
 
 
+            /// <summary> </summary>
             public static IList<posting> get_published_postings(String type_alias) {
                 return get_published_postings(type_alias, false);
             }
+            /// <summary> </summary>
             public static IList<posting> get_published_postings(String type_alias, Boolean usedev) {
                 return get_general_postings(type_alias, false, false, null);
             }
 
+            /// <summary> </summary>
             public static IList<posting> get_working_postings(String type_alias) {
                 return get_working_postings(type_alias, false);
             }
+            /// <summary> </summary>
             public static IList<posting> get_working_postings(String type_alias, Boolean usedev) {
                 return get_general_postings(type_alias, usedev, false, null);
             }
 
 
+            /// <summary> </summary>
             public static posting get_posting_by_url(String url, Boolean usedev) {
                 List<AbstractCriterion> filtering = new List<AbstractCriterion>();
                 filtering.Add( Expression.Eq("site", siteService.getCurrentSite() ) );
@@ -129,6 +145,7 @@ namespace stellar.Services {
                 posting[] post = ActiveRecordBase<posting>.FindAll(filtering.ToArray());
                 return (post.Count() > 0) ? post.First() : new posting();
             }
+            /// <summary> </summary>
             public static posting get_posting_by_hash(String hash, Boolean usedev) {
                 List<AbstractCriterion> filtering = new List<AbstractCriterion>();
                 filtering.Add(Expression.Eq("filehash", hash));
@@ -157,9 +174,11 @@ namespace stellar.Services {
             }
 
 
+            /// <summary> </summary>
             public static IList<posting> get_postings(String type_alias){
                 return get_postings(type_alias,false,false,null);
             }
+            /// <summary> </summary>
             public static IList<posting> get_postings(String type_alias, Boolean usedev, Boolean deleted, posting parent) {
                 List<AbstractCriterion> filtering = new List<AbstractCriterion>();
                 filtering.Add(Expression.IsNull("parent"));//make it the working post
@@ -181,6 +200,7 @@ namespace stellar.Services {
             }
 
 
+            /// <summary> </summary>
             public static IList<posting> get_general_postings(String type_alias, Boolean usedev, Boolean deleted, posting parent) {
                 List<AbstractCriterion> filtering = new List<AbstractCriterion>();
                 if (parent == null) {
@@ -199,18 +219,21 @@ namespace stellar.Services {
             }
         #endregion
 
-        #region(read/write)
+            #region(read/write)
+            /// <summary> </summary>
             internal void delete_post<t>(int id) {
                 dynamic post = ActiveRecordBase<t>.Find(id);
                 post.deleted = true;
                 ActiveRecordMediator<dynamic>.SaveAndFlush(post);
             }
+            /// <summary> </summary>
             internal static void delete_item_forever(dynamic item) {
                 if (item.owner == null || (item.owner.baseid == userService.getUser().baseid)) {
                     item = postingService.remove_item_ties(item);
                     ActiveRecordMediator<dynamic>.Delete(item);
                 }
             }
+            /// <summary> </summary>
             internal static _base remove_item_ties(_base item) {
                 if (item.children != null && item.children.Count > 0) {//setup recursion
                     foreach (dynamic child in item.children) {// find revisions and published versions
@@ -437,43 +460,55 @@ namespace stellar.Services {
 
         #region(post creation from files)
 
+        /// <summary> </summary>
             public static posting create_admin_post_from_file(String file, String posting_type) {
                 return create_post_from_file(file, file_handler.normalize_name(file), "", posting_type, "admin", 0, 1, userService.getUser(), false);
             }
+            /// <summary> </summary>
             public static posting create_admin_post_from_file(String file, String posting_type, Boolean loads_file) {
                 return create_post_from_file(file, file_handler.normalize_name(file), "", posting_type, "admin", 0, 1, userService.getUser(), loads_file);
             }
 
+            /// <summary> </summary>
             public static posting create_admin_post_from_file(String file, String theme, String posting_type, Boolean loads_file) {
                 return create_post_from_file(file, file_handler.normalize_name(file), theme, posting_type, "admin", 0, 1, userService.getUser(), loads_file);
             }
+            /// <summary> </summary>
             public static posting create_admin_post_from_file(String file, String name, String theme, String posting_type, Boolean loads_file) {
                 return create_post_from_file(file, name, theme, posting_type, "admin", 0, 1, userService.getUser(), loads_file);
             }
+            /// <summary> </summary>
             public static posting create_admin_post_from_file(String file, String theme, String posting_type, int version, int revision, Boolean loads_file) {
                 return create_post_from_file(file, file_handler.normalize_name(file), theme, posting_type, "admin", 0, 1, userService.getUser(), loads_file);
             }
+            /// <summary> </summary>
             public static posting create_admin_post_from_file(String file, String name, String theme, String posting_type, int version, int revision, Boolean loads_file) {
                 return create_post_from_file(file, name, theme, posting_type, "admin", 0, 1, userService.getUser(), loads_file);
             }
 
             #region(create_post_from_file stubs)
+            /// <summary> </summary>
             public static posting create_post_from_file(String file, String posting_type) {
                 return create_post_from_file(file, file_handler.normalize_name(file), "", posting_type,"frontend", 0, 1, userService.getUser(), false);
             }
+            /// <summary> </summary>
             public static posting create_post_from_file(String file, String posting_type,Boolean loads_file) {
                 return create_post_from_file(file, file_handler.normalize_name(file), "", posting_type, "frontend", 0, 1, userService.getUser(), loads_file);
             }
 
+            /// <summary> </summary>
             public static posting create_post_from_file(String file, String theme, String posting_type, Boolean loads_file) {
                 return create_post_from_file(file, file_handler.normalize_name(file), theme, posting_type, "frontend", 0, 1, userService.getUser(), loads_file);
             }
+            /// <summary> </summary>
             public static posting create_post_from_file(String file, String name, String theme, String posting_type, Boolean loads_file) {
                 return create_post_from_file(file, name, theme, posting_type, "frontend", 0, 1, userService.getUser(), loads_file);
             }
+            /// <summary> </summary>
             public static posting create_post_from_file(String file, String theme, String posting_type, int version, int revision, Boolean loads_file) {
                 return create_post_from_file(file, file_handler.normalize_name(file), theme, posting_type, "frontend", 0, 1, userService.getUser(), loads_file);
             }
+            /// <summary> </summary>
             public static posting create_post_from_file(String file, String name, String theme, String posting_type, int version, int revision, Boolean loads_file) {
                 return create_post_from_file(file, name, theme, posting_type, "frontend", 0, 1, userService.getUser(), loads_file);
             }
@@ -486,6 +521,7 @@ namespace stellar.Services {
             /// <param name="name">Basic post data.</param>
             /// <param name="theme">What theme should it respond to?</param>
             /// <param name="posting_type">What posting type should be used</param>
+            /// <param name="mode"></param>
             /// <param name="version">The starting version</param>
             /// <param name="revision">The starting revision</param>
             /// <param name="user">the user the post belongs to</param>
@@ -572,6 +608,7 @@ namespace stellar.Services {
 
         #region(post type handling)
 
+            /// <summary> </summary>
             public static Boolean make_postype_folders(String posttype) {
 
                 if (!Directory.Exists(file_info.site_content_path().Trim('/') + "/revision/" + posttype)) {
@@ -588,7 +625,8 @@ namespace stellar.Services {
             }
         #endregion
 
-        #region(post object to tables)
+            #region(post object to tables)
+            /// <summary> </summary>
         public static Hashtable make_all_post_json_table(String type, Boolean dev) {
             Hashtable all = new Hashtable();
             Dictionary<string, string> queries = httpService.get_request_parmas_obj();
@@ -610,15 +648,18 @@ namespace stellar.Services {
 
         }
 
+        /// <summary> </summary>
         public static Hashtable make_post_json_table(int iid) {
             return make_post_json_table(iid, "", false);
         }
 
 
+        /// <summary> </summary>
         public static Hashtable make_post_json_table(int iid, Boolean dev) {
             return make_post_json_table(iid, "", dev);
         }
 
+        /// <summary> </summary>
         public static Hashtable make_post_json_table(int iid, String type, Boolean dev) {
 
             //posting post = ActiveRecordBase<posting>.Find(iid);

@@ -6,10 +6,9 @@ using System.IdentityModel.Claims;
 using System.IdentityModel.Policy;
 using DotNetOpenAuth.OAuth.ChannelElements;
 
-namespace stellar.Code
-{
-    public class OAuthPrincipalAuthorizationPolicy : IAuthorizationPolicy
-    {
+namespace stellar.Code {
+    /// <summary> </summary>
+    public class OAuthPrincipalAuthorizationPolicy : IAuthorizationPolicy {
         private readonly Guid uniqueId = Guid.NewGuid();
         private readonly OAuthPrincipal principal;
 
@@ -36,11 +35,13 @@ namespace stellar.Code
 
         #region IAuthorizationPolicy Members
 
+        /// <summary> </summary>
         public ClaimSet Issuer
         {
             get { return ClaimSet.System; }
         }
 
+        /// <summary> </summary>
         public bool Evaluate(EvaluationContext evaluationContext, ref object state)
         {
             evaluationContext.AddClaimSet(this, new DefaultClaimSet(Claim.CreateNameClaim(this.principal.Identity.Name)));

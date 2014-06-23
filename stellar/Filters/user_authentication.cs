@@ -19,11 +19,15 @@ using log4net;
 using System.Collections;
 
 namespace stellar.Filters {
+    /// <summary> </summary>
     public class user_authentication : IFilter {
         ILog log = log4net.LogManager.GetLogger("user_authentication");
 
+        /// <summary> </summary>
         protected userService userService = new userService();
+        /// <summary> </summary>
         protected helperService helperService = new helperService();
+        /// <summary> </summary>
         public bool Perform(ExecuteWhen exec, IEngineContext context, IController controller, IControllerContext controllerContext) {
 
             //this should be removed

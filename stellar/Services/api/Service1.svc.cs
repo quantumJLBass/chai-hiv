@@ -8,10 +8,11 @@ using System.Text;
 using stellar.Models;
 using Castle.ActiveRecord;
 
-namespace stellar
-{
-    public class Service1 : IService1
-    {
+namespace stellar {
+    /// <summary> </summary>
+    public class Service1 : IService1 {
+
+        /// <summary> </summary>
         public string GetData()
         {
             return "Some secret data";
@@ -21,8 +22,7 @@ namespace stellar
         /// This service returns some data in JSON protected by OAuth.
         /// </summary>
         /// <returns></returns>
-        public appuser[] GetAccounts()
-        {
+        public appuser[] GetAccounts() {
             appuser[] accounts = ActiveRecordBase<appuser>.FindAll();
 
             return accounts;

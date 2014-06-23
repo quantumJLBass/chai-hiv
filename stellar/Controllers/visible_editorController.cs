@@ -37,6 +37,7 @@ namespace stellar.Controllers {
 
     #endregion
 
+    /// <summary> </summary>
     [Layout("admin")]
     public class visible_editorController : adminController {
         /*
@@ -60,6 +61,7 @@ namespace stellar.Controllers {
         }
 
         */
+        /// <summary> </summary>
         public visible_editorController() {
             Controllers.BaseController.current_controller = "visible_editor";
         }
@@ -67,8 +69,10 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         private int areacount =0;
 
+        /// <summary> </summary>
         private List<posting> used_contentblocks = new List<posting>();
 
         
@@ -103,7 +107,9 @@ namespace stellar.Controllers {
 
 
         //this is the match to the public one with all the editing parts in it.. maybe they can be combined?
+        /// <summary> </summary>
         protected htmlService HtmlService = new htmlService();
+        /// <summary> </summary>
         public void posting(int iid, string[] cat, int activeitem, Boolean eb, Boolean hasUrl, string sm_url, Boolean dev) {
             List<AbstractCriterion> filtering = new List<AbstractCriterion>();
             editing = true;

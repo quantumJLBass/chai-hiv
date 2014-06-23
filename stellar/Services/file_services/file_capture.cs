@@ -38,6 +38,7 @@ using Goheer.EXIF;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class file_capture {
         // ocr .. look to http://code.google.com/p/tesseract-ocr/downloads/detail?name=tesseract-ocr-setup-3.02.02.exe&can=2&q= and the exe and 
         // this is where we would first check it's installation, then hook up the adapters

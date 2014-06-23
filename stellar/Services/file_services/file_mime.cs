@@ -25,6 +25,7 @@ namespace stellar {
     /// </summary>
     internal static class file_mime {
         private static Dictionary<string, string> _mimeTypes;
+        /// <summary> </summary>
         static file_mime() {
             _mimeTypes = new Dictionary<string, string>();
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -55,6 +56,7 @@ namespace stellar {
         }
 
 
+        /// <summary> </summary>
         public static string mime_type(string ext) {
             if (_mimeTypes.ContainsKey(ext)) {
                 return _mimeTypes[ext];
@@ -63,6 +65,7 @@ namespace stellar {
             }
         }
 
+        /// <summary> </summary>
         private static String detect_mime(string ext) {
             String result = "applicaton/unknown";
             String contentType = GetMimeTypeFromFileAndRegistry("x." + ext);
@@ -84,6 +87,7 @@ namespace stellar {
             return result;
         }
 
+        /// <summary> </summary>
         [DllImport(@"urlmon.dll", CharSet = CharSet.Auto)]
         private extern static System.UInt32 FindMimeFromData(
             System.UInt32 pBC,
@@ -96,6 +100,7 @@ namespace stellar {
             System.UInt32 dwReserverd
         );
 
+        /// <summary> </summary>
         private static string GetMimeFromRegistry(string Filename) {
             string mime = "application/octetstream";
             string ext = System.IO.Path.GetExtension(Filename).ToLower();
@@ -105,6 +110,7 @@ namespace stellar {
             return mime;
         }
 
+        /// <summary> </summary>
         private static string GetMimeTypeFromFileAndRegistry(string filename) {
             if (!File.Exists(filename)) {
                 return GetMimeFromRegistry(filename);

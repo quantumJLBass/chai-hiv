@@ -6,6 +6,7 @@ using System.Web;
 namespace stellar.oauth.Code {
 
 
+    /// <summary> </summary>
 	internal static class Utilities {
 		/// <summary>
 		/// Ensures that local times are converted to UTC times.  Unspecified kinds are recast to UTC with no conversion.

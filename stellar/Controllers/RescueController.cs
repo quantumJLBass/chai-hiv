@@ -37,13 +37,16 @@ namespace stellar.Controllers {
 
     #endregion
 
+    /// <summary> </summary>
     [Layout("error")]
     public class RescueController : BaseController, IRescueController {
 
+        /// <summary> </summary>
         public RescueController() {
             Controllers.BaseController.current_controller = "Rescue";
         }
 
+        /// <summary> </summary>
         public void Rescue(Exception exception, IController controller, IControllerContext controllerContext) {
 
             // if (exception.GetType() == typeof(WebException) && exception.Message == "Unable to connect to the remote server") SetRescueView("webexception_cannot_connect");
@@ -60,6 +63,7 @@ namespace stellar.Controllers {
         }
 
 
+        /// <summary> </summary>
         private void SetRescueView(string viewname) {
             RenderView("../public/errors/" + viewname);
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace ElFinder.Response {
+    /// <summary> </summary>
     [DataContract]
     internal class InitResponse : OpenResponseBase {
         private static string[] _empty = new string[0];
@@ -16,6 +17,7 @@ namespace ElFinder.Response {
         [DataMember(Name = "netDrivers")]
         public IEnumerable<string> netDrivers { get { return _empty; } }
 
+        /// <summary> </summary>
         public InitResponse(DTOBase currentWorkingDirectory)
             : base(currentWorkingDirectory) {
             options = new Options();

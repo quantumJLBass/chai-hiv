@@ -57,8 +57,10 @@ using System.Collections.Specialized;
 
 
 namespace stellar.Controllers {
+    /// <summary> </summary>
     public class publicController : BaseController {
 
+        /// <summary> </summary>
         public publicController() {
             Controllers.BaseController.in_admin = false;
             Controllers.BaseController.current_controller = "public";
@@ -66,14 +68,16 @@ namespace stellar.Controllers {
 
 
 
-        
+
         #region URL rendering
+        /// <summary> </summary>
         public void general(string aspxerrorpath) {
             CancelLayout();
             CancelView();
             LayoutName = "error";
             RenderView("errors/general404");
         }
+        /// <summary> </summary>
         public void error(string aspxerrorpath) {
             CancelView();
             CancelLayout();
@@ -84,6 +88,7 @@ namespace stellar.Controllers {
             RenderView("errors/error");
         }
 
+        /// <summary> </summary>
         public void render() {
             // I don't like this.. need a better way to tell it's installed.  More passive, 
             //like change the config file and reload it then read it from there the rest of the time??
@@ -139,12 +144,15 @@ namespace stellar.Controllers {
 
         #endregion
 
+        /// <summary> </summary>
         protected htmlService HtmlService = new htmlService();
+        /// <summary> </summary>
         public void posting(int iid, Boolean dev){
             posting(iid,new string[]{},0,false, false, "", dev);
         }
 
 
+        /// <summary> </summary>
         public void posting(int iid, string[] cat, int activeitem, Boolean eb, Boolean hasUrl, string sm_url, Boolean dev) {
             //posting post = ActiveRecordBase<posting>.Find(iid);
             List<AbstractCriterion> filtering = new List<AbstractCriterion>();
@@ -232,6 +240,7 @@ namespace stellar.Controllers {
         }
 
 
+        /// <summary> </summary>
         public void user_keywordAutoComplete(string name_startsWith, string callback) {
             CancelView();
             CancelLayout();

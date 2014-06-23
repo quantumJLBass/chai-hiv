@@ -20,9 +20,11 @@ namespace ElFinder {
         private const string _volumePrefix = "v";
         private List<Root> _roots;
 
+        /// <summary> </summary>
         private JsonResult Json(object data) {
             return new JsonDataContractResult(data) { JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        /// <summary> </summary>
         public FullPath ParsePath(string target) {
             StringBuilder volumeIdBuilder = new StringBuilder();
             StringBuilder pathBuilder = null;
@@ -50,6 +52,7 @@ namespace ElFinder {
             }
         }
 
+        /// <summary> </summary>
         private void DirectoryCopy(DirectoryInfo sourceDir, string destDirName, bool copySubDirs) {
             DirectoryInfo[] dirs = sourceDir.GetDirectories();
 
@@ -114,6 +117,7 @@ namespace ElFinder {
         #endregion public
 
         #region   IDriver
+        /// <summary> </summary>
         JsonResult IDriver.retrive_object(string target) {
             FullPath fullPath = ParsePath(target);
             OpenResponse answer = new OpenResponse(DTOBase.Create(fullPath.File.Directory, fullPath.Root), fullPath);
@@ -122,6 +126,7 @@ namespace ElFinder {
         }
 
 
+        /// <summary> </summary>
         JsonResult IDriver.Open(string target, bool tree, Hashtable posting_json_obj) {
             FullPath fullPath = ParsePath(target);
             OpenResponse answer = new OpenResponse(DTOBase.Create(fullPath.Directory, fullPath.Root), fullPath);
@@ -140,6 +145,7 @@ namespace ElFinder {
             }
             return Json(answer);
         }
+        /// <summary> </summary>
         JsonResult IDriver.Init(string target, Hashtable posting_json_obj) {
             Root root;
             DirectoryInfo dir;
@@ -194,6 +200,7 @@ namespace ElFinder {
             answer.options.tmbUrl = root.TmbUrl;
             return Json(answer);
         }
+        /// <summary> </summary>
         JsonResult IDriver.Parents(string target) {
             FullPath fullPath = ParsePath(target);
             TreeResponse answer = new TreeResponse();
@@ -211,6 +218,7 @@ namespace ElFinder {
             }
             return Json(answer);
         }
+        /// <summary> </summary>
         JsonResult IDriver.Tree(string target) {
             FullPath fullPath = ParsePath(target);
             TreeResponse answer = new TreeResponse();
@@ -219,6 +227,7 @@ namespace ElFinder {
             }
             return Json(answer);
         }
+        /// <summary> </summary>
         JsonResult IDriver.List(string target) {
             FullPath fullPath = ParsePath(target);
             ListResponse answer = new ListResponse();
@@ -227,17 +236,20 @@ namespace ElFinder {
             }
             return Json(answer);
         }
+        /// <summary> </summary>
         JsonResult IDriver.MakeDir(string target, string name) {
             FullPath fullPath = ParsePath(target);
             DirectoryInfo newDir = Directory.CreateDirectory(Path.Combine(fullPath.Directory.FullName, name));
             return Json(new AddResponse(newDir, fullPath.Root));
         }
+        /// <summary> </summary>
         JsonResult IDriver.MakeFile(string target, string name) {
             FullPath fullPath = ParsePath(target);
             FileInfo newFile = new FileInfo(Path.Combine(fullPath.Directory.FullName, name));
             newFile.Create().Close();
             return Json(new AddResponse(newFile, fullPath.Root));
         }
+        /// <summary> </summary>
         JsonResult IDriver.Rename(string target, string name) {
             FullPath fullPath = ParsePath(target);
             var answer = new ReplaceResponse();
@@ -254,6 +266,7 @@ namespace ElFinder {
             }
             return Json(answer);
         }
+        /// <summary> </summary>
         JsonResult IDriver.Remove(IEnumerable<string> targets) {
             RemoveResponse answer = new RemoveResponse();
             foreach (var item in targets) {
@@ -267,6 +280,7 @@ namespace ElFinder {
             }
             return Json(answer);
         }
+        /// <summary> </summary>
         JsonResult IDriver.Get(string target) {
             FullPath fullPath = ParsePath(target);
             GetResponse answer = new GetResponse();
@@ -275,6 +289,7 @@ namespace ElFinder {
             }
             return Json(answer);
         }
+        /// <summary> </summary>
         JsonResult IDriver.Put(string target, string content) {
             FullPath fullPath = ParsePath(target);
             PutResponse answer = new PutResponse();
@@ -284,6 +299,7 @@ namespace ElFinder {
             answer.changed.Add((FileDTO)DTOBase.Create(fullPath.File, fullPath.Root));
             return Json(answer);
         }
+        /// <summary> </summary>
         JsonResult IDriver.Paste(string source, string dest, IEnumerable<string> targets, bool isCut) {
             FullPath destPath = ParsePath(dest);
             ReplaceResponse response = new ReplaceResponse();
@@ -315,6 +331,7 @@ namespace ElFinder {
             }
             return Json(response);
         }
+        /// <summary> </summary>
         JsonResult IDriver.Upload(string target, System.Web.HttpFileCollectionBase targets) {
             FullPath dest = ParsePath(target);
             var response = new AddResponse();
@@ -330,6 +347,7 @@ namespace ElFinder {
             }
             return Json(response);
         }
+        /// <summary> </summary>
         JsonResult IDriver.Extract(string target, IEnumerable<string> targets) {
             FullPath dest = ParsePath(target);
             var response = new AddResponse();
@@ -359,7 +377,7 @@ namespace ElFinder {
 
 
 
-
+        /// <summary> </summary>
         JsonResult IDriver.Duplicate(IEnumerable<string> targets) {
             AddResponse response = new AddResponse();
             foreach (var target in targets) {

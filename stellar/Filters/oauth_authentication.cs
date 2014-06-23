@@ -17,9 +17,13 @@ using stellar.Services;
 using Microsoft.Exchange.WebServices.Data;
 
 namespace stellar.Filters {
+    /// <summary> </summary>
     public class oauth_authentication : IFilter {
+        /// <summary> </summary>
         protected userService userService = new userService();
+        /// <summary> </summary>
         protected helperService helperService = new helperService();
+        /// <summary> </summary>
         public bool Perform(ExecuteWhen exec, IEngineContext context, IController controller, IControllerContext controllerContext) {
 
 

@@ -36,6 +36,7 @@ namespace ElFinder {
         /// Process elFinder request
         /// </summary>
         /// <param name="request">Request from elFinder</param>
+        /// <param name="posting_json_obj">hashtable of posting object</param>
         /// <returns>Json response, which must be sent to elfinder</returns>
         public JsonResult Process(HttpRequestBase request, Hashtable posting_json_obj) {
             NameValueCollection parameters = request.QueryString.Count > 0 ? request.QueryString : request.Form;
@@ -168,9 +169,11 @@ namespace ElFinder {
                     return Error.CommandNotFound();
             }
         }
+        /// <summary> </summary>
         public JsonResult GetFileDataByHash(string hash) {
             return _driver.retrive_object(hash);
         }
+        /// <summary> </summary>
         public FileSystemInfo GetFileByHash(string hash) {
             FullPath path = _driver.ParsePath(hash);
             return path.Directory == null ? (FileSystemInfo)path.File : (FileSystemInfo)path.Directory;

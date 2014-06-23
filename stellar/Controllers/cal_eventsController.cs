@@ -38,6 +38,7 @@ namespace stellar.Controllers {
 
     #endregion
 
+    /// <summary> </summary>
     [Layout("admin")]
     public class cal_eventsController : adminController {
         ILog log = log4net.LogManager.GetLogger("cal_eventsController");

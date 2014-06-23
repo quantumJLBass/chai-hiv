@@ -18,7 +18,9 @@ using Castle.ActiveRecord;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class searchService {
+        /// <summary> </summary>
         public void user_keywordAutoComplete(string name_startsWith, string callback) {
 
             String term = name_startsWith.Trim();
@@ -71,11 +73,13 @@ namespace stellar.Services {
             }
         }
 
+        /// <summary> </summary>
         public static posting[] searchAndAddResultsToHashtable(String hql, String searchterm) {
             SimpleQuery<posting> query = new SimpleQuery<posting>(typeof(posting), hql);
             query.SetParameter("searchterm", "%" + searchterm + "%");
             return query.Execute();
         }
+        /// <summary> </summary>
         public static SortedDictionary<string, int> search_event_string(string term) {
             // Use hashtable to store name/value pairs
             SortedDictionary<string, int> results = new SortedDictionary<string, int>();
@@ -153,6 +157,7 @@ namespace stellar.Services {
              }*/
             return results;
         }
+        /// <summary> </summary>
         public static List<posting> filterPage(String term) {
             List<posting> listtems = new List<posting>();
             int sid = 0;

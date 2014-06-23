@@ -37,6 +37,7 @@ namespace stellar.Controllers {
 
     #endregion
 
+    /// <summary> </summary>
     [Layout("admin")]
     public class postController : adminController {
         /*
@@ -45,12 +46,14 @@ namespace stellar.Controllers {
          * 
          */
 
+        /// <summary> </summary>
         public postController() {
             Controllers.BaseController.current_controller = "post";
         }
 
 
 
+        /// <summary> </summary>
         public posting_type getPostType(String posttype) {
             posting tmp = new posting();
             tmp.tmp = true;
@@ -70,6 +73,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void create(String post_type, Boolean skipLayout) {
             posting tmp = new posting();
             tmp.tmp = true;
@@ -86,6 +90,7 @@ namespace stellar.Controllers {
             ActiveRecordMediator<posting>.Save(tmp);
             RedirectToUrl("~/post/edit_post.castle?id=" + tmp.baseid + (skipLayout ? "&skipLayout=true" : ""));
         }
+        /// <summary> </summary>
         public void edit_post(int id,int rev,Boolean skipLayout) {
             
             posting post = ActiveRecordBase<posting>.Find(id);
@@ -190,6 +195,7 @@ namespace stellar.Controllers {
             RenderView(editorpath);
         }
 
+        /// <summary> </summary>
         public void update([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] posting item,
             bool    ajaxed_update,
             bool    forced_tmp,
@@ -359,6 +365,7 @@ namespace stellar.Controllers {
                 return;
             }
         }
+        /// <summary> </summary>
         public void copy_post(int id, String name) {
             CancelLayout();
             CancelView();
@@ -374,7 +381,7 @@ namespace stellar.Controllers {
         }
 
 
-
+        /// <summary> </summary>
         public void list_revisions(int id) {
             posting post = ActiveRecordBase<posting>.Find(id);
             posting[] lastversions = ActiveRecordBase<posting>.FindAll(new Order("revision", false),
@@ -386,6 +393,7 @@ namespace stellar.Controllers {
         }
 
         //note that the xxxxxxmass arg should be a switch
+        /// <summary> </summary>
         public void massaction(int[] mass, String deletemass, String publishmass) {
             foreach (int id in mass) {
                 if (!String.IsNullOrWhiteSpace(publishmass)) {
@@ -429,12 +437,15 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void posting_list(string post_type,Boolean show_core) {
             posting_list(post_type, 0, 0, "", "", false, false, show_core);
         }
+        /// <summary> </summary>
         public void posting_list(string post_type){
             posting_list(post_type, 0, 0, "", "", false, false, false);
         }
+        /// <summary> </summary>
         public void posting_list(string post_type, int page, int searchId, string target, string filter, Boolean ajax, bool skiplayout, Boolean show_core) {
 
             posting_type postType = getPostType(post_type);
@@ -582,6 +593,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void delete_post(int id) {
             posting post = ActiveRecordBase<posting>.Find(id);
             if (post.owner.baseid == userService.getUser().baseid) {
@@ -597,6 +609,7 @@ namespace stellar.Controllers {
             
             RedirectToAction("posting_list", new string[] { "post_type="+post.post_type.alias });
         }
+        /// <summary> </summary>
         public void restorePostRevision(int id) {
             posting post = ActiveRecordBase<posting>.Find(id);
             if (versionService.restorePost(ActiveRecordBase<posting>.Find(post.parent.baseid), post.version, post.revision)){
@@ -615,11 +628,13 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void generate_stub(Boolean skiplayout, String view) {
             if (skiplayout) CancelLayout();
             RenderView(!String.IsNullOrWhiteSpace(view) ? view : "../admin/postings/custom_post_blocks/post_stub");
         }
 
+        /// <summary> </summary>
         public void save_stub([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] posting item,
             String post_type,
             Boolean skiplayout

@@ -13,12 +13,12 @@ namespace stellar {
     /// </summary>
     [ServiceContract]
     public interface IService1 {
-
+        /// <summary> </summary>
         [OperationContract]
         [WebGet]
         string GetData();
 
-
+        /// <summary> </summary>
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         appuser[] GetAccounts();

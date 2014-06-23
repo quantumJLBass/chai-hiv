@@ -60,8 +60,10 @@ using System.Runtime.Serialization;
 
 
 namespace stellar.Controllers {
+    /// <summary> </summary>
     public class feedController : BaseController {
 
+        /// <summary> </summary>
         public feedController() {
             Controllers.BaseController.current_controller = "feed";
         }
@@ -106,12 +108,14 @@ namespace stellar.Controllers {
         #endregion
 
         #region URL rendering
+        /// <summary> </summary>
         public void general(string aspxerrorpath) {
             CancelLayout();
             CancelView();
             LayoutName = "error";
             RenderView("errors/general404");
         }
+        /// <summary> </summary>
         public void error(string aspxerrorpath) {
             CancelView();
             CancelLayout();
@@ -121,6 +125,7 @@ namespace stellar.Controllers {
             LayoutName = "error";
             RenderView("errors/error");
         }
+        /// <summary> </summary>
         public void render() {
             /*
              * get regisitored routes
@@ -201,6 +206,7 @@ namespace stellar.Controllers {
 
         #endregion
 
+        /// <summary> </summary>
         protected htmlService HtmlService = new htmlService();
 
 
@@ -213,10 +219,12 @@ namespace stellar.Controllers {
         }*/
 
 
+        /// <summary> </summary>
         public void output_feed(int[] iid, Boolean dev) {
             output_feed(iid, "", dev);
         }
 
+        /// <summary> </summary>
         public static String json_site_options(site site, String filter) {
             Hashtable site_options = new Hashtable();
             var jss = new JavaScriptSerializer();
@@ -236,6 +244,7 @@ namespace stellar.Controllers {
          * to (date)
          */
 
+        /// <summary> </summary>
         public void output_feed(int[] iids, string filter, Boolean dev) {
             CancelLayout();
             CancelView();

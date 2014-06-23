@@ -23,6 +23,8 @@ using System.Web.Script.Serialization;
 #endregion
 
 namespace stellar.Services {
+
+    /// <summary> </summary>
     public class siteService {
         private static ILog log = log4net.LogManager.GetLogger("siteService");
         /*
@@ -49,10 +51,12 @@ namespace stellar.Services {
 
 
         /* getting and setting the site */
+        /// <summary> </summary>
         public static Boolean is_localhost(){
             return System.Web.HttpContext.Current.Request.IsLocal;
         }
 
+        /// <summary> </summary>
         public static site getDefaultSite() {
             site site = new site();
             try{ // the reason for using a try here is that we don't care if it can't find a default site.  
@@ -66,6 +70,7 @@ namespace stellar.Services {
             return (site == null) ? new site() : site;
         }
 
+        /// <summary> </summary>
         public static site getSiteFromURL() {
             site site = ActiveRecordBase<site>.FindOne(new List<AbstractCriterion>() { 
                             Expression.Eq("base_url", httpService.getCurrentBaseURL())
@@ -86,6 +91,7 @@ namespace stellar.Services {
             Controllers.BaseController.localsite = current;
             return current;
         }*/
+        /// <summary> </summary>
         public static site getCurrentSite() {
             site current = new site();
             if (is_localhost() || !Controllers.installController.is_installed() ) {
@@ -106,10 +112,12 @@ namespace stellar.Services {
         }
 
 
+        /// <summary> </summary>
         public static Boolean is_admin() {
             return Controllers.BaseController.in_admin;
         }
 
+        /// <summary> </summary>
         public static Boolean is_frontend() {
             return Controllers.BaseController.in_admin;
         }
@@ -119,29 +127,37 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         public static String json_site_admin_options(){
             return json_site_admin_options(siteService.getCurrentSite(), "", "");
         }
+        /// <summary> </summary>
         public static String json_site_admin_options(String include) {
             return json_site_admin_options(siteService.getCurrentSite(), "", include);
         }
+        /// <summary> </summary>
         public static String json_site_admin_options(String exclude, String include) {
             return json_site_admin_options(siteService.getCurrentSite(), exclude, include);
         }
+        /// <summary> </summary>
         public static String json_site_admin_options(site site, String exclude, String include) {
             return json_site_options(siteService.getCurrentSite(), exclude, "admin" + (String.IsNullOrWhiteSpace(include) ? "" : "," + include));
         }
 
 
+        /// <summary> </summary>
         public static String json_site_options(){
             return json_site_options(siteService.getCurrentSite(), "","");
         }
+        /// <summary> </summary>
         public static String json_site_options(String include) {
             return json_site_options(siteService.getCurrentSite(), "", include);
         }
+        /// <summary> </summary>
         public static String json_site_options(String exclude, String include) {
             return json_site_options(siteService.getCurrentSite(), exclude, include);
         }
+        /// <summary> </summary>
         public static String json_site_options(site site, String exclude, String include) {
             Hashtable site_options = new Hashtable();
             var jss = new JavaScriptSerializer();
@@ -177,6 +193,7 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         public Hashtable getAppHashTable() {
             Hashtable hash = HttpContext.Current.Application["sites"] as Hashtable;
             if (hash == null) {
@@ -186,6 +203,7 @@ namespace stellar.Services {
             return hash;
         }
 
+        /// <summary> </summary>
         public site getsiteFromAppScope(String host) {
             Hashtable hash = getAppHashTable();
             if (hash[host.ToLower()] == null) {
@@ -195,17 +213,20 @@ namespace stellar.Services {
             return hash[host.ToLower()] as site;
         }
 
+        /// <summary> </summary>
         public site getsite() {
             String hostname = getHostNameFromContext();
             return getsiteFromAppScope(hostname);
         }
 
+        /// <summary> </summary>
         public void clearsite() {
             Hashtable hash = getAppHashTable();
             hash[getHostNameFromContext()] = null;
             HttpContext.Current.Application["sites"] = hash;
         }
 
+        /// <summary> </summary>
         public String getHostNameFromContext() {
             String host = HttpContext.Current.Request.Url.Host;
             if (HttpContext.Current.Request.Url.Port != 80 && HttpContext.Current.Request.Url.Port != 443)
@@ -213,6 +234,7 @@ namespace stellar.Services {
             return host;
         }
 
+        /// <summary> </summary>
         internal static bool debug_mode() {
             return siteService.getCurrentSite().get_option("state_debug") == "1";
         }

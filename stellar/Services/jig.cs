@@ -27,5 +27,7 @@ using System.Timers;
 #endregion
 
 namespace stellar.Services {
+
+    /// <summary> </summary>
     public static class jig { }
 }

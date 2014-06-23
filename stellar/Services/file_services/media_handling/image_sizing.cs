@@ -26,9 +26,11 @@ using Goheer.EXIF;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class image_sizing {
         private static ILog log = log4net.LogManager.GetLogger("ImageService");
 
+        /// <summary> </summary>
         public static Boolean protectSize(Image OriginalFile, int MaxWidth, int MaxHeight, bool onBoth) {
             if ((OriginalFile.Height <= MaxWidth && OriginalFile.Width <= MaxWidth) && onBoth) {
                 return false;
@@ -41,6 +43,7 @@ namespace stellar.Services {
             }
             return true;
         }
+        /// <summary> </summary>
         public static Image ScaleByPercent(Image imgPhoto, int Percent) {
             float nPercent = ((float)Percent / 100);
 
@@ -68,6 +71,7 @@ namespace stellar.Services {
             grPhoto.Dispose();
             return bmPhoto;
         }
+        /// <summary> </summary>
         public static Image ConstrainProportions(Image imgPhoto, int Size, image_handler.Dimensions Dimension) {
             log.Info(" in ConstrainProportions ");
             //stellar.Services.LogService.writelog(" in ConstrainProportions ");
@@ -109,6 +113,7 @@ namespace stellar.Services {
             //grPhoto.Dispose();
             return bmPhoto;
         }
+        /// <summary> </summary>
         public static Image FixedSize(Image imgPhoto, int Width, int Height) {
             int sourceWidth = imgPhoto.Width;
             int sourceHeight = imgPhoto.Height;
@@ -152,6 +157,7 @@ namespace stellar.Services {
             grPhoto.Dispose();
             return bmPhoto;
         }
+        /// <summary> </summary>
         public static Image Crop(Image imgPhoto, int Width, int Height, image_handler.AnchorPosition Anchor) {
             int sourceWidth = imgPhoto.Width;
             int sourceHeight = imgPhoto.Height;

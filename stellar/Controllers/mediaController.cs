@@ -35,9 +35,11 @@ using System.Linq;
 #endregion
 
 namespace stellar.Controllers {
+    /// <summary> </summary>
     [Layout("admin")]
     public class mediaController : adminController {
         ILog log = log4net.LogManager.GetLogger("mediaController");
+        /// <summary> </summary>
         public mediaController() {
             Controllers.BaseController.current_controller = "media";
         }
@@ -55,12 +57,14 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void Index() {
             //ActiveRecordBase<Block>.FindAll();
             PropertyBag["AccessDate"] = DateTime.Now;
         }
 
         /**/
+        /// <summary> </summary>
         public void New() {
             String CreditList = GetCredit();
             PropertyBag["credits"] = CreditList;
@@ -68,6 +72,7 @@ namespace stellar.Controllers {
             PropertyBag["images"] = ActiveRecordBase<posting>.FindAll();
         }
 
+        /// <summary> </summary>
         public void inlineupload() {
             String CreditList = GetCredit();
             PropertyBag["credits"] = CreditList;
@@ -80,6 +85,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void Edit(int id) {
 
             String CreditList = GetCredit();
@@ -91,6 +97,7 @@ namespace stellar.Controllers {
             RenderView("new");
         }
 
+        /// <summary> </summary>
         public String GetCredit() {
             String sql = "SELECT DISTINCT s.credit FROM media_repo AS s WHERE NOT s.credit = 'NULL'";
             SimpleQuery<String> q = new SimpleQuery<String>(typeof(posting), sql);
@@ -105,6 +112,7 @@ namespace stellar.Controllers {
 
 
         /**/
+        /// <summary> </summary>
         public void removeImage(int image_id, int event_id, bool ajax) {
             posting image = ActiveRecordBase<posting>.Find(image_id);
             // a var for uploads will start here
@@ -136,6 +144,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void uploadFiles(IRequest request) {
             CancelLayout();
             CancelView();
@@ -255,17 +264,20 @@ namespace stellar.Controllers {
         }
 
         /* maybe turn in to hashtable so that the keys can be used? */
+        /// <summary> </summary>
         public Object[] getMediaBuild(posting media, String Fname) {
             Object[] tmp = new Object[1];
             tmp[0] = media;
             return tmp;
         }
 
+        /// <summary> </summary>
         public void startImageProcessing(Object[] tmpMediaObj) {
             foreach (object[] media in tmpMediaObj) {
                 createNewFile(media);
             }
         }
+        /// <summary> </summary>
         public Thread StartTheThread(posting media, System.Drawing.Image processed_image, string tmp_File) {
             log.Info("StartTheThread for " + media.static_file + " with id " + media.id + " at path " + tmp_File);
             var t = new Thread(() => new image_handler().process(media.id, processed_image, tmp_File, image_handler.imageMethod.Constrain, 0, 0, 1000, image_handler.Dimensions.Width, true, "", media.get_meta("ext")));
@@ -275,6 +287,7 @@ namespace stellar.Controllers {
 
 
         /* from file that exists */
+        /// <summary> </summary>
         public void createNewFile(object[] media) {
             posting mediaObj = (posting)media[0];
             String types_path = getUploadsPath("image\\" + mediaObj.taxonomy_types.First().alias + "\\" + mediaObj.taxonomy_types.First().alias, false);
@@ -305,6 +318,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void applyMediaToObject(posting media, int id, string type) {
             switch (type) {
                 case "events":
@@ -341,6 +355,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         protected string getUploadsURL(string mediaType, bool usetemp) {
             if (String.IsNullOrEmpty(mediaType)) mediaType = "image";
             String Url = httpService.getRootUrl();
@@ -350,6 +365,7 @@ namespace stellar.Controllers {
             if (usetemp) Url += @"tmp\";
             return Url;
         }
+        /// <summary> </summary>
         protected string getUploadsPath(string mediaType, bool usetemp) {
 
             if (String.IsNullOrEmpty(mediaType)) mediaType = "image";
@@ -363,6 +379,7 @@ namespace stellar.Controllers {
             }
             return path;
         }
+        /// <summary> </summary>
         protected string getUploadsRelavtivePath(string mediaType, bool usetemp) {
             String path = getUploadsPath(mediaType, usetemp);
             String directory = file_info.root_path();
@@ -377,6 +394,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void Update(
             [ARDataBind("image", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] posting image,
             HttpPostedFile newimage,
@@ -452,6 +470,7 @@ namespace stellar.Controllers {
             Flash["message"] = "Image Added";
             RedirectToAction("list");
         }
+        /// <summary> </summary>
         public void UpdatePool([ARDataBind("image", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] posting image, HttpPostedFile newimage) {
             ActiveRecordMediator<posting>.Save(image);
             if (newimage.ContentLength != 0) {
@@ -503,6 +522,7 @@ namespace stellar.Controllers {
             RedirectToAction("list");
         }
 
+        /// <summary> </summary>
         [SkipFilter()]
         public void getmap(string path) {
             CancelLayout();
@@ -547,6 +567,7 @@ namespace stellar.Controllers {
 
 
         // h = height , w = width , p = percent, m = method , protect= stop sizing up of image, pre = prefix to image name 
+        /// <summary> </summary>
         [SkipFilter()]
         public void Download(int id, int eventsid, int w, int h, int p, string m, bool protect, string pre, string mark, int maxage, bool nocache, bool mug) {
             CancelLayout();
@@ -709,6 +730,7 @@ namespace stellar.Controllers {
         //    return filename;
         //}
 
+        /// <summary> </summary>
         [Layout("browser")]
         public void Browser(string type) {
             PropertyBag["images"] = ActiveRecordBase<posting>.FindAll();

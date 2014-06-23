@@ -28,12 +28,14 @@
     using System.Text;
 #endregion
 
-namespace stellar.Services
-{
-    public class userService
-	{
+namespace stellar.Services {
+
+    /// <summary> </summary>
+    public class userService {
         ILog log = log4net.LogManager.GetLogger("userService");
 
+
+        /// <summary> </summary>
         public static Boolean loginUser() {
             String username = System.Web.HttpContext.Current.Response.Cookies["unldap"].Value; //Authentication.authenticate();
             HttpContext.Current.Request.Cookies["unldap"].Value = username; //Maybe this should be md5'd?
@@ -50,6 +52,8 @@ namespace stellar.Services
             }
             return false;
         }
+
+        /// <summary> </summary>
         public static Boolean logoutUser() {
             String username = HttpContext.Current.Request.Cookies["unldap"] != null ? HttpContext.Current.Request.Cookies["unldap"].Value : null;
             if (username != null) {
@@ -65,12 +69,17 @@ namespace stellar.Services
             }
             return true;
         }
+
+        /// <summary> </summary>
         public static appuser[] getLogedIn() {
             appuser[] users = ActiveRecordBase<appuser>.FindAllByProperty("logedin", true);
             return users;
         }
 
+        /// <summary> </summary>
         public static Boolean isLogedIn() { return isLogedIn(null); }
+
+        /// <summary> </summary>
         public static Boolean isLogedIn(string nid) {
             appuser[] user_list = getLogedIn();
             bool temp = false;
@@ -83,11 +92,14 @@ namespace stellar.Services
             return temp;
         }
 
+        /// <summary> </summary>
         public static String getNid() {
             String username = "";
             if (HttpContext.Current.Request.Cookies["unldap"]!=null) username = HttpContext.Current.Request.Cookies["unldap"].Value;
             return username;
         }
+
+        /// <summary> </summary>
         public static appuser setUser() {
             String uname = getNid();
             appuser user = null;
@@ -99,17 +111,21 @@ namespace stellar.Services
             //HttpContext.Current.Session["you"] = user;
             return user;
         }
+
+        /// <summary> </summary>
         public static appuser getUser() {
             // this needs to change back to the session
             appuser user = setUser();// HttpContext.Current.Session["you"] == null ? setUser() : (users)HttpContext.Current.Session["you"];
             return user;
         }
 
+        /// <summary> </summary>
         public static appuser getUserFull(int id) {
             appuser user = ActiveRecordBase<appuser>.Find(id);
             return user;
         }
 
+        /// <summary> </summary>
         public static appuser getUserFull() {
             appuser userbase = getUser();
             appuser user = null;
@@ -122,9 +138,13 @@ namespace stellar.Services
             }
             return user;
         }
+
+        /// <summary> </summary>
         public static string getUserIp() {
             return GetIPAddress();
         }
+
+        /// <summary> </summary>
         protected static string GetIPAddress() {
             System.Web.HttpContext context = System.Web.HttpContext.Current;
 
@@ -138,6 +158,8 @@ namespace stellar.Services
             }
             return context.Request.ServerVariables["REMOTE_ADDR"];
         }
+
+        /// <summary> </summary>
         public static Boolean isActive(appuser user) {
             int timeThreshold = -2; //TODO Set as site perference
             bool active = false;
@@ -150,9 +172,12 @@ namespace stellar.Services
 
 
 
+        /// <summary> </summary>
         public Boolean hasGroup(String group) {
             return hasGroup(group, userService.getUser());
         }
+
+        /// <summary> </summary>
         public Boolean hasGroup(String group, appuser user) {
             return group == user.groups.name;
         }
@@ -160,6 +185,7 @@ namespace stellar.Services
 
 
 
+        /// <summary> </summary>
         public static bool setSessionPrivleage(appuser user, string privilege) {
 
             bool flag = false;
@@ -168,17 +194,21 @@ namespace stellar.Services
             HttpContext.Current.Session[privilege] = flag;
             return flag;
         }
+        /// <summary> </summary>
         public static bool checkPrivleage(string privilege) {
             return checkPrivleage(getUserFull(), privilege);
         }
+        /// <summary> </summary>
         public static bool checkPrivleage(appuser user, string privilege) {
             bool flag = setSessionPrivleage(user, privilege);// (HttpContext.Current.Session[privilege] == null || String.IsNullOrWhiteSpace(HttpContext.Current.Session[privilege].ToString())) ? setSessionPrivleage(user, privilege) : (bool)HttpContext.Current.Session[privilege];
             return flag;
         }
 
+        /// <summary> </summary>
         public static contact_profile get_defaultContactProfile() {
             return get_defaultContactProfile(getUserFull());
         }
+        /// <summary> </summary>
         public static contact_profile get_defaultContactProfile(appuser user) {
             contact_profile profile = user.contact_profiles.FirstOrDefault(x => x.isDefault == true);
             return profile;
@@ -186,6 +216,7 @@ namespace stellar.Services
 
         //This is a generic set of methods that will first check the object has a property
         //then if it does set it to null if the user is not actively editing it
+        /// <summary> </summary>
         public static Boolean clearConnections<t>() {
             t[] items = ActiveRecordBase<t>.FindAll();
             bool result = false;
@@ -205,6 +236,7 @@ namespace stellar.Services
             }
             return result;
         }
+        /// <summary> </summary>
         public static Boolean clearTmps<t>() {
             t[] items = ActiveRecordBase<t>.FindAll();
             bool result = false;
@@ -224,8 +256,9 @@ namespace stellar.Services
             return result;
         }
 
-        
 
+
+        /// <summary> </summary>
         public static Boolean clearLocked<t>(int id, bool ajax) {
             dynamic item = ActiveRecordBase<t>.Find(id);
             bool result = false;

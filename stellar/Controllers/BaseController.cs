@@ -60,6 +60,7 @@ namespace stellar.Controllers {
      * 
      */
 
+    /// <summary> </summary>
     [Filter(ExecuteWhen.BeforeAction, typeof(scriptFilter))]
     [Layout("default")]
     [Rescue(typeof(RescueController))]//Rescue("generalerror")
@@ -71,6 +72,7 @@ namespace stellar.Controllers {
          * based on http://msdn.microsoft.com/en-us/library/dd460648.aspx
          */
         //private CompositionContainer _container;
+        /// <summary> </summary>
         public BaseController() {
             
             /* load the plugins .. test if there are first to avoid Object reference not set to an instance of an object
@@ -91,7 +93,9 @@ namespace stellar.Controllers {
             }
              */
         }
+        /// <summary> </summary>
         private static Boolean _installed;
+        /// <summary> </summary>
         public static Boolean installed {
             set {
                 _installed = (!installed) ? Controllers.installController.is_installed() : true; 
@@ -104,17 +108,25 @@ namespace stellar.Controllers {
 
         /* These are global vars that we'll need
          */
+        /// <summary> </summary>
         public static site localsite { get { return (!installed) ? new site() : siteService.getCurrentSite(); } }
+        /// <summary> </summary>
         public static Boolean in_admin { get; set; }
 
-        public static string current_controller { get; set; } 
+        /// <summary> </summary>
+        public static string current_controller { get; set; }
 
         /* the goal is to load the settings */
+        /// <summary> </summary>
         public static string site_ext { get { return (!installed) ? "" : siteService.getCurrentSite().get_option("site_ext"); } } // = ".html"; // site pref
+        /// <summary> </summary>
         public static Boolean use_static { get { return Convert.ToBoolean(Convert.ToInt16((!installed) ? "0" : siteService.getCurrentSite().get_option("use_static"))); } } // site pref
+        /// <summary> </summary>
         public static Boolean usedev { get { return Convert.ToBoolean(Convert.ToInt16((!installed) ? "0" : siteService.getCurrentSite().get_option("usedev"))); } }//= false;  // not seeming to be updated look to the visible editor | should be a site pref
+        /// <summary> </summary>
         public static string theme { get { return (!installed) ? "default" : siteService.getCurrentSite().get_option("current_site_theme"); } }
 
+        /// <summary> </summary>
         public static Boolean editing { get; set; }
 
 
@@ -123,15 +135,18 @@ namespace stellar.Controllers {
          * to be used and passed to services where access to 
          * monorail's PropertyBag is not able to be had it seems
          */
+        /// <summary> </summary>
         public static Hashtable sodo_PropertyBag = new Hashtable();
 
 
 
 
+        /// <summary> </summary>
         public static System.Web.HttpContext context() {
             return System.Web.HttpContext.Current;
         }
 
+        /// <summary> </summary>
         [SkipFilter()]
         public static bool logout_user() {
             context().Response.Cookies["unldap_en"].Value = "";
@@ -148,9 +163,11 @@ namespace stellar.Controllers {
 
             return authenticated();
         }
+        /// <summary> </summary>
         public void redirect_logouted_user() {
             Redirect("center", "login", new Hashtable());
         }
+        /// <summary> </summary>
         public static void kill_cookies() {
             HttpCookie myCookie = new HttpCookie("unldap_en");
             myCookie.Expires = DateTime.Now.AddDays(-1d);
@@ -162,6 +179,7 @@ namespace stellar.Controllers {
 
 
         }
+        /// <summary> </summary>
         public static bool authenticated() {
             log.Info("checking login");
             //if (context().Request.IsLocal) return true;
@@ -193,6 +211,7 @@ namespace stellar.Controllers {
             return authenticated;
         }
 
+        /// <summary> </summary>
         public bool IsAuthenticated(string srvr, string usr, string pwd) {
             bool authenticated = false;
             PrincipalContext adContext = null;
@@ -233,6 +252,7 @@ namespace stellar.Controllers {
 
 
         #region(Core methods)
+        /// <summary> </summary>
             public String getVersion() {
                 // create reader & open file
                 String path = Context.Server.MapPath("../version.txt");
@@ -247,19 +267,24 @@ namespace stellar.Controllers {
             }
 
             /* maybe this should be in a utilitiesServices?*/
+            /// <summary> </summary>
             public static void echo(String txt) {
                 System.Web.HttpContext.Current.Response.Write(txt);
             }
 
             //public static Hashtable debuglog { get; set; }
+            /// <summary> </summary>
             public static Hashtable debuglog = new Hashtable();
 
+            /// <summary> </summary>
             public static void vardump(Hashtable paramtable) {
                 vardump(paramtable, "", "");
             }
+            /// <summary> </summary>
             public static void vardump(Hashtable paramtable, String message) {
                 vardump(paramtable, message, "");
             }
+            /// <summary> </summary>
             public static void vardump(Hashtable paramtable,String message,String wrap) {
                 if (siteService.debug_mode()) {
                     List<String> wrap_parts= new List<String>();
@@ -293,7 +318,8 @@ namespace stellar.Controllers {
             }
         #endregion
 
-        #region MCV INFO METHODS
+            #region MCV INFO METHODS
+            /// <summary> </summary>
             public string getView() {
                 String veiw = "";
                 try{
@@ -301,6 +327,7 @@ namespace stellar.Controllers {
                 }catch{}
                 return veiw;
             }
+            /// <summary> </summary>
             public string getAction() {
                 String action = "";
                 try{
@@ -313,6 +340,7 @@ namespace stellar.Controllers {
                 } catch { }
                 return action;
             }
+            /// <summary> </summary>
             public string getViewAndAction() {
                 String VA = "";
                 try {
@@ -320,6 +348,7 @@ namespace stellar.Controllers {
                 } catch { }
                 return VA;
             }
+            /// <summary> </summary>
             public object getVar(string var) {
                 return PropertyBag[var];
             }

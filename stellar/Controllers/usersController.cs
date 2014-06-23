@@ -18,13 +18,15 @@ using log4net;
 
 namespace stellar.Controllers
 {
-    
+
 
 
     #region usersController
+    /// <summary> </summary>
     [Layout("admin")]
     public class usersController : adminController {
         ILog log = log4net.LogManager.GetLogger("usersController");
+        /// <summary> </summary>
         public usersController() {
             Controllers.BaseController.current_controller = "users";
         }
@@ -35,6 +37,7 @@ namespace stellar.Controllers
 
 
 
+        /// <summary> </summary>
         public void list_users(int page, int searchId, string target, string filter, Boolean ajax) {
             userService.clearConnections<posting>();
 
@@ -65,12 +68,14 @@ namespace stellar.Controllers
 
 
 
+        /// <summary> </summary>
         public void new_user() {
             appuser user = new appuser();
             PropertyBag["user"] = user;
             PropertyBag["groups"] = ActiveRecordBase<user_group>.FindAll();
             RenderView("edit");
         }
+        /// <summary> </summary>
         public void edit_user(int id, int page) {
             appuser user = ActiveRecordBase<appuser>.Find(id);
             if (!userService.checkPrivleage("edit_users") && user != userService.getUser()) {
@@ -90,6 +95,7 @@ namespace stellar.Controllers
             RenderView("edit");
         }
 
+        /// <summary> </summary>
         public void update_user(
                 [ARDataBind("user", Validate = true, AutoLoad = AutoLoadBehavior.NewInstanceIfInvalidKey)] appuser user,
                 [ARDataBind("image", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] posting image,
@@ -160,6 +166,7 @@ namespace stellar.Controllers
         }
 
 
+        /// <summary> </summary>
         public void absorb_user(int absorber, int absorbed) {
             appuser absorbing_auth = ActiveRecordBase<appuser>.Find(absorber);
             appuser auth_absorbed = ActiveRecordBase<appuser>.Find(absorbed);
@@ -169,12 +176,14 @@ namespace stellar.Controllers
 
 
 
+        /// <summary> </summary>
         public void delete_user(int id) {
             appuser auth = ActiveRecordBase<appuser>.Find(id);
             ActiveRecordMediator<appuser>.Delete(auth);
             RedirectToReferrer();
         }
 
+        /// <summary> </summary>
         public void view_ContactProfile(int id) {
             CancelLayout();
             CancelView();
@@ -182,6 +191,7 @@ namespace stellar.Controllers
             RenderView("view_profile");
         }
 
+        /// <summary> </summary>
         public void edit_ContactProfile(int id) {
             PropertyBag["profile"] = ActiveRecordBase<contact_profile>.Find(id);
             RenderView("edit_profile");
@@ -195,6 +205,7 @@ namespace stellar.Controllers
 
 
         /* this needs to be abstracted too this can and should be able to search anything */
+        /// <summary> </summary>
         public static SortedDictionary<string, int> search_user_string(string term) {
             // Use hashtable to store name/value pairs
             SortedDictionary<string, int> results = new SortedDictionary<string, int>();

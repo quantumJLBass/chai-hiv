@@ -12,6 +12,7 @@ using DotNetOpenAuth.OAuth2.Messages;
 
 
 namespace stellar.oauth.Code {
+    /// <summary> </summary>
     internal class OAuth2AuthorizationServer : IAuthorizationServerHost {
 /*#if SAMPLESONLY
 		/// <summary>
@@ -37,14 +38,17 @@ namespace stellar.oauth.Code {
 
         #region Implementation of IAuthorizationServerHost
 
+        /// <summary> </summary>
         public ICryptoKeyStore CryptoKeyStore {
             get { return GlobalApplication.KeyNonceStore; }
         }
 
+        /// <summary> </summary>
         public INonceStore NonceStore {
             get { return GlobalApplication.KeyNonceStore; }
         }
 
+        /// <summary> </summary>
         public AccessTokenResult CreateAccessToken(IAccessTokenRequest accessTokenRequestMessage) {
             var accessToken = new AuthorizationServerAccessToken();
 
@@ -70,6 +74,7 @@ namespace stellar.oauth.Code {
             return result;
         }
 
+        /// <summary> </summary>
         public IClientDescription GetClient(string clientIdentifier) {
             var consumerRow = GlobalApplication.DataContext.Clients.SingleOrDefault(
                 consumerCandidate => consumerCandidate.ClientIdentifier == clientIdentifier);
@@ -80,21 +85,25 @@ namespace stellar.oauth.Code {
             return consumerRow;
         }
 
+        /// <summary> </summary>
         public bool IsAuthorizationValid(IAuthorizationDescription authorization) {
             return this.IsAuthorizationValid(authorization.Scope, authorization.ClientIdentifier, authorization.UtcIssued, authorization.User);
         }
 
+        /// <summary> </summary>
         public AutomatedUserAuthorizationCheckResponse CheckAuthorizeResourceOwnerCredentialGrant(string userName, string password, IAccessTokenRequest accessRequest) {
             // This web site delegates user authentication to OpenID Providers, and as such no users have local passwords with this server.
             throw new NotSupportedException();
         }
 
+        /// <summary> </summary>
         public AutomatedAuthorizationCheckResponse CheckAuthorizeClientCredentialsGrant(IAccessTokenRequest accessRequest) {
             throw new NotImplementedException();
         }
 
         #endregion
 
+        /// <summary> </summary>
         public bool CanBeAutoApproved(EndUserAuthorizationRequest authorizationRequest) {
             if (authorizationRequest == null) {
                 throw new ArgumentNullException("authorizationRequest");
@@ -124,6 +133,7 @@ namespace stellar.oauth.Code {
         /// Creates the RSA key used by all the crypto service provider instances we create.
         /// </summary>
         /// <returns>RSA data that includes the private key.</returns>
+        /// <summary> </summary>
         private static RSAParameters CreateAuthorizationServerSigningKey() {
 #if SAMPLESONLY
 			// Since the sample authorization server and the sample resource server must work together,
@@ -157,12 +167,14 @@ namespace stellar.oauth.Code {
 #endif
         }
 
+        /// <summary> </summary>
         private static RSACryptoServiceProvider CreateRSA() {
             var rsa = new RSACryptoServiceProvider();
             rsa.ImportParameters(CreateAuthorizationServerSigningKey());
             return rsa;
         }
 
+        /// <summary> </summary>
         private bool IsAuthorizationValid(HashSet<string> requestedScopes, string clientIdentifier, DateTime issuedUtc, string username) {
             // If db precision exceeds token time precision (which is common), the following query would
             // often disregard a token that is minted immediately after the authorization record is stored in the db.

@@ -29,11 +29,14 @@ using System.Linq;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class CloneInjection : ConventionInjection {
+        /// <summary> </summary>
         protected override bool Match(ConventionInfo c) {
             return c.SourceProp.Name == c.TargetProp.Name && c.SourceProp.Value != null;
         }
 
+        /// <summary> </summary>
         protected override object SetValue(ConventionInfo c) {
             //for value types and string just return the value as is
             if (c.SourceProp.Type.IsValueType || c.SourceProp.Type == typeof(string))

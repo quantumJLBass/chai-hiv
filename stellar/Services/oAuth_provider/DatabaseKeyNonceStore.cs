@@ -40,8 +40,7 @@ namespace stellar.oauth.Code {
 		/// The nonce must be stored for no less than the maximum time window a message may
 		/// be processed within before being discarded as an expired message.
 		/// This maximum message age can be looked up via the
-		/// <see cref="DotNetOpenAuth.Configuration.MessagingElement.MaximumMessageLifetime"/>
-		/// property, accessible via the <see cref="DotNetOpenAuth.Configuration.DotNetOpenAuthSection.Configuration"/>
+		/// property, accessible via the 
 		/// property.
 		/// </remarks>
 		public bool StoreNonce(string context, string nonce, DateTime timestampUtc) {
@@ -60,6 +59,7 @@ namespace stellar.oauth.Code {
 
 		#region ICryptoKeyStore Members
 
+        /// <summary> </summary>
 		public CryptoKey GetKey(string bucket, string handle) {
 			// It is critical that this lookup be case-sensitive, which can only be configured at the database.
             var matches = from key in GlobalApplication.DataContext.SymmetricCryptoKeys
@@ -69,6 +69,7 @@ namespace stellar.oauth.Code {
 			return matches.FirstOrDefault();
 		}
 
+        /// <summary> </summary>
 		public IEnumerable<KeyValuePair<string, CryptoKey>> GetKeys(string bucket) {
             return from key in GlobalApplication.DataContext.SymmetricCryptoKeys
 				   where key.Bucket == bucket
@@ -76,6 +77,7 @@ namespace stellar.oauth.Code {
 				   select new KeyValuePair<string, CryptoKey>(key.Handle, new CryptoKey(key.Secret, key.ExpiresUtc.AsUtc()));
 		}
 
+        /// <summary> </summary>
 		public void StoreKey(string bucket, string handle, CryptoKey key) {
 			var keyRow = new SymmetricCryptoKey() {
 				Bucket = bucket,
@@ -88,6 +90,7 @@ namespace stellar.oauth.Code {
             GlobalApplication.DataContext.SubmitChanges();
 		}
 
+        /// <summary> </summary>
 		public void RemoveKey(string bucket, string handle) {
             var match = GlobalApplication.DataContext.SymmetricCryptoKeys.FirstOrDefault(k => k.Bucket == bucket && k.Handle == handle);
 			if (match != null) {

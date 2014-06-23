@@ -10,13 +10,16 @@ using stellar.Tools;
 using DotNetOpenAuth.OAuth.Messages;
 
 namespace stellar {
+    /// <summary> </summary>
     public class OAuth : IHttpHandler, IRequiresSessionState {
         ServiceProvider sp;
 
+        /// <summary> </summary>
         public OAuth() {
             sp = new ServiceProvider(Constants.SelfDescription, GlobalApplication.TokenManager, new CustomOAuthMessageFactory(GlobalApplication.TokenManager));
         }
 
+        /// <summary> </summary>
         public void ProcessRequest(HttpContext context) {
             IProtocolMessage request = sp.ReadRequest();
             RequestScopedTokenMessage requestToken;
@@ -36,6 +39,7 @@ namespace stellar {
             }
         }
 
+        /// <summary> </summary>
         public bool IsReusable {
             get { return true; }
         }

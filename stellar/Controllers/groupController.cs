@@ -20,14 +20,17 @@ namespace stellar.Controllers {
      * is apart of the user controller as this is what groupd them
      * jBass out
      */
+    /// <summary> </summary>
     [Layout("admin")]
     public class groupController : adminController {
         ILog log = log4net.LogManager.GetLogger("groupController");
+        /// <summary> </summary>
         public groupController() {
             Controllers.BaseController.current_controller = "group";
         }
 
         #region groups
+        /// <summary> </summary>
         public void list_groups() {
             PropertyBag["admin_groups"] = ActiveRecordBase<user_group>.FindAll().Where(x => x.isAdmin == true);
             PropertyBag["FE_groups"] = ActiveRecordBase<user_group>.FindAll().Where(x => x.isAdmin == false);
@@ -37,6 +40,7 @@ namespace stellar.Controllers {
             RenderView("list");
         }
 
+        /// <summary> </summary>
         public void edit_group(int id) {
             logger.writelog("Editing group", getView(), getAction(), id);
             PropertyBag["privileges"] = ActiveRecordBase<privilege>.FindAll();
@@ -44,6 +48,7 @@ namespace stellar.Controllers {
             PropertyBag["groups"] = ActiveRecordBase<user_group>.FindAll();
             RenderView("edit");
         }
+        /// <summary> </summary>
         public void new_group() {
             logger.writelog("Creating group", getView(), getAction());
             PropertyBag["privileges"] = ActiveRecordBase<privilege>.FindAll();
@@ -51,6 +56,7 @@ namespace stellar.Controllers {
             PropertyBag["groups"] = ActiveRecordBase<user_group>.FindAll();
             RenderView("edit");
         }
+        /// <summary> </summary>
         public void update_group([ARDataBind("group", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] user_group group
             ,int[] privileges
             ) {
@@ -64,7 +70,7 @@ namespace stellar.Controllers {
                         group.privileges.Add(ActiveRecordBase<privilege>.Find(id));
                     }
                 }
-                /**/
+                
                 ActiveRecordMediator<user_group>.Save(group);
                 if (group == userService.getUser().groups) userService.setUser();
             } catch (Exception ex) {
@@ -80,6 +86,7 @@ namespace stellar.Controllers {
             }
             RedirectToAction("list_groups");
         }
+        /// <summary> </summary>
         public void delete_group(int id) {
             user_group group = ActiveRecordBase<user_group>.Find(id);
             //Flash["error"] = "At the moment no one has rights to delete a group but the system.";
@@ -97,17 +104,20 @@ namespace stellar.Controllers {
         #endregion
 
         #region privileges
+        /// <summary> </summary>
         public void edit_privilege(int id) {
             privilege privilege = ActiveRecordBase<privilege>.Find(id);
             logger.writelog("Editing privilege", getView(), getAction(), privilege.baseid);
             PropertyBag["privilege"] = privilege;
             RenderView("_edit_privilege");
         }
+        /// <summary> </summary>
         public void new_privilege() {
             logger.writelog("Creating privilege", getView(), getAction());
             PropertyBag["privilege"] = new privilege();
             RenderView("_edit_privilege");
         }
+        /// <summary> </summary>
         public void update_privilege(
             [ARDataBind("privilege", Validate = true, AutoLoad = AutoLoadBehavior.NewInstanceIfInvalidKey)] privilege privilege
             ) {
@@ -127,6 +137,7 @@ namespace stellar.Controllers {
             }
             RedirectToAction("list_groups");
         }
+        /// <summary> </summary>
         public void delete_privilege(int id) {
             privilege privilege = ActiveRecordBase<privilege>.Find(id);
             try {

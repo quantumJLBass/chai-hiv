@@ -59,6 +59,7 @@ using System.DirectoryServices.AccountManagement;
 
 
 namespace stellar.Controllers {
+    /// <summary> </summary>
     [Layout("simple")]
     public class centerController : BaseController {
         ILog log = log4net.LogManager.GetLogger("centerController");
@@ -67,16 +68,19 @@ namespace stellar.Controllers {
         //pwd = user password
 
 
+        /// <summary> </summary>
         public void home() {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             //this is the default action so this is where the first check to install will have to go 
             //if (!Controllers.installController.is_installed()) Controllers.installController.start_install();
             RenderView("home");
         }
-        
+
+        /// <summary> </summary>
         public void login() {
             RenderView("login");
         }
+        /// <summary> </summary>
         public void signin(String user,String checkhash) {
             if (String.IsNullOrWhiteSpace(user) && String.IsNullOrWhiteSpace(checkhash)) {
                 Redirect("center", "login", new Hashtable());
@@ -84,11 +88,13 @@ namespace stellar.Controllers {
             Boolean loggedin = IsAuthenticated("LDAP://bosdc1.clintonhealthacess.org/", user, checkhash);
             Redirect("center", "login", new Hashtable());
         }
+        /// <summary> </summary>
         public void logout() {
             logout_user();
             Redirect("center", "login", new Hashtable());
         }
 
+        /// <summary> </summary>
         public Boolean is_pubview(Boolean pub) {
             if (context().Request.QueryString["pub"] == null) {
                 HttpCookie myCookie = context().Request.Cookies["hivpubview"];
@@ -108,6 +114,7 @@ namespace stellar.Controllers {
         }
 
         #region(references)
+        /// <summary> </summary>
         public void references(Boolean skiplayout, String exclude, Boolean pub) {
             //do the auth
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -119,6 +126,7 @@ namespace stellar.Controllers {
             PropertyBag["items"] = ActiveRecordBase<reference>.FindAll().Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()));
             RenderView("references");
         }
+        /// <summary> </summary>
         public void reference(int id, Boolean skiplayout, String typed_ref) {
             //do the auth
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -130,6 +138,7 @@ namespace stellar.Controllers {
             RenderView("reference");
         }
 
+        /// <summary> </summary>
         [SkipFilter()]
         public void savereference([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] reference item,
             HttpPostedFile newfile,
@@ -251,6 +260,7 @@ namespace stellar.Controllers {
                 return;
             }
         }
+        /// <summary> </summary>
          [SkipFilter()]
         public void remove_reference(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -261,7 +271,8 @@ namespace stellar.Controllers {
 
         #endregion
 
-        #region(clinicals)
+         #region(clinicals)
+         /// <summary> </summary>
          public void clinicals(Boolean skiplayout, String exclude, Boolean pub) {
              if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
              pub = is_pubview(pub);
@@ -282,6 +293,7 @@ namespace stellar.Controllers {
             }
             RenderView("clinicals");
         }
+         /// <summary> </summary>
          public void copyclinical(int id, String name) {
              CancelLayout();
              CancelView();
@@ -295,6 +307,7 @@ namespace stellar.Controllers {
                  Redirect("center", "clinicals", hashtable);
              }
          }
+         /// <summary> </summary>
         public static int make_clinical_tmp() {
             clinical tmp = new clinical();
             tmp.tmp = true;
@@ -304,6 +317,7 @@ namespace stellar.Controllers {
             return tmp.baseid;
         }
 
+        /// <summary> </summary>
         public void clinical(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             //do the auth
@@ -316,6 +330,7 @@ namespace stellar.Controllers {
             RenderView("clinical");
         }
 
+        /// <summary> </summary>
          [SkipFilter()]
         public void saveclinical([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] clinical item,
             Boolean ajaxed_update,
@@ -385,6 +400,7 @@ namespace stellar.Controllers {
                 return;
             }
         }
+         /// <summary> </summary>
          [SkipFilter()]
         public void remove_clinical(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -393,7 +409,8 @@ namespace stellar.Controllers {
             Redirect("center", "clinicals", new Hashtable());
         }
         #endregion
-        #region(trials)
+         #region(trials)
+         /// <summary> </summary>
          public void trials(Boolean skiplayout, String exclude, Boolean pub) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
@@ -413,6 +430,7 @@ namespace stellar.Controllers {
             }
             RenderView("trials");
         }
+         /// <summary> </summary>
          public static int make_trial_tmp() {
              trial tmp = new trial();
              tmp.tmp = true;
@@ -421,6 +439,7 @@ namespace stellar.Controllers {
              ActiveRecordMediator<trial>.Save(tmp);
              return tmp.baseid;
          }
+         /// <summary> </summary>
          public void trial(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             //do the auth
@@ -430,6 +449,7 @@ namespace stellar.Controllers {
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<trial>.Find(id);
             RenderView("trial");
         }
+         /// <summary> </summary>
         [SkipFilter()]
          public void savetrial([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] trial item,
             Boolean ajaxed_update,
@@ -471,7 +491,7 @@ namespace stellar.Controllers {
                 logger.writelog("Saved " + item.record_id + " edits on", getView(), getAction(), item.baseid);
                 Flash["message"] = "Saved " + item.record_id + " edits for " + item.number;
                 ActiveRecordMediator<trial>.Save(item);
-                /// ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+                // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();
                 //hashtable.Add("post_type", item.post_type.alias);
                 Redirect("center", "trials", hashtable);
@@ -479,6 +499,7 @@ namespace stellar.Controllers {
             }
         }
 
+        /// <summary> </summary>
         [SkipFilter()]
         public void remove_trial(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -488,6 +509,7 @@ namespace stellar.Controllers {
         }
         #endregion
         #region(drug_families)
+        /// <summary> </summary>
         public void families(Boolean skiplayout, String exclude, Boolean pub) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
@@ -507,6 +529,7 @@ namespace stellar.Controllers {
             }
             RenderView("drug_families");
         }
+        /// <summary> </summary>
         public static int make_family_tmp() {
             drug_family tmp = new drug_family();
             tmp.tmp = true;
@@ -515,6 +538,7 @@ namespace stellar.Controllers {
             ActiveRecordMediator<drug_family>.Save(tmp);
             return tmp.baseid;
         }
+        /// <summary> </summary>
         public void family(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             //do the auth
@@ -525,6 +549,7 @@ namespace stellar.Controllers {
             RenderView("drug");
         }
 
+        /// <summary> </summary>
         public void copyfamily(int id, String name) {
             CancelLayout();
             CancelView();
@@ -539,6 +564,7 @@ namespace stellar.Controllers {
             }
 
         }
+        /// <summary> </summary>
         [SkipFilter()]
         public void savefamily([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug_family item,
             Boolean ajaxed_update,
@@ -617,6 +643,7 @@ namespace stellar.Controllers {
                 return;
             }
         }
+        /// <summary> </summary>
         [SkipFilter()]
         public void remove_family(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -626,6 +653,7 @@ namespace stellar.Controllers {
         }
         #endregion
         #region(drugs)
+        /// <summary> </summary>
         public void drugs(Boolean skiplayout, String exclude, Boolean pub) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
@@ -645,6 +673,7 @@ namespace stellar.Controllers {
             }
             RenderView("drugs");
         }
+        /// <summary> </summary>
         public static int make_drug_tmp() {
             drug tmp = new drug();
             tmp.tmp = true;
@@ -653,6 +682,7 @@ namespace stellar.Controllers {
             ActiveRecordMediator<drug>.Save(tmp);
             return tmp.baseid;
         }
+        /// <summary> </summary>
         public void drug(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             //do the auth
@@ -663,6 +693,7 @@ namespace stellar.Controllers {
             RenderView("drug");
         }
 
+        /// <summary> </summary>
         public void copydrug(int id, String name) {
             CancelLayout();
             CancelView();
@@ -677,6 +708,7 @@ namespace stellar.Controllers {
             }
 
         }
+        /// <summary> </summary>
         [SkipFilter()]
         public void savedrug([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug item,
             Boolean ajaxed_update,
@@ -755,6 +787,7 @@ namespace stellar.Controllers {
                 return;
             }
         }
+        /// <summary> </summary>
          [SkipFilter()]
         public void remove_drug(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -763,7 +796,8 @@ namespace stellar.Controllers {
             Redirect("center", "drugs", new Hashtable());
         }
         #endregion
-        #region(substances)
+         #region(substances)
+         /// <summary> </summary>
          public void substances(Boolean skiplayout, String exclude, Boolean pub) {
              if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
              pub = is_pubview(pub);
@@ -783,6 +817,7 @@ namespace stellar.Controllers {
             }
             RenderView("substances");
         }
+         /// <summary> </summary>
         public static int make_substance_tmp() {
              substance tmp = new substance();
              tmp.tmp = true;
@@ -791,6 +826,7 @@ namespace stellar.Controllers {
              ActiveRecordMediator<substance>.Save(tmp);
              return tmp.baseid;
          }
+        /// <summary> </summary>
         public void substance(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             //do the auth
@@ -800,6 +836,7 @@ namespace stellar.Controllers {
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<substance>.Find(id);
             RenderView("substance");
         }
+        /// <summary> </summary>
         [SkipFilter()]
         public void savesubstance([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] substance item,
             HttpPostedFile newfile,
@@ -885,6 +922,7 @@ namespace stellar.Controllers {
             //do the auth
             RenderView("substance");
         }
+        /// <summary> </summary>
          [SkipFilter()]
         public void remove_substance(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -897,12 +935,13 @@ namespace stellar.Controllers {
 
 
 
-        
 
 
 
 
 
+
+         /// <summary> </summary>
         public void reports() {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             List<user_meta_data> data = ActiveRecordBase<user_meta_data>.FindAll().Where(x => x.meta_key.Contains("sql_") && !x.meta_key.Contains("__name") ).ToList();
@@ -921,6 +960,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void report() {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             Dictionary<String, String> params_list = httpService.getPostParmas_obj();
@@ -999,6 +1039,7 @@ namespace stellar.Controllers {
             //RenderView("reports");
         }
 
+        /// <summary> </summary>
         public void rerunreport(String type, String sql) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             if (type == "drug") {
@@ -1034,6 +1075,7 @@ namespace stellar.Controllers {
             RenderView("report");
         }
 
+        /// <summary> </summary>
         public void predefinedeport(String alias)
         {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -1053,6 +1095,7 @@ namespace stellar.Controllers {
             //PropertyBag["saved"] = true;
             RenderView("report");
         }
+        /// <summary> </summary>
         public void savereport(String type, String sql, String query_name)
         {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -1082,6 +1125,7 @@ namespace stellar.Controllers {
             //RenderView("reports");
         }
 
+        /// <summary> </summary>
         public void listsavedreports() {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             appuser user = userService.getUser();
@@ -1092,6 +1136,7 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void delete_post<t>(int id) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             dynamic post = ActiveRecordBase<t>.Find(id);
@@ -1101,6 +1146,7 @@ namespace stellar.Controllers {
             ActiveRecordMediator<dynamic>.SaveAndFlush(post);
         }
 
+        /// <summary> </summary>
         public void trashbin() {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             PropertyBag["postingtypes"] = ActiveRecordBase<posting_type>.FindAll();
@@ -1113,6 +1159,7 @@ namespace stellar.Controllers {
 
             //RenderView("trashbin");
         }
+        /// <summary> </summary>
         public void massaction(int[] mass, String deletemass, String restoremass) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             foreach (int id in mass) {
@@ -1131,6 +1178,7 @@ namespace stellar.Controllers {
             RedirectToAction("trashbin");
         }
 
+        /// <summary> </summary>
         public void restore_item(int id) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             dynamic item = ActiveRecordBase<_base>.Find(id);
@@ -1144,6 +1192,7 @@ namespace stellar.Controllers {
             RedirectToAction("trashbin");
         }
 
+        /// <summary> </summary>
         public Boolean is_viewonly() {
 
             Boolean viewstate = false;
@@ -1162,6 +1211,7 @@ namespace stellar.Controllers {
         }
 
 
+        /// <summary> </summary>
         public string notes(string datatype, string name, string position) {
             String html = "";
             taxonomy tab_noteObj = postingService.get_taxonomy(datatype, "tab_note_" + name, "SYSTEM__tab_notes_" + position);
@@ -1175,10 +1225,12 @@ namespace stellar.Controllers {
         }
 
 
+        /// <summary> </summary>
         public string feilds(string formfeild, string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
             return feilds(formfeild, datatype, model_prop, value, "", custom_lable, placeholder, html_class, html_attr);
         }
 
+        /// <summary> </summary>
         public string feilds(string formfeild, string datatype, string model_prop, string value, string options, string custom_lable, string placeholder, string html_class, string html_attr) {
             String html = "";
             switch (formfeild) {
@@ -1197,6 +1249,7 @@ namespace stellar.Controllers {
             return html;
         }
 
+        /// <summary> </summary>
         public string feild_textinput(string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
             String html = "";
             String lable = "";
@@ -1231,6 +1284,7 @@ namespace stellar.Controllers {
             return html;
         }
 
+        /// <summary> </summary>
         public string feild_textarea(string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
             String html = "";
             String lable = "";
@@ -1265,6 +1319,7 @@ namespace stellar.Controllers {
             return html;
         }
 
+        /// <summary> </summary>
         public string feild_select(string datatype, string model_prop, string value, string options, string custom_lable, string html_class, string html_attr) {
             String html = "";
             String lable = "";

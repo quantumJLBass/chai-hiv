@@ -6,6 +6,7 @@ using DotNetOpenAuth.OAuth.ChannelElements;
 using stellar.Models;
 
 namespace stellar.Code {
+    /// <summary> </summary>
     public class OAuthToken : IServiceProviderRequestToken, IServiceProviderAccessToken {
 
         #region IServiceProviderRequestToken
@@ -17,6 +18,7 @@ namespace stellar.Code {
 
         private Uri _callback;
 
+        /// <summary> </summary>
         public Uri Callback {
             get { return _callback; }
             set { _callback = value; }
@@ -37,6 +39,7 @@ namespace stellar.Code {
 
         private Version _version;
 
+        /// <summary> </summary>
         public Version Version {
             get { return _version; }
             set { _version = value; }
@@ -65,6 +68,7 @@ namespace stellar.Code {
 
         private string _verificationCode;
 
+        /// <summary> </summary>
         public string VerificationCode {
             get { return _verificationCode; }
             set { _verificationCode = value; }
@@ -82,29 +86,36 @@ namespace stellar.Code {
 
         #region IServiceProviderAccessToken
 
+        /// <summary> </summary>
         private DateTime? _expirationDate;
         DateTime? IServiceProviderAccessToken.ExpirationDate {
             get { return _expirationDate; }
         }
 
         private string[] _roles;
+        /// <summary> </summary>
         string[] IServiceProviderAccessToken.Roles {
             get { return _roles; }
         }
 
+        /// <summary> </summary>
         string IServiceProviderAccessToken.Username {
             get { return User.nid; }
         }
 
+
         private String _spaccessToken;
+        /// <summary> </summary>
         String IServiceProviderAccessToken.Token {
             get { return _spaccessToken; }
         }
 
         #endregion
 
+
         private OAuthConsumer _consumer;
 
+        /// <summary> </summary>
         public OAuthConsumer Consumer {
             get { return _consumer; }
             set { _consumer = value; }
@@ -112,6 +123,7 @@ namespace stellar.Code {
 
         private TokenAuthorizationState _state;
 
+        /// <summary> </summary>
         public TokenAuthorizationState State {
             get { return _state; }
             set { _state = value; }
@@ -119,12 +131,14 @@ namespace stellar.Code {
 
         private DateTime _issueDate;
 
+        /// <summary> </summary>
         public DateTime IssueDate {
             get { return _issueDate; }
             set { _issueDate = value; }
         }
 
         private appuser _user;
+        /// <summary> </summary>
         public appuser User {
             get { return _user; }
             set { _user = value; }
@@ -132,6 +146,7 @@ namespace stellar.Code {
 
         private String _tokenSecret;
 
+        /// <summary> </summary>
         public String TokenSecret {
             get { return _tokenSecret; }
             set { _tokenSecret = value; }
@@ -139,11 +154,13 @@ namespace stellar.Code {
 
         private String _scope;
 
+        /// <summary> </summary>
         public String Scope {
             get { return _scope; }
             set { _scope = value; }
         }
 
+        /// <summary> </summary>
         public String Token {
             set {
                 _spaccessToken = value;

@@ -48,6 +48,7 @@ namespace ElFinder {
         public Root(DirectoryInfo directory) : this(directory, string.Empty) { }
 
 
+        /// <summary> </summary>
         public string VolumeId {
             get { return _volumeId; }
             internal set { _volumeId = value; }
@@ -60,28 +61,35 @@ namespace ElFinder {
             get { return _alias; }
             set { _alias = value; }
         }
+        /// <summary> </summary>
         public DirectoryInfo Directory {
             get { return _directory; }
         }
+        /// <summary> </summary>
         public string Url {
             get { return _url; }
         }
+        /// <summary> </summary>
         public string TmbUrl {
             get { return _tmbUrl; }
             set { _tmbUrl = value; }
         }
+        /// <summary> </summary>
         public string TmbPath {
             get { return _tmbPath; }
             set { _tmbPath = value; }
         }
+        /// <summary> </summary>
         public int TmbSize {
             get { return _tmbSize; }
             set { _tmbSize = value; }
         }
+        /// <summary> </summary>
         public string TmbBgColor {
             get { return _tmbBgColor; }
             set { _tmbBgColor = value; }
         }
+        /// <summary> </summary>
         public bool IsReadOnly { get; set; }
 
         #endregion public

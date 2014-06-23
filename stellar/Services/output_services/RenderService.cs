@@ -40,6 +40,7 @@ using Castle.MonoRail.Framework;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class renderService {
         ILog log = log4net.LogManager.GetLogger("renderService");
 
@@ -52,7 +53,8 @@ namespace stellar.Services {
         private List<posting> used_contentblocks = new List<posting>();
         private Hashtable PropertyBag = new Hashtable();
 
-       
+
+        /// <summary> </summary>
         public static string get_field_value(field_types field_type, posting _post) {
             string value = "";
             List<AbstractCriterion> typeEx = new List<AbstractCriterion>();
@@ -64,9 +66,11 @@ namespace stellar.Services {
         }
 
         //NOTE THIS SHOULD HAVE NOT TIE TO A "POSTING" BUT ABLE TO PROSSCESS ANYTHING
+        /// <summary> </summary>
         public static string field_processing(string text, posting place, Hashtable param) {
             return new renderService().process_fields(text, place, param);
         }
+        /// <summary> </summary>
         public string process_fields(string text, posting place, Hashtable param) {
             String result = text;
             if (place.post_type != null) {
@@ -96,9 +100,11 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         public static String postrender(String text, posting post, Hashtable param) {
             return new renderService().renderposting(text,post, param);
         }
+        /// <summary> </summary>
         public String renderposting(String text, posting post, Hashtable param) {
             //log.Error(" place:" + place.prime_name);
             Hashtable hashtable = param;
@@ -145,6 +151,7 @@ namespace stellar.Services {
 
             return tmp_str;
         }
+        /// <summary> </summary>
         public String render(posting post, Hashtable param) {
             String mode = param.ContainsKey("mode") ? param["mode"].ToString() : "published";
 
@@ -210,6 +217,7 @@ namespace stellar.Services {
 
 
         /* this, the process order, bubbles out ... when started it bubbles in, like the event box model in html*/
+        /// <summary> </summary>
         public static String simple_field_layout(String text, posting post, Hashtable param) {
             string processed = renderService.proccessText(param, text, false);
             string feild = renderService.field_processing(processed, post, param);
@@ -218,6 +226,7 @@ namespace stellar.Services {
 
         // this will look for code block like this {contentblock alias="header_html"}
         // this is hard code we only alias is accepted.. that needs to change
+        /// <summary> </summary>
         public String processContentblocks(string text, posting post, Hashtable paramsbag) {
             string strRegex = @"\#{\w+(\s+(.*?))?\}";
             RegexOptions myRegexOptions = RegexOptions.IgnoreCase | RegexOptions.Multiline;
@@ -323,15 +332,19 @@ namespace stellar.Services {
 
         #region(NVelocity processing)
 
+        /// <summary> </summary>
         public static String proccessText(bool isConent, Hashtable contextitems, String text, bool usetidy) {
             return htmlService.clearMSWordFormating(proccessText(contextitems, text, usetidy));
         }
+        /// <summary> </summary>
         public static String proccessText(bool isConent, Hashtable contextitems, String text) {
             return htmlService.clearMSWordFormating(proccessText(contextitems, text, false));
         }
+        /// <summary> </summary>
         public static String proccessText(Hashtable contextitems, String text) {
             return proccessText(contextitems, text, false);
         }
+        /// <summary> </summary>
         public static String proccessText(Hashtable contextitems, String text, bool usetidy) {
 
             text = !String.IsNullOrWhiteSpace(text) ? text : "";
@@ -403,6 +416,7 @@ namespace stellar.Services {
             return parsedtext;
         }
 
+        /// <summary> </summary>
         public static ExtendedProperties setMacros(ExtendedProperties props) {
             ArrayList macroList = new ArrayList();
             macroList.Add("macros.vm");
@@ -421,6 +435,7 @@ namespace stellar.Services {
             return props;
         }
 
+        /// <summary> </summary>
         private static void EventCartridge_ReferenceInsertion(object sender, ReferenceInsertionEventArgs e) {
             string originalString = e.OriginalValue.ToString();
             if (originalString == null) return;
@@ -429,6 +444,7 @@ namespace stellar.Services {
         #endregion
 
         #region(normalize)
+        /// <summary> </summary>
         private static String normalize_phase_paths(String text,Hashtable contextitems){
             /*correct veiw paths for anyone using #parse*/
             string strRegex = @"#parse\(""";

@@ -11,14 +11,17 @@ using stellar.Code;
 using stellar;
 
 namespace stellar {
+    /// <summary> </summary>
     public partial class Authorize : System.Web.UI.Page {
         private static readonly RandomNumberGenerator CryptoRandomDataGenerator = new RNGCryptoServiceProvider();
 
+        /// <summary> </summary>
         private string AuthorizationSecret {
             get { return Session["OAuthAuthorizationSecret"] as string; }
             set { Session["OAuthAuthorizationSecret"] = value; }
         }
 
+        /// <summary> </summary>
         protected void Page_Load(object sender, EventArgs e) {
             if (!IsPostBack) {
                 if (GlobalApplication.PendingOAuthAuthorization == null) {
@@ -42,6 +45,7 @@ namespace stellar {
             }
         }
 
+        /// <summary> </summary>
         protected void Authtorize_Click(object sender, EventArgs e) {
             if (this.AuthorizationSecret != this.OAuthAuthorizationSecToken.Value) {
                 throw new ArgumentException(); // probably someone trying to hack in.

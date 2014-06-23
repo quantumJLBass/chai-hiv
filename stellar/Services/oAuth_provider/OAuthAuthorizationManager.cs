@@ -17,6 +17,7 @@
     /// A WCF extension to authenticate incoming messages using OAuth.
     /// </summary>
     public class OAuthAuthorizationManager : ServiceAuthorizationManager {
+        /// <summary> </summary>
         public OAuthAuthorizationManager() {
         }
 

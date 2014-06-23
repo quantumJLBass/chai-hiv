@@ -6,6 +6,7 @@ using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth.Messages;
 
 namespace stellar.Tools {
+    /// <summary> </summary>
     public class RequestScopedTokenMessage : UnauthorizedTokenRequest {
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestScopedTokenMessage"/> class.

@@ -12,6 +12,7 @@ namespace stellar.oauth.Code {
 
 
 
+    /// <summary> </summary>
     [global::System.Data.Linq.Mapping.DatabaseAttribute(Name = "Database")]
     public partial class DataClassesDataContext : System.Data.Linq.DataContext {
 
@@ -36,55 +37,65 @@ namespace stellar.oauth.Code {
         partial void DeleteSymmetricCryptoKey(SymmetricCryptoKey instance);
         #endregion
 
+        /// <summary> </summary>
         public DataClassesDataContext() :
             base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString, mappingSource) {
             OnCreated();
         }
 
+        /// <summary> </summary>
         public DataClassesDataContext(string connection) :
             base(connection, mappingSource) {
             OnCreated();
         }
 
+        /// <summary> </summary>
         public DataClassesDataContext(System.Data.IDbConnection connection) :
             base(connection, mappingSource) {
             OnCreated();
         }
 
+        /// <summary> </summary>
         public DataClassesDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
             base(connection, mappingSource) {
             OnCreated();
         }
 
+        /// <summary> </summary>
         public DataClassesDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
             base(connection, mappingSource) {
             OnCreated();
         }
 
+        /// <summary> </summary>
         public System.Data.Linq.Table<User> Users {
             get {
                 return this.GetTable<User>();
             }
         }
 
+        /// <summary> </summary>
         public System.Data.Linq.Table<Client> Clients {
             get {
                 return this.GetTable<Client>();
             }
         }
 
+        /// <summary> </summary>
         public System.Data.Linq.Table<ClientAuthorization> ClientAuthorizations {
             get {
                 return this.GetTable<ClientAuthorization>();
             }
         }
 
+        /// <summary> </summary>
         public System.Data.Linq.Table<Nonce> Nonces {
             get {
                 return this.GetTable<Nonce>();
             }
         }
 
+        /// <summary> </summary>
         public System.Data.Linq.Table<SymmetricCryptoKey> SymmetricCryptoKeys {
             get {
                 return this.GetTable<SymmetricCryptoKey>();
@@ -92,6 +103,7 @@ namespace stellar.oauth.Code {
         }
     }
 
+    /// <summary> </summary>
     [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.[User]")]
     public partial class User : INotifyPropertyChanging, INotifyPropertyChanged {
 
@@ -117,11 +129,13 @@ namespace stellar.oauth.Code {
         partial void OnOpenIDFriendlyIdentifierChanged();
         #endregion
 
+        /// <summary> </summary>
         public User() {
             this._OAuthTokens = new EntitySet<ClientAuthorization>(new Action<ClientAuthorization>(this.attach_OAuthTokens), new Action<ClientAuthorization>(this.detach_OAuthTokens));
             OnCreated();
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_UserId", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
         public int UserId {
             get {
@@ -138,6 +152,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_OpenIDClaimedIdentifier", DbType = "NVarChar(150) NOT NULL", CanBeNull = false)]
         public string OpenIDClaimedIdentifier {
             get {
@@ -154,6 +169,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_OpenIDFriendlyIdentifier", DbType = "NVarChar(150)")]
         public string OpenIDFriendlyIdentifier {
             get {
@@ -170,6 +186,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_ClientAuthorization", Storage = "_OAuthTokens", ThisKey = "UserId", OtherKey = "UserId")]
         public EntitySet<ClientAuthorization> ClientAuthorizations {
             get {
@@ -180,33 +197,40 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         public event PropertyChangingEventHandler PropertyChanging;
 
+        /// <summary> </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary> </summary>
         protected virtual void SendPropertyChanging() {
             if ((this.PropertyChanging != null)) {
                 this.PropertyChanging(this, emptyChangingEventArgs);
             }
         }
 
+        /// <summary> </summary>
         protected virtual void SendPropertyChanged(String propertyName) {
             if ((this.PropertyChanged != null)) {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
+        /// <summary> </summary>
         private void attach_OAuthTokens(ClientAuthorization entity) {
             this.SendPropertyChanging();
             entity.User = this;
         }
 
+        /// <summary> </summary>
         private void detach_OAuthTokens(ClientAuthorization entity) {
             this.SendPropertyChanging();
             entity.User = null;
         }
     }
 
+    /// <summary> </summary>
     [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Client")]
     public partial class Client : INotifyPropertyChanging, INotifyPropertyChanged {
 
@@ -244,11 +268,13 @@ namespace stellar.oauth.Code {
         partial void OnClientTypeChanged();
         #endregion
 
+        /// <summary> </summary>
         public Client() {
             this._OAuthTokens = new EntitySet<ClientAuthorization>(new Action<ClientAuthorization>(this.attach_OAuthTokens), new Action<ClientAuthorization>(this.detach_OAuthTokens));
             OnCreated();
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ClientId", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
         public int ClientId {
             get {
@@ -265,6 +291,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ClientIdentifier", DbType = "NVarChar(50) NOT NULL", CanBeNull = false)]
         public string ClientIdentifier {
             get {
@@ -281,6 +308,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ClientSecret", DbType = "NVarChar(50)")]
         public string ClientSecret {
             get {
@@ -297,6 +325,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Callback")]
         public string Callback {
             get {
@@ -313,6 +342,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Name", CanBeNull = false)]
         public string Name {
             get {
@@ -329,6 +359,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ClientType")]
         public int ClientType {
             get {
@@ -345,6 +376,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Client_ClientAuthorization", Storage = "_OAuthTokens", ThisKey = "ClientId", OtherKey = "ClientId")]
         public EntitySet<ClientAuthorization> ClientAuthorizations {
             get {
@@ -355,33 +387,40 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         public event PropertyChangingEventHandler PropertyChanging;
 
+        /// <summary> </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary> </summary>
         protected virtual void SendPropertyChanging() {
             if ((this.PropertyChanging != null)) {
                 this.PropertyChanging(this, emptyChangingEventArgs);
             }
         }
 
+        /// <summary> </summary>
         protected virtual void SendPropertyChanged(String propertyName) {
             if ((this.PropertyChanged != null)) {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
+        /// <summary> </summary>
         private void attach_OAuthTokens(ClientAuthorization entity) {
             this.SendPropertyChanging();
             entity.Client = this;
         }
 
+        /// <summary> </summary>
         private void detach_OAuthTokens(ClientAuthorization entity) {
             this.SendPropertyChanging();
             entity.Client = null;
         }
     }
 
+    /// <summary> </summary>
     [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.ClientAuthorization")]
     public partial class ClientAuthorization : INotifyPropertyChanging, INotifyPropertyChanged {
 
@@ -421,12 +460,14 @@ namespace stellar.oauth.Code {
         partial void OnExpirationDateUtcChanged();
         #endregion
 
+        /// <summary> </summary>
         public ClientAuthorization() {
             this._Client = default(EntityRef<Client>);
             this._User = default(EntityRef<User>);
             OnCreated();
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_AuthorizationId", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
         public int AuthorizationId {
             get {
@@ -443,6 +484,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_IssueDate", DbType = "DateTime NOT NULL")]
         public System.DateTime CreatedOnUtc {
             get {
@@ -459,6 +501,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ClientId", DbType = "Int NOT NULL")]
         public int ClientId {
             get {
@@ -478,6 +521,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_UserId", DbType = "Int")]
         public int UserId {
             get {
@@ -497,6 +541,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Scope", DbType = "nvarchar(MAX)", CanBeNull = false)]
         public string Scope {
             get {
@@ -513,6 +558,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ExpirationDateUtc", DbType = "DateTime NULL")]
         public System.Nullable<System.DateTime> ExpirationDateUtc {
             get {
@@ -529,6 +575,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Client_ClientAuthorization", Storage = "_Client", ThisKey = "ClientId", OtherKey = "ClientId", IsForeignKey = true, DeleteOnNull = true, DeleteRule = "CASCADE")]
         public Client Client {
             get {
@@ -555,6 +602,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_ClientAuthorization", Storage = "_User", ThisKey = "UserId", OtherKey = "UserId", IsForeignKey = true, DeleteRule = "CASCADE")]
         public User User {
             get {
@@ -581,16 +629,20 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         public event PropertyChangingEventHandler PropertyChanging;
 
+        /// <summary> </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary> </summary>
         protected virtual void SendPropertyChanging() {
             if ((this.PropertyChanging != null)) {
                 this.PropertyChanging(this, emptyChangingEventArgs);
             }
         }
 
+        /// <summary> </summary>
         protected virtual void SendPropertyChanged(String propertyName) {
             if ((this.PropertyChanged != null)) {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
@@ -598,6 +650,7 @@ namespace stellar.oauth.Code {
         }
     }
 
+    /// <summary> </summary>
     [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Nonce")]
     public partial class Nonce : INotifyPropertyChanging, INotifyPropertyChanged {
 
@@ -621,10 +674,12 @@ namespace stellar.oauth.Code {
         partial void OnTimestampChanged();
         #endregion
 
+        /// <summary> </summary>
         public Nonce() {
             OnCreated();
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Context", CanBeNull = false, IsPrimaryKey = true)]
         public string Context {
             get {
@@ -641,6 +696,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Code", CanBeNull = false, IsPrimaryKey = true)]
         public string Code {
             get {
@@ -657,6 +713,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Timestamp", IsPrimaryKey = true)]
         public System.DateTime Timestamp {
             get {
@@ -673,16 +730,20 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         public event PropertyChangingEventHandler PropertyChanging;
 
+        /// <summary> </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary> </summary>
         protected virtual void SendPropertyChanging() {
             if ((this.PropertyChanging != null)) {
                 this.PropertyChanging(this, emptyChangingEventArgs);
             }
         }
 
+        /// <summary> </summary>
         protected virtual void SendPropertyChanged(String propertyName) {
             if ((this.PropertyChanged != null)) {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
@@ -690,6 +751,7 @@ namespace stellar.oauth.Code {
         }
     }
 
+    /// <summary> </summary>
     [global::System.Data.Linq.Mapping.TableAttribute(Name = "")]
     public partial class SymmetricCryptoKey : INotifyPropertyChanging, INotifyPropertyChanged {
 
@@ -717,10 +779,12 @@ namespace stellar.oauth.Code {
         partial void OnSecretChanged();
         #endregion
 
+        /// <summary> </summary>
         public SymmetricCryptoKey() {
             OnCreated();
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Bucket", CanBeNull = false, IsPrimaryKey = true, UpdateCheck = UpdateCheck.Never)]
         public string Bucket {
             get {
@@ -737,6 +801,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Handle", CanBeNull = false, IsPrimaryKey = true, UpdateCheck = UpdateCheck.Never)]
         public string Handle {
             get {
@@ -753,6 +818,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ExpiresUtc", UpdateCheck = UpdateCheck.Never)]
         public System.DateTime ExpiresUtc {
             get {
@@ -769,6 +835,7 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Secret", CanBeNull = false, UpdateCheck = UpdateCheck.Never)]
         public byte[] Secret {
             get {
@@ -785,16 +852,20 @@ namespace stellar.oauth.Code {
             }
         }
 
+        /// <summary> </summary>
         public event PropertyChangingEventHandler PropertyChanging;
 
+        /// <summary> </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary> </summary>
         protected virtual void SendPropertyChanging() {
             if ((this.PropertyChanging != null)) {
                 this.PropertyChanging(this, emptyChangingEventArgs);
             }
         }
 
+        /// <summary> </summary>
         protected virtual void SendPropertyChanged(String propertyName) {
             if ((this.PropertyChanged != null)) {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));

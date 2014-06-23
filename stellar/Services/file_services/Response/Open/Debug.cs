@@ -5,6 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 
 namespace ElFinder.Response {
+    /// <summary> </summary>
     [DataContract]
     internal class Debug {
         private static string[] _empty = new string[0];

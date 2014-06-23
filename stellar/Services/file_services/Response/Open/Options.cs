@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 
 namespace ElFinder.Response {
+    /// <summary> </summary>
     [DataContract]
     internal class Archive {
         private static string[] _empty = new string[0];
+        /// <summary> </summary>
         [DataMember(Name = "create")]
         public IEnumerable<string> Create { get { return _empty; } }
 
+        /// <summary> </summary>
         [DataMember(Name = "extract")]
         public IEnumerable<string> Extract { get { return new string[] { "application/x-zip-compressed", "application/zip", "application/x-gzip", "application/x-tar", "application/x-bzip2" }; } }
     }
+    /// <summary> </summary>
     [DataContract]
     internal class Options {
         private static string[] _empty = new string[0];
@@ -38,12 +42,14 @@ namespace ElFinder.Response {
         [DataMember(Name = "disabled")]
         public IEnumerable<string> disabled { get { return _disabled; } }
 
+        /// <summary> </summary>
         public Options(FullPath fullPath) {
 
             path = fullPath.RelativePath;
             url = fullPath.Root.Url;
             tmbUrl = fullPath.Root.TmbUrl;
         }
+        /// <summary> </summary>
         public Options() { }
     }
 }

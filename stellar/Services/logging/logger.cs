@@ -16,6 +16,7 @@ using Castle.ActiveRecord;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class logger {
         /*
         We want to have option to write to database, file, or both
@@ -25,10 +26,12 @@ namespace stellar.Services {
         */
 
         //we would want to have a set of core log files to use
+        /// <summary> </summary>
         public static Boolean is_logfile(String file) {
             return file == "/logs/install.log" || file.IndexOf("install.log")>0;
         }
 
+        /// <summary> </summary>
         public static void writelog(string txt, appuser user, string controller, string action, int obj_id) {
             if (Controllers.installController.is_installed()) {
                 logs loger = new logs();
@@ -41,30 +44,36 @@ namespace stellar.Services {
                 loger.obj_id = obj_id;
                 ActiveRecordMediator<logs>.Save(loger);
             } else {
-                DateTime time = DateTime.Now;
-                string format = "MMM ddd d HH:mm yyyy";
+                //DateTime time = DateTime.Now;
+                //string format = "MMM ddd d HH:mm yyyy";
                 //file_handler.write_to_file("logs/install.log", time.ToString(format)+" "+ txt, true);
             }
         }
 
+        /// <summary> </summary>
         public static void writelog(string txt, int obj_id) {
             writelog(txt, null, "", "", obj_id);
         }
 
+        /// <summary> </summary>
         public static void writelog(string txt, appuser user, int obj_id) {
             writelog(txt, user, "", "", obj_id);
         }
 
+        /// <summary> </summary>
         public static void writelog(string txt, appuser user) {
             writelog(txt, user, "", "", 0);
         }
 
+        /// <summary> </summary>
         public static void writelog(string txt, string controller, string action, int obj_id) {
             writelog(txt, null, controller, action, obj_id);
         }
+        /// <summary> </summary>
         public static void writelog(string txt, string controller, string action) {
             writelog(txt, null, controller, action, 0);
         }
+        /// <summary> </summary>
         public static void writelog(string txt) {
             writelog(txt, null, "", "", 0);
         }

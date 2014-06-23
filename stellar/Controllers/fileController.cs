@@ -62,15 +62,18 @@ using System.Runtime.Serialization;
 
 
 namespace stellar.Controllers {
+    /// <summary> </summary>
     [Layout("admin")]
     public class fileController : SecureBaseController {
 
+        /// <summary> </summary>
         public fileController() {
             Controllers.BaseController.current_controller = "file";
         }
 
 
 
+        /// <summary> </summary>
         public void get_index() {
             CancelLayout();
             CancelView();
@@ -91,6 +94,7 @@ namespace stellar.Controllers {
             RenderText(json);
         }
 
+        /// <summary> </summary>
         public void SelectFile(string target) {
             CancelLayout();
             CancelView();
@@ -108,6 +112,7 @@ namespace stellar.Controllers {
         }
 
 
+        /// <summary> </summary>
         public void retrieve_file_info(string target) {
             CancelLayout();
             CancelView();
@@ -124,7 +129,7 @@ namespace stellar.Controllers {
             RenderText(json);
         }
 
-        
+
 
 
 
@@ -146,12 +151,14 @@ namespace stellar.Controllers {
 
 
         #region URL rendering
+        /// <summary> </summary>
         public void general(string aspxerrorpath) {
             CancelLayout();
             CancelView();
             LayoutName = "error";
             RenderView("errors/general404");
         }
+        /// <summary> </summary>
         public void error(string aspxerrorpath) {
             CancelView();
             CancelLayout();
@@ -161,6 +168,7 @@ namespace stellar.Controllers {
             LayoutName = "error";
             RenderView("errors/error");
         }
+        /// <summary> </summary>
         public void render() {
             /*
              * get regisitored routes
@@ -241,8 +249,10 @@ namespace stellar.Controllers {
 
         #endregion
 
+        /// <summary> </summary>
         protected htmlService HtmlService = new htmlService();
 
+        /// <summary> </summary>
         public void filebrowser(int iid) {
 
             List<String> pagelist = file_info.DirSearch("/views/admin/admin_pages/");

@@ -17,6 +17,7 @@ using System.Xml;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class validationService {
         bool invalid = false;
 
@@ -29,6 +30,7 @@ namespace stellar.Services {
 
         #region(user data)
 
+        /// <summary> </summary>
         public bool IsValidEmail(string strIn) {
             invalid = false;
             if (String.IsNullOrEmpty(strIn))
@@ -46,6 +48,7 @@ namespace stellar.Services {
                    RegexOptions.IgnoreCase);
         }
 
+        /// <summary> </summary>
         private string DomainMapper(Match match) {
             // IdnMapping class with default property values.
             IdnMapping idn = new IdnMapping();
@@ -59,6 +62,7 @@ namespace stellar.Services {
             return match.Groups[1].Value + domainName;
         }
 
+        /// <summary> </summary>
         public bool isEmail(string inputEmail) {
             string pattern = @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|"
               + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)"
@@ -73,6 +77,7 @@ namespace stellar.Services {
         #endregion
 
         #region(is human tests)
+        /// <summary> </summary>
         public bool passedCaptcha(String Asirra_Ticket) {
             XmlDocument doc = new XmlDocument();
             doc.Load(@"http://challenge.asirra.com/cgi/Asirra?action=ValidateTicket&ticket=" + Asirra_Ticket);
@@ -87,6 +92,7 @@ namespace stellar.Services {
 
         #region(socialnetwork checks)
 
+        /// <summary> </summary>
         public bool passedHasFb(String uid, String accessToken) {
             /*
              * FIX THIS SO CHECK IF TRUE

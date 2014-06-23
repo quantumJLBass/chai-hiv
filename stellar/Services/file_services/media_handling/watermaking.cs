@@ -26,6 +26,7 @@ using Goheer.EXIF;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class watermaking {
         // roadmap
         /* image - text or img

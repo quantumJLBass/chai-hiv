@@ -25,6 +25,7 @@ namespace stellar {
     using stellar.oauth.Code;
 
 
+    /// <summary> </summary>
     class FirstRequestInitialization {
 
         private static bool s_InitializedAlready = false;
@@ -32,6 +33,7 @@ namespace stellar {
 
         // Initialize only on the first request
 
+        /// <summary> </summary>
         public static void Initialize(HttpContext context) {
 
             if (s_InitializedAlready) {
@@ -56,6 +58,7 @@ namespace stellar {
     }
 
 
+    /// <summary> </summary>
     public class GlobalApplication : HttpApplication, IContainerAccessor {
         private static IWindsorContainer container;
         /* ok this is  for the plugins.. it's in ref to 
@@ -72,11 +75,13 @@ namespace stellar {
         */
 
 
+        /// <summary> </summary>
         public GlobalApplication() {
         }
 
         #region IContainerAccessor
 
+        /// <summary> </summary>
         public IWindsorContainer Container {
             get { return container; }
         }
@@ -85,26 +90,36 @@ namespace stellar {
 
 
         #region(auth parts)
+        /// <summary> </summary>
             public static stellar.Models.appuser LoggedInUser {
                 get { return GlobalApplication.Users.SingleOrDefault(user => user.nid == HttpContext.Current.User.Identity.Name.ToString()); }
             }
 
+            /// <summary> </summary>
             public static void AuthorizePendingRequestToken() {
                 ITokenContainingMessage tokenMessage = PendingOAuthAuthorization;
                 TokenManager.AuthorizeRequestToken(tokenMessage.Token, LoggedInUser);
                 PendingOAuthAuthorization = null;
             }
 
+            /// <summary> </summary>
             public static List<OAuthConsumer> Consumers { get; set; }
+            /// <summary> </summary>
             public static List<OAuthToken> AuthTokens { get; set; }
+            /// <summary> </summary>
             public static List<Nonce> Nonces { get; set; }
+            /// <summary> </summary>
             public static List<appuser> Users { get; set; }
 
+            /// <summary> </summary>
             public static DatabaseNonceStore NonceStore { get; set; }
+            /// <summary> </summary>
             public static DatabaseKeyNonceStore KeyNonceStore { get; set; }
 
+            /// <summary> </summary>
             public static DatabaseTokenManager TokenManager { get; set; }
 
+            /// <summary> </summary>
             public static UserAuthorizationRequest PendingOAuthAuthorization {
                 get { return HttpContext.Current.Session["authrequest"] as UserAuthorizationRequest; }
                 set { HttpContext.Current.Session["authrequest"] = value; }
@@ -130,6 +145,7 @@ namespace stellar {
                 get { return DataContext.Users.SingleOrDefault(user => user.OpenIDClaimedIdentifier == HttpContext.Current.User.Identity.Name); }
             }*/
 
+            /// <summary> </summary>
             private static DataClassesDataContext DataContextSimple {
                 get {
                     if (HttpContext.Current != null) {
@@ -149,6 +165,7 @@ namespace stellar {
             }
         #endregion
 
+            /// <summary> </summary>
             protected void Application_Start(object sender, EventArgs e) {
 
                 if (HttpContext.Current.Request.Url.ToString().IndexOf("/api/") > -1) {
@@ -178,6 +195,7 @@ namespace stellar {
 
 
 
+            /// <summary> </summary>
         public void Application_OnStart() {
 
 

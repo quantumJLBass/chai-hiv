@@ -28,51 +28,63 @@ using Castle.MonoRail.Framework.Configuration;
 #endregion
 
 namespace stellar.Services {
+
+    /// <summary> </summary>
     public class themeService {
         ILog log = log4net.LogManager.GetLogger("themeService");
         /* this is just a shell to work with the postings in the key word of templates. 
          i think the goal should to be to make this install able so that you can 
          simple expand the base which is everything posted is a post 
          but is handled the way it needs to be */
+
+        /// <summary> </summary>
         public static IList<posting> get_published_templates(String type_alias) {
             return get_published_templates(type_alias, false);
         }
+        /// <summary> </summary>
         public static IList<posting> get_published_templates(String type_alias, Boolean usedev) {
             return get_templates(type_alias, false, false,null);
         }
 
 
+        /// <summary> </summary>
         public static IList<posting> get_working_templates(String type_alias) {
             return get_working_templates(type_alias, false);
         }
 
+        /// <summary> </summary>
         public static IList<posting> get_working_templates(String type_alias, Boolean usedev) {
             return get_templates(type_alias, usedev, false,null);
         }
 
+        /// <summary> </summary>
         public static IList<posting> get_templates(String type_alias, Boolean usedev, Boolean deleted, posting parent) {
             return postingService.get_general_postings(type_alias, usedev, deleted, parent);
         }
 
+        /// <summary> </summary>
         private static String veiw_path() {
             MonoRailConfiguration section = (MonoRailConfiguration)ConfigurationManager.GetSection("monorail");
             string path = section.ViewEngineConfig.ViewPathRoot;
             return path;
         }
+        /// <summary> </summary>
         private static String virtural_veiw_path() {
             MonoRailConfiguration section = (MonoRailConfiguration)ConfigurationManager.GetSection("monorail");
             string path = section.ViewEngineConfig.VirtualPathRoot;
             return path;
         }
 
-        
+
 
 
         #region(info and lists)
+        /// <summary> </summary>
             public static List<Hashtable> list_themes() {
                 return list_themes("frontend");
 
             }
+            /// <summary> </summary>
             public static List<Hashtable> list_themes(String mode) {
                 List<Hashtable> themelist = new List<Hashtable>();
                 foreach (String f in Directory.GetFiles(file_info.site_content_path() + "/themes/", "theme_info.txt", SearchOption.AllDirectories)) {
@@ -140,10 +152,12 @@ namespace stellar.Services {
 
 
         #region(paths)
-        //themeService.get_theme_alias()
+            //themeService.get_theme_alias()
+            /// <summary> </summary>
         public static String current_theme_alias() {
             return current_theme_alias(siteService.getCurrentSite());
         }
+        /// <summary> </summary>
         public static String current_theme_alias(site site) {
             String theme = site.get_option("current_site_theme");
             return theme == "" ? "base" : theme;
@@ -152,12 +166,15 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         public static string get_file_from_theme(String file, String type) {
             return get_file_from_theme(file, themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static string get_file_from_theme(String file, String mode, String type){
             return get_file_from_theme(file, themeService.current_theme_alias(), mode, type);
         }
+        /// <summary> </summary>
         public static string get_file_from_theme(String file, String theme, String mode, String type){
             String BASEPATH = theme_path(siteService.getCurrentSite(), theme, mode, type).Trim('/');
             String themefile = BASEPATH + "/" + file.Trim('/');
@@ -176,52 +193,66 @@ namespace stellar.Services {
 
 
 
-
+        /// <summary> </summary>
         public static String theme_path(String type) {
             return theme_path(siteService.getCurrentSite(), themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_path(String theme, String type) {
             return theme_path(siteService.getCurrentSite(), theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_path(site site, String type) {
             return theme_path(site, themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_path(site site, String theme, String type) {
             return theme_path(site, theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_path(site site, String theme, String mode, String type) {
             String BASEPATH = site.local_path.Trim('/');
             return file_info.normalize_path(BASEPATH + "/" + relative_theme_path(site, theme, mode, type).Trim('/') + "/");
         }
 
+        /// <summary> </summary>
         public static string virtual_theme_path(String type) {
             return virtual_theme_path(siteService.getCurrentSite(), themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static string virtual_theme_path(String theme, String type) {
             return virtual_theme_path(siteService.getCurrentSite(), theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static string virtual_theme_path(site site, String type) {
             return virtual_theme_path(site, themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static string virtual_theme_path(site site, String theme, String type) {
             return virtual_theme_path(site, theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static string virtual_theme_path(site site, String theme, String mode, String type) {
             return "~/" + relative_theme_path(site, theme, mode, type).Trim('/') + "/";
         }
 
+        /// <summary> </summary>
         public static string relative_theme_path(String type) {
             return relative_theme_path(siteService.getCurrentSite(), themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static string relative_theme_path(String theme, String type) {
             return relative_theme_path(siteService.getCurrentSite(), theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static string relative_theme_path(site site, String type) {
             return relative_theme_path(site, themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static string relative_theme_path(site site, String theme, String type) {
             return relative_theme_path(site, theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static string relative_theme_path(site site, String theme, String mode, String type) {
             String path = file_info.relative_site_content_path(site.alias).Trim('/') + "/cache/published/" + theme + "/" + mode + "/" + type + "/";
             if (!Directory.Exists(path)) path = file_info.relative_site_content_path(site.alias).Trim('/') + "/cache/published/base/" + mode + "/" + type + "/";
@@ -231,10 +262,12 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         public static string theme_adminfallback_path() {
             return file_info.root_path().Trim('/') + "/" + relative_theme_admin_path().Trim('/');
         }
         //the Views is set form the config.  Need to read that.
+        /// <summary> </summary>
         public static string relative_theme_admin_path() {
             return "/" + virtural_veiw_path() + "/admin/";
         }
@@ -243,68 +276,88 @@ namespace stellar.Services {
 
 
         //Skin is js / img / css
+        /// <summary> </summary>
         public static string virtual_theme_skin_path(String type) {
             return virtual_theme_skin_path(siteService.getCurrentSite(), themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static string virtual_theme_skin_path(String theme, String type) {
             return virtual_theme_skin_path(siteService.getCurrentSite(), theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static string virtual_theme_skin_path(site site, String type) {
             return virtual_theme_skin_path(site, themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static string virtual_theme_skin_path(site site, String theme, String type) {
             return virtual_theme_skin_path(site, theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static string virtual_theme_skin_path(site site, String theme, String mode, String type) {
             return "~/" + relative_theme_skin_path(site, theme, mode, type).Trim('/') + "/";
         }
 
+        /// <summary> </summary>
         public static String theme_skin_path(String type) {
             return theme_skin_path(siteService.getCurrentSite(), themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_skin_path(String theme, String type) {
             return theme_skin_path(siteService.getCurrentSite(), theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_skin_path(site site, String type) {
             return theme_skin_path(site, themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_skin_path(site site, String theme, String type) {
             return theme_skin_path(site, theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_skin_path(site site, String theme, String mode, String type) {
             String BASEPATH = site.local_path.Trim('/');
             return file_info.normalize_path(BASEPATH + "/" + relative_theme_skin_path(site, theme, mode, type).Trim('/') + "/");
         }
 
+        /// <summary> </summary>
         public static String theme_skin_url(String type) {
             return theme_skin_url(siteService.getCurrentSite(), themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_skin_url(String theme, String type) {
             return theme_skin_url(siteService.getCurrentSite(), theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_skin_url(site site, String type) {
             return theme_skin_url(site, themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_skin_url(site site, String theme, String type) {
             return theme_skin_url(site, theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static String theme_skin_url(site site, String theme, String mode, String type) {
             String BASEURL = site.base_url.Trim('/');
             return BASEURL + "/" + file_info.normalize_path(relative_theme_skin_path(site, theme, mode, type)).Trim('/');
         }
 
+        /// <summary> </summary>
         public static string relative_theme_skin_path(String type) {
             return relative_theme_skin_path(siteService.getCurrentSite(), themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static string relative_theme_skin_path(String theme, String type) {
             return relative_theme_skin_path(siteService.getCurrentSite(), theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static string relative_theme_skin_path(site site, String type) {
             return relative_theme_skin_path(site, themeService.current_theme_alias(), "frontend", type);
         }
+        /// <summary> </summary>
         public static string relative_theme_skin_path(site site, String theme, String type) {
             return relative_theme_skin_path(site, theme, "frontend", type);
         }
+        /// <summary> </summary>
         public static string relative_theme_skin_path(site site, String theme, String mode, String type) {
             String path = file_info.relative_site_content_path(site.alias).Trim('/') + "/cache/published/" + theme + "/" + mode + "/content/" + type + "/";
             if (!Directory.Exists(path)) path = file_info.relative_site_content_path(site.alias).Trim('/') + "/cache/published/base/" + mode + "/content/" + type + "/";
@@ -320,6 +373,7 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         public void scrub_skin_file(String file){
             String tmp = file_handler.read_from_file(file);
 

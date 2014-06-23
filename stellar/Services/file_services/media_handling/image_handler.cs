@@ -26,24 +26,39 @@ using Goheer.EXIF;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class image_handler {
         private static ILog log = log4net.LogManager.GetLogger("ImageService");
 
+        /// <summary> </summary>
         public enum Dimensions {
+            /// <summary> </summary>
             Width,
+            /// <summary> </summary>
             Height
         }
+        /// <summary> </summary>
         public enum AnchorPosition {
+            /// <summary> </summary>
             Top,
+            /// <summary> </summary>
             Center,
+            /// <summary> </summary>
             Bottom,
+            /// <summary> </summary>
             Left,
+            /// <summary> </summary>
             Right
         }
+        /// <summary> </summary>
         public enum imageMethod {
+            /// <summary> </summary>
             Percent,
+            /// <summary> </summary>
             Constrain,
+            /// <summary> </summary>
             Fixed,
+            /// <summary> </summary>
             Crop
         }
 
@@ -51,6 +66,7 @@ namespace stellar.Services {
         #region(tests)
 
 
+        /// <summary> </summary>
         public static bool isUploadAJpeg(HttpPostedFile someFile) {
             if (someFile.ContentType == "image/jpg" || someFile.ContentType == "image/jpeg" || someFile.ContentType == "image/pjpeg") {
                 return true;
@@ -59,6 +75,7 @@ namespace stellar.Services {
         }
 
 
+        /// <summary> </summary>
         public static bool isByteACMYK(Stream image) {
             using (StreamReader sr = new StreamReader(image)) {
                 string contents = sr.ReadToEnd();
@@ -70,6 +87,7 @@ namespace stellar.Services {
         }
 
 
+        /// <summary> </summary>
         public static bool isFileACMYKJpeg(System.Drawing.Image image) {
             System.Drawing.Imaging.ImageFlags flagValues = (System.Drawing.Imaging.ImageFlags)Enum.Parse(typeof(System.Drawing.Imaging.ImageFlags), image.Flags.ToString());
             if (flagValues.ToString().ToLower().IndexOf("ycck") == -1) {
@@ -88,6 +106,7 @@ namespace stellar.Services {
             }
             return true;
         }
+        /// <summary> </summary>
         public static Boolean checkImg(string ext, Stream stream) {
             // Make a copy of the stream to stop the destrustion of the gif animation per
             // http://stackoverflow.com/questions/8763630/c-sharp-gif-image-to-memorystream-and-back-lose-animation
@@ -117,6 +136,7 @@ namespace stellar.Services {
             return media;
 
         }*/
+        /// <summary> </summary>
         public static string setOrientation(string pathToImageFile) {
 
             //http://dotmac.rationalmind.net/2009/08/correct-photo-orientation-using-exif/
@@ -152,6 +172,7 @@ namespace stellar.Services {
             }
             return or;
         }
+        /// <summary> </summary>
         private static RotateFlipType OrientationToFlipType(int orientation) {
             RotateFlipType action = RotateFlipType.RotateNoneFlipNone;
             switch (orientation) {
@@ -190,6 +211,7 @@ namespace stellar.Services {
         #endregion
 
         #region(read/write)
+        /// <summary> </summary>
         public static void saveIamge(int id, string NewFile, Image imgPhoto) {
             log.Info("saving photo to filepath: " + NewFile);
             // create a writer and open the file
@@ -201,6 +223,7 @@ namespace stellar.Services {
             //if(HttpContext.Current!=null)ImageService.smushit(id, NewFile, GetMimeType(imgPhoto));
             imgPhoto.Dispose();
         }
+        /// <summary> </summary>
         public static void deleteTmpIamges(string image_path) {
             log.Info("saving photo to filepath: " + image_path);
             // create a writer and open the file
@@ -210,6 +233,7 @@ namespace stellar.Services {
 
         #endregion
 
+        /// <summary> </summary>
         public static String image(int id, int w, int h, int p, string m, bool protect, string pre, string mark, bool nocache) {
             posting image = ActiveRecordBase<posting>.Find(id);
             string uploads_path = file_info.site_uploads_path() ;
@@ -288,6 +312,7 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         public void process(int id, Image OriginalFile, string NewFile, imageMethod method, int percent, int height, int width, Dimensions dimensions, bool protect, string mark, string ext) {
             /* example usage
             imgPhoto = ScaleByPercent(imgPhotoVert, 50);
@@ -342,6 +367,7 @@ namespace stellar.Services {
 
         #region(image information)
         //This needs to move in to the mime class
+        /// <summary> </summary>
         public static string GetMimeType(Image i) {
             Guid imgguid = i.RawFormat.Guid;
             foreach (ImageCodecInfo codec in ImageCodecInfo.GetImageDecoders()) {
@@ -350,7 +376,8 @@ namespace stellar.Services {
             }
             return "image/unknown";
         }
-        
+
+        /// <summary> </summary>
         static ImageFormat get_image_type(Image imgPhoto) {
             ImageFormat imageFormat = imgPhoto.RawFormat;
             if (imgPhoto.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg)) {
@@ -381,6 +408,7 @@ namespace stellar.Services {
 
 
         #region(optimise)
+        /// <summary> </summary>
             public static bool smushit(int id, string image_name, String mimeType) {
                 // sent file to yahoo
                 string url = "http://www.smushit.com/ysmush.it/ws.php?";// "http://www.smushit.com/ysmush.it/ws.php?";

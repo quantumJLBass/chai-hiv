@@ -21,11 +21,15 @@ using System.ComponentModel;
 #endregion
 
 namespace stellar.Services {
+
+    /// <summary> </summary>
     public class settingsService {
 
 
 
         /* this is to choose the option starting from global site options with user consideration */
+
+        /// <summary> </summary>
         public static String get_option(String name){
             String result = "";
             options sdata = ActiveRecordBase<options>.FindOne(

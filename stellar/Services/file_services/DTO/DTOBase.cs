@@ -20,6 +20,7 @@ using NHibernate.Criterion;
 //using System.Web.Script.Serialization;
 
 namespace ElFinder.DTO {
+    /// <summary> </summary>
     [DataContract]
     internal abstract class DTOBase {
         protected static DateTime _unixOrigin = new DateTime(1970, 1, 1, 0, 0, 0);
@@ -84,10 +85,12 @@ namespace ElFinder.DTO {
 
 
 
+        /// <summary> </summary>
         public static DTOBase Create(FileInfo info, Root root) {
             return Create(info, root, null);
         }
 
+        /// <summary> </summary>
         public static DTOBase Create(FileInfo info, Root root, Hashtable posting_json_obj) {
             if (info == null)
                 throw new ArgumentNullException("info");
@@ -136,7 +139,7 @@ namespace ElFinder.DTO {
                     } else {
                         if (HttpContext.Current.Request.Params.AllKeys.Contains("ptype")) {
 
-                            Boolean dev = false; // for now
+                            //Boolean dev = false; // for now
 
                             String type = HttpContext.Current.Request.Params["ptype"];
                             Hashtable all = new Hashtable();
@@ -148,7 +151,7 @@ namespace ElFinder.DTO {
                                         }.ToArray())
                                     ));
                             posting[] posts = ActiveRecordBase<posting>.FindAll(new Order[] { Order.Desc("revision"), Order.Desc("version") }, filtering.ToArray());
-                            var i = 0;
+                            //var i = 0;
                             foreach (posting posted in posts) {
                                 if (posted.static_file.IndexOf(info.Name) > -1)
                                     pid = posted.baseid;
@@ -174,6 +177,7 @@ namespace ElFinder.DTO {
 
             return response;
         }
+        /// <summary> </summary>
         public static DTOBase Create(DirectoryInfo directory, Root root) {
             if (directory == null)
                 throw new ArgumentNullException("directory");

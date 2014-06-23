@@ -21,7 +21,7 @@ using System.Security.Permissions;
 using System.ComponentModel;
 using System.Collections;
 
-using System.Linq;
+//using System.Linq;
 
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -151,6 +151,7 @@ namespace stellar.Services {
         }
 
 
+        /// <summary> </summary>
         public static List<String> get_type_properties(String type) {
             List<String> prop_list = new List<String>();
 
@@ -162,6 +163,7 @@ namespace stellar.Services {
             }
             return prop_list;
         }
+        /// <summary> </summary>
         public static List<String> get_type_properties_with_type(String type) {
             List<String> prop_list = new List<String>();
 
@@ -235,6 +237,7 @@ namespace stellar.Services {
 
         #region(object manipulation)
 
+        /// <summary> </summary>
         public static dynamic make_model_property_item<t>(String prop_name) where t : new() {
             dynamic item = ActiveRecordBase<t>.FindFirst(
                     new List<AbstractCriterion>() { Expression.Eq("alias", prop_name) }.ToArray()
@@ -242,6 +245,7 @@ namespace stellar.Services {
             return item;
         }
 
+        /// <summary> </summary>
         public static dynamic make_model_property_list<t>() where t : new() {
             dynamic item = ActiveRecordBase<t>.FindAll().ToList();
             return item;
@@ -515,14 +519,17 @@ namespace stellar.Services {
     #endregion
 
 
+    /// <summary> </summary>
     public class DynamicEntity : DynamicObject {
         private IDictionary<string, object> _values;
 
+        /// <summary> </summary>
         public DynamicEntity(IDictionary<string, object> values) {
             _values = values;
         }
 
 
+        /// <summary> </summary>
         public override bool TryGetMember(GetMemberBinder binder, out object result) {
             if (_values.ContainsKey(binder.Name)) {
                 result = _values[binder.Name];
@@ -532,32 +539,40 @@ namespace stellar.Services {
             return false;
         }
     }
+    /// <summary> </summary>
     [Serializable]
     public class MyJsonDictionary<K, V> : ISerializable {
         Dictionary<K, V> dict = new Dictionary<K, V>();
 
+        /// <summary> </summary>
         public MyJsonDictionary() { }
 
+        /// <summary> </summary>
         protected MyJsonDictionary(SerializationInfo info, StreamingContext context) {
             throw new NotImplementedException();
         }
 
+        /// <summary> </summary>
         public void GetObjectData(SerializationInfo info, StreamingContext context) {
             foreach (K key in dict.Keys) {
                 info.AddValue(key.ToString(), dict[key]);
             }
         }
 
+        /// <summary> </summary>
         public void Add(K key, V value) {
             dict.Add(key, value);
         }
 
+        /// <summary> </summary>
         public V this[K index] {
             set { dict[index] = value; }
             get { return dict[index]; }
         }
     }
+    /// <summary> </summary>
     public static class HashtableExtensions {
+        /// <summary> </summary>
         public static void UpdateWith(this Hashtable first, Hashtable second) {
             foreach (DictionaryEntry item in second) {
                 first[item.Key] = item.Value;
@@ -567,7 +582,9 @@ namespace stellar.Services {
 
 
 
+    /// <summary> </summary>
     public static class TypeExtensions {
+        /// <summary> </summary>
         private class SimpleTypeComparer : IEqualityComparer<Type> {
             public bool Equals(Type x, Type y) {
                 return x.Assembly == y.Assembly &&
@@ -580,6 +597,7 @@ namespace stellar.Services {
             }
         }
 
+        /// <summary> </summary>
         public static MethodInfo GetGenericMethod(this Type type, string name, Type[] parameterTypes) {
             var methods = type.GetMethods();
             foreach (var method in methods.Where(m => m.Name == name)) {

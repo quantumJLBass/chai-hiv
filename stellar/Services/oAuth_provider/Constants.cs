@@ -8,8 +8,10 @@ using DotNetOpenAuth.OAuth.ChannelElements;
 using stellar;
 
 namespace stellar.Code {
+    /// <summary> </summary>
     public static class Constants {
         private static Uri _webRootUrl;
+        /// <summary> </summary>
         public static Uri WebRootUrl {
             get {
                 if (_webRootUrl == null) {
@@ -24,6 +26,7 @@ namespace stellar.Code {
             }
         }
 
+        /// <summary> </summary>
         public static ServiceProviderDescription SelfDescription {
             get {
                 ServiceProviderDescription description = new ServiceProviderDescription {
@@ -39,6 +42,7 @@ namespace stellar.Code {
             }
         }
 
+        /// <summary> </summary>
         public static ServiceProvider CreateServiceProvider() {
             return new ServiceProvider(SelfDescription, GlobalApplication.TokenManager, GlobalApplication.NonceStore);
         }

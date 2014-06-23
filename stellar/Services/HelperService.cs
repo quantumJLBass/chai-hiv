@@ -44,9 +44,12 @@ using AutoMapper;
 
 namespace stellar.Services {
 
+    /// <summary> </summary>
     public class helperService {
         ILog log = log4net.LogManager.GetLogger("HelperService");
 
+
+        /// <summary> </summary>
         public static String CalculateMD5Hash(string input) {
             // step 1, calculate MD5 hash from input
             MD5 md5 = MD5.Create();
@@ -60,6 +63,8 @@ namespace stellar.Services {
             }
             return sb.ToString();
         }
+
+        /// <summary> </summary>
         public static String convertHexToARGB(String hex, String Alpha) {
 
             System.Drawing.Color col = System.Drawing.ColorTranslator.FromHtml(hex);
@@ -69,6 +74,7 @@ namespace stellar.Services {
             return argb;
         }
 
+        /// <summary> </summary>
         public static object[] alias_exsits(String alias, String typeName) {
             object[] temp = new object[] { };
             try {
@@ -88,6 +94,7 @@ namespace stellar.Services {
             return temp;
         }
 
+        /// <summary> </summary>
         public DateTime date_return(int i) {
             return DateTime.Now.AddDays(i);
         }

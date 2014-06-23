@@ -29,10 +29,12 @@ using System.Timers;
 namespace stellar.Services {
 
     // this will be for checking files.  And maybe some registored events to be done.
+    /// <summary> </summary>
     public static class site_timer {// In App_Code folder
 
         static Timer _timer; // From System.Timers
         static List<DateTime> _l; // Stores timer results
+        /// <summary> </summary>
         public static List<DateTime> DateList { // Gets the results
             get {
                 if (_l == null) {// Lazily initialize the timer
@@ -41,6 +43,7 @@ namespace stellar.Services {
                 return _l; // Return the list of dates
             }
         }
+        /// <summary> </summary>
         static void Start() {
             _l = new List<DateTime>(); // Allocate the list
             _timer = new Timer(3000); // Set up the timer for 3 seconds
@@ -50,6 +53,7 @@ namespace stellar.Services {
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
             _timer.Enabled = true; // Enable it
         }
+        /// <summary> </summary>
         static void _timer_Elapsed(object sender, ElapsedEventArgs e) {
             _l.Add(DateTime.Now); // Add date on each timer event
         }

@@ -22,6 +22,7 @@ namespace stellar.Code {
             : base(tokenManager) {
         }
 
+        /// <summary> </summary>
         public override IDirectedProtocolMessage GetNewRequestMessage(MessageReceivingEndpoint recipient, IDictionary<string, string> fields) {
             var message = base.GetNewRequestMessage(recipient, fields);
 

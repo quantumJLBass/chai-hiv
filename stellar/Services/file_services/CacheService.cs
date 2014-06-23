@@ -18,10 +18,12 @@ using log4net;
 #endregion
 
 namespace stellar.Services {
+    /// <summary> </summary>
     public class cacheService {
         ILog log = log4net.LogManager.GetLogger("CacheService");
         siteService siteService = new siteService();
 
+        /// <summary> </summary>
         public object getCachedVersion(String cmsurl, bool ismobile) {
             cmsurl = fixurl(cmsurl);
             Hashtable cache = getCorrectHashtable(ismobile);
@@ -29,15 +31,19 @@ namespace stellar.Services {
         }
 
 
+        /// <summary> </summary>
         public static Boolean flushAllCached() {
             return flushAllCached(0);
         }
+        /// <summary> </summary>
         public static Boolean flushAllCached(int hours) {
             return flushCache(file_info.root_path() + "cache/", hours);
         }
+        /// <summary> </summary>
         public static Boolean flushMenuCache(int hours) {
             return flushCache(file_info.root_path() + "cache/html/menu/0_menu.ext", hours);
         }
+        /// <summary> </summary>
         public static Boolean flushCache(String cachePath, int hours) {
             if (File.Exists(cachePath)) {
                 FileInfo fi = new FileInfo(cachePath);
@@ -49,6 +55,7 @@ namespace stellar.Services {
             return true;
         }
 
+        /// <summary> </summary>
         public Hashtable getCorrectHashtable(bool ismobile) {
             if (ismobile) {
                 if (HttpContext.Current.Application["mobilecache"] == null) {
@@ -147,6 +154,7 @@ namespace stellar.Services {
             }
         }
         */
+        /// <summary> </summary>
         public String fixurl(String url) {
             if (!String.IsNullOrEmpty(url)) {
                 url = url.ToLower();

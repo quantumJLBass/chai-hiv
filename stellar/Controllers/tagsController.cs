@@ -17,8 +17,10 @@ namespace stellar.Controllers {
     using System.Collections;
     using Castle.MonoRail.Framework.Helpers;
 
+    /// <summary> </summary>
     [Layout("default")]
     public class tagsController : adminController {
+        /// <summary> </summary>
         public void index(int page, string filter, string target) {
             // IList<usertags> usertags_items;
             int pagesize = 100;
@@ -65,14 +67,17 @@ namespace stellar.Controllers {
             //usertags_items = ActiveRecordBase<usertags>.FindAll(Order.Asc("name"));
             //PropertyBag["usertags"] = PaginationHelper.CreatePagination(usertags_items, pagesize, uPaging);
         }
+        /// <summary> </summary>
         public void Edit(int id) {
             PropertyBag["tag"] = ActiveRecordBase<taxonomy>.Find(id);
             RenderView("new");
         }
+        /// <summary> </summary>
         public void New() {
             PropertyBag["tags"] = ActiveRecordBase<taxonomy>.FindAll();
         }
 
+        /// <summary> </summary>
         public void Update(int id, [DataBind("tag")] taxonomy tag) {
             try {
                 ActiveRecordMediator<taxonomy>.Save(tag);
@@ -84,11 +89,13 @@ namespace stellar.Controllers {
             RedirectToAction("index");
         }
 
+        /// <summary> </summary>
         public void delete(int id) {
             taxonomy tag = ActiveRecordBase<taxonomy>.Find(id);
             ActiveRecordMediator<taxonomy>.Delete(tag);
             RedirectToReferrer();
         }
+        /// <summary> </summary>
         public void merge(int[] ids, string newname) {
             if (!String.IsNullOrEmpty(Request.Params["deleteTags"])) massDeleteTags(ids); return;
             dynamic places = new List<_base>();
@@ -117,6 +124,7 @@ namespace stellar.Controllers {
         }
 
 
+        /// <summary> </summary>
         public void massDeleteTags(int[] ids) {
             foreach (int id in ids) {
                 taxonomy tag = ActiveRecordBase<taxonomy>.Find(id);

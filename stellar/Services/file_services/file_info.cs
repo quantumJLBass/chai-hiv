@@ -56,12 +56,12 @@ namespace stellar.Services {
 
             /// <summary>
             /// Function output a string of the root path
-            /// <param name="site_alias">String - alias of the requested site</param>
             /// </summary>
             /// <returns>Return String - a string of the root path of the site requested</returns>
             public static String site_path() {
                 return site_path(siteService.getCurrentSite().alias);
             }
+            /// <summary> </summary>
             public static String site_path(string site_alias) {
                 site site = ActiveRecordBase<site>.FindOne(new List<AbstractCriterion>() { 
                                 Expression.Eq("alias", site_alias)
@@ -69,56 +69,69 @@ namespace stellar.Services {
                 return site.local_path;
             }
 
+            /// <summary> </summary>
             public static String site_content_path() {
                 return site_content_path(siteService.getCurrentSite().alias);
             }
+            /// <summary> </summary>
             public static String site_content_path(string site_alias) {
                 String path = normalize_path(site_path(site_alias) + relative_site_content_path(site_alias).Trim('/'));
                 return path;
             }
-
+            /// <summary> </summary>
             public static String relative_site_content_path() {
                 return relative_site_content_path(siteService.getCurrentSite().alias);
             }
+            /// <summary> </summary>
             public static String relative_site_content_path(string site_alias) {
                 return "/site_content/" + site_alias +"/";
             }
 
+            /// <summary> </summary>
             public static String site_uploads_path() {
                 return site_uploads_path(siteService.getCurrentSite().alias);
             }
+            /// <summary> </summary>
             public static String site_uploads_path(string site_alias) {
                 String path = normalize_path(site_path(site_alias) + relative_site_uploads_path(site_alias).Trim('/'));
                 if (!Directory.Exists(path)) { DirectoryInfo di = Directory.CreateDirectory(path); };
                 return path;
             }
 
+            /// <summary> </summary>
             public static String relative_site_uploads_path() {
                 return relative_site_uploads_path(siteService.getCurrentSite().alias);
             }
+            /// <summary> </summary>
             public static String relative_site_uploads_path(string site_alias) {
                 return relative_site_content_path(site_alias) + "uploads/";
             }
 
+            /// <summary> </summary>
             public static String site_cache_path() {
                 return site_cache_path(siteService.getCurrentSite().alias);
             }
+            /// <summary> </summary>
             public static String site_cache_path(string site_alias) {
                 String path = normalize_path(site_path(site_alias) + relative_site_cache_path(site_alias).Trim('/'));
                 if (!Directory.Exists(path)) { DirectoryInfo di = Directory.CreateDirectory(path); }
                 return path;
             }
 
+            /// <summary> </summary>
             public static String relative_site_cache_path() {
                 return relative_site_cache_path(siteService.getCurrentSite().alias);
             }
+            /// <summary> </summary>
             public static String relative_site_cache_path(string site_alias) {
                 return relative_site_content_path(site_alias) + "cache/";
             }
 
+            /// <summary> </summary>
             public static String virtual_site_cache_path() {
                 return virtual_site_cache_path(siteService.getCurrentSite().alias);
             }
+            /// <summary> </summary>
             public static String virtual_site_cache_path(string site_alias) {
                 return "~/"+relative_site_content_path(site_alias).Trim('/') + "/cache/";
             }
@@ -129,6 +142,7 @@ namespace stellar.Services {
 
         #region(basic information)
             /*thought is that we should be doing tests */
+            /// <summary> </summary>
             public static String file_extension(String file) {
                 String ext = Path.GetExtension(file);
                 return ext;
@@ -165,6 +179,7 @@ namespace stellar.Services {
 
 
             //not sure on this, we need to ba able to say, do we put the version info in the content of the file, or do we put it in the metadate
+            /// <summary> </summary>
             public static Boolean does_in_content_metadata(String extension) {
                 if (is_media_file(extension)) return false;
                 return true;
@@ -252,18 +267,23 @@ namespace stellar.Services {
         public static List<string> DirSearch(string sDir) {
             return DirSearch(sDir, "", "", 0, 999, 0);
         }
+        /// <summary> </summary>
         public static List<string> DirSearch(string sDir, string splitOn) {
             return DirSearch(sDir, splitOn, "", 0, 999, 0);
         }
+        /// <summary> </summary>
         public static List<string> DirSearch(string sDir, string splitOn, string ext) {
             return DirSearch(sDir, splitOn, ext, 0, 999, 0);
         }
+        /// <summary> </summary>
         public static List<string> DirSearch(string sDir, string splitOn, string ext, int start) {
             return DirSearch(sDir, splitOn, ext, start, 999, 0);
         }
+        /// <summary> </summary>
         public static List<string> DirSearch(string sDir, string splitOn, string ext, int start, int end) {
             return DirSearch(sDir, splitOn, ext, start, end, 0);
         }
+        /// <summary> </summary>
         public static List<string> DirSearch(string sDir, string splitOn, string ext, int start, int end, int recursion) {
             List<string> fileList = new List<string>();
             String path = file_handler.true_file_path(sDir,true);
@@ -303,6 +323,7 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         public static Hashtable get_file_info(String file) {
             Hashtable info = new Hashtable();
 

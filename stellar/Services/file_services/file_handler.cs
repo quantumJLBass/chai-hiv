@@ -20,7 +20,7 @@ using System.Security.Permissions;
 using System.ComponentModel;
 
 using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using System.IO.Compression;
 
 #endregion
@@ -48,6 +48,7 @@ namespace stellar.Services {
     public class file_handler {
 
         #region(normalizing)
+        /// <summary> </summary>
         public static String normalize_name(String filename) {
             if (String.IsNullOrWhiteSpace(filename)) return filename;
             filename = Path.GetFileNameWithoutExtension(filename)
@@ -78,11 +79,13 @@ namespace stellar.Services {
         public static String relative_file_path(string filepath) {
             return relative_file_path(filepath, "");
         }
+        /// <summary> </summary>
         public static String relative_file_path(string filepath, String base_path) {
             String dir_path = Path.GetDirectoryName(true_file_path(filepath));
 
             return "~/" + base_path.Trim('/') + "/" + filepath.Replace(dir_path, "").Trim('/');
         }
+        /// <summary> </summary>
         public static String clear_root(String file) {
             file = file.Replace('\\', '/');
             String root = file_info.root_path().Replace('\\', '/');
@@ -126,11 +129,13 @@ namespace stellar.Services {
         #endregion
 
         #region(file locking)
+        /// <summary> </summary>
             public static FileStream lock_file(String file) {
                 FileStream fileStream = new FileStream(file, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
                 //FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None);
                 return fileStream;
             }
+            /// <summary> </summary>
             public static Boolean unlock_file(FileStream fileStream) {
                 try {
                     fileStream.Close();
@@ -263,12 +268,14 @@ namespace stellar.Services {
 
 
 
+        /// <summary> </summary>
         static CopyFileCallbackAction myCallback(FileInfo source, FileInfo destination, object state, long totalFileSize, long totalBytesTransferred) {
             double dProgress = (totalBytesTransferred / totalFileSize) * 100.0;
             //progressBar1.Value = (int)dProgress;
             return CopyFileCallbackAction.Continue;
         }
 
+        /// <summary> </summary>
         public static String copyfile(string src, string dest) {
             src = true_file_path(src, true);
             dest = true_file_path(dest, true);
@@ -281,6 +288,7 @@ namespace stellar.Services {
 
 
         /* lets beef this up a little here to match the rest */
+        /// <summary> </summary>
         public static Boolean deletefile(string dest) {
             Boolean completed = true;
             try {
@@ -292,6 +300,7 @@ namespace stellar.Services {
         }
 
 
+        /// <summary> </summary>
         public static void DirectoryCopy(DirectoryInfo sourceDir, string destDirName, bool copySubDirs) {
             DirectoryInfo[] dirs = sourceDir.GetDirectories();
 
@@ -334,6 +343,7 @@ namespace stellar.Services {
 
 
         #region(zip)
+        /// <summary> </summary>
         public static void Compress(FileInfo fileToCompress) {
             using (FileStream originalFileStream = fileToCompress.OpenRead()) {
                 if ((File.GetAttributes(fileToCompress.FullName) & FileAttributes.Hidden) != FileAttributes.Hidden & fileToCompress.Extension != ".gz") {
@@ -348,6 +358,7 @@ namespace stellar.Services {
             }
         }
 
+        /// <summary> </summary>
         public static void Decompress(FileInfo fileToDecompress) {
             using (FileStream originalFileStream = fileToDecompress.OpenRead()) {
                 string currentFileName = fileToDecompress.FullName;

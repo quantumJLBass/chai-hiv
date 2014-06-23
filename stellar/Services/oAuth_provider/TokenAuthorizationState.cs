@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace stellar.Code
-{
+namespace stellar.Code {
+    /// <summary> </summary>
     public enum TokenAuthorizationState : int
     {
         /// <summary>

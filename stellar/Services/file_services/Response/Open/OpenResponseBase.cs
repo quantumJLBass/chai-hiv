@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using ElFinder.DTO;
 
 namespace ElFinder.Response {
+    /// <summary> </summary>
     [DataContract]
     internal class OpenResponseBase {
         private static Debug _debug = new Debug();
@@ -21,10 +22,12 @@ namespace ElFinder.Response {
         [DataMember(Name = "debug")]
         public Debug debug { get { return _debug; } }
 
+        /// <summary> </summary>
         public OpenResponseBase(DTOBase currentWorkingDirectory) {
             _files = new List<DTOBase>();
             _currentWorkingDirectory = currentWorkingDirectory;
         }
+        /// <summary> </summary>
         public void AddResponse(DTOBase item) {
             _files.Add(item);
         }

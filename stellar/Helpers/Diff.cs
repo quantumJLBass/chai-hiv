@@ -99,7 +99,7 @@ namespace cms.utils
       internal int x, y;
       // internal int u, v;  // 2002.09.20: no need for 2 points 
     }
-
+    /// <summary> </summary>
       public static string PrintItems(Item[] f)
       {
           StringBuilder ret = new StringBuilder();

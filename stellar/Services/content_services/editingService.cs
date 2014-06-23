@@ -47,11 +47,11 @@ using AutoMapper;
 #endregion
 
 namespace stellar.Services {
-
+    /// <summary> </summary>
     public class editingService {
         ILog log = log4net.LogManager.GetLogger("devService");
 
-
+        /// <summary> </summary>
         public static String make_editable(String txt, posting post, int areacount) {
             String draft = "";
 
@@ -68,12 +68,12 @@ namespace stellar.Services {
             return txt;
         }
 
-
+        /// <summary> </summary>
         public static String ini_editor(String html, posting post, IDictionary PropertyBag) {
             return new editingService().setup_visiable_editor(html, post, PropertyBag);
         }
 
-
+        /// <summary> </summary>
         public String setup_visiable_editor(String html, posting post, IDictionary PropertyBag) {
 
             // bool ActiveRecordBase<site_base>.FindFirst(new List<AbstractCriterion>() { Expression.Eq("name", "minhtml") }.ToArray())

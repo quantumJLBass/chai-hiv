@@ -37,84 +37,116 @@ namespace stellar.Services {
      * this is only refered to when saving thru the databind, 
      * we need to break that addiction and remover this hardcoded pain
      */
+    /// <summary> </summary>
     public class elementSet {
+        /// <summary> </summary>
         [JsonProperty]
         public string type { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string label { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public Attr attr { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public IList<Option> options { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public Events events { get; set; }
     }
+    /// <summary> </summary>
     public class selectionSet {
+        /// <summary> </summary>
         [JsonProperty]
         public IList<Selection> selections { get; set; }
     }
+    /// <summary> </summary>
     public class Selection {
+        /// <summary> </summary>
         [JsonProperty]
         public string val { get; set; }
     }
+    /// <summary> </summary>
     public class Option {
+        /// <summary> </summary>
         [JsonProperty]
         public string label { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string val { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string selected { get; set; }
     }
+    /// <summary> </summary>
     public class Attr {
+        /// <summary> </summary>
         [JsonProperty]
         public string ele_class { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string name { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string title { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string dir { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string accesskey { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string placeholder { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string tabindex { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string id { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string style { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string multiple { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string data { get; set; }
 
+        /// <summary> </summary>
         [JsonProperty]
         public string role { get; set; }
 
     }
+    /// <summary> </summary>
     public class Events {
+       
         private string onClick;
+        /// <summary> </summary>
         [JsonProperty]
         public string onclick { get { return onClick; } set { onClick = value; } }
 
+        
         private string onChange;
+        /// <summary> </summary>
         [JsonProperty]
         public string onchange { get { return onChange; } set { onChange = value; } }
 
@@ -122,17 +154,20 @@ namespace stellar.Services {
 
 
 
+    /// <summary> </summary>
     public class fieldsService {
         private static ILog log = log4net.LogManager.GetLogger("FieldsService");
 
 
 
 
+        /// <summary> </summary>
         public static string get_field(field_types field_type) {
             string _ele = "";
             _ele = get_field(field_type, null);
             return _ele;
         }
+        /// <summary> </summary>
         public static string get_field(field_types field_type, dynamic item) {
             List<AbstractCriterion> typeEx = new List<AbstractCriterion>();
             typeEx.Add(Expression.Eq("type", field_type));
@@ -141,6 +176,7 @@ namespace stellar.Services {
             string ele_str = fieldsService.getfieldmodel_dynamic(field_type, field == null ? null : field.value.ToString());
             return ele_str;
         }
+        /// <summary> </summary>
         public static string[] get_short_codes(IList<field_types> ft) {
             string[] codes = new string[ft.Count];
             int i = 0;
@@ -152,7 +188,7 @@ namespace stellar.Services {
             }
             return codes;
         }
-            
+
 
 
 
@@ -161,12 +197,14 @@ namespace stellar.Services {
 
 
         /* dynamic based */
+        /// <summary> </summary>
         public static string getfieldmodel_dynamic(field_types field) {
             string ele = field.attr.ToString();
             string _ele = field.attr.ToString();
             _ele = getfieldmodel_dynamic(field, null);
             return _ele;
         }
+        /// <summary> </summary>
         public static string getfieldmodel_dynamic(field_types field, string select_val) {
             string ele = field.attr.ToString();
             var jss = new JavaScriptSerializer();
@@ -220,6 +258,7 @@ namespace stellar.Services {
             // Return the result.
             return _ele;
         }
+        /// <summary> </summary>
         public static SortedDictionary<string, string> attrbase_dynamic(SortedDictionary<string, string> attrs, dynamic ele) {
             dynamic value;
             if (ele.TryGetValue("attr", out value) && ele["attr"] != null) {
@@ -239,6 +278,7 @@ namespace stellar.Services {
             }
             return attrs;
         }
+        /// <summary> </summary>
         public static SortedDictionary<string, string> eventbase_dynamic(SortedDictionary<string, string> attrs, dynamic ele) {
             dynamic value;
             if (ele.TryGetValue("events", out value) && ele["events"] != null) {
@@ -247,6 +287,7 @@ namespace stellar.Services {
             }
             return attrs;
         }
+        /// <summary> </summary>
         public static dynamic selectedVal_dynamic(dynamic select_val, dynamic ele) {
             SortedDictionary<string, string> sel_val = new SortedDictionary<string, string>();
 
@@ -269,6 +310,7 @@ namespace stellar.Services {
             return ele;
         }
 
+        /// <summary> </summary>
         public static string getFieldVal(field_types field_type, fields field) {
             dynamic value;
             string output = "";
@@ -297,6 +339,7 @@ namespace stellar.Services {
             return output;
         }
 
+        /// <summary> </summary>
         public static string renderSelect_dynamic(dynamic ele, SortedDictionary<string, string> attrs) {
             dynamic value;
             // Initialize StringWriter instance.
@@ -339,6 +382,7 @@ namespace stellar.Services {
             }
             return stringWriter.ToString();
         }
+        /// <summary> </summary>
         public static string renderTextInput_dynamic(dynamic ele, SortedDictionary<string, string> attrs) {
             dynamic value;
             StringWriter stringWriter = new StringWriter();
@@ -360,6 +404,7 @@ namespace stellar.Services {
             }
             return stringWriter.ToString();
         }
+        /// <summary> </summary>
         public static string renderTextarera_dynamic(dynamic ele, SortedDictionary<string, string> attrs) {
             dynamic value;
             StringWriter stringWriter = new StringWriter();
@@ -381,6 +426,7 @@ namespace stellar.Services {
 
             return stringWriter.ToString();
         }
+        /// <summary> </summary>
         public static string renderCheckbox_dynamic(dynamic ele, SortedDictionary<string, string> attrs) {
             dynamic value;
             StringWriter stringWriter = new StringWriter();

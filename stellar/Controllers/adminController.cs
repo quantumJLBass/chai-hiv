@@ -32,10 +32,12 @@ using FastMember;
 using stellar.Filters;
 #endregion
 namespace stellar.Controllers {
-    [Layout("admin")]
 
+    /// <summary> </summary>
+    [Layout("admin")]
     public class adminController : SecureBaseController {
 
+        /// <summary> </summary>
         public adminController() {
             //this should be made to work
             //if (HttpContext.Current.Request.Params.AllKeys.Contains("skipLayout")) CancelLayout();
@@ -43,6 +45,7 @@ namespace stellar.Controllers {
         }
         ILog log = log4net.LogManager.GetLogger("adminController");
 
+        /// <summary> </summary>
         public void share(int uid, int itemid) {
             dynamic item = ActiveRecordBase<_base>.Find(itemid);
             if (item.owner.baseid == userService.getUser().baseid) {
@@ -59,6 +62,7 @@ namespace stellar.Controllers {
         }
 
         #region VIEWS
+        /// <summary> </summary>
         public void admin() {
             appuser user = userService.getUserFull();
             if (user != null) {
@@ -98,6 +102,7 @@ namespace stellar.Controllers {
         }
 
 
+        /// <summary> </summary>
         public void configuration(int siteid) {
 
             PropertyBag["frontend_themelist"] = themeService.list_themes();
@@ -124,6 +129,7 @@ namespace stellar.Controllers {
         }
 
 
+        /// <summary> </summary>
         public void save_config(
                 [ARDataBind("site", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] site site,
             String[] value,
@@ -162,6 +168,7 @@ namespace stellar.Controllers {
             RedirectToAction("configuration");
         }
 
+        /// <summary> </summary>
         public void logs(string post_type, int page, string filter) {
             int pagesize = 15;
             List<AbstractCriterion> baseEx = new List<AbstractCriterion>();
@@ -177,22 +184,26 @@ namespace stellar.Controllers {
             RenderView("../admin/logs");
         }
 
+        /// <summary> </summary>
         public void edit_posting_type(int id){
             posting_type item = ActiveRecordBase<posting_type>.Find(id);
             PropertyBag["item"] = item;
             PropertyBag["actions"] = ActiveRecordBase<posting_type_action>.FindAll();
             RenderView("../admin/postings/edit_posting_type");
         }
+        /// <summary> </summary>
         public void update_posting_type([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] posting_type item) {
             ActiveRecordMediator<posting_type>.Save(item);
             RedirectToAction("list_siteSettings");
         }
 
 
+        /// <summary> </summary>
         public void postings(Boolean is_admin){
             PropertyBag["is_admin"] = is_admin;
         }
 
+        /// <summary> </summary>
         public void sites(){
             PropertyBag["buttons"] = new String[] { "edit", "delete" };
             PropertyBag["default_site"] = ActiveRecordBase<site>.FindAll().Where(x => x.is_default == true);
@@ -201,6 +212,7 @@ namespace stellar.Controllers {
 
         }
 
+        /// <summary> </summary>
         public void connections() {
             PropertyBag["slaves"] = ActiveRecordBase<connections_slave>.FindAll();
             PropertyBag["masters"] = ActiveRecordBase<connections_master>.FindAll();
@@ -208,21 +220,24 @@ namespace stellar.Controllers {
 
 
 
+        /// <summary> </summary>
         public void edit_slave_connection(int id) {
             connections_slave item = ActiveRecordBase<connections_slave>.Find(id);
             PropertyBag["item"] = item;
             RenderView("../admin/slave_con");
         }
+        /// <summary> </summary>
         public void edit_master_connection(int id) {
             connections_master item = ActiveRecordBase<connections_master>.Find(id);
             PropertyBag["item"] = item;
             RenderView("../admin/master_con");
         }
-        
 
 
-        
 
+
+
+        /// <summary> </summary>
         public void getMainCalendar(String callback) {
 
             CancelView();
@@ -256,6 +271,7 @@ namespace stellar.Controllers {
             RenderText(JSON);
         }
 
+        /// <summary> </summary>
         public void help(int iid) {
 
            
@@ -377,6 +393,7 @@ namespace stellar.Controllers {
 
 
         #region(Trashbin)
+        /// <summary> </summary>
             public void trashbin() {
                 PropertyBag["postingtypes"] = ActiveRecordBase<posting_type>.FindAll();
                 List<AbstractCriterion> baseEx = new List<AbstractCriterion>();
@@ -389,6 +406,7 @@ namespace stellar.Controllers {
                 RenderView("../admin/trashbin");
             }
 
+            /// <summary> </summary>
             public void empty_trash() {
                 PropertyBag["postingtypes"] = ActiveRecordBase<posting_type>.FindAll();
                 List<AbstractCriterion> baseEx = new List<AbstractCriterion>();
@@ -423,6 +441,7 @@ namespace stellar.Controllers {
                 }
                 RedirectToAction("trashbin");
             }
+            /// <summary> </summary>
             public void massaction(int[] mass, String deletemass, String restoremass) {
                 foreach (int id in mass) {
                     if (!String.IsNullOrWhiteSpace(restoremass)) {
@@ -450,6 +469,7 @@ namespace stellar.Controllers {
 
 
             //more some of this to a service
+            /// <summary> </summary>
             public void delete_item(int id) {
                 dynamic item = ActiveRecordBase<_base>.Find(id);
                 if (item.owner.baseid == userService.getUser().baseid) {
@@ -462,6 +482,7 @@ namespace stellar.Controllers {
                 }
                 RedirectToAction("trashbin");
             }
+            /// <summary> </summary>
             public void restore_item(int id) {
                 dynamic item = ActiveRecordBase<_base>.Find(id);
                 if (item.owner.baseid == userService.getUser().baseid) {
@@ -482,6 +503,7 @@ namespace stellar.Controllers {
 
         #region METHODS
 
+            /// <summary> </summary>
         public void checkAlias(String alias, String typeName) {
 
             CancelView();
@@ -494,6 +516,7 @@ namespace stellar.Controllers {
             }
         }
 
+        /// <summary> </summary>
         public void show_diff(int parent,int rev1id, int rev2id,Boolean ajxed) {
             if (ajxed) CancelLayout();
             posting parent_post = ActiveRecordBase<posting>.Find(parent);
@@ -527,12 +550,14 @@ namespace stellar.Controllers {
 
 
         #region WSU MATRIX
+        /// <summary> </summary>
         public void taxonomy() {
             //PropertyBag["campuses"] = ActiveRecordBase<campus>.FindAll(Order.Asc("name"));
             PropertyBag["taxonomy_types"] = ActiveRecordBase<taxonomy_type>.FindAll(Order.Asc("name"));
 
             RenderView("../admin/taxonomy/list");
         }
+        /// <summary> </summary>
         public void edit_taxonomy(string type, int id, Boolean skiplayout) {
             taxonomy taxonomy_type = new taxonomy();
             if(id>0){
@@ -546,6 +571,7 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             RenderView("../admin/taxonomy/_editor");
         }
+        /// <summary> </summary>
         public void delete_taxonomy(int id) {
             taxonomy taxonomy = ActiveRecordBase<taxonomy>.Find(id);
             Flash["message"] = "A taxonomy, <strong>" + taxonomy.name + "</strong>, has been <strong>deleted</strong>.";
@@ -553,6 +579,7 @@ namespace stellar.Controllers {
             CancelLayout();
             RedirectToAction("taxonomy");
         }
+        /// <summary> </summary>
         public void update_taxonomy([ARDataBind("taxonomy", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] taxonomy taxonomy, Boolean ajax, String oldtax_alias, String oldtax_type_alias) {
             ActiveRecordMediator<taxonomy>.Save(taxonomy);
             
@@ -600,6 +627,7 @@ namespace stellar.Controllers {
             RedirectToAction("taxonomy");
         }
 
+        /// <summary> </summary>
         public void merge_taxonomy(int[] ids, string newname) {
             CancelLayout();
             CancelView();
@@ -645,6 +673,7 @@ namespace stellar.Controllers {
         }
 
 
+        /// <summary> </summary>
         public void mass_delete_taxonomy(int[] ids) {
             foreach (int id in ids) {
                 taxonomy tag = ActiveRecordBase<taxonomy>.Find(id);

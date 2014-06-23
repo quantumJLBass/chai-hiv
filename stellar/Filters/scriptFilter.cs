@@ -7,9 +7,11 @@ using stellar.Models;
 using stellar.Services;
 #endregion
 
-namespace stellar.Filters{
+namespace stellar.Filters {
+    /// <summary> </summary>
     public class scriptFilter : IFilter{
 
+        /// <summary> </summary>
         public bool Perform(ExecuteWhen exec, IEngineContext context, IController controller, IControllerContext controllerContext){
 
             controllerContext.PropertyBag["objectService"] = new objectService();

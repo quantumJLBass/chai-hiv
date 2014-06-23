@@ -42,29 +42,37 @@ namespace stellar.Services {
         // working is what a used sees, and the other two are hidden
         // from the user for protection
 
-            //published is code for live content
+        //published is code for live content
+        /// <summary> </summary>
             public static String relative_revison_path() {
                 return relative_revison_path(siteService.getCurrentSite(), "frontend");
             }
+            /// <summary> </summary>
             public static String relative_revison_path(String mode) {
                 return relative_revison_path(siteService.getCurrentSite(), mode);
             }
+            /// <summary> </summary>
             public static String relative_revison_path(site site) {
                 return relative_revison_path(site, "frontend");
             }
+            /// <summary> </summary>
             public static String relative_revison_path(site site, String mode) {
                 return file_info.relative_site_content_path(site.alias) + "cache/revision/" + themeService.current_theme_alias() + "/" + mode + "/";
             }
             //version is code for backup
+            /// <summary> </summary>
             public static String revison_path() {
                 return revison_path(siteService.getCurrentSite(), "frontend");
             }
+            /// <summary> </summary>
             public static String revison_path(String mode) {
                 return revison_path(siteService.getCurrentSite(), mode);
             }
+            /// <summary> </summary>
             public static String revison_path(site site) {
                 return revison_path(site, "frontend");
             }
+            /// <summary> </summary>
             public static String revison_path(site site, String mode) {
                 return file_info.normalize_path(file_info.site_path().Trim('/') + "/" + versionService.relative_revison_path(site, mode).Trim('/') + "/");
             }
@@ -72,29 +80,37 @@ namespace stellar.Services {
 
 
 
-            
+
+            /// <summary> </summary>
             public static String relative_published_path() {
                 return relative_published_path(siteService.getCurrentSite(), "frontend");
             }
+            /// <summary> </summary>
             public static String relative_published_path(String mode) {
                 return relative_published_path(siteService.getCurrentSite(), mode);
             }
+            /// <summary> </summary>
             public static String relative_published_path(site site) {
                 return relative_published_path(site, "frontend");
             }
+            /// <summary> </summary>
             public static String relative_published_path(site site, String mode) {
                 return file_info.relative_site_content_path(site.alias) + "cache/published/" + themeService.current_theme_alias() + "/" + mode + "/";
             }
 
+            /// <summary> </summary>
             public static String published_path() {
                 return published_path(siteService.getCurrentSite(), "frontend");
             }
+            /// <summary> </summary>
             public static String published_path(String mode) {
                 return published_path(siteService.getCurrentSite(), mode);
             }
+            /// <summary> </summary>
             public static String published_path(site site) {
                 return published_path(site, "frontend");
             }
+            /// <summary> </summary>
             public static String published_path(site site, String mode) {
                 return file_info.normalize_path(file_info.site_path().Trim('/') + "/" + versionService.relative_published_path(site, mode).Trim('/') + "/");
             }
@@ -103,41 +119,51 @@ namespace stellar.Services {
 
 
             //Note themes are code for working
+            /// <summary> </summary>
             public static String relative_working_path() {
                 return relative_working_path(siteService.getCurrentSite(),"frontend");
             }
+            /// <summary> </summary>
             public static String relative_working_path(site site) {
                 return relative_working_path(site, "frontend");
             }
+            /// <summary> </summary>
             public static String relative_working_path(String mode) {
                 return relative_working_path(siteService.getCurrentSite(), mode);
             }
+            /// <summary> </summary>
             public static String relative_working_path(site site, String mode) {
                 return file_info.relative_site_content_path(site.alias) + "themes/" + themeService.current_theme_alias() + "/" + mode + "/";
             }
 
+            /// <summary> </summary>
             public static String working_path() {
                 return working_path(siteService.getCurrentSite(), "frontend");
             }
+            /// <summary> </summary>
             public static String working_path(String mode) {
                 return working_path(siteService.getCurrentSite(), mode);
             }
+            /// <summary> </summary>
             public static String working_path(site site) {
                 return working_path(site, "frontend");
             }
+            /// <summary> </summary>
             public static String working_path(site site, String mode) {
                 return file_info.normalize_path(file_info.site_path().Trim('/') + "/" + versionService.relative_working_path(site,mode).Trim('/') + "/");
             }
 
-        
 
 
 
+
+            /// <summary> </summary>
             public static String remove_filepath_version(String file) {
                 String[] fileparts = file.Split('.');
                 String dest = fileparts[0] + "." + fileparts[fileparts.Length - 1];
                 return dest;
             }
+            /// <summary> </summary>
             public static String adjust_filepath_version(String file, int version, int revision) {
                 String[] fileparts = file.Split('.');
                 String dest = fileparts[0] + "." + version + "." + revision + "." + fileparts[fileparts.Length - 1];
@@ -146,7 +172,8 @@ namespace stellar.Services {
 
         #endregion
 
-        #region(Replication)
+            #region(Replication)
+            /// <summary> </summary>
             public static void CopyPropertyValues(object source, object destination) {
                 var destProperties = destination.GetType().GetProperties();
 
@@ -163,6 +190,7 @@ namespace stellar.Services {
                 }
             }
 
+            /// <summary> </summary>
             public static dynamic _copy<t>(int id, String name, Boolean returnObj) where t : new() {
 
                 if (returnObj) {
@@ -172,6 +200,7 @@ namespace stellar.Services {
                 }
 
             }
+            /// <summary> </summary>
             public static Boolean _copy_fast<t>(int id, String name) {
                 var org = ActiveRecordBase<t>.Find(id);
 
@@ -184,6 +213,7 @@ namespace stellar.Services {
                 return true;
             }
 
+            /// <summary> </summary>
             public static dynamic _copy_slow<t>(int id, String name) where t : new() {
                 dynamic org;
 
@@ -220,6 +250,7 @@ namespace stellar.Services {
                 return copy;
             }
 
+            /// <summary> </summary>
             public static dynamic copy_post_to_post(posting to, posting from) {
                 dynamic org;
 
@@ -433,7 +464,8 @@ namespace stellar.Services {
 
         //MAY BE update working?
         */
-        //DB to File  (um hardcoded?)
+            //DB to File  (um hardcoded?)
+            /// <summary> </summary>
             public static String make_post_working_file(posting working_post,String file) {
                 String dst = file;
                 String content = file_handler.read_from_file(dst);
@@ -459,6 +491,7 @@ namespace stellar.Services {
             }
 
             //Should be benign to a working post but refit a published or revision configured post
+            /// <summary> </summary>
             public static posting make_working_post(posting working_post, String file) {
                 if( String.IsNullOrWhiteSpace(file) )
                     file = working_post.static_file;
@@ -579,8 +612,9 @@ namespace stellar.Services {
 
 
 
-            
 
+
+            /// <summary> </summary>
             public static int getRevisionCount(dynamic item) {
                 posting[] lastversion = ActiveRecordBase<posting>.FindAll(new Order("revision", false),
                            new List<AbstractCriterion>() { Expression.Eq("parent", item), Expression.Gt("revision", 0) }.ToArray()
@@ -588,6 +622,7 @@ namespace stellar.Services {
                 return lastversion.Count();
             }
 
+            /// <summary> </summary>
             public static int get_last_revision(dynamic item) {
                 List<AbstractCriterion> filtering = new List<AbstractCriterion>();
 
@@ -610,9 +645,11 @@ namespace stellar.Services {
 
             // may need to remove this .. out dated i think
             //UserService._copy<map_views>(id,name);
+            /// <summary> </summary>
             public static dynamic make_revision<t>(int id) where t : new() {
                 return make_revision<t>(id,0,0);
             }
+            /// <summary> </summary>
             public static dynamic make_revision<t>(int id, int version, int revision) where t : new() {
                 dynamic org;
 
@@ -661,7 +698,6 @@ namespace stellar.Services {
                 }
             }
 
-            
 
 
 
@@ -674,6 +710,8 @@ namespace stellar.Services {
 
 
 
+
+            /// <summary> </summary>
             public static Boolean restorePost(posting post, int version, int revision) {
                 posting copy = null;
                 String dest = "";
