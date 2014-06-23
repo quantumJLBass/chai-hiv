@@ -100,17 +100,6 @@ namespace stellar.Models {
             virtual public string storage_condition { get; set; }     
         #endregion
 
-        #region(ART Regimen Use)
-            [Property(SqlType = "nvarchar(MAX)")]
-            virtual public string lmic_1l { get; set; }
-
-            [Property(SqlType = "nvarchar(MAX)")]
-            virtual public string lmic_2l { get; set; }
-
-            [Property(SqlType = "nvarchar(MAX)")]
-            virtual public string lmic_3l { get; set; }
-        #endregion
-
         #region(Clinical Study)
             //[Property(SqlType = "nvarchar(MAX)")]
             //virtual public string pre_clin { get; set; }
@@ -134,7 +123,6 @@ namespace stellar.Models {
             //[Property(SqlType = "nvarchar(MAX)")]
             //virtual public string clin_phase_4 { get; set; }
         #endregion
-
 
         [HasAndBelongsToMany(typeof(trial), Lazy = true, Table = "trial_to_drugs", ColumnKey = "drug_id", ColumnRef = "trial_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
             virtual public IList<trial> trials { get; set; }

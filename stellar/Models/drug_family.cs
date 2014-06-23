@@ -60,6 +60,14 @@ namespace stellar.Models {
         [JoinedKey("lmic_id")]
         virtual public int id { get; set; }
 
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string lmic_1l { get; set; }
+
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string lmic_2l { get; set; }
+
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string lmic_3l { get; set; }
 
         [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "drug_family_to_drug_lmic", ColumnKey = "lmic_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug_family> drugs { get; set; }
