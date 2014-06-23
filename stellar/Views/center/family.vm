@@ -114,7 +114,7 @@ $!postingService.get_taxonomy($part.generic_name).name
 		
 		
 	<article class="grid col-full">
-	  <form id="entry_form" class="entry_form" action="/center/savedrug.castle" method="post" name="entry_form">
+	  <form id="entry_form" class="entry_form" action="/center/savefamily.castle" method="post" name="entry_form">
 		<input type="hidden" name="item.baseid" value="$!item.baseid" />
 		<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
 		<article id="navtabs" class="grid col-full">
