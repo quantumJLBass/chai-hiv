@@ -531,7 +531,7 @@ namespace stellar.Controllers {
             var newObj = versionService._copy<drug_family>(id, name, false);
             if (newObj != null && newObj.baseid > 0) {
                 Flash["message"] = "New copy saved to the system.  You may now edit " + name;
-                RedirectToUrl("~/center/family.castle.castle?id=" + newObj.baseid);
+                RedirectToUrl("~/center/family.castle?id=" + newObj.baseid);
             } else {
                 Flash["error"] = "Failed to copy item.";
                 Hashtable hashtable = new Hashtable();
@@ -540,7 +540,7 @@ namespace stellar.Controllers {
 
         }
         [SkipFilter()]
-        public void savedrug([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug_family item,
+        public void savefamily([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug_family item,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -669,7 +669,7 @@ namespace stellar.Controllers {
             var newObj = versionService._copy<drug>(id, name, false);
             if (newObj != null && newObj.baseid > 0) {
                 Flash["message"] = "New copy saved to the system.  You may now edit " + name;
-                RedirectToUrl("~/center/drug.castle.castle?id=" + newObj.baseid);
+                RedirectToUrl("~/center/drug.castle?id=" + newObj.baseid);
             } else {
                 Flash["error"] = "Failed to copy item.";
                 Hashtable hashtable = new Hashtable();
