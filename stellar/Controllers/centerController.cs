@@ -694,7 +694,7 @@ namespace stellar.Controllers {
                 Redirect("center", "drugs", new Hashtable());
                 return;
             }
-
+            /*
             item.markets.Clear();
             String[] keys = HttpContext.Current.Request.Params.AllKeys.Where(x => x.StartsWith("markets_counts[")).ToArray();
             for (int i = 1; i <= keys.Count(); i++) {
@@ -721,7 +721,7 @@ namespace stellar.Controllers {
                 ActiveRecordMediator<drug_market>.Save(market);
                 item.markets.Add(market);
             }
-
+            */
 
             item.tmp = false;
             if (item.published) item.content = "";
