@@ -546,7 +546,7 @@ namespace stellar.Controllers {
             PropertyBag["skiplayout"] = skiplayout;
             if (id <= 0) id = make_family_tmp();
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<drug_family>.Find(id);
-            RenderView("drug");
+            RenderView("family");
         }
 
         /// <summary> </summary>
