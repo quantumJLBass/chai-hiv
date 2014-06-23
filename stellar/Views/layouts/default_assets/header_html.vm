@@ -23,14 +23,18 @@
 	</a>
 	<nav class="fright">
 		<ul>
-			<li><a href="/center/clinicals.castle" #if($page=="clinicals"||$page=="clinical")class="navactive"#end>Clinical Trials Arms</a></li>
-			<li><a href="/center/trials.castle" #if($page=="trials"||$page=="trial")class="navactive"#end>Clinical Trials</a></li>
+			<li class="header">Clinical</li>
+			<li><a href="/center/trials.castle" #if($page=="trials"||$page=="trial")class="navactive"#end>Trials</a></li>
+			<li><a href="/center/clinicals.castle" #if($page=="clinicals"||$page=="clinical")class="navactive"#end>Trial Arms</a></li><!---->
 		</ul>
 		<ul>
-			<li><a href="/center/drugs.castle" #if($page=="drugs"||$page=="drug")class="navactive"#end>Drug Products</a></li>
-			<li><a href="/center/substances.castle" #if($page=="substances"||$page=="substance")class="navactive"#end>Drug Substances</a></li>
+			<li class="header">Drugs</li>
+			<li><a href="/center/families.castle" #if($page=="families"||$page=="family")class="navactive"#end>Families</a></li>
+			<li><a href="/center/drugs.castle" #if($page=="drugs"||$page=="drug")class="navactive"#end>Products</a></li>
+			<li><a href="/center/substances.castle" #if($page=="substances"||$page=="substance")class="navactive"#end>Substances</a></li>
 		</ul>
 		<ul>
+			<li class="header">Assets</li>
 			<li><a href="/center/references.castle" #if($page=="references"||$page=="reference")class="navactive"#end>References</a></li>
 			<li><a href="/center/reports.castle" #if($page=="reports"||$page=="report")class="navactive"#end>Reports</a></li>
 		</ul>
