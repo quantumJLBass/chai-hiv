@@ -99,6 +99,12 @@ $(document).ready(function() {
 	
 	
 	function sortedCode(){
+		$('.substance_item .icon-trash').off().on("click",function(){
+			$(this).closest('.substance_item').fadeOut("fast",function(){
+				$(this).remove();
+				sortedCode();
+			});
+		});
 		var code="";
 		$.each($(".substance_item"),function(){
 			code+= (code===""?"":"<em>:</em>") + $(this).find('.sub_code').text();
@@ -116,7 +122,7 @@ $(document).ready(function() {
 		e.stopPropagation();
 		var sudo_code=Math.random().toString(36).slice(2,5);
 		var baseid=Math.random();
-		$("<li class='substance_item'><span class='sortable_handle'>handle</span> newthing (<span class='sub_code'>"+sudo_code+"</span>)<input type='hidden' name='item.substances[]' value='"+baseid+"'></li>").appendTo("#sortable");
+		$("<li class='substance_item'><i title='edit' class='icon-trash'></i><span class='sortable_handle'>handle</span> newthing (<span class='sub_code'>"+sudo_code+"</span>)<input type='hidden' name='item.substances[]' value='"+baseid+"'></li>").appendTo("#sortable");
 		$("#sortable").sortable("refresh");
 		sortedCode();
 	});
@@ -141,7 +147,7 @@ $(document).ready(function() {
 		});
 	});
 	
-	
+
 	
 	
 	

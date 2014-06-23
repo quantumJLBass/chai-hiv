@@ -127,6 +127,7 @@ $!postingService.get_taxonomy($part.generic_name).name
                 #foreach($substance in $substances)
                     #if($substance.baseid!=0)
 						<li class='substance_item'>
+							<i title="edit" class="icon-trash"></i>
 							<span class='sortable_handle'>handle</span>
 							$!postingService.get_taxonomy($substance.generic_name).name (<span class='sub_code'> $!postingService.get_taxonomy($substance.generic_name).name </span>)
 							<input type="hidden" name="item.substances[]" value="$part.baseid" />

@@ -653,7 +653,7 @@ html>body #sortable li { height: 1.5em; line-height: 1.2em; }
 #subCodeEdit .icon-power-off{ margin-left:15px; font-size:1.5em;cursor:pointer;}
 #subCodeEdit .icon-power-off:hover{color:#0B7FAA;}
 
-
+.substance_item .icon-trash{ color:#5C0001; float:right; cursor:pointer; }
 
 .ir{display:block; border:0; text-indent:-999em; overflow:hidden; background-color:transparent; background-repeat:no-repeat; text-align:left; direction:ltr; *line-height: 0;}
 .ir br{display:none}
