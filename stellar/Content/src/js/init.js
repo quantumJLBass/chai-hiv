@@ -96,17 +96,24 @@
 }));
 
 $(document).ready(function() {
-	/*$("#sortable").sortable({
-		handle: $("#sortable").children().children(".handle")
-	});*/
+	$("#sortable").sortable({
+		handle: ".sortable_handle",
+		placeholder: "ui-state-highlight",
+		stop:function(){
+			var code="";
+			$.each($(".substance_item"),function(){
+				code+= (code===""?"":":") + $(this).find('.sub_code').text();
+			});
+			$("#fam_code").text(code);
+		}
+	});
 	
-	$("#famSubAdd").on("on",function(e){
+	$("#famSubAdd").on("click",function(e){
 		e.preventDefault();
 		e.stopPropagation();
-		alert("hello");
-		$("<li class='ui-state-highlight'><span class='handle'>handle</span> newthing</li>").appendTo("#sortable");
-		
-		//$("#sortable").sortable("refresh");
+		var sudo_code=Math.random().toString(36).slice(2,5);
+		$("<li class='substance_item'><span class='sortable_handle'>handle</span> newthing (<span class='sub_code'>"+sudo_code+"</span>)</li>").appendTo("#sortable");
+		$("#sortable").sortable("refresh");
 	});
 	
 	function make_maskes(){

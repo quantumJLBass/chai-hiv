@@ -110,7 +110,7 @@ $part.name => $part.alias
 		<input type="hidden" name="item.baseid" value="$!item.baseid" />
 		<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
 		<article id="navtabs" class="grid col-full">
-		  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Family #if($item.new_drug_code)( $!item.new_drug_code )#end </h2>
+		  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Family <span id="fam_code">#if($item.new_drug_code)( $!item.new_drug_code )#end</span> </h2>
 		  <hr/>
 		  <div class=" #if(!$item.baseid || $item.tmp) open #else closed #end ">
 			<ul id="sortable">
