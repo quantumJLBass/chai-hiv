@@ -1,10 +1,10 @@
 #if($viewonly)
-	#parse("center/viewonly/drug.vm")
+	#parse("center/viewonly/family.vm")
 #else
 	#* *#
 	#* NOTE: This is where you can change the dropdowns *#
 	#* *#
-	#set($type = "drug")
+	#set($type = "drug_family")
 	
 	
 	#set($brand_name = $postingService.get_taxonomies("brand_name"))
@@ -114,47 +114,20 @@ $part.name => $part.alias
 		  <hr/>
 		  <div class="">
 			<ul class="tabs clearfix">
-			  <li><a href="#tab1">Regulatory Information</a></li>
-			  <li><a href="#tab2">Dosing & Administration</a></li>
-			  <li><a href="#tab3">LMIC Regimen Use</a></li>
-			  <li><a href="#tab4">Clinical Study</a></li>
+			  <li><a href="#lmic">LMIC Regimen Use</a></li>
+			  <li><a href="#tab4">DDI</a></li>
 			  <li><a href="#tab5">Market</a></li>
-			  <li><a href="#tab6">SRA</a></li>
+			  <li><a href="#tab5">Drugs</a></li>
 			</ul>
 			<div class="tab_container">
-			
 #* *#
-#* tab1 ------------ *#
+#* lmic ------------ *#
 #* *#
-			<article id="tab1" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "regulatory_information" "top")
-				</div>
-				#parse("center/types_tabs/drug/tab1.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "regulatory_information" "bottom")
-				</div>
-			</article>
-#* *#
-#* tab2 ------------ *#
-#* *#
-			<article id="tab2" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "dosing_administration" "top")
-				</div>
-				#parse("center/types_tabs/drug/tab2.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "dosing_administration" "bottom")
-				</div>
-			</article>
-#* *#
-#* tab3 ------------ *#
-#* *#
-			  <article id="tab3" class="tab_content">
+			  <article id="lmic" class="tab_content">
 				<div style="clear:both;">
 					#tab_notes("$type" "lmic_regimen_use" "top")
 				</div>
-			  	#parse("center/types_tabs/drug/tab3.vm")
+			  	#parse("center/types_tabs/drug/lmic.vm")
 				<div style="clear:both;">
 					#tab_notes("$type" "lmic_regimen_use" "bottom")
 				</div>
