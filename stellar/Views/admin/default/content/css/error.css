@@ -87,9 +87,9 @@
 		#cboxContent input[type="text"],#cboxContent input[type="email"]{width: 60%;}
 		#cboxContent textarea{width: 80%;}
 		img { padding: 40px 0px 0px; }
-		@font-face {
+		/*@font-face {
 		 font-family: 'SteelfishExtraBold';
 		 src: url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.eot?') format('eot'), url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.woff') format('woff'), url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.ttf') format('truetype'), url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.svg#webfont') format('svg');
 		 font-weight: normal;
 		 font-style: normal;
-		}
+		}*/

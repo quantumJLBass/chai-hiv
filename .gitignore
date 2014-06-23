@@ -14,3 +14,4 @@ Ankh.NoLoad
 
 stellar/log.txt*
 **/site_content/
+**/node_modules/
