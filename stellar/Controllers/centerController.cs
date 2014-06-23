@@ -625,11 +625,21 @@ namespace stellar.Controllers {
                 item.markets.Add(market);
             }
 
+
+            //item.substances.Clear();
             /* for the expaned lookup table */
             foreach (family_substance si in family_substance) {
                 if (si.substance != null && si.substance.baseid > 0) {
-                    family_substance find = ActiveRecordBase<family_substance>.FindFirst(new ICriterion[] { Expression.Eq("substance", si.substance), Expression.Eq("drug_family", item) });
-                    find.substance_order = si.substance_order;
+                    family_substance find = ActiveRecordBase<family_substance>.FindFirst(new ICriterion[] { Expression.Eq("substance", si.substance), Expression.Eq("family", item) });
+                    if (find==null){
+                        find = new family_substance() {
+                            family = item,
+                            substance = si.substance,
+                            substance_order = si.substance_order
+                        };
+                    } else {
+                        find.substance_order = si.substance_order;
+                    }
                     ActiveRecordMediator<family_substance>.Save(find);
                 }
             }
