@@ -372,12 +372,29 @@ a img:hover {
 /* -- HEADER
 ------------------------------------------------------------- */
 header#navtop { margin-bottom:0; clear: both; overflow: hidden; }
-    header nav ul { float: left; overflow: hidden; padding: 0 3em 0 2em; border-left: 1px solid #ddd; line-height: 2em; }
+    header nav ul { float: left; overflow: hidden; padding: 0 2.5em 0 2em; border-left: 1px solid #ddd; line-height: 1.5em; }
 nav a, menu a { text-decoration: none; color: #555; }
 .navactive { color: #0078CF }
 .logo {margin-bottom:0;}
 .logo:hover {background: none;}
 header#navtop .fright{margin-top: 1em;}	
+
+
+#navtop .fright ul {}
+#navtop .fright ul li{}
+#navtop .fright ul li.header{
+    font-weight: bold;
+    border-bottom-color: #494949;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    display: inline-block;
+    width: 100%;
+    line-height: 1em;
+    font-size: 10px;
+}
+
+
+
 		
 /* -- GENERAL 
 ------------------------------------------------------------- */
