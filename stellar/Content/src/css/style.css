@@ -655,6 +655,10 @@ html>body #sortable li { height: 1.5em; line-height: 1.2em; }
 
 .substance_item .icon-trash{ color:#5C0001; float:right; cursor:pointer; }
 
+.item .icon-plus{color:#0B7FAA;float:right; cursor:pointer; }
+
+
+
 .ir{display:block; border:0; text-indent:-999em; overflow:hidden; background-color:transparent; background-repeat:no-repeat; text-align:left; direction:ltr; *line-height: 0;}
 .ir br{display:none}
 .hidden{display:none !important; visibility:hidden}
