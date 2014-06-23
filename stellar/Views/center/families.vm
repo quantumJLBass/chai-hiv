@@ -27,7 +27,7 @@
 					#if($viewonly)
 						<a href="drug.castle?id=$item.baseid" class="button small">View</a>
 					#else
-						#if(!$skiplayout)<a href="drug.castle?id=$item.baseid" class="button small">Edit</a> | <a href="remove_drug.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> | <a href="copydrug.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>#end
+						#if(!$skiplayout)<a href="family.castle?id=$item.baseid" class="button small">Edit</a> | <a href="remove_family.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> | <a href="copyfamily.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>#end
 					#end
 				</td>
 			</tr>
