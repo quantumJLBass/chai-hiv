@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 				//onevar: true,
 				//quotmark: "double",
 				smarttabs: true,
-				trailing: true,
+				//trailing: true,
 				undef: true,
 				unused: true,
 				globals: {
@@ -54,7 +54,10 @@ module.exports = function(grunt) {
 					console: true,
 					module: true,
 					document: true,
-					window:true
+					window:true,
+					define:true,
+					alert:true,
+					setTimeout:true
 				}
 			}
 		},
@@ -69,9 +72,8 @@ module.exports = function(grunt) {
 
 	// Default task(s).
 	grunt.registerTask('default', ['jshint']);
-	grunt.registerTask('prod', ['env:prod', 'concat','preprocess:js','cssmin','uglify','copy','includereplace','preprocess:html']);	
-	
+	grunt.registerTask('prod', ['env:prod', 'concat','preprocess:js','cssmin','uglify','copy','includereplace','preprocess:html']);
+
 	grunt.registerTask('dev', ['jshint', 'env:dev', 'cssmin', 'uglify', ]);
-		
-		
+
 };
