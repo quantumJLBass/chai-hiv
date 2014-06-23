@@ -112,6 +112,17 @@ $part.name => $part.alias
 		<article id="navtabs" class="grid col-full">
 		  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Family #if($item.new_drug_code)( $!item.new_drug_code )#end </h2>
 		  <hr/>
+		  <div class=" #if(!$item.baseid || $item.tmp) open #else closed #end ">
+			<ul id="sortable">
+				#foreach($part in  $item.substances)
+					<li class="ui-state-default #if($velocityCount%2<1)even #else odd #end" data-order="">$!postingService.get_taxonomy($part.generic_name).name</li>
+				#end
+			</ul>
+		  	<a href="#" class="button">Add new substance</a>
+			<br/><br/>
+		  </div>
+		  
+		  
 		  <div class="">
 			<ul class="tabs clearfix">
 			  <li><a href="#lmic">LMIC Regimen Use</a></li>
