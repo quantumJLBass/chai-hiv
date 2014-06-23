@@ -545,7 +545,20 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             if (id <= 0) id = make_family_tmp();
-            if (id > 0) PropertyBag["item"] = ActiveRecordBase<drug_family>.Find(id);
+            if (id > 0) {
+                drug_family fam = ActiveRecordBase<drug_family>.Find(id);
+                PropertyBag["item"] = fam;
+
+                List<substance> substances = new List<substance>();
+                substances.AddRange(fam.substances);
+                if (substances.Count == 0) {
+                    substances.Add(new substance());
+                    PropertyBag["substances"] = substances;
+                }
+
+
+            }
+
             RenderView("family");
         }
 
@@ -567,6 +580,8 @@ namespace stellar.Controllers {
         /// <summary> </summary>
         [SkipFilter()]
         public void savefamily([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug_family item,
+            [ARDataBind("family_substance", Validate = true, AutoLoad = AutoLoadBehavior.OnlyNested)]family_substance[] family_substance,
+            [ARDataBind("substances", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance[] substances,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -609,6 +624,23 @@ namespace stellar.Controllers {
                 ActiveRecordMediator<drug_market>.Save(market);
                 item.markets.Add(market);
             }
+
+            /* for the expaned lookup table */
+            foreach (family_substance si in family_substance) {
+                if (si.substance != null && si.substance.baseid > 0) {
+                    family_substance find = ActiveRecordBase<family_substance>.FindFirst(new ICriterion[] { Expression.Eq("substance", si.substance), Expression.Eq("drug_family", item) });
+                    find.substance_order = si.substance_order;
+                    ActiveRecordMediator<family_substance>.Save(find);
+                }
+            }
+            foreach (substance substance in substances) {
+                if (substance.id > 0 && !item.substances.Contains(substance)) {
+                    item.substances.Add(substance);
+                }
+            }
+
+
+
 
 
             item.tmp = false;

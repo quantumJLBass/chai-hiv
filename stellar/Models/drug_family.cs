@@ -29,9 +29,18 @@ namespace stellar.Models {
         [HasAndBelongsToMany(typeof(clinical), Lazy = true, Table = "clinical_to_drug_family", ColumnKey = "drug_family_id", ColumnRef = "clinical_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<clinical> clinicals { get; set; }
 
-        /// <summary> </summary>
+        /*/// <summary> </summary>
         [HasAndBelongsToMany(typeof(substance), Lazy = true, Table = "substance_to_drug_family", ColumnKey = "drug_family_id", ColumnRef = "substance_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<substance> substances { get; set; }
+        */
+
+        private IList<substance> SUBSTANCES = new List<substance>();
+        /// <summary> </summary>
+        [HasAndBelongsToMany(typeof(substance), Lazy = true, BatchSize = 30, Table = "family_substance", ColumnKey = "drug_family_id", ColumnRef = "substance_id", OrderBy = "substance_order", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        virtual public IList<substance> substances {
+            get { return SUBSTANCES; }
+            set { SUBSTANCES = value; }
+        }
 
         /// <summary> </summary>
         [HasAndBelongsToMany(typeof(drug), Lazy = true, Table = "drug_to_drug_family", ColumnKey = "drug_family_id", ColumnRef = "drug_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
@@ -51,6 +60,31 @@ namespace stellar.Models {
         virtual public IList<drug_market> markets { get; set; }
 
     }
+
+    /// <summary> </summary>
+    [ActiveRecord(Lazy = true, BatchSize = 10)]
+    public class family_substance : ActiveRecordBase<family_substance> {
+        private int ID;
+        /// <summary> </summary>
+        [PrimaryKey]
+        virtual public int id { get; set; }
+
+        /// <summary> </summary>
+        [BelongsTo("drug_family_id")]
+        virtual public drug_family family { get; set; }
+
+        /// <summary> </summary>
+        [BelongsTo("substance_id")]
+        virtual public substance substance { get; set; }
+
+        /// <summary> </summary>
+        [Property]
+        virtual public int substance_order { get; set; }
+    }
+
+
+
+
 
     /// <summary> </summary>
     [ActiveRecord(Lazy = true, BatchSize = 5)]

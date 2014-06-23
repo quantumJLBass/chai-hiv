@@ -80,9 +80,36 @@ namespace stellar.Models {
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string british_accepted_name { get; set; }
 
-        /// <summary> </summary>
+        /*/// <summary> </summary>
         [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "substance_to_drug_family", ColumnKey = "substance_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug_family> families { get; set; }
+        */
+
+        private IList<family_substance> Family_Substance = new List<family_substance>();
+        /// <summary> </summary>
+        [HasMany(Lazy = true, ColumnKey = "substance_id")]
+        virtual public IList<family_substance> family_substance {
+            get { return Family_Substance; }
+            set { Family_Substance = value; }
+        }
+        private IList<family_substance> ordering = new List<family_substance>();
+        /// <summary> </summary>
+        [HasAndBelongsToMany(typeof(family_substance), Lazy = true, BatchSize = 30, Table = "family_substance", ColumnKey = "drug_family_id", ColumnRef = "substance_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        virtual public IList<family_substance> substance_order {
+            get { return ordering; }
+            set { ordering = value; }
+        }
+        private IList<family_substance> Families = new List<family_substance>();
+        /// <summary> </summary>
+        [HasAndBelongsToMany(typeof(family_substance), Lazy = true, BatchSize = 30, Table = "family_substance", ColumnKey = "substance_id", ColumnRef = "drug_family_id", Inverse = true, NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        virtual public IList<family_substance> families {
+            get { return Families; }
+            set { Families = value; }
+        }
+
+
+
+
 
     }
 

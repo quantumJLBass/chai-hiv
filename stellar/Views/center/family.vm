@@ -103,6 +103,14 @@ $part.name => $part.alias
 	#* *#
 	#* END *#
 	#* *#
+#capturefor(fam_sub_code)
+#foreach($part in  $item.substances)
+$!postingService.get_taxonomy($part.generic_name).name
+#between
+<em>:</em>
+#end
+#end	
+
 		
 		
 	<article class="grid col-full">
@@ -110,13 +118,35 @@ $part.name => $part.alias
 		<input type="hidden" name="item.baseid" value="$!item.baseid" />
 		<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
 		<article id="navtabs" class="grid col-full">
-		  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Family  (<span id="famSubCode"><i id="sub_code">#if($item.new_drug_code)( $!item.new_drug_code ) #else #end</i> <i title="edit" class="icon-edit"></i></span>) </h2>
+		  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Family  (<span id="famSubCode"><i id="sub_code">$!fam_sub_code</i> <i title="edit" class="icon-edit"></i></span>) </h2>
 		  <hr/>
 		  <div id="subCodeEdit" class=" #if(!$item.baseid || $item.tmp) open #else closed #end ">
 			<ul id="sortable">
-				#foreach($part in  $item.substances)
-					<li class="ui-state-default #if($velocityCount%2<1)even #else odd #end" data-order=""><span class="handle">handle</span> $!postingService.get_taxonomy($part.generic_name).name</li>
-				#end
+
+				
+                #foreach($substance in $substances)
+                    #if($substance.baseid!=0)
+						<li class='substance_item'>
+							<span class='sortable_handle'>handle</span>
+							$!postingService.get_taxonomy($substance.generic_name).name (<span class='sub_code'> $!postingService.get_taxonomy($substance.generic_name).name </span>)
+							<input type="hidden" name="item.substances[]" value="$part.baseid" />
+						</li>
+                    	<input type="hidden" name="substances[$!{substance.baseid}].baseid" value="$!{substance.baseid}" class="substance"/>
+
+				  		<input type="hidden" value="$!{substance.family_substance.get_Item(0).baseid}" name="family_substance[$!{substance.baseid}].baseid" class=""/>
+				  		<input type="hidden" value="$!{substance.family_substance.get_Item(0).substance_order}" name="family_substance[$!{substance.baseid}].substance_order" class="placeOrder"/>
+				  		<input type="hidden" value="$!{substance.id}" name="family_substance[$!{substance.baseid}].substance.baseid" class="placeOrderId"/>
+       
+                    #end
+                #end
+
+				
+				
+				
+				
+				
+				
+				
 			</ul>
 		  	<a href="#" id="famSubAdd" class="button">Add new substance</a> <i title="close" class="icon-power-off"></i>
 			<br/><br/>
