@@ -830,7 +830,7 @@ namespace stellar.Controllers {
         #endregion
          #region(substances)
          /// <summary> </summary>
-         public void substances(Boolean skiplayout, String exclude, Boolean pub) {
+         public void substances(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback) {
              if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
              pub = is_pubview(pub);
              PropertyBag["published"] = pub;
@@ -842,13 +842,49 @@ namespace stellar.Controllers {
             PropertyBag["skiplayout"] = skiplayout;
             IList<substance> items = ActiveRecordBase<substance>.FindAll();
             PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
-            if (skiplayout) {
-                PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
+
+
+            if (json) {
+                CancelLayout();
+                CancelView();
+                String json_str = "";
+                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
+                json_str += @"  { 
+";
+                foreach (substance sub in items) {
+                    json_str += @""""+sub.baseid+@""":{";
+                    json_str += @"""baseid"":"""+sub.baseid+@""",";
+                   // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
+                    json_str += @"""name"":""" + postingService.get_taxonomy(sub.generic_name).name + @""",";
+                    json_str += @"""lab_code"":""" + sub.lab_code + @"""";
+                    json_str += @"
+},";
+                    // this vodo of the new line is wrong
+                    json_str += "".Replace(@"
+", String.Empty);
+
+
+                }
+                json_str += @"
+}";
+
+
+                if (!string.IsNullOrEmpty(callback)) {
+                    json_str = callback + "(" + json_str + ")";
+                }
+                Response.ContentType = "application/json; charset=UTF-8";
+                RenderText(json_str);
             } else {
-                PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                if (skiplayout) {
+                    items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
+                } else {
+                    items = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString())).ToList();
+                }
+                 PropertyBag["items"] = items;
+                RenderView("substances");
             }
-            RenderView("substances");
         }
+
          /// <summary> </summary>
         public static int make_substance_tmp() {
              substance tmp = new substance();
