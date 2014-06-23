@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 			}
 		},
 		jshint: {
-			files: ['Gruntfile.js', 'src/js/*.js'],
+			files: ['Gruntfile.js', 'src/js/init.js'],
 			options: {
 				// options here to override JSHint defaults
 				boss: true,
@@ -43,8 +43,8 @@ module.exports = function(grunt) {
 				expr: true,
 				immed: true,
 				noarg: true,
-				onevar: true,
-				quotmark: "double",
+				//onevar: true,
+				//quotmark: "double",
 				smarttabs: true,
 				trailing: true,
 				undef: true,
