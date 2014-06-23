@@ -115,59 +115,43 @@ $part.name => $part.alias
 		  <div class="">
 			<ul class="tabs clearfix">
 			  <li><a href="#lmic">LMIC Regimen Use</a></li>
-			  <li><a href="#tab4">DDI</a></li>
-			  <li><a href="#tab5">Market</a></li>
-			  <li><a href="#tab5">Drugs</a></li>
+			  <li><a href="#ddi">DDI</a></li>
+			  <li><a href="#market">Market</a></li>
+			  <li><a href="#drug_products">Drugs</a></li>
 			</ul>
 			<div class="tab_container">
 #* *#
 #* lmic ------------ *#
 #* *#
 			  <article id="lmic" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "lmic_regimen_use" "top")
-				</div>
+				$Controller.notes("$type","lmic_regimen_use","top")
 			  	#parse("center/types_tabs/drug/lmic.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "lmic_regimen_use" "bottom")
-				</div>
+				$Controller.notes("$type","lmic_regimen_use","bottom")
 			  </article>
 #* *#
-#* tab4 ------------ *#
+#* ddi ------------ *#
 #* *#
 			  <article id="tab4" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "clinical_study" "top")
-				</div>
-			  	#parse("center/types_tabs/drug/tab4.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "clinical_study" "bottom")
-				</div>
+				$Controller.notes("$type","ddi","top")
+			  	#parse("center/types_tabs/drug/ddi.vm")
+				$Controller.notes("$type","ddi","bottom")
 			  </article>
 			  
 #* *#
-#* tab5 ------------ *#
+#* market ------------ *#
 #* *#
-			  <article id="tab5" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "market" "top")
-				</div>
-			  	#parse("center/types_tabs/drug/tab5.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "market" "bottom")
-				</div>				
+			  <article id="market" class="tab_content">
+				$Controller.notes("$type","market","top")
+			  	#parse("center/types_tabs/drug/market.vm")
+				$Controller.notes("$type","market","bottom")				
 			  </article>
 #* *#
-#* tab6 ------------ *#
+#* drug_products ------------ *#
 #* *#
-				<article id="tab6" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "sra" "top")
-				</div>
-			  		#parse("center/types_tabs/drug/tab6.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "sra" "bottom")
-				</div>
+				<article id="drugs" class="tab_content">
+					$Controller.notes("$type","drug_products","top")
+			  		#parse("center/types_tabs/drug/drug_products.vm")
+					$Controller.notes("$type","drug_products","bottom")
 				</article>
 			</div>
 		  </div>

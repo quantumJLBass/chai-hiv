@@ -1,0 +1,3 @@
+#* drugdata *#
+	#set($typed_list = $item.interactions)
+	#parse("center/model_tie_tables/interactions.vm")
