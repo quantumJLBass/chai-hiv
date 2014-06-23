@@ -5291,6 +5291,7 @@
     <Compile Include="Filters\AuthenticationFilter.cs" />
     <Compile Include="Helpers\User.cs" />
     <Compile Include="Models\clinical.cs" />
+    <Compile Include="Models\drug_family.cs" />
     <Compile Include="Models\drug.cs" />
     <Compile Include="Models\reference.cs" />
     <Compile Include="Models\substance.cs" />
