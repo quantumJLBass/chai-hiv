@@ -115,7 +115,8 @@ $(document).ready(function() {
 		e.preventDefault();
 		e.stopPropagation();
 		var sudo_code=Math.random().toString(36).slice(2,5);
-		$("<li class='substance_item'><span class='sortable_handle'>handle</span> newthing (<span class='sub_code'>"+sudo_code+"</span>)</li>").appendTo("#sortable");
+		var baseid=Math.random();
+		$("<li class='substance_item'><span class='sortable_handle'>handle</span> newthing (<span class='sub_code'>"+sudo_code+"</span>)<input type='hidden' name='item.substances[]' value='"+baseid+"'></li>").appendTo("#sortable");
 		$("#sortable").sortable("refresh");
 		sortedCode();
 	});
