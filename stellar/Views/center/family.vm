@@ -179,7 +179,7 @@ $part.lab_code
 #* *#
 #* drug_products ------------ *#
 #* *#
-				<article id="drugs" class="tab_content">
+				<article id="drug_products" class="tab_content">
 					$Controller.notes("$type","drug_products","top")
 			  		#parse("center/types_tabs/drug/drug_products.vm")
 					$Controller.notes("$type","drug_products","bottom")
