@@ -1270,6 +1270,71 @@ namespace stellar.Controllers {
             RedirectToAction("trashbin");
         }
 
+
+
+
+
+
+
+
+
+
+        /// <summary> </summary>
+        public void get_taxonomies(String tax, String exclude, string callback) {
+            if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+            
+            if (String.IsNullOrWhiteSpace(exclude)) exclude = "0";
+            String[] drop = exclude.Split(',');
+
+            IList<taxonomy> taxs = postingService.get_taxonomies(tax);
+
+            CancelLayout();
+            CancelView();
+            String json_str = "";
+
+            json_str += @"  { 
+";
+            foreach (taxonomy item in taxs) {
+                json_str += @"""" + item.baseid + @""":{";
+                json_str += @"""baseid"":""" + item.baseid + @""",";
+                // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
+                json_str += @"""name"":""" + item.name + @""",";
+                json_str += @"""alias"":""" + item.alias + @"""";
+                json_str += @"
+},";
+                // this vodo of the new line is wrong
+                json_str += "".Replace(@"
+", String.Empty);
+
+
+            }
+            json_str += @"
+}";
+
+
+            if (!string.IsNullOrEmpty(callback)) {
+                json_str = callback + "(" + json_str + ")";
+            }
+            Response.ContentType = "application/json; charset=UTF-8";
+            RenderText(json_str);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /// <summary> </summary>
         public Boolean is_viewonly() {
 
