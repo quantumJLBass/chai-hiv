@@ -321,6 +321,12 @@ $(document).ready(function() {
 			$("#subCodeEdit").addClass("closed");
 		});
 	});
+	sortedCode();
+	
+	
+	
+	
+	
 	
 
 	$("select[name*='inactive_ingredients[]']").on("change",function(){
@@ -383,6 +389,62 @@ $(document).ready(function() {
 	
 	
 // addTab button: just opens the dialog
+	$( "#drPro_tabed" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+	$( "#drPro_tabed li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+	
+	$('#addForm').on('click',function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		
+		
+		
+		$.getJSON('/center/get_taxonomies.castle?tax=dose_type&callback=?',  function(data){
+
+			var html = "";
+			$.each(data,function(i,v){
+				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )</span><br/>";
+				
+			});
+			if($("#form_list").length<=0){
+				$('body').append('<div id="form_list">');
+			}
+			$("#form_list").html( html );
+			$( "#form_list" ).dialog({
+				autoOpen: true,
+				resizable: false,
+				width: 350,
+				minHeight: 25,
+				modal: true,
+				draggable : false,
+				create:function(){
+					$('.ui-dialog-titlebar').remove();
+					//$(".ui-dialog-buttonpane").remove();
+					$('body').css({overflow:"hidden"});
+				},
+				open:function(){
+					$('.item .icon-plus').on("click",function(){
+						
+					});
+				},
+				buttons:{
+					Ok:function(){
+						$( this ).dialog( "close" );
+					}
+				},
+				close: function() {
+					$('body').css({overflow:"auto"});
+					$( "#form_list" ).dialog( "destroy" );
+					$( "#form_list" ).remove();
+				}
+			});
+		});
+		 
+	});
+	
+	
+	
+	
+	
 	var tabs = $( "#tabed" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
 	//var uitabs = $( ".uitabs" ).tabs();
 	
