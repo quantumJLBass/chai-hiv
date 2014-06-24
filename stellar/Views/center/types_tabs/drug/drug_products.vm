@@ -1,3 +1,20 @@
-#* drugdata *#
-	#set($typed_list = $item.drugs)
-	#parse("center/model_tie_tables/drug.vm")
+<div class="">
+	<div id="drPro_tabed" >
+		<ul class=" clearfix">
+			#if($item.drug)
+				#foreach($market in $!item.markets)
+					#set($i=$velocityCount)
+					<li><a href="#year${i}">$!market.year</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>
+				#end
+			#end
+			<a href="#" id="addForm"><i class="icon-plus"></i></a>
+		</ul>
+		#if($item.markets)
+			#foreach($market in $!item.markets)
+				#set($i=$velocityCount)
+				#parse("center/assests/market_block.vm")
+			#end
+		#end
+
+	</div>
+</div>
