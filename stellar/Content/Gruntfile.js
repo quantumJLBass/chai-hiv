@@ -21,7 +21,11 @@ module.exports = function(grunt) {
 			},*/
 			scripts: {
 				src: [
+					'src/js/forms/general_functions.js',
+					'src/js/forms/global.js',
 					'src/js/forms/families.js',
+					'src/js/forms/markets.js',
+					'src/js/forms/reports.js',
 					'src/js/init.js'
 				],
 				dest: 'build/js/init.js',
@@ -46,7 +50,7 @@ module.exports = function(grunt) {
 			}
 		},
 		jshint: {
-			files: ['Gruntfile.js', 'src/js/init.js', 'src/js/forms/*.js'],
+			files: ['Gruntfile.js','build/js/init.js', ],
 			options: {
 				// options here to override JSHint defaults
 				boss: true,
@@ -64,6 +68,7 @@ module.exports = function(grunt) {
 				unused: true,
 				globals: {
 					jQuery: true,
+					$: true,
 					console: true,
 					module: true,
 					document: true,
@@ -88,6 +93,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', ['jshint']);
 	grunt.registerTask('prod', ['env:prod', 'concat','preprocess:js','cssmin','uglify','copy','includereplace','preprocess:html']);
 
-	grunt.registerTask('dev', ['jshint', 'concat', 'env:dev', 'cssmin', 'uglify', ]);
+	grunt.registerTask('dev', [ 'concat', 'jshint', 'env:dev', 'cssmin', 'uglify', ]);
 
 };
