@@ -401,7 +401,7 @@ $(document).ready(function() {
 
 		var drPro_tabTemplate = "<li><a href='#{href}' data-baseid='#{baseid}' data-name='#{name}' data-alias='#{alias}'>#{label}</a> <i class='icon-remove'></i></li>";
 		var drPro_tabCounter = $( "#drPro_tabed li" ).length;
-		var drPro_tabDefaultContent = '<table width="100%" class="drpro_table display" ellspacing="0"><thead><tr><th>Amt.</th><th>Manufacure</th></tr></thead><tfoot><tr><th>Amt.</th><th>Manufacure</th></tr></tfoot><tbody></tbody></table>';
+		var drPro_tabDefaultContent = '<table width="100%" class="drpro_table display" ellspacing="0"><thead><tr><th>Amt.</th><th>Manufacure</th><th>Actions</th></tr></thead><tfoot><tr><th></th><th></th><th></th></tr></tfoot><tbody></tbody></table>';
 
 		function add_drProTab(name,baseid,alias) {
 			var id = "drPro_tabs-" + drPro_tabCounter,
