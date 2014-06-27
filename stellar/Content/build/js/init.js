@@ -1,3 +1,7 @@
+// JavaScript Document
+
+var test = "";
+alert(test);
 (function($) {
 /*!
  * jQuery Cookie Plugin v1.4.0
