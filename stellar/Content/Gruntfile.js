@@ -14,13 +14,26 @@ module.exports = function(grunt) {
 				NODE_ENV : 'PRODUCTION'
 			}
 		},
+		concat: {
+			/*styles: {
+				src: ['styles/skeleton.css','styles/colors.css','styles/spine.css','styles/respond.css'],
+				dest: 'build/<%= pkg.build_version %>/spine.css',
+			},*/
+			scripts: {
+				src: [
+					'src/js/forms/families.js',
+					'src/js/init.js'
+				],
+				dest: 'build/js/init.js',
+			},
+		},
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n' +
-					'/*  See https://github.com/washingtonstateuniversity/WSU-spine/ for full source.*/\n'
+					'/*   */\n'
 			},
 			build: {
-				src: 'src/js/init.js',
+				src: 'build/js/init.js',
 				dest: 'js/init.js'
 			}
 		},
@@ -33,7 +46,7 @@ module.exports = function(grunt) {
 			}
 		},
 		jshint: {
-			files: ['Gruntfile.js', 'src/js/init.js'],
+			files: ['Gruntfile.js', 'src/js/init.js', 'src/js/forms/*.js'],
 			options: {
 				// options here to override JSHint defaults
 				boss: true,
@@ -69,11 +82,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 
 	// Default task(s).
 	grunt.registerTask('default', ['jshint']);
 	grunt.registerTask('prod', ['env:prod', 'concat','preprocess:js','cssmin','uglify','copy','includereplace','preprocess:html']);
 
-	grunt.registerTask('dev', ['jshint', 'env:dev', 'cssmin', 'uglify', ]);
+	grunt.registerTask('dev', ['jshint', 'concat', 'env:dev', 'cssmin', 'uglify', ]);
 
 };
