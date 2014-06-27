@@ -132,7 +132,7 @@ $(document).ready(function() {
 			drProTab.append( "<div id='" + id + "'>" + contentHtml + "</div>" );
 			drProTab.tabs( "refresh" );
 			drProTab.tabs( "option", "active", drPro_tabCounter );
-			$(id).find('.drpro_table').DataTable({ 
+			$('.drpro_table:not(".dataTable")').DataTable({ 
 					"bJQueryUI": true,
 					"sPaginationType": "full_numbers",
 					"fnDrawCallback": function() {//(oSettings ) {
