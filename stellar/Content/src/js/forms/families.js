@@ -117,7 +117,7 @@ $(document).ready(function() {
 		var drPro_tabDefaultContent = '<table width="100%" class="drpro_table display" ellspacing="0"><thead><tr><th>Amt.</th><th>Manufacure</th><th>Actions</th></tr></thead><tfoot><tr><th></th><th></th><th></th></tr></tfoot><tbody></tbody></table>';
 
 		function add_drProTab(name,baseid,alias) {
-			var id = "drPro_tabs-" + drPro_tabCounter,
+			var id = "drPro_tabs_" + drPro_tabCounter,
 				li = $( drPro_tabTemplate
 							.replace( /#\{href\}/g, "#" + id )
 							.replace( /#\{label\}/g, name )
@@ -129,13 +129,14 @@ $(document).ready(function() {
 
 			var contentHtml = drPro_tabDefaultContent;/*.replace( /\{\{YEAR\}\}/g, label ) ;
 			contentHtml = contentHtml.replace( /\{\{COUNT\}\}/g, drPro_tabCounter+1 ).replace( /\{\{__\}\}/g, "" ) ;*/
-			drProTab.append( "<div id='" + id + "'>" + contentHtml + "</div>" );
+			drProTab.prepend( "<div id='" + id + "'>" + contentHtml + "</div>" );
 			drProTab.tabs( "refresh" );
 			drProTab.tabs( "option", "active", drPro_tabCounter );
 			$('.drpro_table:not(".dataTable")').DataTable({ 
 					"bJQueryUI": true,
-					"sPaginationType": "full_numbers",
+					"sPaginationType": "full_numbers", 
 					"fnDrawCallback": function() {//(oSettings ) {
+						$("#" + id).find('.drpro_table .dataTables_empty').html('No '+name+' products available. <a href="#">Add <i title="edit" class="icon-plus"></i></a>');
 						//make_datatable_popup_add(datatable);
 					}
 				});
