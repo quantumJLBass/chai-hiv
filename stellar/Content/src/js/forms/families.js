@@ -108,36 +108,54 @@ $(document).ready(function() {
 
 
 	// addTab button: just opens the dialog
-		$( "#drPro_tabed" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+		var drProTab = $( "#drPro_tabed" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
 		$( "#drPro_tabed li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
-	
-	/*var drProTab = 
-			function add_drProTab() {
-				var label = tabTitle.val() || "Tab " + drPro_tabCounter,
-					id = "tabs-" + drPro_tabCounter,
-					li = $( tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) );
-				drProTab.find( ".ui-tabs-nav" ).append( li );
-				var content = $("#querybed").html();
-				var contentHtml = content.replace( /\{\{YEAR\}\}/g, label ) ;
-				contentHtml = contentHtml.replace( /\{\{COUNT\}\}/g, drPro_tabCounter+1 ).replace( /\{\{__\}\}/g, "" ) ;
-				drProTab.append( "<div id='" + id + "'>" + contentHtml + "</div>" );
-				drProTab.tabs( "refresh" );
-				drProTab.tabs( "option", "active", tabCounter );
-				drPro_tabCounter++;
-				$.each( $('input[name^="markets_counts["]' ), function(i){
-					$(this).attr('name','markets_counts['+ (i+1) +']');
+
+		var drPro_tabTemplate = "<li><a href='#{href}' data-baseid='#{baseid}' data-name='#{name}' data-alias='#{alias}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>";
+		var drPro_tabCounter = $( "#drPro_tabed li" ).length;
+		var drPro_tabDefaultContent = '<table width="100%" class="drpro_table display" ellspacing="0"><thead><tr><th>Amt.</th><th>Manufacure</th></tr></thead><tfoot><tr><th>Amt.</th><th>Manufacure</th></tr></tfoot><tbody></tbody></table>';
+
+		function add_drProTab(name,baseid,alias) {
+			var id = "drPro_tabs-" + drPro_tabCounter,
+				li = $( drPro_tabTemplate
+							.replace( /#\{href\}/g, "#" + id )
+							.replace( /#\{label\}/g, name )
+							.replace( /#\{baseid\}/g, baseid )
+							.replace( /#\{name\}/g, name )
+							.replace( /#\{alias\}/g, alias )
+						);
+			drProTab.find( ".ui-tabs-nav" ).prepend( li );
+
+			var contentHtml = drPro_tabDefaultContent;/*.replace( /\{\{YEAR\}\}/g, label ) ;
+			contentHtml = contentHtml.replace( /\{\{COUNT\}\}/g, drPro_tabCounter+1 ).replace( /\{\{__\}\}/g, "" ) ;*/
+			drProTab.append( "<div id='" + id + "'>" + contentHtml + "</div>" );
+			drProTab.tabs( "refresh" );
+			drProTab.tabs( "option", "active", drPro_tabCounter );
+			$(id).find('.drpro_table').DataTable({ 
+					"bJQueryUI": true,
+					"sPaginationType": "full_numbers",
+					"fnDrawCallback": function() {//(oSettings ) {
+						//make_datatable_popup_add(datatable);
+					}
 				});
-			}
-	*/
-	
+			drPro_tabCounter++;
+			/*$.each( $('input[name^="markets_counts["]' ), function(i){
+				$(this).attr('name','markets_counts['+ (i+1) +']');
+			});*/
+		}
+		drProTab.delegate( "span.ui-icon-close", "click", function() {
+			var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
+			$( "#" + panelId ).remove();
+			drProTab.tabs( "refresh" );
+			/*$.each( $('input[name^="markets_counts["]' ), function(i){
+				$(this).attr('name','markets_counts['+ (i+1) +']');
+			});*/
+		});
 		
 		$('#addDrugForm').on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			
-			
-			
 			$.getJSON('/center/get_taxonomies.castle?tax=dose_type&callback=?',  function(data){
 	
 				var html = "";
@@ -163,7 +181,10 @@ $(document).ready(function() {
 					},
 					open:function(){
 						$('.item .icon-plus').on("click",function(){
-							
+							var name = $(this).closest('span').data('name');
+							var baseid = $(this).closest('span').data('baseid');
+							var alias = $(this).closest('span').data('alias');
+							add_drProTab(name,baseid,alias);
 						});
 					},
 					buttons:{
