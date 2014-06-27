@@ -132,7 +132,7 @@ $(document).ready(function() {
 	*/
 	
 		
-		$('#addForm').on('click',function(e){
+		$('#addDrugForm').on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();
 			

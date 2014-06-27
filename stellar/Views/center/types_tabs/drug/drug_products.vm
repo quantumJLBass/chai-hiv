@@ -7,7 +7,7 @@
 					<li><a href="#year${i}">$!market.year</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>
 				#end
 			#end
-			<a href="#" id="addForm"><i class="icon-plus"></i></a>
+			<a href="#" id="addDrugForm"><i class="icon-plus"></i></a>
 		</ul>
 		#if($item.markets)
 			#foreach($market in $!item.markets)
