@@ -776,10 +776,13 @@ select option.add:hover{ background-color:#6F3;border:1px inset #666;font-style:
 .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em !important; float: left; width: 12em !important; }
 .ui-tabs-vertical .ui-tabs-nav li { clear: left !important; width: 100% !important; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0 !important; }
 .ui-tabs-vertical .ui-tabs-nav li a { display:block; width:70%; }
+
+.ui-tabs-vertical .ui-tabs-nav li .icon-remove:hover{ color:#7F090B; cursor:pointer;}
 .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0 !important; padding-right: .1em !important; border-right-width: 1px !important; border-right-width: 1px !important; }
 .ui-tabs-vertical .ui-tabs-panel { padding: 1em !important; float: right; width: 40em;}
 
-
+.dataTables_length {width: 50%;}
+.dataTables_length select{width:60px;}
 
 /* -------------------------------------------------------------
 ======	dialogs

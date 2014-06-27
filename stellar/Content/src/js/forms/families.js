@@ -112,7 +112,7 @@ $(document).ready(function() {
 		$( "#drPro_tabed li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
 
-		var drPro_tabTemplate = "<li><a href='#{href}' data-baseid='#{baseid}' data-name='#{name}' data-alias='#{alias}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>";
+		var drPro_tabTemplate = "<li><a href='#{href}' data-baseid='#{baseid}' data-name='#{name}' data-alias='#{alias}'>#{label}</a> <i class='icon-remove'></i></li>";
 		var drPro_tabCounter = $( "#drPro_tabed li" ).length;
 		var drPro_tabDefaultContent = '<table width="100%" class="drpro_table display" ellspacing="0"><thead><tr><th>Amt.</th><th>Manufacure</th></tr></thead><tfoot><tr><th>Amt.</th><th>Manufacure</th></tr></tfoot><tbody></tbody></table>';
 
@@ -144,7 +144,7 @@ $(document).ready(function() {
 				$(this).attr('name','markets_counts['+ (i+1) +']');
 			});*/
 		}
-		drProTab.delegate( "span.ui-icon-close", "click", function() {
+		drProTab.delegate( "i.icon-remove", "click", function() {
 			var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
 			$( "#" + panelId ).remove();
 			drProTab.tabs( "refresh" );
