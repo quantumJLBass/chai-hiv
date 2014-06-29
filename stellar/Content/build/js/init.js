@@ -410,6 +410,57 @@ $(document).ready(function() {
 	var drPro_tabDefaultContent = '<table width="100%" class="drpro_table display" ellspacing="0"><thead><tr><th>Amt.</th><th>Manufacure</th><th>Actions</th></tr></thead><tfoot><tr><th></th><th></th><th></th></tr></tfoot><tbody></tbody></table>';
 
 
+
+
+	function add_drProTableRow(){
+		$.getJSON('/center/drugs.castle?json=true&callback=?',  function(data){
+
+			var html = "";
+			$.each(data,function(i,v){
+				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )</span><br/>";
+				
+			});
+			if($("#form_list").length<=0){
+				$('body').append('<div id="form_list">');
+			}
+			$("#form_list").html( html );
+			$( "#form_list" ).dialog({
+				autoOpen: true,
+				resizable: false,
+				width: 350,
+				minHeight: 25,
+				modal: true,
+				draggable : false,
+				create:function(){
+					$('.ui-dialog-titlebar').remove();
+					//$(".ui-dialog-buttonpane").remove();
+					$('body').css({overflow:"hidden"});
+				},
+				open:function(){
+					$('.item .icon-plus').on("click",function(){
+						var name = $(this).closest('span').data('name');
+						var baseid = $(this).closest('span').data('baseid');
+						var alias = $(this).closest('span').data('alias');
+						add_drProTab(name,baseid,alias);
+					});
+				},
+				buttons:{
+					Ok:function(){
+						$( this ).dialog( "close" );
+					}
+				},
+				close: function() {
+					$('body').css({overflow:"auto"});
+					$( "#form_list" ).dialog( "destroy" );
+					$( "#form_list" ).remove();
+				}
+			});
+		});	
+		
+	}
+
+
+
 	function add_drProTab(name,baseid,alias) {
 		var id = "drPro_tabs_" + drPro_tabCounter,
 			li = $( drPro_tabTemplate
@@ -430,7 +481,13 @@ $(document).ready(function() {
 				"bJQueryUI": true,
 				"sPaginationType": "full_numbers", 
 				"fnDrawCallback": function() {//(oSettings ) {
-					$("#" + id).find('.drpro_table .dataTables_empty').html('No '+name+' products available. <a href="#">Add <i title="edit" class="icon-plus"></i></a>');
+					if($("#" + id).find('.fg-toolbar .add_drPro').length<=0){
+						$("#" + id).find('.fg-toolbar.ui-widget-header').prepend('<a href="#" class="button add_drPro" style="float:left;">Add <i title="edit" class="icon-plus"></i></a>');
+					}
+					$("#" + id).find('.drpro_table .dataTables_empty').html('No '+name+' products available. <a href="#" class="add_drPro">Add <i title="edit" class="icon-plus"></i></a>');
+					$("#" + id).find('.add_drPro').off().on("click",function(){
+						add_drProTableRow();
+					});
 					//make_datatable_popup_add(datatable);
 				}
 			});

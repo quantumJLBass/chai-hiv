@@ -784,6 +784,18 @@ select option.add:hover{ background-color:#6F3;border:1px inset #666;font-style:
 .dataTables_length {width: 50%;}
 .dataTables_length select{width:60px;}
 
+
+
+.fg-toolbar .add_drPro{
+    float: left;
+    padding: 2px 3px;
+    font-size: 10px;
+    margin-right: 5px;
+}
+
+
+
+
 /* -------------------------------------------------------------
 ======	dialogs
 ------------------------------------------------------------- */
