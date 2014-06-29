@@ -274,10 +274,14 @@ $(document).ready(function() {
 			var html = "";
 			$.each(data,function(i,v){
 				if($("[id^='drPro_tabs_" + v.alias +"_']").length<=0){
-					html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )</span><br/>";
+					html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )<br/></span>";
 				}
 				
 			});
+			
+			html+="<span id='add_form' style='cursor:pointer;'><i title='edit' class='icon-plus'></i>Add a New form<br/></span>";
+			
+			
 			if($("#form_list").length<=0){
 				$('body').append('<div id="form_list">');
 			}
@@ -295,7 +299,17 @@ $(document).ready(function() {
 					$('body').css({overflow:"hidden"});
 				},
 				open:function(){
+					$('#add_form').on("click",function(){
+						start_taxed_add("dose_type", function(){}, function(){
+							make_a_tax_form(function(data){
+								$("#form_list").append(
+									"<span class='item i"+( $("#form_list .item").length )+"' data-baseid='"+data.baseid+"' data-name='"+data.name+"' data-alias='"+data.alias+"'  ><i title='edit' class='icon-plus'></i>"+data.name+" ( "+data.alias+" )<br/></span>"
+								);
+							});
+						});
+					});
 					$('.item .icon-plus').on("click",function(){
+						$(this).closest('span').fadeOut("fast");
 						var name = $(this).closest('span').data('name');
 						var baseid = $(this).closest('span').data('baseid');
 						var alias = $(this).closest('span').data('alias');
