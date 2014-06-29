@@ -129,14 +129,32 @@ $(document).ready(function() {
 		$.getJSON('/center/drugs.castle?json=true&callback=?',  function(data){
 
 			var html = "";
-			$.each(data,function(i,v){
-				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )</span><br/>";
-			});
-			if(html==""){
-				html+="There are currently no drugs";	
-			}
 			
+			html+="<div id='drPro_additions' class='min'>";
+				html+="<ul>";
+					html+="<li><a href='#existing_drPros'>Existing</a></li>";
+					html+="<li><a href='#create_drPros_stub'>Quick Create</a></li>";
+				html+="</ul>";
+				html+="<div class='tab_container'>";
 			
+					html+="<div id='existing_drPros'>";
+					var list="";
+					$.each(data,function(i,v){
+						list+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )</span><br/>";
+					});
+					if(list===""){
+						html+="There are currently no drugs";	
+					}else{
+						html+=list;	
+					}
+					html+="</div>";
+					html+="<div id='create_drPros_stub'>";
+						html+="<lable>Amount<input type='text' name='quick_drPro[amount]'/></label><br/>";
+						html+="<lable>Manufacturer<select name='quick_drPro[manufacturer]' id='quick_drPro_manufacturer'><option value=''>Select</option></select></label>";
+					html+="</div>";
+				html+="</div>";
+			html+="</div>";
+			html+="<div class='clearfix'></div>";
 			
 			if($("#form_list").length<=0){
 				$('body').append('<div id="form_list">');
@@ -146,7 +164,9 @@ $(document).ready(function() {
 				autoOpen: true,
 				resizable: false,
 				width: 350,
-				minHeight: 25,
+				minHeight: 150,
+				height: 'auto',
+				maxHeight: $(window).height(),
 				modal: true,
 				draggable : false,
 				create:function(){
@@ -155,6 +175,14 @@ $(document).ready(function() {
 					$('body').css({overflow:"hidden"});
 				},
 				open:function(){
+					$('#drPro_additions').tabs();
+					$.getJSON('/center/get_taxonomies.castle?tax=commercial&callback=?',  function(data){
+						var list="";
+						$.each(data,function(i,v){
+							list+="<option value='"+v.alias+"'>"+v.name+"</option>";
+						});
+						$('#quick_drPro_manufacturer').append(list);
+					});
 					$('.item .icon-plus').on("click",function(){
 						var name = $(this).closest('span').data('name');
 						var baseid = $(this).closest('span').data('baseid');

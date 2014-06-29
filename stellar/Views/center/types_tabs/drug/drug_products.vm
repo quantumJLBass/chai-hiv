@@ -1,6 +1,6 @@
 <div class="">
 	<div id="drPro_tabed" >
-		<ul class=" clearfix">
+		<ul class="">
 			#if($item.drug)
 				#foreach($market in $!item.markets)
 					#set($i=$velocityCount)
