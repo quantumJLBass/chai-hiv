@@ -16,6 +16,7 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			files: [
+				'src/css/style.css',
 				'src/js/forms/general_functions.js',
 				'src/js/forms/global.js',
 				'src/js/forms/families.js',
