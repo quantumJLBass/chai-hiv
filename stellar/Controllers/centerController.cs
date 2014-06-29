@@ -1386,11 +1386,7 @@ namespace stellar.Controllers {
                     log.Info("taxonomy has " + items.Count + " items to change to " + oldtax_type_alias + "/" + oldtax_alias);
 
                 } catch {
-                    if (ajax) {
-                        CancelLayout();
-                        RenderText("{\"state\":\"fasle\"}");
-                        return;
-                    }
+
                 }
 
 

@@ -95,7 +95,7 @@ namespace stellar.Controllers {
                 }*/
                 PropertyBag["ExchangeService"] = tmp;
                 PropertyBag["activeUsers"] = activeUser;
-                PropertyBag["analytics"] = seoService.getGAAnalytics();
+                //PropertyBag["analytics"] = seoService.getGAAnalytics();
             }
             //switch to the theme based one so there is customized dashboard
             RenderView("../admin/splash");
