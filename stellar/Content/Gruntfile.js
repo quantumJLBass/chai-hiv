@@ -14,6 +14,18 @@ module.exports = function(grunt) {
 				NODE_ENV : 'PRODUCTION'
 			}
 		},
+		watch: {
+			files: [
+				'src/js/forms/general_functions.js',
+				'src/js/forms/global.js',
+				'src/js/forms/families.js',
+				'src/js/forms/markets.js',
+				'src/js/forms/reports.js',
+				'src/js/init.js',
+				'build/js/init.js'
+			],
+			tasks: [ 'concat', 'jshint', 'env:dev', 'cssmin', 'uglify' ]
+		},
 		concat: {
 			/*styles: {
 				src: ['styles/skeleton.css','styles/colors.css','styles/spine.css','styles/respond.css'],
@@ -88,8 +100,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Default task(s).
+	grunt.registerTask('start', ['watch']);
 	grunt.registerTask('default', ['jshint']);
 	grunt.registerTask('prod', ['env:prod', 'concat','preprocess:js','cssmin','uglify','copy','includereplace','preprocess:html']);
 

@@ -286,9 +286,6 @@ function setting_item_pub(parentObj){
 	});
 })(jQuery);
 // JavaScript Document
-
-$(document).ready(function() {
-
 	function sortedCode(){
 		$('.substance_item .icon-trash').off().on("click",function(){
 			$(this).closest('.substance_item').fadeOut("fast",function(){
@@ -303,6 +300,14 @@ $(document).ready(function() {
 		});
 		$("#sub_code").html(code);
 	}
+
+
+
+
+
+$(document).ready(function() {
+
+
 	$("#sortable").sortable({
 		handle: ".sortable_handle",
 		placeholder: "ui-state-highlight",
@@ -614,6 +619,577 @@ $(document).ready(function() {
 })(jQuery);
 // JavaScript Document
 (function($) {
+	
+	function moa_dmpk_setup(){
+		$.each($('.has_moa_dmpk:not(.activated)'),function(){
+			var tar = $(this);
+			$(this).addClass('activated');
+			var dep = tar.closest('.moa_dmpk_block').find('.moa_dmpk');
+			if(tar.val()===""){
+				dep.hide();
+			}
+			tar.on("keyup",function(){
+				if(tar.val()===""){
+					dep.find(':selected').attr('selected',false);
+					dep.hide();
+				}else{
+					dep.show();
+				}
+			});
+		});
+	}
+
+	function re_index_query_items(){
+		$.each($(".query_item:not('#queryBed .query_item')"),function(i){
+			$.each($(this).find("input:visible ,select:visible "),function(){
+				//var name = $(this).attr('name');
+				$(this).attr('name', $(this).attr('name').split('[')[0]+"["+i+"]");
+			});
+		});
+	}
+	function make_prop_select(){
+		$(".property_selector").off().on("change",function(){
+			
+			var prop = $(this).val();
+			var query_item = $(this).closest('.query_item');
+			
+			//alert(prop);
+			query_item.find('.input_box input,.input_box select').removeAttr("name");
+			query_item.find('.input_box [name*=value]').val('');
+			
+			query_item.find('.input_box').removeClass("showen");
+			query_item.find('.input_box.'+prop+'').addClass("showen");
+			if(query_item.find('.input_box:visible').length<=0){
+				query_item.find('.input_box.gen').addClass("showen");
+			}
+			query_item.find('.input_box:visible input,.input_box:visible select').attr("name","value[9999]");
+			re_index_query_items();
+		});
+	}
+
+
+
+	function set_prop_sel(val){
+		$.each( $('form select.property_selector,form select[name="selected_properties"]') ,function(){
+			$(this).find('option').attr("selected",false);
+			$(this).find('optgroup').hideOptionGroup();
+			var pname = $(this).closest('select').attr("name");
+			$('optgroup.'+val+'s[data-pname="'+pname+'"]').showOptionGroup();
+		});
+	}
+	
+	function apply_tax_request(){
+		$.each($('.requested_taxed:not(.activated)'),function(){
+			var tar = $(this);
+			tar.addClass('activated');
+			if(tar.find('.add').length<=0){
+				tar.find('option:last').after('<option value="" class="add">Request new option</option>');
+			}
+		});
+	
+		$('.requested_taxed').on('change',function(){
+				var select_target = $(this);
+				var target = $(this).find('option:selected');
+				if(!target.hasClass("add")){
+					return;
+				}
+		
+				target.removeAttr("selected");
+				
+				
+				if($( "#taxonomyitem" ).length<=0){
+					$('body').append("<div id='taxonomyitem'>");
+				}
+				var data='<h3>Make a request for a new item</h3><lable>Name:</lable><input type="text" value=""/><br/><br/><input type="submit" value="Subbmit Request"/>';
+				var dialog_obj = $("#taxonomyitem");
+					dialog_obj.html(data);
+					dialog_obj.dialog({
+							autoOpen: true,
+							resizable: false,
+							width: 450,
+							//height: $(window).height()*.50,
+							modal: true,
+							draggable : false,
+							create:function(){
+								$('body').css({overflow:"hidden"});
+								$(".ui-dialog-buttonpane").remove();
+								dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
+								make_tax_form(select_target,function(){
+									alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+								});
+							},
+							open:function(){
+								turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+								},
+							close: function() {
+								$('body').css({overflow:"auto"});
+								$( "#taxonomyitem" ).dialog( "destroy" );
+								$( "#taxonomyitem" ).remove();
+								
+							}
+						});
+						
+		});
+	}
+
+	function apply_taxed_add(){
+		/* add taxonomy */
+		$.each($('.taxed:not(.activated)'),function(){
+			var tar = $(this);
+			tar.addClass('activated');
+			if(tar.find('.add').length<=0){
+				tar.find('option:last').after('<option value="" class="add">Add new option</option>');
+			}
+		});
+		$('.taxed').on('change',function(){
+			var select_target = $(this);
+			var target = $(this).find('option:selected');
+			if(!target.hasClass("add")){
+				return;
+			}
+	
+			target.removeAttr("selected");
+			
+			
+			if($( "#taxonomyitem" ).length<=0){
+				$('body').append("<div id='taxonomyitem'>");
+			}
+			var dialog_obj = $("#taxonomyitem");
+			
+			var secselect_target;
+			var type = select_target.attr("rel")!=="" ? select_target.attr("rel") : select_target.attr("id");
+			if(select_target.attr("rel").length){
+				secselect_target = $('[rel="'+type+'"]');
+			}
+			$.ajax({cache: false,
+			   url:"/admin/edit_taxonomy.castle",
+			   data:{"skiplayout":1,"type":type},
+			   success: function(data){
+					dialog_obj.html(data);
+					dialog_obj.dialog({
+							autoOpen: true,
+							resizable: false,
+							modal: true,
+							draggable : false,
+							create:function(){
+								$('body').css({overflow:"hidden"});
+								$(".ui-dialog-buttonpane").remove();
+								dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
+								make_tax_form(select_target,function(){
+									alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+								},secselect_target);
+							},
+							open:function(){
+								turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+								},
+							close: function() {
+								$('body').css({overflow:"auto"});
+								$( "#taxonomyitem" ).dialog( "destroy" );
+								$( "#taxonomyitem" ).remove();
+							}
+						});
+						$(window).resize(function(){$("#taxonomyitem" ).dialog('option', { width: $(window).width()*0.25,  height: $(window).height()*0.25,});																													
+					});
+				}
+			});
+		});
+	}
+
+	function set_up_form(type){
+		//,inlist,use){
+		/*if($('#clinlic_to_drug').length){
+			$('#clinlic_to_drug').html($('#brand_name').val()+'<input type="hidden" value="'+$('[name="item.baseid"]').val()+'"/>');
+		}*/
+		make_maskes();
+		moa_dmpk_setup();
+		apply_tax_request();
+		apply_taxed_add();
+		setting_item_pub($(".ui-dialog"));
+		$('input[name^="post"]').val($('input[name="item.baseid"]').val());
+
+		$("#load_file").on("click",function(){ $(".load_file").toggleClass("active"); });
+		
+		$("#drug_form [type='submit']").on("click",function(e){
+			var form = $(this).closest("form");
+			if (form.find(':invalid').length<=0) {
+				e.preventDefault();
+				e.stopPropagation();
+				$.post(form.attr("action")+"?skiplayout=1&ajaxed_update=1",form.serialize(),function(){//(data){
+					//var parts= data.split(',');
+					$( "#drug_form" ).dialog( "destroy" );
+					$( "#drug_form" ).remove();
+					$(".add_to_list[data-type='"+type+"']").trigger("click");
+				});
+			}
+		});	
+	}
+
+
+
+	function add_item_popup(type,inlist,use,id){
+		if(typeof(use)==="undefined"){ 
+			use = ["new","list"];
+		}
+		if($("#drug_form").length===0){
+			$("#staging").append("<div id='drug_form'><div id='drug_list'></div><div id='drug_item'></div>");
+		}
+
+		var buttons = "";
+
+
+		$.ajax({cache: false,
+		   url:"/center/"+type+"s.castle",
+		   data:{"skiplayout":1,"exclude":inlist,typed_ref:$('[name="typed_ref"]').val()},
+		   success: function(data){
+				if($.inArray("list", use)>-1){
+					$("#drug_list").html(data);
+					buttons += "<a href='#drug_list' id='drug_list_tab' class='popuptab button med active'>List</a>";
+				}
+					$.ajax({cache: false,
+					   url:"/center/"+type+".castle",
+					   data:{"skiplayout":1,"id":typeof(id)==="undefined"?"":id,typed_ref:$('[name="typed_ref"]').val()},
+					   success: function(data){
+						   if($.inArray("new", use)>-1){
+								$("#drug_item").html(data);
+								buttons += "<a href='#drug_item' id='drug_item_tab' class='popuptab button med'>New</a>";
+						   }
+						$( "#drug_form" ).dialog({
+								autoOpen: true,
+								resizable: false,
+								width: $(window).width()-50,
+								height: $(window).height()-50,
+								modal: true,
+								draggable : false,
+								buttons: {
+									Cancel: function() {
+										$( this ).dialog( "close" );
+									}
+								},
+								create:function(){
+
+									$( "#mess" ).dialog( "destroy" );
+									$( "#mess" ).remove();
+									if($("#drug_item").html()!=="" && $("#drug_list").html()!==""){
+										$("#drug_form").closest('.ui-dialog').find('.ui-dialog-title').append(buttons);
+										$("#drug_item").hide();
+									}
+									//setup_tabs();
+									
+									$('body').css({overflow:"hidden"});
+									$(".ui-dialog-buttonpane").remove();
+									
+									if($("#drug_list").html().length>0){
+										make_popup_datatable(type);
+									}
+				
+									$(".popuptab").off().on("click",function(e){
+										e.preventDefault();
+										e.stopPropagation();
+										var id = $(".popuptab.active").attr("href");
+										$(id).hide();
+										$(".popuptab.active").removeClass('active');
+										$(this).addClass('active');
+										id = $(this).attr("href");
+										$(id).show();	
+										
+									});
+									set_up_form(type,inlist,use);
+									activate_adverse_ui();
+								},
+								close: function() {
+									$('body').css({overflow:"auto"});
+									$( "#drug_form" ).dialog( "destroy" );
+									$( "#drug_form" ).remove();
+									
+									last_datatable=null;
+								}
+							});
+							$(window).resize(function(){$("#drug_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});
+						});
+					}
+				});
+			}
+		});
+	}
+	function make_tax_form(select_target,callback,secselect_target){
+		var target_form = $("#taxonomyitem form");
+		target_form.find('[type="submit"]').on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			$('#taxonomyitem form').on("change",function(){
+				var test_empty = true;
+				$.each($('input,select'),function(){
+					if($(this).not(":hidden").val()!==""&&$(this).not(":hidden").find(":selected").val()!==""){
+						test_empty = false;
+					}
+				});
+				$('#taxonomyitem form input[name="empty"]').val(test_empty+"");
+			});
+	
+			if(!target_form.find('input[name="empty"]').val()){
+				if(typeof(callback)!=="undefined"){
+					callback();
+				}
+				var form_data = target_form.find( "input, textarea, select" ).serializeArray();
+				$.ajax({cache: false,
+				   url:"/admin/update_taxonomy.castle?ajax=true",
+				   data:form_data,
+				   dataType : "json",
+				   success: function(returndata){
+						if(returndata.alias!==""){
+							select_target.find('.add').before('<option value="'+ returndata.alias +'" '+(select_target.is(secselect_target)?"selected":"")+' >'+returndata.name +'</option>');
+							$( "#taxonomyitem" ).dialog( "destroy" );
+							$( "#taxonomyitem" ).remove();
+							popup_message($("<span><h5>You have added a  new taxonomy!</h5>It has also selected for you</span>"));
+							$('form[name="entry_form"] :input:first').trigger("change");
+						}else{
+							popup_message($("<span>failed to save, try again.</span>"));
+						}
+					}
+				});
+			}
+		});
+	}
+
+
+
+
+
+
+
+
+
+
+	function apply_a_taxed_add(){
+		$('a.tax_add').on('click',function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			var select_target = $($(this).data('select'));
+	
+			if($( "#taxonomyitem" ).length<=0){
+				$('body').append("<div id='taxonomyitem'>");
+			}
+			var dialog_obj = $("#taxonomyitem");
+	
+			var type = $(this).data('type');
+			$.ajax({cache: false,
+			   url:"/admin/edit_taxonomy.castle",
+			   data:{"skiplayout":1,"type":type},
+			   success: function(data){
+					dialog_obj.html(data);
+					dialog_obj.dialog({
+						autoOpen: true,
+						resizable: false,
+						//width: $(window).width()*.40,
+						//height: $(window).height()*.50,
+						modal: true,
+						draggable : false,
+						create:function(){
+							$('body').css({overflow:"hidden"});
+							$(".ui-dialog-buttonpane").remove();
+							dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
+							make_a_tax_form(select_target,function(){
+								alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+							});
+							
+						},
+						open:function(){
+							turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+							},
+						close: function() {
+							$('body').css({overflow:"auto"});
+							$( "#taxonomyitem" ).dialog( "destroy" );
+							$( "#taxonomyitem" ).remove();
+							
+						}
+					});
+					$(window).resize(function(){
+						var w = $(window).width() * (0.25);
+						var h = $(window).height() * (0.25);
+						$("#taxonomyitem" ).dialog('option', { width: w,  height: h });
+					});
+				}
+			});
+		});
+	}
+	function make_a_tax_form(select_target,callback){
+		var target_form = $("#taxonomyitem form");
+		target_form.find('[type="submit"]').on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			$('#taxonomyitem form').on("change",function(){
+				var test_empty = true;
+				$.each($('input,select'),function(){
+					if($(this).not(":hidden").val()!==""&&$(this).not(":hidden").find(":selected").val()!==""){
+						test_empty = false;
+					}
+				});
+				$('#taxonomyitem form input[name="empty"]').val(test_empty+"");
+			});
+	
+			if(!target_form.find('input[name="empty"]').val()){
+				if(typeof(callback)!=="undefined"){
+					callback();
+				}
+				var form_data = target_form.find( "input, textarea, select" ).serializeArray();
+				$.ajax({cache: false,
+				   url:"/admin/update_taxonomy.castle?ajax=true",
+				   data:form_data,
+				   dataType : "json",
+				   success: function(returndata){
+						if(returndata.alias!==""){
+							select_target.find('option:first').before('<option value="'+ returndata.alias +'" >'+returndata.name +'</option>');
+							$( "#taxonomyitem" ).dialog( "destroy" );
+							$( "#taxonomyitem" ).remove();
+							popup_message($("<span><h5>You have added a  new taxonomy!</h5>It has also selected for you</span>"));
+							$('form[name="entry_form"] :input:first').trigger("change");
+						}else{
+							popup_message($("<span>failed to save, try again.</span>"));
+						}
+					}
+				});
+			}
+		});
+	}
+	function activate_adverse_ui(){
+		
+		function controll_meta_items(){
+			$('.remove').hover(function(){$(this).removeClass('red');},function(){$(this).addClass('red');});
+			$('.remove').on("click",function(){
+				var container = $(this).closest('li');
+				var option = container.find('[name^="option"]').val();
+				$(".adverse_events option[value='"+option+"']").removeAttr("disabled");
+				container.fadeOut(function(){ $(this).remove(); });
+			});
+			re_index_meta_items();
+		}	
+		function re_index_meta_items(){
+			$.each(
+			   $(".adverse_events").closest('ul').find("li[data-taxorder]"),
+			   function(i){
+					$(this).data('taxorder',i);
+					$.each($(this).find("input,select:not([name=''])"),function(){
+						//var name = $(this).attr('name');
+						$(this).attr('name', $(this).attr('name').split('[')[0]+"["+i+"]");
+					}); 
+				}
+			);
+		}
+		
+		$(".adverse_events").on("change", function(){
+			var selected = $(this).val();
+			var selected_obj = $(this).find('option[value="'+selected+'"]');
+			var container = $(this).closest('ul');
+			
+			var baseid = selected_obj.data('baseid');
+			var content = selected_obj.data('content');
+			var alias = selected_obj.data('alias');
+			
+			
+			//this works by
+			//tax is picked. 
+			//the tax, since it's a base id can have a child.
+			//that child is the 
+			
+			var is_none = alias ==="none"?"":"required";
+			
+			container.append(
+				 '<li data-taxorder="9999" data-name="'+selected_obj.val()+'">'+
+					'<i class="icon-remove-circle red right remove"></i>'+
+					 '<label>'+ selected_obj.text() +' <i class="icon-question-sign blue" title="'+ content +'"></i>'+
+					 '</label>'+
+					 '<input type="'+(alias ==="none"?"hidden":"text")+'" name="value[9999]" id="" '+is_none+' value=""/>'+//child
+					 '<input type="hidden" name="option_key[9999]" value="'+baseid+'" />'+//tax_id
+				 '</li>'
+			);
+			selected_obj.attr("disabled",true);
+			$(this).val("");
+			controll_meta_items();
+			re_index_meta_items();
+			make_maskes();
+		});
+		controll_meta_items();
+	}
+	function get_table_ids(datagrid){
+		var inlist ="";
+		var nNodes = datagrid.dataTable().fnGetNodes( );
+		$.each(nNodes,function(i,v){
+			var item = $(v).find('input.list_item');
+			inlist+=(inlist===""?"":",")+item.val();
+		});
+		return inlist;
+	}
+	function get_select_ids(select){
+		var inlist ="";
+		$.each(select.find('option'),function(){
+			inlist+=(inlist===""?"":",")+$(this).val();
+		});
+		return inlist;
+	}
+	function make_datatable_popup_add(datatable,type){
+		$('.additem').off().on('click',function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			var trigger = $(this);
+			var targetrow = trigger.closest('tr');
+			var baseid = targetrow.data("baseid");
+			
+			var count = datatable.find("tbody").find("tr").length;
+			
+			var tdCount = targetrow.find("td").length;
+			alert(tdCount);
+			var tableData = [];
+			
+			var html = targetrow.find("td:first").text() + '<input type="hidden" name="item.'+type+'s['+(count-1)+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
+			tableData.push( html );
+			tableData.push( targetrow.find("td:first").next('td').text() ); 
+			if(tdCount>3){
+				tableData.push( targetrow.find("td:first").next('td').next('td').text() ); 
+			}
+			tableData.push(
+				'<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>'
+			); 
+
+			$("[data-active_grid='true']").dataTable().fnAddData( tableData );
+			
+			targetrow.fadeOut( "75" ,function(){ datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) ); });
+			
+			$("#drug_form").append("<span class='dialog_message ui-state-highlight'>Added to this "+$("#header_title").text()+"</span>");
+			
+			setTimeout(function(){$(".dialog_message").fadeOut("500");},"1000");
+			
+			$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				var targetrow = $(this).closest("tr");
+				
+				var datatable = $(this).closest('.datagrid').dataTable();
+				
+				targetrow.fadeOut( "75" ,function(){ datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) ); });
+			});
+		});
+	}
+
+	//var parent_datagrid = null;
+	var last_datatable=null;
+	function make_popup_datatable(type){
+		$.each($('.datagrid:not(.dataTable)'),function(){
+			var datatable = $(this);
+			datatable.dataTable({ 
+				"bJQueryUI": true,
+				"sPaginationType": "full_numbers",
+				"fnDrawCallback": function() {//(oSettings ) {
+					make_datatable_popup_add(datatable);
+				}
+			});
+
+			last_datatable=datatable;
+			make_datatable_popup_add(datatable,type);
+		});
+	}
+
+
+
 	$(document).ready(function() {
 
 		$("select[name*='inactive_ingredients[]']").on("change",function(){
@@ -630,44 +1206,10 @@ $(document).ready(function() {
 			$('#to_save_query').slideDown();
 			$('#start_save_query').slideUp();
 		});
-	
-	
-		
-		function moa_dmpk_setup(){
-			$.each($('.has_moa_dmpk:not(.activated)'),function(){
-				var tar = $(this);
-				$(this).addClass('activated');
-				var dep = tar.closest('.moa_dmpk_block').find('.moa_dmpk');
-				if(tar.val()===""){
-					dep.hide();
-				}
-				tar.on("keyup",function(){
-					if(tar.val()===""){
-						dep.find(':selected').attr('selected',false);
-						dep.hide();
-						
-					}else{
-						dep.show();
-					}
-				});
-			});
-		}
-		moa_dmpk_setup();
-	
-		
-		
-		
 
-		
-		
-		
-		
-	
+		moa_dmpk_setup();
 		make_maskes();
 
-		
-	
-	
 		if($('.add_ref').length){
 			$('.add_ref').on("click",function(e){
 				e.preventDefault();
@@ -686,20 +1228,8 @@ $(document).ready(function() {
 				);
 			});
 		}
-	
-	
-	
-		
-		function set_prop_sel(val){
-			$.each( $('form select.property_selector,form select[name="selected_properties"]') ,function(){
-				$(this).find('option').attr("selected",false);
-				$(this).find('optgroup').hideOptionGroup();
-				var pname = $(this).closest('select').attr("name");
-				$('optgroup.'+val+'s[data-pname="'+pname+'"]').showOptionGroup();
-			});
-		}
-		
-		
+
+
 		if($('select[name^="property"],.property_selector').length){
 			$("#types").on("change",function(){
 	
@@ -715,33 +1245,7 @@ $(document).ready(function() {
 	
 	
 	
-		function re_index_query_items(){
-			$.each($(".query_item:not('#queryBed .query_item')"),function(i){
-				$.each($(this).find("input:visible ,select:visible "),function(){
-					//var name = $(this).attr('name');
-					$(this).attr('name', $(this).attr('name').split('[')[0]+"["+i+"]");
-				});
-			});
-		}
-		function make_prop_select(){
-			$(".property_selector").off().on("change",function(){
-				
-				var prop = $(this).val();
-				var query_item = $(this).closest('.query_item');
-				
-				//alert(prop);
-				query_item.find('.input_box input,.input_box select').removeAttr("name");
-				query_item.find('.input_box [name*=value]').val('');
-				
-				query_item.find('.input_box').removeClass("showen");
-				query_item.find('.input_box.'+prop+'').addClass("showen");
-				if(query_item.find('.input_box:visible').length<=0){
-					query_item.find('.input_box.gen').addClass("showen");
-				}
-				query_item.find('.input_box:visible input,.input_box:visible select').attr("name","value[9999]");
-				re_index_query_items();
-			});
-		}
+
 		$("#ADD_query").on("click",function(e){
 			e.preventDefault();
 			e.stopPropagation();
@@ -826,267 +1330,20 @@ $(document).ready(function() {
 	
 	
 	
-		function apply_tax_request(){
-			$.each($('.requested_taxed:not(.activated)'),function(){
-				var tar = $(this);
-				tar.addClass('activated');
-				if(tar.find('.add').length<=0){
-					tar.find('option:last').after('<option value="" class="add">Request new option</option>');
-				}
-			});
-		
-			$('.requested_taxed').on('change',function(){
-					var select_target = $(this);
-					var target = $(this).find('option:selected');
-					if(!target.hasClass("add")){
-						return;
-					}
-			
-					target.removeAttr("selected");
-					
-					
-					if($( "#taxonomyitem" ).length<=0){
-						$('body').append("<div id='taxonomyitem'>");
-					}
-					var data='<h3>Make a request for a new item</h3><lable>Name:</lable><input type="text" value=""/><br/><br/><input type="submit" value="Subbmit Request"/>';
-					var dialog_obj = $("#taxonomyitem");
-						dialog_obj.html(data);
-						dialog_obj.dialog({
-								autoOpen: true,
-								resizable: false,
-								width: 450,
-								//height: $(window).height()*.50,
-								modal: true,
-								draggable : false,
-								create:function(){
-									$('body').css({overflow:"hidden"});
-									$(".ui-dialog-buttonpane").remove();
-									dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
-									make_tax_form(select_target,function(){
-										alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
-									});
-								},
-								open:function(){
-									turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
-									},
-								close: function() {
-									$('body').css({overflow:"auto"});
-									$( "#taxonomyitem" ).dialog( "destroy" );
-									$( "#taxonomyitem" ).remove();
-									
-								}
-							});
-							
-			});
-		}
-	
-		function apply_taxed_add(){
-			/* add taxonomy */
-			$.each($('.taxed:not(.activated)'),function(){
-				var tar = $(this);
-				tar.addClass('activated');
-				if(tar.find('.add').length<=0){
-					tar.find('option:last').after('<option value="" class="add">Add new option</option>');
-				}
-			});
-			$('.taxed').on('change',function(){
-				var select_target = $(this);
-				var target = $(this).find('option:selected');
-				if(!target.hasClass("add")){
-					return;
-				}
-		
-				target.removeAttr("selected");
-				
-				
-				if($( "#taxonomyitem" ).length<=0){
-					$('body').append("<div id='taxonomyitem'>");
-				}
-				var dialog_obj = $("#taxonomyitem");
-				
-				var secselect_target;
-				var type = select_target.attr("rel")!=="" ? select_target.attr("rel") : select_target.attr("id");
-				if(select_target.attr("rel").length){
-					secselect_target = $('[rel="'+type+'"]');
-				}
-				$.ajax({cache: false,
-				   url:"/admin/edit_taxonomy.castle",
-				   data:{"skiplayout":1,"type":type},
-				   success: function(data){
-						dialog_obj.html(data);
-						dialog_obj.dialog({
-								autoOpen: true,
-								resizable: false,
-								modal: true,
-								draggable : false,
-								create:function(){
-									$('body').css({overflow:"hidden"});
-									$(".ui-dialog-buttonpane").remove();
-									dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
-									make_tax_form(select_target,function(){
-										alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
-									},secselect_target);
-								},
-								open:function(){
-									turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
-									},
-								close: function() {
-									$('body').css({overflow:"auto"});
-									$( "#taxonomyitem" ).dialog( "destroy" );
-									$( "#taxonomyitem" ).remove();
-								}
-							});
-							$(window).resize(function(){$("#taxonomyitem" ).dialog('option', { width: $(window).width()*0.25,  height: $(window).height()*0.25,});																													
-						});
-					}
-				});
-			});
-		}
+
 		apply_tax_request();
 		apply_taxed_add();
 	
-		function make_tax_form(select_target,callback,secselect_target){
-			var target_form = $("#taxonomyitem form");
-			target_form.find('[type="submit"]').on("click",function(e){
-				e.preventDefault();
-				e.stopPropagation();
-				$('#taxonomyitem form').on("change",function(){
-					var test_empty = true;
-					$.each($('input,select'),function(){
-						if($(this).not(":hidden").val()!==""&&$(this).not(":hidden").find(":selected").val()!==""){
-							test_empty = false;
-						}
-					});
-					$('#taxonomyitem form input[name="empty"]').val(test_empty+"");
-				});
+
 		
-				if(!target_form.find('input[name="empty"]').val()){
-					if(typeof(callback)!=="undefined"){
-						callback();
-					}
-					var form_data = target_form.find( "input, textarea, select" ).serializeArray();
-					$.ajax({cache: false,
-					   url:"/admin/update_taxonomy.castle?ajax=true",
-					   data:form_data,
-					   dataType : "json",
-					   success: function(returndata){
-							if(returndata.alias!==""){
-								select_target.find('.add').before('<option value="'+ returndata.alias +'" '+(select_target.is(secselect_target)?"selected":"")+' >'+returndata.name +'</option>');
-								$( "#taxonomyitem" ).dialog( "destroy" );
-								$( "#taxonomyitem" ).remove();
-								popup_message($("<span><h5>You have added a  new taxonomy!</h5>It has also selected for you</span>"));
-								$('form[name="entry_form"] :input:first').trigger("change");
-							}else{
-								popup_message($("<span>failed to save, try again.</span>"));
-							}
-						}
-					});
-				}
-			});
-		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		function apply_a_taxed_add(){
-			$('a.tax_add').on('click',function(e){
-				e.preventDefault();
-				e.stopPropagation();
-				var select_target = $($(this).data('select'));
 		
-				if($( "#taxonomyitem" ).length<=0){
-					$('body').append("<div id='taxonomyitem'>");
-				}
-				var dialog_obj = $("#taxonomyitem");
 		
-				var type = $(this).data('type');
-				$.ajax({cache: false,
-				   url:"/admin/edit_taxonomy.castle",
-				   data:{"skiplayout":1,"type":type},
-				   success: function(data){
-						dialog_obj.html(data);
-						dialog_obj.dialog({
-							autoOpen: true,
-							resizable: false,
-							//width: $(window).width()*.40,
-							//height: $(window).height()*.50,
-							modal: true,
-							draggable : false,
-							create:function(){
-								$('body').css({overflow:"hidden"});
-								$(".ui-dialog-buttonpane").remove();
-								dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
-								make_a_tax_form(select_target,function(){
-									alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
-								});
-								
-							},
-							open:function(){
-								turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
-								},
-							close: function() {
-								$('body').css({overflow:"auto"});
-								$( "#taxonomyitem" ).dialog( "destroy" );
-								$( "#taxonomyitem" ).remove();
-								
-							}
-						});
-						$(window).resize(function(){
-							var w = $(window).width() * (0.25);
-							var h = $(window).height() * (0.25);
-							$("#taxonomyitem" ).dialog('option', { width: w,  height: h });
-						});
-					}
-				});
-			});
-		}
+		
+		
+		
+		
 		apply_a_taxed_add();
-		function make_a_tax_form(select_target,callback){
-			var target_form = $("#taxonomyitem form");
-			target_form.find('[type="submit"]').on("click",function(e){
-				e.preventDefault();
-				e.stopPropagation();
-				$('#taxonomyitem form').on("change",function(){
-					var test_empty = true;
-					$.each($('input,select'),function(){
-						if($(this).not(":hidden").val()!==""&&$(this).not(":hidden").find(":selected").val()!==""){
-							test_empty = false;
-						}
-					});
-					$('#taxonomyitem form input[name="empty"]').val(test_empty+"");
-				});
-		
-				if(!target_form.find('input[name="empty"]').val()){
-					if(typeof(callback)!=="undefined"){
-						callback();
-					}
-					var form_data = target_form.find( "input, textarea, select" ).serializeArray();
-					$.ajax({cache: false,
-					   url:"/admin/update_taxonomy.castle?ajax=true",
-					   data:form_data,
-					   dataType : "json",
-					   success: function(returndata){
-							if(returndata.alias!==""){
-								select_target.find('option:first').before('<option value="'+ returndata.alias +'" >'+returndata.name +'</option>');
-								$( "#taxonomyitem" ).dialog( "destroy" );
-								$( "#taxonomyitem" ).remove();
-								popup_message($("<span><h5>You have added a  new taxonomy!</h5>It has also selected for you</span>"));
-								$('form[name="entry_form"] :input:first').trigger("change");
-							}else{
-								popup_message($("<span>failed to save, try again.</span>"));
-							}
-						}
-					});
-				}
-			});
-		}
-		
+
 		
 	
 	
@@ -1106,65 +1363,10 @@ $(document).ready(function() {
 		
 		
 		
-		function activate_adverse_ui(){
-			
-			function controll_meta_items(){
-				$('.remove').hover(function(){$(this).removeClass('red');},function(){$(this).addClass('red');});
-				$('.remove').on("click",function(){
-					var container = $(this).closest('li');
-					var option = container.find('[name^="option"]').val();
-					$(".adverse_events option[value='"+option+"']").removeAttr("disabled");
-					container.fadeOut(function(){ $(this).remove(); });
-				});
-				re_index_meta_items();
-			}	
-			function re_index_meta_items(){
-				$.each(
-				   $(".adverse_events").closest('ul').find("li[data-taxorder]"),
-				   function(i){
-						$(this).data('taxorder',i);
-						$.each($(this).find("input,select:not([name=''])"),function(){
-							//var name = $(this).attr('name');
-							$(this).attr('name', $(this).attr('name').split('[')[0]+"["+i+"]");
-						}); 
-					}
-				);
-			}
-			
-			$(".adverse_events").on("change", function(){
-				var selected = $(this).val();
-				var selected_obj = $(this).find('option[value="'+selected+'"]');
-				var container = $(this).closest('ul');
-				
-				var baseid = selected_obj.data('baseid');
-				var content = selected_obj.data('content');
-				var alias = selected_obj.data('alias');
-				
-				
-				//this works by
-				//tax is picked. 
-				//the tax, since it's a base id can have a child.
-				//that child is the 
-				
-				var is_none = alias ==="none"?"":"required";
-				
-				container.append(
-					 '<li data-taxorder="9999" data-name="'+selected_obj.val()+'">'+
-						'<i class="icon-remove-circle red right remove"></i>'+
-						 '<label>'+ selected_obj.text() +' <i class="icon-question-sign blue" title="'+ content +'"></i>'+
-						 '</label>'+
-						 '<input type="'+(alias ==="none"?"hidden":"text")+'" name="value[9999]" id="" '+is_none+' value=""/>'+//child
-						 '<input type="hidden" name="option_key[9999]" value="'+baseid+'" />'+//tax_id
-					 '</li>'
-				);
-				selected_obj.attr("disabled",true);
-				$(this).val("");
-				controll_meta_items();
-				re_index_meta_items();
-				make_maskes();
-			});
-			controll_meta_items();
-		}
+
+		
+		
+		
 		activate_adverse_ui();
 	
 		
@@ -1172,25 +1374,8 @@ $(document).ready(function() {
 		
 		
 	
-		//var parent_datagrid = null;
-		var last_datatable=null;
+
 		
-		function get_table_ids(datagrid){
-			var inlist ="";
-			var nNodes = datagrid.dataTable().fnGetNodes( );
-			$.each(nNodes,function(i,v){
-				var item = $(v).find('input.list_item');
-				inlist+=(inlist===""?"":",")+item.val();
-			});
-			return inlist;
-		}
-		function get_select_ids(select){
-			var inlist ="";
-			$.each(select.find('option'),function(){
-				inlist+=(inlist===""?"":",")+$(this).val();
-			});
-			return inlist;
-		}
 		
 	
 	
@@ -1249,66 +1434,7 @@ $(document).ready(function() {
 	
 	
 	
-		function make_datatable_popup_add(datatable,type){
-			$('.additem').off().on('click',function(e){
-				e.preventDefault();
-				e.stopPropagation();
-				var trigger = $(this);
-				var targetrow = trigger.closest('tr');
-				var baseid = targetrow.data("baseid");
-				
-				var count = datatable.find("tbody").find("tr").length;
-				
-				var tdCount = targetrow.find("td").length;
-				alert(tdCount);
-				var tableData = [];
-				
-				var html = targetrow.find("td:first").text() + '<input type="hidden" name="item.'+type+'s['+(count-1)+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
-				tableData.push( html );
-				tableData.push( targetrow.find("td:first").next('td').text() ); 
-				if(tdCount>3){
-					tableData.push( targetrow.find("td:first").next('td').next('td').text() ); 
-				}
-				tableData.push(
-					'<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>'
-				); 
-	
-				$("[data-active_grid='true']").dataTable().fnAddData( tableData );
-				
-				targetrow.fadeOut( "75" ,function(){ datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) ); });
-				
-				$("#drug_form").append("<span class='dialog_message ui-state-highlight'>Added to this "+$("#header_title").text()+"</span>");
-				
-				setTimeout(function(){$(".dialog_message").fadeOut("500");},"1000");
-				
-				$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
-					e.preventDefault();
-					e.stopPropagation();
-					var targetrow = $(this).closest("tr");
-					
-					var datatable = $(this).closest('.datagrid').dataTable();
-					
-					targetrow.fadeOut( "75" ,function(){ datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) ); });
-				});
-			});
-		}
-	
-	
-		function make_popup_datatable(type){
-			$.each($('.datagrid:not(.dataTable)'),function(){
-				var datatable = $(this);
-				datatable.dataTable({ 
-					"bJQueryUI": true,
-					"sPaginationType": "full_numbers",
-					"fnDrawCallback": function() {//(oSettings ) {
-						make_datatable_popup_add(datatable);
-					}
-				});
-	
-				last_datatable=datatable;
-				make_datatable_popup_add(datatable,type);
-			});
-		}
+
 	
 		$('option.add_item').on('click',function(e){
 			e.preventDefault();
@@ -1329,121 +1455,7 @@ $(document).ready(function() {
 	
 	
 	
-		function set_up_form(type){//,inlist,use){
-			/*if($('#clinlic_to_drug').length){
-				$('#clinlic_to_drug').html($('#brand_name').val()+'<input type="hidden" value="'+$('[name="item.baseid"]').val()+'"/>');
-			}*/
-			make_maskes();
-			moa_dmpk_setup();
-			apply_tax_request();
-			apply_taxed_add();
-			setting_item_pub($(".ui-dialog"));
-			$('input[name^="post"]').val($('input[name="item.baseid"]').val());
-	
-			$("#load_file").on("click",function(){ $(".load_file").toggleClass("active"); });
-			
-			$("#drug_form [type='submit']").on("click",function(e){
-				var form = $(this).closest("form");
-				if (form.find(':invalid').length<=0) {
-					e.preventDefault();
-					e.stopPropagation();
-					$.post(form.attr("action")+"?skiplayout=1&ajaxed_update=1",form.serialize(),function(){//(data){
-						//var parts= data.split(',');
-						$( "#drug_form" ).dialog( "destroy" );
-						$( "#drug_form" ).remove();
-						$(".add_to_list[data-type='"+type+"']").trigger("click");
-					});
-				}
-			});	
-		}
-	
-	
-	
-		function add_item_popup(type,inlist,use,id){
-			if(typeof(use)==="undefined"){ 
-				use = ["new","list"];
-			}
-			if($("#drug_form").length===0){
-				$("#staging").append("<div id='drug_form'><div id='drug_list'></div><div id='drug_item'></div>");
-			}
-	
-			var buttons = "";
-	
-	
-			$.ajax({cache: false,
-			   url:"/center/"+type+"s.castle",
-			   data:{"skiplayout":1,"exclude":inlist,typed_ref:$('[name="typed_ref"]').val()},
-			   success: function(data){
-					if($.inArray("list", use)>-1){
-						$("#drug_list").html(data);
-						buttons += "<a href='#drug_list' id='drug_list_tab' class='popuptab button med active'>List</a>";
-					}
-						$.ajax({cache: false,
-						   url:"/center/"+type+".castle",
-						   data:{"skiplayout":1,"id":typeof(id)==="undefined"?"":id,typed_ref:$('[name="typed_ref"]').val()},
-						   success: function(data){
-							   if($.inArray("new", use)>-1){
-									$("#drug_item").html(data);
-									buttons += "<a href='#drug_item' id='drug_item_tab' class='popuptab button med'>New</a>";
-							   }
-							$( "#drug_form" ).dialog({
-									autoOpen: true,
-									resizable: false,
-									width: $(window).width()-50,
-									height: $(window).height()-50,
-									modal: true,
-									draggable : false,
-									buttons: {
-										Cancel: function() {
-											$( this ).dialog( "close" );
-										}
-									},
-									create:function(){
-	
-										$( "#mess" ).dialog( "destroy" );
-										$( "#mess" ).remove();
-										if($("#drug_item").html()!=="" && $("#drug_list").html()!==""){
-											$("#drug_form").closest('.ui-dialog').find('.ui-dialog-title').append(buttons);
-											$("#drug_item").hide();
-										}
-										//setup_tabs();
-										
-										$('body').css({overflow:"hidden"});
-										$(".ui-dialog-buttonpane").remove();
-										
-										if($("#drug_list").html().length>0){
-											make_popup_datatable(type);
-										}
-					
-										$(".popuptab").off().on("click",function(e){
-											e.preventDefault();
-											e.stopPropagation();
-											var id = $(".popuptab.active").attr("href");
-											$(id).hide();
-											$(".popuptab.active").removeClass('active');
-											$(this).addClass('active');
-											id = $(this).attr("href");
-											$(id).show();	
-											
-										});
-										set_up_form(type,inlist,use);
-										activate_adverse_ui();
-									},
-									close: function() {
-										$('body').css({overflow:"auto"});
-										$( "#drug_form" ).dialog( "destroy" );
-										$( "#drug_form" ).remove();
-										
-										last_datatable=null;
-									}
-								});
-								$(window).resize(function(){$("#drug_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});
-							});
-						}
-					});
-				}
-			});
-		}
+
 		
 	
 	

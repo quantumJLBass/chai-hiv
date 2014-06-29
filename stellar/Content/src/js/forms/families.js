@@ -1,7 +1,4 @@
 // JavaScript Document
-
-$(document).ready(function() {
-
 	function sortedCode(){
 		$('.substance_item .icon-trash').off().on("click",function(){
 			$(this).closest('.substance_item').fadeOut("fast",function(){
@@ -16,6 +13,14 @@ $(document).ready(function() {
 		});
 		$("#sub_code").html(code);
 	}
+
+
+
+
+
+$(document).ready(function() {
+
+
 	$("#sortable").sortable({
 		handle: ".sortable_handle",
 		placeholder: "ui-state-highlight",
