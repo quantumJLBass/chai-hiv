@@ -131,8 +131,13 @@ $(document).ready(function() {
 			var html = "";
 			$.each(data,function(i,v){
 				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )</span><br/>";
-				
 			});
+			if(html==""){
+				html+="There are currently no drugs";	
+			}
+			
+			
+			
 			if($("#form_list").length<=0){
 				$('body').append('<div id="form_list">');
 			}
