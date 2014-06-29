@@ -59,7 +59,7 @@ $(document).ready(function() {
 				open:function(){
 					$('.item .icon-plus').on("click",function(){
 						var par = $(this).closest('span');
-						
+						par.fadeOut("fast");
 						var html ="<li class='substance_item'>";
 						html+="<i title='edit' class='icon-trash'></i>";
 						html+="<span class='sortable_handle'>handle</span> "+par.data("name")+" (<span class='sub_code'>"+par.data("lab_code")+"</span>)";

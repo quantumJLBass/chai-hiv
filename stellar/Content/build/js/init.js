@@ -344,8 +344,8 @@ function setting_item_pub(parentObj){
 				}
 				var form_data = target_form.find( "input, textarea, select" ).serializeArray();
 				$.ajax({cache: false,
-				   url:"/admin/update_taxonomy.castle?ajax=true",
-				   data:form_data,
+				   url:"/admin/update_taxonomy.castle",
+				   data:$.extend(form_data,{"ajax":"true"}),
 				   dataType : "json",
 				   success: function(returndata){
 						if(returndata.alias!==""){
@@ -464,7 +464,7 @@ $(document).ready(function() {
 				open:function(){
 					$('.item .icon-plus').on("click",function(){
 						var par = $(this).closest('span');
-						
+						par.fadeOut("fast");
 						var html ="<li class='substance_item'>";
 						html+="<i title='edit' class='icon-trash'></i>";
 						html+="<span class='sortable_handle'>handle</span> "+par.data("name")+" (<span class='sub_code'>"+par.data("lab_code")+"</span>)";
