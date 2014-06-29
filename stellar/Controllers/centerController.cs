@@ -1394,7 +1394,7 @@ namespace stellar.Controllers {
             if (ajax) {
                 CancelLayout();
                 if (taxonomy.baseid > 0) {
-                    RenderText("{\"state\":\"true\",\"name\":\"" + taxonomy.name + "\",\"alias\":\"" + taxonomy.alias + "\"}");
+                    RenderText("{\"state\":\"true\",\"baseid\":\"" + taxonomy.baseid + "\",\"name\":\"" + taxonomy.name + "\",\"alias\":\"" + taxonomy.alias + "\"}");
                 } else {
                     RenderText("{\"state\":\"false\"}");
                 }

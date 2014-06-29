@@ -264,60 +264,60 @@ function setting_item_pub(parentObj){
 	}
 	
 	function start_taxed_add(type,select_target,make_tax){
-	
+
 		if(select_target==="undefined"){
-				select_target = $($(this).data('select'));
-			}
-			if($( "#taxonomyitem" ).length<=0){
-				$('body').append("<div id='taxonomyitem'>");
-			}
-			var dialog_obj = $("#taxonomyitem");
-			if(type==="undefined"){
-				type = $(this).data('type');
-			}
-			$.ajax({cache: false,
-			   url:"/admin/edit_taxonomy.castle",
-			   data:{"skiplayout":1,"type":type},
-			   success: function(data){
-					dialog_obj.html(data);
-					dialog_obj.dialog({
-						autoOpen: true,
-						resizable: false,
-						//width: $(window).width()*.40,
-						//height: $(window).height()*.50,
-						modal: true,
-						draggable : false,
-						create:function(){
-							$('body').css({overflow:"hidden"});
-							$(".ui-dialog-buttonpane").remove();
-							dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
-							if(make_tax==="undefined"){
-								make_a_tax_form(select_target,function(){
-									alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
-								});
-							}
-							if(make_tax==="function"){
-								make_tax(type,select_target);
-							}
-							
-						},
-						open:function(){
-							turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
-							},
-						close: function() {
-							$('body').css({overflow:"auto"});
-							$( "#taxonomyitem" ).dialog( "destroy" );
-							$( "#taxonomyitem" ).remove();
-							
+			select_target = $($(this).data('select'));
+		}
+		if($( "#taxonomyitem" ).length<=0){
+			$('body').append("<div id='taxonomyitem'>");
+		}
+		var dialog_obj = $("#taxonomyitem");
+		if(type==="undefined"){
+			type = $(this).data('type');
+		}
+
+		$.ajax({cache: false,
+		   url:"/admin/edit_taxonomy.castle",
+		   data:{"skiplayout":1,"type":type},
+		   success: function(data){
+				dialog_obj.html(data);
+				dialog_obj.dialog({
+					autoOpen: true,
+					resizable: false,
+					//width: $(window).width()*.40,
+					//height: $(window).height()*.50,
+					modal: true,
+					draggable : false,
+					create:function(){
+						$('body').css({overflow:"hidden"});
+						$("#taxonomyitem .ui-dialog-buttonpane").remove();
+						dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
+					},
+					open:function(){
+						turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+						if(typeof(make_tax)==="undefined"){
+							make_a_tax_form(select_target,function(){
+								alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+							});
 						}
-					});
-					$(window).resize(function(){
-						var w = $(window).width() * (0.25);
-						var h = $(window).height() * (0.25);
-						$("#taxonomyitem" ).dialog('option', { width: w,  height: h });
-					});
-				}
-			});
+						if(typeof(make_tax)==="function"){
+							make_tax(select_target);
+						}
+						},
+					close: function() {
+						$('body').css({overflow:"auto"});
+						$( "#taxonomyitem" ).dialog( "destroy" );
+						$( "#taxonomyitem" ).remove();
+						
+					}
+				});
+				$(window).resize(function(){
+					var w = $(window).width() * (0.25);
+					var h = $(window).height() * (0.25);
+					$("#taxonomyitem" ).dialog('option', { width: w,  height: h });
+				});
+			}
+		});
 	
 	}
 	
@@ -325,9 +325,7 @@ function setting_item_pub(parentObj){
 	
 	function make_a_tax_form(select_target,callback){
 		var target_form = $("#taxonomyitem form");
-		target_form.find('[type="submit"]').on("click",function(e){
-			e.preventDefault();
-			e.stopPropagation();
+		
 			$('#taxonomyitem form').on("change",function(){
 				var test_empty = true;
 				$.each($('input,select'),function(){
@@ -337,24 +335,29 @@ function setting_item_pub(parentObj){
 				});
 				$('#taxonomyitem form input[name="empty"]').val(test_empty+"");
 			});
+		
+		target_form.find('[type="submit"]').on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+
 	
 			if(!target_form.find('input[name="empty"]').val()){
-				if(typeof(callback)!=="undefined"){
+				if(typeof(callback)==="function"){
 					callback();
 				}
 				var form_data = target_form.find( "input, textarea, select" ).serializeArray();
+
 				$.ajax({cache: false,
-				   url:"/admin/update_taxonomy.castle",
-				   data:$.extend(form_data,{"ajax":"true"}),
+				   url:"/center/update_taxonomy.castle?ajax=true",
+				   data:form_data,
 				   dataType : "json",
 				   success: function(returndata){
 						if(returndata.alias!==""){
-							
-							if(typeof(select_target)!=="function"){
+							if(typeof(select_target)==="function"){
 								select_target(returndata);
 							}
 							
-							if(typeof(select_target)!=="undefined"){
+							if(typeof(select_target)!=="undefined" && typeof(select_target)!=="function"){
 								select_target.find('option:first').before('<option value="'+ returndata.alias +'" >'+returndata.name +'</option>');
 							}
 							$( "#taxonomyitem" ).dialog( "destroy" );

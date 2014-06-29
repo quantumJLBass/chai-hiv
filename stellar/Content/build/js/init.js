@@ -264,60 +264,60 @@ function setting_item_pub(parentObj){
 	}
 	
 	function start_taxed_add(type,select_target,make_tax){
-	
+
 		if(select_target==="undefined"){
-				select_target = $($(this).data('select'));
-			}
-			if($( "#taxonomyitem" ).length<=0){
-				$('body').append("<div id='taxonomyitem'>");
-			}
-			var dialog_obj = $("#taxonomyitem");
-			if(type==="undefined"){
-				type = $(this).data('type');
-			}
-			$.ajax({cache: false,
-			   url:"/admin/edit_taxonomy.castle",
-			   data:{"skiplayout":1,"type":type},
-			   success: function(data){
-					dialog_obj.html(data);
-					dialog_obj.dialog({
-						autoOpen: true,
-						resizable: false,
-						//width: $(window).width()*.40,
-						//height: $(window).height()*.50,
-						modal: true,
-						draggable : false,
-						create:function(){
-							$('body').css({overflow:"hidden"});
-							$(".ui-dialog-buttonpane").remove();
-							dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
-							if(make_tax==="undefined"){
-								make_a_tax_form(select_target,function(){
-									alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
-								});
-							}
-							if(make_tax==="function"){
-								make_tax(type,select_target);
-							}
-							
-						},
-						open:function(){
-							turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
-							},
-						close: function() {
-							$('body').css({overflow:"auto"});
-							$( "#taxonomyitem" ).dialog( "destroy" );
-							$( "#taxonomyitem" ).remove();
-							
+			select_target = $($(this).data('select'));
+		}
+		if($( "#taxonomyitem" ).length<=0){
+			$('body').append("<div id='taxonomyitem'>");
+		}
+		var dialog_obj = $("#taxonomyitem");
+		if(type==="undefined"){
+			type = $(this).data('type');
+		}
+
+		$.ajax({cache: false,
+		   url:"/admin/edit_taxonomy.castle",
+		   data:{"skiplayout":1,"type":type},
+		   success: function(data){
+				dialog_obj.html(data);
+				dialog_obj.dialog({
+					autoOpen: true,
+					resizable: false,
+					//width: $(window).width()*.40,
+					//height: $(window).height()*.50,
+					modal: true,
+					draggable : false,
+					create:function(){
+						$('body').css({overflow:"hidden"});
+						$("#taxonomyitem .ui-dialog-buttonpane").remove();
+						dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
+					},
+					open:function(){
+						turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+						if(typeof(make_tax)==="undefined"){
+							make_a_tax_form(select_target,function(){
+								alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+							});
 						}
-					});
-					$(window).resize(function(){
-						var w = $(window).width() * (0.25);
-						var h = $(window).height() * (0.25);
-						$("#taxonomyitem" ).dialog('option', { width: w,  height: h });
-					});
-				}
-			});
+						if(typeof(make_tax)==="function"){
+							make_tax(select_target);
+						}
+						},
+					close: function() {
+						$('body').css({overflow:"auto"});
+						$( "#taxonomyitem" ).dialog( "destroy" );
+						$( "#taxonomyitem" ).remove();
+						
+					}
+				});
+				$(window).resize(function(){
+					var w = $(window).width() * (0.25);
+					var h = $(window).height() * (0.25);
+					$("#taxonomyitem" ).dialog('option', { width: w,  height: h });
+				});
+			}
+		});
 	
 	}
 	
@@ -325,9 +325,7 @@ function setting_item_pub(parentObj){
 	
 	function make_a_tax_form(select_target,callback){
 		var target_form = $("#taxonomyitem form");
-		target_form.find('[type="submit"]').on("click",function(e){
-			e.preventDefault();
-			e.stopPropagation();
+		
 			$('#taxonomyitem form').on("change",function(){
 				var test_empty = true;
 				$.each($('input,select'),function(){
@@ -337,24 +335,29 @@ function setting_item_pub(parentObj){
 				});
 				$('#taxonomyitem form input[name="empty"]').val(test_empty+"");
 			});
+		
+		target_form.find('[type="submit"]').on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+
 	
 			if(!target_form.find('input[name="empty"]').val()){
-				if(typeof(callback)!=="undefined"){
+				if(typeof(callback)==="function"){
 					callback();
 				}
 				var form_data = target_form.find( "input, textarea, select" ).serializeArray();
+
 				$.ajax({cache: false,
-				   url:"/admin/update_taxonomy.castle",
-				   data:$.extend(form_data,{"ajax":"true"}),
+				   url:"/center/update_taxonomy.castle?ajax=true",
+				   data:form_data,
 				   dataType : "json",
 				   success: function(returndata){
 						if(returndata.alias!==""){
-							
-							if(typeof(select_target)!=="function"){
+							if(typeof(select_target)==="function"){
 								select_target(returndata);
 							}
 							
-							if(typeof(select_target)!=="undefined"){
+							if(typeof(select_target)!=="undefined" && typeof(select_target)!=="function"){
 								select_target.find('option:first').before('<option value="'+ returndata.alias +'" >'+returndata.name +'</option>');
 							}
 							$( "#taxonomyitem" ).dialog( "destroy" );
@@ -442,7 +445,7 @@ $(document).ready(function() {
 			//alert("got data");
 			var html = "";
 			$.each(data,function(i,v){
-				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-lab_code='"+v.lab_code+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.lab_code+" )</span><br/>";
+				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-lab_code='"+v.lab_code+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.lab_code+" )<br/></span>";
 				
 			});
 			if($("#substances_list").length<=0){
@@ -677,14 +680,15 @@ $(document).ready(function() {
 		$.getJSON('/center/get_taxonomies.castle?tax=dose_type&callback=?',  function(data){
 
 			var html = "";
+			html += "<div id='listing' style='max-height:95%; overflow-y:scroll;'>";
 			$.each(data,function(i,v){
 				if($("[id^='drPro_tabs_" + v.alias +"_']").length<=0){
 					html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )<br/></span>";
 				}
 				
 			});
-			
-			html+="<span id='add_form' style='cursor:pointer;'><i title='edit' class='icon-plus'></i>Add a New form<br/></span>";
+			html += "</div>";
+			html+="<span id='add_drform' style='cursor:pointer;'><hr/><i title='edit' class='icon-plus'></i>Add a New form</span>";
 			
 			
 			if($("#form_list").length<=0){
@@ -696,6 +700,8 @@ $(document).ready(function() {
 				resizable: false,
 				width: 350,
 				minHeight: 25,
+				height:"auto",
+				maxHeight: $(window).height()*0.65,
 				modal: true,
 				draggable : false,
 				create:function(){
@@ -704,14 +710,28 @@ $(document).ready(function() {
 					$('body').css({overflow:"hidden"});
 				},
 				open:function(){
-					$('#add_form').on("click",function(){
-						start_taxed_add("dose_type", function(){}, function(){
-							make_a_tax_form(function(data){
-								$("#form_list").append(
-									"<span class='item i"+( $("#form_list .item").length )+"' data-baseid='"+data.baseid+"' data-name='"+data.name+"' data-alias='"+data.alias+"'  ><i title='edit' class='icon-plus'></i>"+data.name+" ( "+data.alias+" )<br/></span>"
-								);
-							});
-						});
+					$('#add_drform').on("click",function(){
+						start_taxed_add(
+							"dose_type", 
+							function(){}, 
+							function(){
+								make_a_tax_form(function(data){
+									$("#listing").append("<span class='item i"+data.baseid+"' data-baseid='"+data.baseid+"' data-name='"+data.name+"' data-alias='"+data.alias+"'  ><i title='edit' class='icon-plus'></i>"+data.name+" ( "+data.alias+" )<br/></span>");
+						
+						
+									//this may be something that is functioned?  look a few line below			
+									$('.item .icon-plus').on("click",function(){
+										$(this).closest('span').fadeOut("fast");
+										var name = $(this).closest('span').data('name');
+										var baseid = $(this).closest('span').data('baseid');
+										var alias = $(this).closest('span').data('alias');
+										add_drProTab(name,baseid,alias);
+									});
+										
+									
+								});
+							}
+						);
 					});
 					$('.item .icon-plus').on("click",function(){
 						$(this).closest('span').fadeOut("fast");
