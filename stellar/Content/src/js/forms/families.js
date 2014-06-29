@@ -273,7 +273,9 @@ $(document).ready(function() {
 
 			var html = "";
 			$.each(data,function(i,v){
-				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )</span><br/>";
+				if($("[id^='drPro_tabs_" + v.alias +"_']").length<=0){
+					html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )</span><br/>";
+				}
 				
 			});
 			if($("#form_list").length<=0){
