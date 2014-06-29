@@ -20,7 +20,7 @@ audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
 audio:not([controls]) { display: none; }
 html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 :hover, :focus, :active { outline: none; }
-
+.clearfix{ clear:both;}
 
 html, button, input, select, textarea {
 	font-family: "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
@@ -727,7 +727,7 @@ select option.add:hover{ background-color:#6F3;border:1px inset #666;font-style:
 }
 
  .min.ui-tabs { 
-    background: #fff; !important 
+    background: #fff !important;
     border: none !important; 
 } 
  .min.ui-tabs .ui-tabs-nav { 
