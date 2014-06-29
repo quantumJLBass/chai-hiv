@@ -198,7 +198,9 @@ $(document).ready(function() {
 						$("#" + id).find('.fg-toolbar.ui-widget-header:first').prepend('<a href="#" class="button add_drPro" style="float:left;">Add <i title="edit" class="icon-plus"></i></a>');
 					}
 					$("#" + id).find('.drpro_table .dataTables_empty').html('No '+name+' products available. <a href="#" class="add_drPro">Add <i title="edit" class="icon-plus"></i></a>');
-					$("#" + id).find('.add_drPro').off().on("click",function(){
+					$("#" + id).find('.add_drPro').off().on("click",function(e){
+						e.preventDefault();
+						e.stopPropagation();
 						add_drProTableRow();
 					});
 					//make_datatable_popup_add(datatable);
