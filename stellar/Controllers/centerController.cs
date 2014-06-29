@@ -1352,7 +1352,60 @@ namespace stellar.Controllers {
             Response.ContentType = "application/json; charset=UTF-8";
             RenderText(json_str);
         }
+        /// <summary> </summary>
+        public void update_taxonomy([ARDataBind("taxonomy", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] taxonomy taxonomy, Boolean ajax, String oldtax_alias, String oldtax_type_alias) {
+            ActiveRecordMediator<taxonomy>.Save(taxonomy);
 
+            dynamic items = new List<_base>();
+            string name = "";
+            taxonomy_type type = null;
+
+            if (!String.IsNullOrWhiteSpace(oldtax_alias) && !String.IsNullOrWhiteSpace(oldtax_type_alias)) {
+                type = taxonomy.taxonomy_type;
+                name = taxonomy.name;
+                ActiveRecordMediator<_base>.Save(taxonomy);
+
+                //find old ones and clean them up
+                taxonomy tax = ActiveRecordBase<taxonomy>.Find(taxonomy.baseid);
+                try {
+                    IList<_base> taxed = tax.get_taxonomy_items(oldtax_type_alias, oldtax_alias);
+                    if (taxed.Count() > 0) {
+                        items.AddRange(taxed);
+                        String alias = taxonomy.alias;
+                        foreach (_base p in items) {
+                            log.Info("appling taxonomy " + type.alias + " to " + p.baseid + "/" + p.alias);
+                            PropertyInfo propInfo = p.GetType().GetProperty(type.alias);
+                            propInfo.SetValue(p, alias, new object[] { });
+                            log.Info("adding new taxonomy back to items");
+                            ActiveRecordMediator<_base>.Save(p);
+                        }
+                    }
+
+                    Flash["message"] = "taxonomy has " + items.Count + " items to change from: <b>" + oldtax_type_alias + "/" + oldtax_alias +
+                        "</b>  TO   <b>" + type.alias + "/" + taxonomy.alias + "</b>";
+                    log.Info("taxonomy has " + items.Count + " items to change to " + oldtax_type_alias + "/" + oldtax_alias);
+
+                } catch {
+                    if (ajax) {
+                        CancelLayout();
+                        RenderText("{\"state\":\"fasle\"}");
+                        return;
+                    }
+                }
+
+
+            }
+            if (ajax) {
+                CancelLayout();
+                if (taxonomy.baseid > 0) {
+                    RenderText("{\"state\":\"true\",\"name\":\"" + taxonomy.name + "\",\"alias\":\"" + taxonomy.alias + "\"}");
+                } else {
+                    RenderText("{\"state\":\"false\"}");
+                }
+                return;
+            }
+            RedirectToAction("taxonomy");
+        }
 
 
 

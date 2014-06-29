@@ -344,8 +344,8 @@ function setting_item_pub(parentObj){
 				}
 				var form_data = target_form.find( "input, textarea, select" ).serializeArray();
 				$.ajax({cache: false,
-				   url:"/admin/update_taxonomy.castle?ajax=true",
-				   data:form_data,
+				   url:"/admin/update_taxonomy.castle",
+				   data:$.extend(form_data,{"ajax":"true"}),
 				   dataType : "json",
 				   success: function(returndata){
 						if(returndata.alias!==""){
