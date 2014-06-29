@@ -412,7 +412,7 @@ $(document).ready(function() {
 
 
 
-	function add_drProTableRow(){
+	function add_drProTableRow(form){
 		$.getJSON('/center/drugs.castle?json=true&callback=?',  function(data){
 
 			var html = "";
@@ -436,6 +436,7 @@ $(document).ready(function() {
 					}
 					html+="</div>";
 					html+="<div id='create_drPros_stub'>";
+						html+="<input type='hidden' name='quick_drPro[form]' value='"+form+"'/>";
 						html+="<lable>Amount<input type='text' name='quick_drPro[amount]'/></label><br/>";
 						html+="<lable>Manufacturer<select name='quick_drPro[manufacturer]' id='quick_drPro_manufacturer'><option value=''>Select</option></select></label>";
 					html+="</div>";
@@ -495,7 +496,7 @@ $(document).ready(function() {
 
 
 	function add_drProTab(name,baseid,alias) {
-		var id = "drPro_tabs_" + drPro_tabCounter,
+		var id = "drPro_tabs_" + alias +"_"+ drPro_tabCounter,
 			li = $( drPro_tabTemplate
 						.replace( /#\{href\}/g, "#" + id )
 						.replace( /#\{label\}/g, name )
@@ -503,33 +504,35 @@ $(document).ready(function() {
 						.replace( /#\{name\}/g, name )
 						.replace( /#\{alias\}/g, alias )
 					);
-		drProTab.find( ".ui-tabs-nav" ).prepend( li );
-
-		var contentHtml = drPro_tabDefaultContent;/*.replace( /\{\{YEAR\}\}/g, label ) ;
-		contentHtml = contentHtml.replace( /\{\{COUNT\}\}/g, drPro_tabCounter+1 ).replace( /\{\{__\}\}/g, "" ) ;*/
-		drProTab.prepend( "<div id='" + id + "'>" + contentHtml + "</div>" );
-		drProTab.tabs( "refresh" );
-		drProTab.tabs( "option", "active", drPro_tabCounter );
-		$('.drpro_table:not(".dataTable")').DataTable({ 
-				"bJQueryUI": true,
-				"sPaginationType": "full_numbers", 
-				"fnDrawCallback": function() {//(oSettings ) {
-					if($("#" + id).find('.fg-toolbar .add_drPro').length<=0){
-						$("#" + id).find('.fg-toolbar.ui-widget-header:first').prepend('<a href="#" class="button add_drPro" style="float:left;">Add <i title="edit" class="icon-plus"></i></a>');
+		if($("[id^='drPro_tabs_" + alias +"_']").length<=0){
+			drProTab.find( ".ui-tabs-nav" ).prepend( li );
+	
+			var contentHtml = drPro_tabDefaultContent;/*.replace( /\{\{YEAR\}\}/g, label ) ;
+			contentHtml = contentHtml.replace( /\{\{COUNT\}\}/g, drPro_tabCounter+1 ).replace( /\{\{__\}\}/g, "" ) ;*/
+			drProTab.prepend( "<div id='" + id + "'>" + contentHtml + "</div>" );
+			drProTab.tabs( "refresh" );
+			drProTab.tabs( "option", "active", drPro_tabCounter );
+			$('.drpro_table:not(".dataTable")').DataTable({ 
+					"bJQueryUI": true,
+					"sPaginationType": "full_numbers", 
+					"fnDrawCallback": function() {//(oSettings ) {
+						if($("#" + id).find('.fg-toolbar .add_drPro').length<=0){
+							$("#" + id).find('.fg-toolbar.ui-widget-header:first').prepend('<a href="#" class="button add_drPro" style="float:left;">Add <i title="edit" class="icon-plus"></i></a>');
+						}
+						$("#" + id).find('.drpro_table .dataTables_empty').html('No '+name+' products available. <a href="#" class="add_drPro">Add <i title="edit" class="icon-plus"></i></a>');
+						$("#" + id).find('.add_drPro').off().on("click",function(e){
+							e.preventDefault();
+							e.stopPropagation();
+							add_drProTableRow(alias);
+						});
+						//make_datatable_popup_add(datatable);
 					}
-					$("#" + id).find('.drpro_table .dataTables_empty').html('No '+name+' products available. <a href="#" class="add_drPro">Add <i title="edit" class="icon-plus"></i></a>');
-					$("#" + id).find('.add_drPro').off().on("click",function(e){
-						e.preventDefault();
-						e.stopPropagation();
-						add_drProTableRow();
-					});
-					//make_datatable_popup_add(datatable);
-				}
-			});
-		drPro_tabCounter++;
-		/*$.each( $('input[name^="markets_counts["]' ), function(i){
-			$(this).attr('name','markets_counts['+ (i+1) +']');
-		});*/
+				});
+			drPro_tabCounter++;
+			/*$.each( $('input[name^="markets_counts["]' ), function(i){
+				$(this).attr('name','markets_counts['+ (i+1) +']');
+			});*/
+		}
 	}
 	
 	drProTab.delegate( "i.icon-remove", "click", function() {
