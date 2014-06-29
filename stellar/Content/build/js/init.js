@@ -551,13 +551,14 @@ $(document).ready(function() {
 						list+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"'  data-manufacturer='"+v.manufacturer+"' data-label_claim='"+v.label_claim+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" "+v.label_claim+"( "+v.manufacturer+" )</span><br/>";
 					});
 					if(list===""){
-						html+="There are currently no drugs";	
+						html+="<b i='drpro_empty'>There are currently no drugs</b>";
 					}else{
 						html+=list;	
 					}
 					html+="</div>";
 					html+="<div id='create_drPros_stub' class='full-input'>";
 						html+="<form action='/center/savedrug.castle' method='post'><input name='item.baseid' type='hidden' value='0'>";
+							html+="<input type='hidden' name='item.famlies[1].baseid' value='"+$("[name='item.baseid']").val()+"'/>";
 							html+="<input type='hidden' name='item.dose_form' value='"+form+"'/>";
 							html+="<label>Amount<br/><input type='text' name='item.label_claim'/><br/></label>";
 							html+="<label>Manufacturer<br/><select name='item.manufacturer' id='quick_drPro_manufacturer'><option value=''>Select</option></select><br/></label>";
@@ -613,8 +614,8 @@ $(document).ready(function() {
 						   dataType : "json",
 						   success: function(returndata){
 								if(returndata.baseid!==""){
-									popup_message($("<span><h5>You have added a  new taxonomy!</h5>It has also selected for you</span>"));
-									
+									popup_message($("<span><h5>You have added a new Durg Protuct!</h5>Select it from the bottom of the list to attach it.</span>"));
+									$('#drpro_empty').remove();
 									$('[href="#existing_drPros"]').trigger('click');
 									var list="";
 									$.each(returndata,function(i,v){
