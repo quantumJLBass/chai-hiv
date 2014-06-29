@@ -715,12 +715,15 @@ namespace stellar.Controllers {
                 items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
                 json_str += @"  { 
 ";
-                foreach (drug sub in items) {
-                    json_str += @"""" + sub.baseid + @""":{";
-                    json_str += @"""baseid"":""" + sub.baseid + @""",";
+                foreach (drug item in items) {
+                    json_str += @"""" + item.baseid + @""":{";
+                    json_str += @"""baseid"":""" + item.baseid + @""",";
                     // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
-                    json_str += @"""name"":""" + sub.name + @""",";
-                    json_str += @"""lab_code"":""" + sub.lab_code + @"""";
+                    json_str += @"""name"":""" + item.name + @""",";
+                    json_str += @"""lab_code"":""" + item.lab_code + @""",";
+                    // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
+                    json_str += @"""label_claim"":""" + item.label_claim + @""",";
+                    json_str += @"""manufacturer"":""" + item.manufacturer + @"""";
                     json_str += @"
 },";
                     // this vodo of the new line is wrong
@@ -788,6 +791,8 @@ namespace stellar.Controllers {
         [SkipFilter()]
         public void savedrug([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug item,
             Boolean ajaxed_update,
+            Boolean json,
+            String callback,
             Boolean forced_tmp,
             String apply,
             String cancel,
@@ -842,7 +847,38 @@ namespace stellar.Controllers {
                 if (item.baseid > 0) {
                     if (ajaxed_update) {
                         CancelLayout(); CancelView();
-                        RenderText(item.baseid.ToString() + "," + item.brand_name);
+                        if (json) {
+                            String json_str = "";
+
+                            json_str += @"  { 
+";
+
+                            json_str += @"""" + item.baseid + @""":{";
+                            json_str += @"""baseid"":""" + item.baseid + @""",";
+                            // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
+                            json_str += @"""name"":""" + item.brand_name + @""",";
+                            json_str += @"""label_claim"":""" + item.label_claim + @""",";
+                            json_str += @"""manufacturer"":""" + item.manufacturer + @"""";
+                            json_str += @"
+},";
+                                // this vodo of the new line is wrong
+                            json_str += "".Replace(@"
+", String.Empty);
+
+
+                            json_str += @"
+}";
+
+
+                            if (!string.IsNullOrEmpty(callback)) {
+                                json_str = callback + "(" + json_str + ")";
+                            }
+                            Response.ContentType = "application/json; charset=UTF-8";
+                            RenderText(json_str);
+                        } else {
+                            RenderText(item.baseid.ToString() + "," + item.brand_name);
+                        }
+                        
                     } else {
                         RedirectToUrl("~/center/drug.castle?id=" + item.baseid);
                     }

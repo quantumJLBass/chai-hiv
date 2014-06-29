@@ -134,6 +134,8 @@ input, select, textarea {
 	box-sizing: border-box;
 	*behavior: url(/js/boxsizing.htc); }
 	
+	
+	
 .full-input input,.full-input select,.full-input textarea {width:95%;}
 .dataTables_wrapper input,.dataTables_wrapper select,.dataTables_wrapper textarea{padding:0px;}
 textarea{padding: 1em; min-height:15em; height: auto; width: 100%; }
