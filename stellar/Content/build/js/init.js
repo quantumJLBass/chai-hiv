@@ -482,7 +482,7 @@ $(document).ready(function() {
 				"sPaginationType": "full_numbers", 
 				"fnDrawCallback": function() {//(oSettings ) {
 					if($("#" + id).find('.fg-toolbar .add_drPro').length<=0){
-						$("#" + id).find('.fg-toolbar.ui-widget-header').prepend('<a href="#" class="button add_drPro" style="float:left;">Add <i title="edit" class="icon-plus"></i></a>');
+						$("#" + id).find('.fg-toolbar.ui-widget-header:first').prepend('<a href="#" class="button add_drPro" style="float:left;">Add <i title="edit" class="icon-plus"></i></a>');
 					}
 					$("#" + id).find('.drpro_table .dataTables_empty').html('No '+name+' products available. <a href="#" class="add_drPro">Add <i title="edit" class="icon-plus"></i></a>');
 					$("#" + id).find('.add_drPro').off().on("click",function(){
