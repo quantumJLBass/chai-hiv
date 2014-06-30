@@ -111,6 +111,7 @@ $part.name => $part.alias
 		<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
 		<article id="navtabs" class="grid col-full">
 		  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Product Data #if($item.new_drug_code)( $!item.new_drug_code )#end </h2>
+		  <h3>Attached to Drug Family,  $!item.families.getItem(0).name</h3>
 		  <hr/>
 		  <div class="">
 			<ul class="tabs clearfix">
@@ -217,9 +218,16 @@ $part.name => $part.alias
 		  <hr/>
 		  <ul class="grid col-one-half mq2-col-full">
 			<li>
-				#* substancedata *#
+				#* substancedata 
 				#set($typed_list = $item.substances)
-				#parse("center/model_tie_tables/substance.vm")
+				#parse("center/model_tie_tables/substance.vm")*#
+				
+				
+				
+				
+				
+				
+				
 			</li>	
 		  </ul>
 		  <ul class="grid col-one-half mq2-col-full">
