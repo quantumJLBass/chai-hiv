@@ -547,6 +547,20 @@ namespace stellar.Controllers {
             if (id <= 0) id = make_family_tmp();
             if (id > 0) {
                 drug_family fam = ActiveRecordBase<drug_family>.Find(id);
+
+
+                List<drug> drugs = new List<drug>();
+                foreach (drug drug in fam.drugs) {
+                    if (drug.attached == true) {
+                        drugs.Add(drug);
+                    } else {
+                        ActiveRecordMediator<drug>.Delete(drug);
+                    }
+                }
+                fam.drugs.Clear();
+                fam.drugs = drugs;
+                ActiveRecordMediator<drug_family>.Save(fam);
+
                 PropertyBag["item"] = fam;
 
                 List<substance> substances = new List<substance>();
@@ -597,6 +611,16 @@ namespace stellar.Controllers {
                 Redirect("center", "families", new Hashtable());
                 return;
             }
+
+            foreach (drug drug in item.drugs) {
+                if (drug.attached == true) {
+                    ActiveRecordMediator<drug>.Save(drug);
+                } else {
+                    ActiveRecordMediator<drug>.Delete(drug);
+                }
+            }
+
+
 
             item.markets.Clear();
             String[] keys = HttpContext.Current.Request.Params.AllKeys.Where(x => x.StartsWith("markets_counts[")).ToArray();
