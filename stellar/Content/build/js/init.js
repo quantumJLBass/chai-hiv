@@ -535,10 +535,11 @@ $(document).ready(function() {
 
 	function add_drProTableRow(form){
 		
-		$.getJSON('/center/drugs.castle?json=true&callback=?',  function(data){
+		$.getJSON('/center/drugs.castle?json=true&callback=?&filter=dose_form:'+form,  function(data){
 			var html = "";
 			
 			html+="<div id='drPro_additions' class='min'>";
+				html+="<h4>Add "+form+"</h4>";
 				html+="<ul>";
 					html+="<li><a href='#existing_drPros'>Existing</a></li>";
 					html+="<li><a href='#create_drPros_stub'>Quick Create</a></li>";
@@ -551,7 +552,7 @@ $(document).ready(function() {
 						list+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"'  data-manufacturer='"+v.manufacturer+"' data-label_claim='"+v.label_claim+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" "+v.label_claim+"( "+v.manufacturer+" )</span><br/>";
 					});
 					if(list===""){
-						html+="<b i='drpro_empty'>There are currently no drugs</b>";
+						html+="<b i='drpro_empty'>There are currently no drugs in ht eform of a "+form+"</b>";
 					}else{
 						html+=list;	
 					}

@@ -696,7 +696,7 @@ namespace stellar.Controllers {
         #endregion
         #region(drugs)
         /// <summary> </summary>
-        public void drugs(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback) {
+        public void drugs(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback, string filter) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
@@ -704,6 +704,9 @@ namespace stellar.Controllers {
             userService.clearTmps<drug>();
             if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
             String[] drop = exclude.Split(',');
+
+            String[] filtering = filter.Split(':');
+
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             IList<drug> items = ActiveRecordBase<drug>.FindAll();
@@ -712,7 +715,12 @@ namespace stellar.Controllers {
                 CancelLayout();
                 CancelView();
                 String json_str = "";
-                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
+                if (filtering.Count() > 1) {
+                    items = items.Where(x => !x.tmp && !x.deleted && x.dose_form != filtering[1] && !drop.Contains(x.baseid.ToString())).ToList();
+                } else {
+                    items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
+                }
+                
                 json_str += @"  { 
 ";
                 foreach (drug item in items) {

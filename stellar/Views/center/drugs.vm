@@ -7,8 +7,8 @@
 			<tr>
 				<th width="15%">Form</th>
 				<th width="15%">Label claim</th>
-				<th width="15%">Drug code</th>
-				<th class="sorting_asc">Name/Code</th>
+				<th width="15%">Family</th>
+				<th class="sorting_asc">Name (brand name)</th>
 				<th width="15%">manufacturer</th>
 				<th width="20%"></th>
 			</tr>
@@ -19,16 +19,27 @@
 			#set($taxedname = false)
 			#set($manufacturer = false)
 		
+#capturefor(fam_sub_code)
+#foreach($part in  $item.families)
+#foreach($sub in  $part.substances)
+$sub.lab_code
+#between
+<em>:</em>
+#end
+#end
+#end	
+		
+		
+		
+		
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
 				<td>$!taxonomyService.get_taxonomy($!item.dose_form).name</td>
 				
 				<td>$!item.label_claim</td>
 			
-				<td>#if($item.new_drug_code)$!item.new_drug_code#else -- #end</td>
+				<td>$!fam_sub_code</td>
 				#set($name = $item.get_named())
 				#set($taxedname = $!postingService.get_taxonomy($name).name)
-
-
 				<td>#if($taxedname)$taxedname#else$name#end</td>
 				
 				#set($manufacturer = $!postingService.get_taxonomy($item.manufacturer).name)
