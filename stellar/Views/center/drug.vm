@@ -116,7 +116,7 @@ $part.name => $part.alias
 		  <div class="">
 			<ul class="tabs clearfix">
 			  <li><a href="#regulatory_info">Regulatory Information</a></li>
-			  <li><a href="#tab2">Dosing & Administration</a></li>
+			  <li><a href="#dosing_admin">Dosing & Administration</a></li>
 			  <li><a href="#tab3">LMIC Regimen Use</a></li>
 			  <li><a href="#tab4">Clinical Study</a></li>
 			  <li><a href="#tab5">Market</a></li>
@@ -137,13 +137,13 @@ $part.name => $part.alias
 				</div>
 			</article>
 #* *#
-#* tab2 ------------ *#
+#* dosing_admin ------------ *#
 #* *#
-			<article id="tab2" class="tab_content">
+			<article id="dosing_admin" class="tab_content">
 				<div style="clear:both;">
 					#tab_notes("$type" "dosing_administration" "top")
 				</div>
-				#parse("center/types_tabs/drug/tab2.vm")
+				#parse("center/types_tabs/drug/dosing_admin.vm")
 				<div style="clear:both;">
 					#tab_notes("$type" "dosing_administration" "bottom")
 				</div>
