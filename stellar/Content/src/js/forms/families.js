@@ -144,7 +144,7 @@ $(document).ready(function() {
 						list+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"'  data-manufacturer='"+v.manufacturer+"' data-label_claim='"+v.label_claim+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" "+v.label_claim+"( "+v.manufacturer+" )</span><br/>";
 					});
 					if(list===""){
-						html+="<b i='drpro_empty'>There are currently no drugs in ht eform of a "+form+"</b>";
+						html+="<b id='drpro_empty'>There are currently no drugs in the form of a "+form+"</b>";
 					}else{
 						html+=list;	
 					}
