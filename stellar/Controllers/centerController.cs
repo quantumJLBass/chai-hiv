@@ -716,7 +716,7 @@ namespace stellar.Controllers {
                 CancelView();
                 String json_str = "";
                 if (filtering.Count() > 1) {
-                    items = items.Where(x => !x.tmp && !x.deleted && x.dose_form != filtering[1] && !drop.Contains(x.baseid.ToString())).ToList();
+                    items = items.Where(x => !x.tmp && !x.deleted && x.dose_form == filtering[1] && !drop.Contains(x.baseid.ToString())).ToList();
                 } else {
                     items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
                 }
