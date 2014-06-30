@@ -360,6 +360,30 @@ $(document).ready(function() {
 		});
 		 
 	});
-			
+	
+	$.each($('.drpro_table:not(".dataTable")'),function(){
+		var id=$(this).closest('.tabedItem').attr('id');
+		var alias=$(this).closest('.tabedItem').attr('alias');
+		var name=$(this).closest('.tabedItem').attr('name');
+		$(this).DataTable({ 
+				"bJQueryUI": true,
+				"sPaginationType": "full_numbers", 
+				"fnDrawCallback": function() {//(oSettings ) {
+					
+					
+					
+					if($("#" + id).find('.fg-toolbar .add_drPro').length<=0){
+						$("#" + id).find('.fg-toolbar.ui-widget-header:first').prepend('<a href="#" class="button add_drPro" style="float:left;">Add <i title="edit" class="icon-plus"></i></a>');
+					}
+					$("#" + id).find('.drpro_table .dataTables_empty').html('No '+name+' products available. <a href="#" class="add_drPro">Add <i title="edit" class="icon-plus"></i></a>');
+					$("#" + id).find('.add_drPro').off().on("click",function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						add_drProTableRow(alias);
+					});
+					//make_datatable_popup_add(datatable);
+				}
+		});	
+	});			
 	
 });

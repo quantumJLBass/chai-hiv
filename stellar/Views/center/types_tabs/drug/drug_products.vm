@@ -16,7 +16,7 @@
 			#end
 			<a href="#" id="addDrugForm"><i class="icon-plus"></i> Add a drug form</a>
 		</ul>
-<div>
+		<div class="">
 			#if($item.drugs)
 
 				#foreach($dose in $dose_form)
@@ -25,7 +25,7 @@
 					#foreach($drug in $!item.drugs)
 						#if($drug.dose_form==$dose.alias)
 							#if($k==1)
-							<div id='#drPro_tabs_${dose.alias}_${j}'>
+							<div id='drPro_tabs_${dose.alias}_${j}' class="tabedItem" data-baseid='${dose.baseid}' data-name='${dose.name}' data-alias='${dose.alias}'>
 								<table width="100%" class="drpro_table display" ellspacing="0">
 									<thead><tr><th>Amt.</th><th>Manufacure</th><th>Actions</th></tr></thead>
 									<tfoot><tr><th></th><th></th><th></th></tr></tfoot>
@@ -54,7 +54,7 @@
 					
 				#end	
 			#end
-<div>
+		<div>
 
 
 
