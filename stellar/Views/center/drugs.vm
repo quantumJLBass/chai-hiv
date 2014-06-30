@@ -5,8 +5,11 @@
 	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
 		<thead>
 			<tr>
+				<th width="15%">Form</th>
+				<th width="15%">Label claim</th>
 				<th width="15%">Drug code</th>
 				<th class="sorting_asc">Name/Code</th>
+				<th width="15%">manufacturer</th>
 				<th width="20%"></th>
 			</tr>
 		</thead>
@@ -17,12 +20,21 @@
 			#set($manufacturer = false)
 		
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
+				<td>$!taxonomyService.get_taxonomy($!item.dose_form).name</td>
+				
+				<td>$!item.label_claim</td>
+			
 				<td>#if($item.new_drug_code)$!item.new_drug_code#else -- #end</td>
 				#set($name = $item.get_named())
 				#set($taxedname = $!postingService.get_taxonomy($name).name)
-				#set($manufacturer = $!postingService.get_taxonomy($item.manufacturer).name)
 
-				<td>#if($taxedname)$taxedname#else$name#end #if($item.label_claim)- $!item.label_claim#end #if($manufacturer)- $!manufacturer #end</td>
+
+				<td>#if($taxedname)$taxedname#else$name#end</td>
+				
+				#set($manufacturer = $!postingService.get_taxonomy($item.manufacturer).name)
+				<td>#if($manufacturer)$!manufacturer #else - #end</td>
+				
+				
 				<td>
 					#if($viewonly)
 						<a href="drug.castle?id=$item.baseid" class="button small">View</a>

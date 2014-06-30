@@ -105,110 +105,122 @@ $part.name => $part.alias
 	#* *#
 		
 		
-	<article class="grid col-full">
-	  <form id="entry_form" class="entry_form" action="/center/savedrug.castle" method="post" name="entry_form">
+<article class="grid col-full">
+	<form id="entry_form" class="entry_form" action="/center/savedrug.castle" method="post" name="entry_form">
 		<input type="hidden" name="item.baseid" value="$!item.baseid" />
 		<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
 		<article id="navtabs" class="grid col-full">
-		  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Product Data #if($item.new_drug_code)( $!item.new_drug_code )#end </h2>
-		  <h3>Attached to Drug Family,  $!item.families.getItem(0).name</h3>
-		  <hr/>
-		  <div class="">
-			<ul class="tabs clearfix">
-			  <li><a href="#regulatory_info">Regulatory Information</a></li>
-			  <li><a href="#dosing_admin">Dosing & Administration</a></li>
-			  <li><a href="#tab3">LMIC Regimen Use</a></li>
-			  <li><a href="#tab4">Clinical Study</a></li>
-			  <li><a href="#tab5">Market</a></li>
-			  <li><a href="#tab6">SRA</a></li>
-			</ul>
-			<div class="tab_container">
+			<div class="">
+				<ul class="grid col-one-half mq2-col-full full-input">
+					<li><h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Product Data #if($item.new_drug_code)( $!item.new_drug_code )#end </h2><li>
+					<li><h3>Attached to Drug Family,  $!item.families.getItem(0).name</h3></li>
+				</ul>
+				<ul class="grid col-one-half mq2-col-full full-input" style=" text-align:right;">
+					<li><h4 style="margin-bottom:5px; bottom-border:1px solid #e2e2e2;">General Definition</h4><li>
+					<li><b id="dose_form_info">Dose form:</b> $!taxonomyService.get_taxonomy($!item.dose_form).name</li>
+					<li><b id="label_claim_info">Label claim:</b> $!item.label_claim</li>
+					<li><b id="manufacturer_info">Manufacturer:</b> $!postingService.get_taxonomy($!item.manufacturer).name</li>
+				</ul>			
+				
+				<br style="clear:both;"/>
+				<hr/>
+			</div>
+			<div class="">
+				<ul class="tabs clearfix">
+					<li><a href="#regulatory_info">Regulatory Information</a></li>
+					<li><a href="#dosing_admin">Dosing & Administration</a></li>
+					<li><a href="#tab3">LMIC Regimen Use</a></li>
+					<li><a href="#tab4">Clinical Study</a></li>
+					<li><a href="#tab5">Market</a></li>
+					<li><a href="#tab6">SRA</a></li>
+				</ul>
+				<div class="tab_container">
 			
 #* *#
 #* regulatory_info ------------ *#
 #* *#
-			<article id="regulatory_info" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "regulatory_information" "top")
-				</div>
-				#parse("center/types_tabs/drug/regulatory_info.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "regulatory_information" "bottom")
-				</div>
-			</article>
+					<article id="regulatory_info" class="tab_content">
+						<div style="clear:both;">
+							#tab_notes("$type" "regulatory_information" "top")
+						</div>
+						#parse("center/types_tabs/drug/regulatory_info.vm")
+						<div style="clear:both;">
+							#tab_notes("$type" "regulatory_information" "bottom")
+						</div>
+					</article>
 #* *#
 #* dosing_admin ------------ *#
 #* *#
-			<article id="dosing_admin" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "dosing_administration" "top")
-				</div>
-				#parse("center/types_tabs/drug/dosing_admin.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "dosing_administration" "bottom")
-				</div>
-			</article>
+					<article id="dosing_admin" class="tab_content">
+						<div style="clear:both;">
+							#tab_notes("$type" "dosing_administration" "top")
+						</div>
+						#parse("center/types_tabs/drug/dosing_admin.vm")
+						<div style="clear:both;">
+							#tab_notes("$type" "dosing_administration" "bottom")
+						</div>
+					</article>
 #* *#
 #* tab3 ------------ *#
 #* *#
-			  <article id="tab3" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "lmic_regimen_use" "top")
-				</div>
-			  	#parse("center/types_tabs/drug/tab3.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "lmic_regimen_use" "bottom")
-				</div>
-			  </article>
+					  <article id="tab3" class="tab_content">
+						<div style="clear:both;">
+							#tab_notes("$type" "lmic_regimen_use" "top")
+						</div>
+						#parse("center/types_tabs/drug/tab3.vm")
+						<div style="clear:both;">
+							#tab_notes("$type" "lmic_regimen_use" "bottom")
+						</div>
+					  </article>
 #* *#
 #* tab4 ------------ *#
 #* *#
-			  <article id="tab4" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "clinical_study" "top")
-				</div>
-			  	#parse("center/types_tabs/drug/tab4.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "clinical_study" "bottom")
-				</div>
-			  </article>
+					  <article id="tab4" class="tab_content">
+						<div style="clear:both;">
+							#tab_notes("$type" "clinical_study" "top")
+						</div>
+						#parse("center/types_tabs/drug/tab4.vm")
+						<div style="clear:both;">
+							#tab_notes("$type" "clinical_study" "bottom")
+						</div>
+					  </article>
 			  
 #* *#
 #* tab5 ------------ *#
 #* *#
-			  <article id="tab5" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "market" "top")
-				</div>
-			  	#parse("center/types_tabs/drug/tab5.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "market" "bottom")
-				</div>				
-			  </article>
+					  <article id="tab5" class="tab_content">
+						<div style="clear:both;">
+						#tab_notes("$type" "market" "top")
+						</div>
+						#parse("center/types_tabs/drug/tab5.vm")
+						<div style="clear:both;">
+						#tab_notes("$type" "market" "bottom")
+						</div>				
+					  </article>
 #* *#
 #* tab6 ------------ *#
 #* *#
-				<article id="tab6" class="tab_content">
-				<div style="clear:both;">
-					#tab_notes("$type" "sra" "top")
+						<article id="tab6" class="tab_content">
+							<div style="clear:both;">
+								#tab_notes("$type" "sra" "top")
+							</div>
+								#parse("center/types_tabs/drug/tab6.vm")
+							<div style="clear:both;">
+								#tab_notes("$type" "sra" "bottom")
+							</div>
+						</article>
+					</div>
 				</div>
-			  		#parse("center/types_tabs/drug/tab6.vm")
-				<div style="clear:both;">
-					#tab_notes("$type" "sra" "bottom")
-				</div>
-				</article>
-			</div>
-		  </div>
-		</article>
-		<article class="grid col-full">
-		  <hr/>
-		  <ul class="grid col-one-full mq2-col-full full-input">
-				#parse("center/assests/save_bar.vm")
-		  </ul>
-		  <br/>
-		  <br/>
-		  <hr/>
-		</article>
+			</article>
+			<article class="grid col-full">
+			  <hr/>
+			  <ul class="grid col-one-full mq2-col-full full-input">
+					#parse("center/assests/save_bar.vm")
+			  </ul>
+			  <br/>
+			  <br/>
+			  <hr/>
+			</article>
 		#if(!$skiplayout && !$item.baseid)
 			<h2>Save to add Substances or to Clinicals</h2>
 		#end
