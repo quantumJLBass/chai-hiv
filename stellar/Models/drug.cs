@@ -41,14 +41,6 @@ namespace stellar.Models {
 
             /// <summary> </summary>
             [Property(SqlType = "nvarchar(MAX)")]
-            virtual public string innovator_company { get; set; }
-
-            /// <summary> </summary>
-            [Property(SqlType = "nvarchar(MAX)")]
-            virtual public string commercial_company { get; set; }
-
-            /// <summary> </summary>
-            [Property(SqlType = "nvarchar(MAX)")]
             virtual public string manufacturer { get; set; }
 
             /// <summary> </summary>

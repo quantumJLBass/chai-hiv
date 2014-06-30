@@ -58,18 +58,6 @@ $!part.lab_code
 				#set($daval ="")
 				#set($daval = $!item.manufacturer)
 				#feild_selectinput($type "manufacturer" $daval $!manufacturers "" "taxed" " rel='commercial' ")
-			</li>	
-		#* commercial_company *#
-			<li data-type_id="$manufacturer_type_id">
-				#set($daval ="")
-				#set($daval = $!{item.commercial_company})
-				#feild_selectinput($type "commercial_company" $daval $!manufacturers "" "taxed" " rel='commercial' ")
-			</li>				  
-		#* innovator_company *#
-			<li data-type_id="$manufacturer_type_id">
-				#set($daval ="")
-				#set($daval = $!item.innovator_company)
-				#feild_selectinput($type "innovator_company" $daval $!manufacturers "" "taxed" " rel='commercial' ")
 			</li>
 		  </ul>
 		</fieldset>
