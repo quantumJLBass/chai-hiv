@@ -37,7 +37,7 @@ $sub.lab_code
 				
 				<td>$!item.label_claim</td>
 			
-				<td>#if($fam_sub_code.trim()!="") $!fam_sub_code #else <em><b>orphaned</b></em> #end</td>
+				<td>#if($fam_sub_code.trim()!="" && $item.attached) $!fam_sub_code #else <em><b>orphaned</b></em> #end</td>
 				
 				#set($name = $item.get_named())
 				#set($taxedname = $!postingService.get_taxonomy($name).name)

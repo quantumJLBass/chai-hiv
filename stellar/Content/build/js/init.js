@@ -541,9 +541,10 @@ $(document).ready(function() {
 					html+="<form action='/center/savedrug.castle' method='post'><input name='item.baseid' type='hidden' value='0'>";
 						html+="<input type='hidden' name='item.families[1].baseid' value='"+$("[name='item.baseid']").val()+"'/>";
 						html+="<input type='hidden' name='item.dose_form' value='"+form+"'/>";
+						html+="<input type='hidden' name='item.attached' value='false'/>";
 						html+="<label>Amount<br/><input type='text' name='item.label_claim'/><br/></label>";
 						html+="<label>Manufacturer<br/><select name='item.manufacturer' id='quick_drPro_manufacturer'><option value=''>Select</option></select><br/></label>";
-						html+="<a href='#' id='create_drPros_stub_submit'>Add drug product stub</a>";
+						html+="<a href='#' id='create_drPros_stub_submit' class='button'>Add drug product stub</a>";
 					html+="</form>";
 				html+="</div>";
 		html+="</div>";
@@ -593,7 +594,7 @@ $(document).ready(function() {
 					   dataType : "json",
 					   success: function(returndata){
 							if(returndata.baseid!==""){
-								popup_message($("<span><h5>You have added a new Durg Protuct!</h5>Select it from the bottom of the list to attach it.</span>"));
+								popup_message($("<span><h5>You have added a new Durg Protuct!</h5> It was added to the table of products for the drug form.</span>"));
 								$('#drpro_empty').remove();
 								$('[href="#existing_drPros"]').trigger('click');
 								$.each(returndata,function(i,v){
@@ -601,7 +602,7 @@ $(document).ready(function() {
 									var tableData = [];
 									
 									var count = dataTable.find("tr").length;
-									var html = v.label_claim + '<input type="hidden" name="item.drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/>';
+									var html = v.label_claim + '<input type="hidden" name="item.drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="item.drugs['+(count)+'].attached" value="true" class="drug_item list_item"/>';
 									tableData.push( html );
 									tableData.push( v.manufacturer ); 
 									tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 

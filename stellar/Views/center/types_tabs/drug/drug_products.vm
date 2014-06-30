@@ -1,20 +1,63 @@
 <div class="">
 	<div id="drPro_tabed" >
 		<ul class="">
-			#if($item.drug)
-				#foreach($market in $!item.markets)
-					#set($i=$velocityCount)
-					<li><a href="#year${i}">$!market.year</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>
-				#end
+			#if($item.drugs)
+			
+				#set($i=0)
+				#foreach($dose in $dose_form)
+					#set($k=0)
+					#foreach($drug in $!item.drugs)
+						#if($drug.dose_form==$dose.alias  && $k==0)
+							<li><a href='#drPro_tabs_${dose.alias}_${k}' data-baseid='${dose.baseid}' data-name='${dose.name}' data-alias='${dose.alias}'>${dose.name}</a> <i class='icon-remove'></i></li>
+							#set($k=$k+1)
+						#end
+					#end
+				#end	
 			#end
 			<a href="#" id="addDrugForm"><i class="icon-plus"></i> Add a drug form</a>
 		</ul>
-		#if($item.markets)
-			#foreach($market in $!item.markets)
-				#set($i=$velocityCount)
-				#parse("center/assests/market_block.vm")
+<div>
+			#if($item.drugs)
+
+				#foreach($dose in $dose_form)
+					#set($k=1)
+					#set($j=0)
+					#foreach($drug in $!item.drugs)
+						#if($drug.dose_form==$dose.alias)
+							#if($k==1)
+							<div id='#drPro_tabs_${dose.alias}_${j}'>
+								<table width="100%" class="drpro_table display" ellspacing="0">
+									<thead><tr><th>Amt.</th><th>Manufacure</th><th>Actions</th></tr></thead>
+									<tfoot><tr><th></th><th></th><th></th></tr></tfoot>
+									<tbody>
+									
+							#end
+								<tr>
+								
+									<td>
+										${drug.label_claim}
+										<input type="hidden" name="item.drugs[${k}].baseid" value="${drug.baseid}" class="drug_item list_item"/>
+										<input type="hidden" name="item.drugs[${k}].attached" value="true" class="drug_item list_item"/>
+									</td>
+									<td>${drug.manufacturer}</td>
+									<td><a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a></td>
+						
+								</tr>
+							#set($k=$k+1)
+							#set($j=$j+1)
+						#end
+					#end
+					#if($k>1)
+						</tbody></table></div>
+					#end
+					
+					
+				#end	
 			#end
-		#end
+<div>
+
+
+
 
 	</div>
 </div>

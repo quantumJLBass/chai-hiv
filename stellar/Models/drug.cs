@@ -27,9 +27,13 @@ namespace stellar.Models {
 
         #region(Regulatory Information)
 
-        /// <summary> </summary>
+            /// <summary> </summary>
             [Property(SqlType = "nvarchar(MAX)")]
             virtual public string lab_code { get; set; }
+
+            /// <summary> </summary>
+            [Property]
+            virtual public Boolean attached { get; set; }
 
             /// <summary> </summary>
             [Property(SqlType = "nvarchar(MAX)")]
