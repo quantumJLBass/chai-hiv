@@ -705,8 +705,6 @@ namespace stellar.Controllers {
             if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
             String[] drop = exclude.Split(',');
 
-            String[] filtering = filter.Split(':');
-
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             IList<drug> items = ActiveRecordBase<drug>.FindAll();
@@ -714,6 +712,13 @@ namespace stellar.Controllers {
             if (json) {
                 CancelLayout();
                 CancelView();
+
+                String[] filtering = new string[0];
+                if (!String.IsNullOrWhiteSpace(filter)) {
+                   filtering = filter.Split(':');
+                }
+
+
                 String json_str = "";
                 if (filtering.Count() > 1) {
                     items = items.Where(x => !x.tmp && !x.deleted && x.dose_form == filtering[1] && !drop.Contains(x.baseid.ToString())).ToList();
@@ -843,6 +848,7 @@ namespace stellar.Controllers {
                 item.markets.Add(market);
             }
             */
+            item.families.Clear();
 
             item.tmp = false;
             if (item.published) item.content = "";

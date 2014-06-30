@@ -104,6 +104,15 @@ $part.name => $part.alias
 	#* END *#
 	#* *#
 		
+#capturefor(fam_sub_code)
+#foreach($part in  $item.families)
+#foreach($sub in  $part.substances)
+$sub.lab_code
+#between
+<em>:</em>
+#end
+#end
+#end	
 		
 <article class="grid col-full">
 	<form id="entry_form" class="entry_form" action="/center/savedrug.castle" method="post" name="entry_form">
@@ -113,7 +122,7 @@ $part.name => $part.alias
 			<div class="">
 				<ul class="grid col-one-half mq2-col-full full-input">
 					<li><h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Product Data #if($item.new_drug_code)( $!item.new_drug_code )#end </h2><li>
-					<li><h3>Attached to Drug Family,  $!item.families.getItem(0).name</h3></li>
+					<li><h3>Attached to Drug Family,  $!fam_sub_code</h3></li>
 				</ul>
 				<ul class="grid col-one-half mq2-col-full full-input" style=" text-align:right;">
 					<li><h4 style="margin-bottom:5px; bottom-border:1px solid #e2e2e2;">General Definition</h4><li>

@@ -151,7 +151,7 @@ $(document).ready(function() {
 					html+="</div>";
 					html+="<div id='create_drPros_stub' class='full-input'>";
 						html+="<form action='/center/savedrug.castle' method='post'><input name='item.baseid' type='hidden' value='0'>";
-							html+="<input type='hidden' name='item.famlies[1].baseid' value='"+$("[name='item.baseid']").val()+"'/>";
+							html+="<input type='hidden' name='item.families[1].baseid' value='"+$("[name='item.baseid']").val()+"'/>";
 							html+="<input type='hidden' name='item.dose_form' value='"+form+"'/>";
 							html+="<label>Amount<br/><input type='text' name='item.label_claim'/><br/></label>";
 							html+="<label>Manufacturer<br/><select name='item.manufacturer' id='quick_drPro_manufacturer'><option value=''>Select</option></select><br/></label>";

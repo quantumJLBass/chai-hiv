@@ -159,7 +159,7 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "drug_to_drug_family", ColumnKey = "drug_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<drug_family> famlies { get; set; }
+        virtual public IList<drug_family> families { get; set; }
 
 
 
