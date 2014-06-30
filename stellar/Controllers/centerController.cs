@@ -848,7 +848,7 @@ namespace stellar.Controllers {
                 item.markets.Add(market);
             }
             */
-            item.families.Clear();
+            //item.families.Clear();
 
             item.tmp = false;
             if (item.published) item.content = "";

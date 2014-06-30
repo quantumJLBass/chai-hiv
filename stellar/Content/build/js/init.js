@@ -534,120 +534,98 @@ $(document).ready(function() {
 
 
 	function add_drProTableRow(form){
+		var html = "";
+		html+="<div id='drPro_additions' class='min'>";
+			html+="<h4>Create new "+form+"</h4>";
+				html+="<div id='create_drPros_stub' class='full-input'>";
+					html+="<form action='/center/savedrug.castle' method='post'><input name='item.baseid' type='hidden' value='0'>";
+						html+="<input type='hidden' name='item.families[1].baseid' value='"+$("[name='item.baseid']").val()+"'/>";
+						html+="<input type='hidden' name='item.dose_form' value='"+form+"'/>";
+						html+="<label>Amount<br/><input type='text' name='item.label_claim'/><br/></label>";
+						html+="<label>Manufacturer<br/><select name='item.manufacturer' id='quick_drPro_manufacturer'><option value=''>Select</option></select><br/></label>";
+						html+="<a href='#' id='create_drPros_stub_submit'>Add drug product stub</a>";
+					html+="</form>";
+				html+="</div>";
+		html+="</div>";
+		html+="<div class='clearfix'></div>";
 		
-		$.getJSON('/center/drugs.castle?json=true&callback=?&filter=dose_form:'+form,  function(data){
-			var html = "";
-			
-			html+="<div id='drPro_additions' class='min'>";
-				html+="<h4>Add "+form+"</h4>";
-				html+="<ul>";
-					html+="<li><a href='#existing_drPros'>Existing</a></li>";
-					html+="<li><a href='#create_drPros_stub'>Quick Create</a></li>";
-				html+="</ul>";
-				html+="<div class='tab_container'>";
-			
-					html+="<div id='existing_drPros'>";
+		if($("#form_list").length<=0){
+			$('body').append('<div id="form_list">');
+		}
+		$("#form_list").html( html );
+		$( "#form_list" ).dialog({
+			autoOpen: true,
+			resizable: false,
+			width: 350,
+			minHeight: 150,
+			height: 'auto',
+			maxHeight: $(window).height(),
+			modal: true,
+			draggable : false,
+			create:function(){
+				$('.ui-dialog-titlebar').remove();
+				//$(".ui-dialog-buttonpane").remove();
+				$('body').css({overflow:"hidden"});
+			},
+			open:function(){
+				$.getJSON('/center/get_taxonomies.castle?tax=commercial&callback=?',  function(data){
 					var list="";
 					$.each(data,function(i,v){
-						list+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"'  data-manufacturer='"+v.manufacturer+"' data-label_claim='"+v.label_claim+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" "+v.label_claim+"( "+v.manufacturer+" )</span><br/>";
+						list+="<option value='"+v.alias+"'>"+v.name+"</option>";
 					});
-					if(list===""){
-						html+="<b id='drpro_empty'>There are currently no drugs in the form of a "+form+"</b>";
-					}else{
-						html+=list;	
-					}
-					html+="</div>";
-					html+="<div id='create_drPros_stub' class='full-input'>";
-						html+="<form action='/center/savedrug.castle' method='post'><input name='item.baseid' type='hidden' value='0'>";
-							html+="<input type='hidden' name='item.families[1].baseid' value='"+$("[name='item.baseid']").val()+"'/>";
-							html+="<input type='hidden' name='item.dose_form' value='"+form+"'/>";
-							html+="<label>Amount<br/><input type='text' name='item.label_claim'/><br/></label>";
-							html+="<label>Manufacturer<br/><select name='item.manufacturer' id='quick_drPro_manufacturer'><option value=''>Select</option></select><br/></label>";
-							html+="<a href='#' id='create_drPros_stub_submit'>Add drug product stub</a>";
-						html+="</form>";
-					html+="</div>";
-				html+="</div>";
-			html+="</div>";
-			html+="<div class='clearfix'></div>";
-			
-			if($("#form_list").length<=0){
-				$('body').append('<div id="form_list">');
-			}
-			$("#form_list").html( html );
-			$( "#form_list" ).dialog({
-				autoOpen: true,
-				resizable: false,
-				width: 350,
-				minHeight: 150,
-				height: 'auto',
-				maxHeight: $(window).height(),
-				modal: true,
-				draggable : false,
-				create:function(){
-					$('.ui-dialog-titlebar').remove();
-					//$(".ui-dialog-buttonpane").remove();
-					$('body').css({overflow:"hidden"});
-				},
-				open:function(){
-					$('#drPro_additions').tabs();
-					$.getJSON('/center/get_taxonomies.castle?tax=commercial&callback=?',  function(data){
-						var list="";
-						$.each(data,function(i,v){
-							list+="<option value='"+v.alias+"'>"+v.name+"</option>";
-						});
-						$('#quick_drPro_manufacturer').append(list);
-					});
-					$('.item .icon-plus').on("click",function(){
-						var name = $(this).closest('span').data('name');
-						var baseid = $(this).closest('span').data('baseid');
-						var alias = $(this).closest('span').data('alias');
-						add_drProTab(name,baseid,alias);
-					});
-					
-					$('#create_drPros_stub_submit').on("click",function(e){
-						e.preventDefault();
-						e.stopPropagation();
-						var form_data = $('#create_drPros_stub form').find( "input, textarea, select" ).serializeArray();
-		
-						$.ajax({cache: false,
-						   url:$('#create_drPros_stub form').attr('action')+"?json=true&ajaxed_update=true&callback=?",
-						   data:form_data,
-						   dataType : "json",
-						   success: function(returndata){
-								if(returndata.baseid!==""){
-									popup_message($("<span><h5>You have added a new Durg Protuct!</h5>Select it from the bottom of the list to attach it.</span>"));
-									$('#drpro_empty').remove();
-									$('[href="#existing_drPros"]').trigger('click');
-									var list="";
-									$.each(returndata,function(i,v){
-										list+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-manufacturer='"+v.manufacturer+"' data-label_claim='"+v.label_claim+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" "+v.label_claim+"( "+v.manufacturer+" )</span><br/>";
-									});
-									$('#existing_drPros').append(list);
+					$('#quick_drPro_manufacturer').append(list);
+				});
+				$('.item .icon-plus').on("click",function(){
+					var name = $(this).closest('span').data('name');
+					var baseid = $(this).closest('span').data('baseid');
+					var alias = $(this).closest('span').data('alias');
+					add_drProTab(name,baseid,alias);
+				});
+				
+				$('#create_drPros_stub_submit').on("click",function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					var form_data = $('#create_drPros_stub form').find( "input, textarea, select" ).serializeArray();
+	
+					$.ajax({cache: false,
+					   url:$('#create_drPros_stub form').attr('action')+"?json=true&ajaxed_update=true&callback=?",
+					   data:form_data,
+					   dataType : "json",
+					   success: function(returndata){
+							if(returndata.baseid!==""){
+								popup_message($("<span><h5>You have added a new Durg Protuct!</h5>Select it from the bottom of the list to attach it.</span>"));
+								$('#drpro_empty').remove();
+								$('[href="#existing_drPros"]').trigger('click');
+								$.each(returndata,function(i,v){
+									var dataTable = $("[id^='drPro_tabs_"+form+"']").find('.dataTable');
+									var tableData = [];
 									
-								}else{
-									popup_message($("<span>failed to save, try again.</span>"));
-								}
+									var count = dataTable.find("tr").length;
+									var html = v.label_claim + '<input type="hidden" name="item.drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/>';
+									tableData.push( html );
+									tableData.push( v.manufacturer ); 
+									tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+									dataTable.dataTable().fnAddData( tableData );
+								});
+								$( "#form_list" ).dialog( "close" );
+							}else{
+								popup_message($("<span>failed to save, try again.</span>"));
 							}
-						});
+						}
 					});
-					
-					
-					
-					
-				},
-				buttons:{
-					Ok:function(){
-						$( this ).dialog( "close" );
-					}
-				},
-				close: function() {
-					$('body').css({overflow:"auto"});
-					$( "#form_list" ).dialog( "destroy" );
-					$( "#form_list" ).remove();
+				});
+			},
+			buttons:{
+				Ok:function(){
+					$( this ).dialog( "close" );
 				}
-			});
-		});	
-		
+			},
+			close: function() {
+				$('body').css({overflow:"auto"});
+				$( "#form_list" ).dialog( "destroy" );
+				$( "#form_list" ).remove();
+			}
+		});
 	}
 
 
@@ -763,8 +741,6 @@ $(document).ready(function() {
 										var alias = $(this).closest('span').data('alias');
 										add_drProTab(name,baseid,alias);
 									});
-										
-									
 								});
 							}
 						);
