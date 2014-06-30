@@ -521,6 +521,41 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             IList<drug_family> items = ActiveRecordBase<drug_family>.FindAll();
+
+            foreach (drug_family fam in items) {
+
+                IList<int> ids = new List<int>();
+                List<drug> drugs = new List<drug>();
+                foreach (drug drug in fam.drugs) {
+                    if (drug.attached == true) {
+                        if (!ids.Contains(drug.baseid)) {
+                            drug.families.Clear();
+                            
+                            ActiveRecordMediator<drug>.Save(drug);
+                            drug.families.Add(fam);
+                            ActiveRecordMediator<drug>.Save(drug);
+                            drugs.Add(drug);
+                            ids.Add(drug.baseid);
+                        }
+                    } else {
+                        ActiveRecordMediator<drug>.Delete(drug);
+                    }
+                }
+                fam.drugs.Clear();
+                fam.drugs = drugs;
+
+                ActiveRecordMediator<drug_family>.Delete(fam);
+
+            }
+
+
+
+
+
+
+
+
+
             PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
             if (skiplayout) {
                 PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
@@ -548,11 +583,17 @@ namespace stellar.Controllers {
             if (id > 0) {
                 drug_family fam = ActiveRecordBase<drug_family>.Find(id);
 
-
+                IList<int> ids = new List<int>();
                 List<drug> drugs = new List<drug>();
                 foreach (drug drug in fam.drugs) {
                     if (drug.attached == true) {
-                        drugs.Add(drug);
+                        if (!ids.Contains(drug.baseid)) {
+                            drug.families.Clear();
+                            drug.families.Add(fam);
+                            ActiveRecordMediator<drug>.Save(drug);
+                            drugs.Add(drug);
+                            ids.Add(drug.baseid);
+                        }
                     } else {
                         ActiveRecordMediator<drug>.Delete(drug);
                     }
@@ -596,6 +637,9 @@ namespace stellar.Controllers {
         public void savefamily([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug_family item,
             [ARDataBind("family_substance", Validate = true, AutoLoad = AutoLoadBehavior.OnlyNested)]family_substance[] family_substance,
             [ARDataBind("substances", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance[] substances,
+
+            [ARDataBind("drugs", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug[] drugs,
+
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -612,14 +656,15 @@ namespace stellar.Controllers {
                 return;
             }
 
-            foreach (drug drug in item.drugs) {
-                if (drug.attached == true) {
-                    ActiveRecordMediator<drug>.Save(drug);
-                } else {
-                    ActiveRecordMediator<drug>.Delete(drug);
+
+            item.drugs.Clear();
+
+            IList<int> ids = new List<int>();
+            foreach (drug drug in drugs) {
+                if (drug.attached) {
+                    item.drugs.Add(drug);
                 }
             }
-
 
 
             item.markets.Clear();

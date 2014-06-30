@@ -601,12 +601,23 @@ $(document).ready(function() {
 									var dataTable = $("[id^='drPro_tabs_"+form+"']").find('.dataTable');
 									var tableData = [];
 									
-									var count = dataTable.find("tr").length;
-									var html = v.label_claim + '<input type="hidden" name="item.drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="item.drugs['+(count)+'].attached" value="true" class="drug_item list_item"/>';
+									var count = $(".drug_item.list_item").length;
+									var html = v.label_claim + '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="drugs['+(count)+'].attached" value="1" class="drug_item list_item"/>';
 									tableData.push( html );
 									tableData.push( v.manufacturer ); 
 									tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 									dataTable.dataTable().fnAddData( tableData );
+									
+									$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
+										e.preventDefault();
+										e.stopPropagation();
+										var targetrow = $(this).closest("tr");
+										var datatable = $(this).closest('.dataTable').dataTable();
+										targetrow.fadeOut( "75" ,function(){ 
+											datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
+										});
+									});
+
 								});
 								$( "#form_list" ).dialog( "close" );
 							}else{
@@ -790,9 +801,26 @@ $(document).ready(function() {
 						add_drProTableRow(alias);
 					});
 					//make_datatable_popup_add(datatable);
+					
+					$("#" + id).find('.removal').off().on("click",function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						var targetrow = $(this).closest("tr");
+						var datatable = $(this).closest('.dataTable').dataTable();
+						targetrow.fadeOut( "75" ,function(){ 
+							datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
+							//targetrow.remove();
+						});
+					});
+	
+					
 				}
 		});	
 	});			
+	
+
+	
+	
 	
 });
 // JavaScript Document
