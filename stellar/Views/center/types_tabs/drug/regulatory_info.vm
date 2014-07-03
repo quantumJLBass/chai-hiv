@@ -26,9 +26,7 @@ $!part.lab_code
 		
 		#* brand_name *#
 			<li>
-				#set($daval ="")
-				#set($daval = $!item.brand_name)
-				#feild_selectinput($type "brand_name" $daval $!brand_names  "" "taxed" "")
+				$Controller.feilds("select","$type","brand_name", $!item.brand_name , $brand_names,"","","taxed","")
 			</li>				  
 		#* new_drug_code *#
 			<li>
@@ -38,9 +36,7 @@ $!part.lab_code
 		<ul>			  
 		#* approved_for *#
 			<li>
-				#set($daval ="")
-				#set($daval = $!item.approved_for)
-				#feild_selectinput($type "approved_for" $daval $!approved_fors  "" "taxed" "")
+				$Controller.feilds("select","$type","approved_for", $!item.approved_for , $approved_fors,"","","taxed","")
 			</li>
 		</ul>
   </li>
@@ -51,9 +47,7 @@ $!part.lab_code
 			<ul>
 		#* manufacturer *#
 			<li data-type_id="$manufacturer_type_id">
-				#set($daval ="")
-				#set($daval = $!item.manufacturer)
-				#feild_selectinput($type "manufacturer" $daval $!manufacturers "" "taxed" " rel='commercial' ")
+				$Controller.feilds("select","$type","manufacturer", $!item.manufacturer , $manufacturers,"","","taxed"," rel='commercial' ")
 			</li>
 		  </ul>
 		</fieldset>
@@ -62,8 +56,6 @@ $!part.lab_code
 
 #* investigational *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.investigational)
-		#feild_selectinput($type "investigational" $daval "Yes,No,TBD" "" "" "")
+		$Controller.feilds("select","$type","investigational", $!item.investigational , "Yes,No,TBD","","","taxed","")
 	</li>				  
 </ul>
