@@ -74,9 +74,13 @@ $(document).ready(function() {
 			//alert("got data");
 			var html = "";
 			$.each(data,function(i,v){
+				if($('[name="substances['+v.baseid+'].baseid"]').length<=0){
 				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-lab_code='"+v.lab_code+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.lab_code+" )<br/></span>";
-				
+				}
 			});
+			if(html == ""){
+				html = "There are no substances to use.";	
+			}
 			if($("#substances_list").length<=0){
 				$('body').append('<div id="substances_list">');
 			}
