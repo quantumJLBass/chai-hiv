@@ -1,4 +1,72 @@
-<ul class="grid col-one-half mq2-col-full full-input">
+#* drugdata *#
+	#*#set($typed_list = $item.interactions)
+	#parse("center/model_tie_tables/interactions.vm")
+	*#
+	
+	<label for="LMICdata">LMIC:</label>
+	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="LMICdata" width="100%">
+		<thead>
+			<tr>
+				<th>Form</th>
+				<th>AMT</th>
+				<th width="5%">L1</th>
+				<th width="5%">L2</th>
+				<th width="5%">L3</th>
+				<th width="5%"></th>
+			</tr>
+		</thead>
+		<tbody>
+				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
+					<td>$Controller.feilds("select","$type","", "", $dose_forms, "","","","")</td>
+					<td>$Controller.feilds("textinput","$type","atm", $!item.atm ,"","","","")</td>
+					<td data-order="1"><input type="checkbox" value=""/></td>
+					<td data-order="0"><input type="checkbox" value=""/></td>
+					<td data-order="1"><input type="checkbox" value=""/></td>
+					<td>
+					#if($viewonly) #else
+					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
+					#end
+					</td>
+				</tr>
+				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
+					<td>$Controller.feilds("select","$type","", "", $dose_forms, "","","","")</td>
+					<td>$Controller.feilds("textinput","$type","atm", $!item.atm ,"","","","")</td>
+					<td data-order="0"><input type="checkbox" value=""/></td>
+					<td data-order="1"><input type="checkbox" value=""/></td>
+					<td data-order="0"><input type="checkbox" value=""/></td>
+					<td>
+					#if($viewonly) #else
+					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
+					#end
+					</td>
+				</tr>
+			#foreach($part in $item.interactions)
+				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
+					<td>val 1</td>
+					<td>asdfas sadf asdsadg sad asdg sadg asdg sdg sdg</td>
+					<td>
+					#if($viewonly) #else
+					<a href="ddi.castle?id=$item.baseid&skiplayout=1" class="button small inline_edit"  data-type="drug"><i class="icon-edit" title="Edit"></i></a> | 
+					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
+					#end
+					</td>
+				</tr>
+			#end
+		</tbody>
+		<tfoot>			<tr>
+				<th width="15%"></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th width="5%"></th>
+			</tr></tfoot>
+	</table>
+	<a href="#" id="drug_interaction" class="button add_to_list" data-type="drug_interaction">Add LMIC</a>
+
+
+
+<!--<ul class="grid col-one-half mq2-col-full full-input">
 	#* lmic_1l *#
 		<li>
 			#set($daval ="")
@@ -17,4 +85,4 @@
 				#set($daval = $!item.lmic_3l)
 			#feild_selectinput($type "lmic_3l" $daval "Yes,No" "3L in LMIC?" "" "")
 		</li>
-</ul>
+</ul>-->

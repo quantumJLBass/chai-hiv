@@ -802,14 +802,15 @@ select option.add:hover{ background-color:#6F3;border:1px inset #666;font-style:
 
 
 
-#DDIdata td select{
-	
-}
+#LMICdata tbody td,
 #DDIdata tbody td{ padding:0px; }
-
+#LMICdata tbody tr td:nth-child(1),
 #DDIdata tbody tr td:nth-child(1) { vertical-align: middle; }
+#LMICdata tbody td select,
 #DDIdata tbody td select{ width:100%; }
 
+#LMICdata tbody td [type="text"],
+#LMICdata tbody td textarea,
 #DDIdata td textarea{
 	background-color:transparent;
 	border:none;
@@ -818,14 +819,18 @@ select option.add:hover{ background-color:#6F3;border:1px inset #666;font-style:
 	min-height: 25px;
 	max-height:150px;
 	overflow-y:auto;
+	width:100%;
 }
 
 
-
+#LMICdata tbody td [type="text"]:hover,
+#LMICdata tbody td textarea:hover,
 #DDIdata td textarea:hover{
 	background-color:#D3EAF0;
 	border:1px solid #6A6A6A;
 }
+#LMICdata tbody td [type="text"]:focus,
+#LMICdata tbody td textarea:focus,
 #DDIdata td textarea:focus{
 	background-color: #F0F0F0;
 }
