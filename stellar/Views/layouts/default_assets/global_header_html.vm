@@ -41,7 +41,7 @@
 
 #*
 $scriptsService.Css("/common/calendar/fullcalendar.css,/colorbox.css,/share_link.css,/frontend/menu.css,/central_main.css,/frontend/reactive.css")
-*#
-<link media='print' href='/themes/base/content/css/common/calendar/fullcalendar.print.css' 	type='text/css' rel='stylesheet' />
 
+<link media='print' href='/themes/base/content/css/common/calendar/fullcalendar.print.css' 	type='text/css' rel='stylesheet' />
+*#
 
