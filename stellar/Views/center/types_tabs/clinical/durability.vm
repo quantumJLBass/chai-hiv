@@ -27,41 +27,27 @@ $part.name => $part.alias
 		</ul>
 		
 		<div id="Adherance">
-			<div style="clear:both;">
-				#tab_notes("$type" "durability_adherance" "top")
-			</div>
+			$Controller.notes("$type","durability_adherance","top")
+			
 			#parse("center/types_tabs/clinical/assests/Adherance_block.vm")
-			<div style="clear:both;">
-				#tab_notes("$type" "durability_adherance" "bottom")
-			</div>
+
+			$Controller.notes("$type","durability_adherance","bottom")
 		</div>
 
 		<div id="Forgiveness">
-			<div style="clear:both;">
-				#tab_notes("$type" "durability_forgiveness" "top")
-			</div>
+			$Controller.notes("$type","durability_forgiveness","top")
 			#parse("center/types_tabs/clinical/assests/Forgiveness_block.vm")
-			<div style="clear:both;">
-				#tab_notes("$type" "durability_forgiveness" "bottom")
-			</div>
+			$Controller.notes("$type","durability_forgiveness","bottom")
 		</div>
 		<div id="Toxicity">
-			<div style="clear:both;">
-				#tab_notes("$type" "durability_toxicity" "top")
-			</div>
+			$Controller.notes("$type","durability_toxicity","top")
 			#parse("center/types_tabs/clinical/assests/Toxicity_block.vm")
-			<div style="clear:both;">
-				#tab_notes("$type" "durability_toxicity" "bottom")
-			</div>
+			$Controller.notes("$type","durability_toxicity","bottom")
 		</div>
 		<div id="discontinuation">
-			<div style="clear:both;">
-				#tab_notes("$type" "durability_timetofailure" "top")
-			</div>
+			$Controller.notes("$type","durability_timetofailure","top")
 			#parse("center/types_tabs/clinical/tab8.vm")
-			<div style="clear:both;">
-				#tab_notes("$type" "durability_timetofailure" "bottom")
-			</div>
+			$Controller.notes("$type","durability_timetofailure","bottom")
 		</div>
 
 	</div>
