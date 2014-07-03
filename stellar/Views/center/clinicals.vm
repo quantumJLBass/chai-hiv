@@ -6,7 +6,9 @@
 		#if(!$skiplayout && !$viewonly)<a href="clinical.castle" class="button  xl right"><i class="icon-plus blue" title="Add"></i> New</a>#end
 		*#
 	</h2>
+	#if(!$skiplayout && !$viewonly)
 	<p><b>NOTE:</b> You Create Arms from trials.</p>
+	#end
 	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
 		<thead>
 			<tr>
@@ -28,8 +30,8 @@
 					#else
 						#if(!$skiplayout)
 							<a href="clinical.castle?id=$item.baseid" class="button small">Edit</a> | 
-							<a href="remove_clinical.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> | 
-							<a href="copyclinical.castle?id=$item.baseid&name=#if($!item.name)$!item.name#else$name#end" class="button xsmall">Copy</a> 
+							<a href="remove_clinical.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> #*| 
+							<a href="copyclinical.castle?id=$item.baseid&name=#if($!item.name)$!item.name#else$name#end" class="button xsmall">Copy</a> *#
 						#else
 							<a href="#ADD" class="additem button med">Add</a>
 						#end
