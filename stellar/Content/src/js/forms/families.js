@@ -491,11 +491,11 @@ $(document).ready(function() {
 		
 		var count = $("#ddi tbody select").length;
 		
-		var options=$('#dirty_options select').html();
+		var options="<option value=''>Select</option>";//$('#dirty_options select').html();
 		
 		var html = '<input type="hidden" name="interactions['+(count)+'].id" value=""/><select name="interactions['+(count)+'].substance">'+options+'</select>';
 		tableData.push( html );
-		tableData.push( '<textarea placeholder="label claim amount" name="interactions['+(count)+'].descriptions"  rows="1"></textarea>' );
+		tableData.push( '<textarea placeholder="Describe the interaction between the two drugs" name="interactions['+(count)+'].descriptions"  rows="1"></textarea>' );
 		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 
 		

@@ -112,6 +112,7 @@
 
 #* steady_state_tmax *#
 		<li>
+		<br style="clear:left">
 			$Controller.feilds("textinput","$type","steady_state_tmax", $!item.steady_state_tmax ,"","(ng/ml)","","")
 		</li>
 	</ul>

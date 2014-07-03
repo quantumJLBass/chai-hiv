@@ -1,14 +1,15 @@
 <div class="">
-	<a href="#" id="newyear">Add Year</a>
+	<!--<a href="#" id="newyear">Add Year</a>-->
 
 	<div id="tabed" >
-		<ul class=" clearfix">
+		<ul class="">
 			#if($item.markets)
 				#foreach($market in $!item.markets)
 					#set($i=$velocityCount)
 					<li><a href="#year${i}">$!market.year</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>
 				#end
 			#end
+			<a href="#" id="newyear"><i class="icon-plus"></i> Add a new Year</a>
 		</ul>
 		#if($item.markets)
 			#foreach($market in $!item.markets)
@@ -16,6 +17,7 @@
 				#parse("center/assests/market_block.vm")
 			#end
 		#end
+		
 	</div>
 	<div id="querybed">
 

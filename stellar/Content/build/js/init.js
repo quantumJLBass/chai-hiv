@@ -899,11 +899,11 @@ $(document).ready(function() {
 		
 		var count = $("#ddi tbody select").length;
 		
-		var options=$('#dirty_options select').html();
+		var options="<option value=''>Select</option>";//$('#dirty_options select').html();
 		
 		var html = '<input type="hidden" name="interactions['+(count)+'].id" value=""/><select name="interactions['+(count)+'].substance">'+options+'</select>';
 		tableData.push( html );
-		tableData.push( '<textarea placeholder="label claim amount" name="interactions['+(count)+'].descriptions"  rows="1"></textarea>' );
+		tableData.push( '<textarea placeholder="Describe the interaction between the two drugs" name="interactions['+(count)+'].descriptions"  rows="1"></textarea>' );
 		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 
 		
@@ -933,7 +933,9 @@ $(document).ready(function() {
 		var tabs = $( "#tabed" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
 		//var uitabs = $( ".uitabs" ).tabs();
 		
-		$('.ui-state-default span.ui-icon-close').on("click", function() {
+		$('.ui-state-default span.ui-icon-close').on("click", function(e){
+			e.preventDefault();
+			e.stopPropagation();
 			var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
 			$( "#" + panelId ).remove();
 			tabs.tabs( "refresh" );
@@ -942,7 +944,9 @@ $(document).ready(function() {
 			});
 		});
 		$( "#tabed li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-		$( "#newyear" ).button().on('click',function(){
+		$( "#newyear" ).on('click',function(e){
+			e.preventDefault();
+			e.stopPropagation();
 			//var txt = $("#querybed").html();
 			if($( "#marketdialog" ).length<=0){
 				$('body').append('<div id="marketdialog" title="Tab data"><form><fieldset class="ui-helper-reset"><label for="tab_title">Year</label><input type="number" name="tab_date" id="tab_date" value="" class="ui-widget-content ui-corner-all" /></fieldset></form></div>');
@@ -1002,7 +1006,7 @@ $(document).ready(function() {
 				var label = tabTitle.val() || "Tab " + tabCounter,
 					id = "tabs-" + tabCounter,
 					li = $( tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) );
-				tabs.find( ".ui-tabs-nav" ).append( li );
+				tabs.find( ".ui-tabs-nav" ).prepend( li );
 				var content = $("#querybed").html();
 				var contentHtml = content.replace( /\{\{YEAR\}\}/g, label ) ;
 				contentHtml = contentHtml.replace( /\{\{COUNT\}\}/g, tabCounter+1 ).replace( /\{\{__\}\}/g, "" ) ;
