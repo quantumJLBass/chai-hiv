@@ -203,14 +203,14 @@ $part.lab_code
 		#if(!$skiplayout && $item.baseid>0)
 		<article class="grid col-full datagrid_area">
 		  <hr/>
-		  <ul class="grid col-one-half mq2-col-full">
+		  #*<ul class="grid col-one-half mq2-col-full">
 			<li>
-				#* substancedata *#
+				 substancedata
 				#set($typed_list = $item.substances)
 				#parse("center/model_tie_tables/substance.vm")
 			</li>	
-		  </ul>
-		  <ul class="grid col-one-half mq2-col-full">
+		  </ul> *#
+		  <ul class="grid col-full mq2-col-full">
 			<li>
 				#* Clinicaldata *#
 				#set($typed_list = $item.clinicals)
