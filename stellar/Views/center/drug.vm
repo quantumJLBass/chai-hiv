@@ -138,8 +138,8 @@ $sub.lab_code
 				<ul class="tabs clearfix">
 					<li><a href="#regulatory_info">Regulatory Information</a></li>
 					<li><a href="#dosing_admin">Dosing & Administration</a></li>
-					<li><a href="#tab3">LMIC Regimen Use</a></li>
-					<li><a href="#tab4">Clinical Study</a></li>
+					#*<li><a href="#lmic">LMIC Regimen Use</a></li>*#
+					<li><a href="#clinical_study">Clinical Study</a></li>
 					<li><a href="#tab5">Market</a></li>
 					<li><a href="#tab6">SRA</a></li>
 				</ul>
@@ -149,74 +149,52 @@ $sub.lab_code
 #* regulatory_info ------------ *#
 #* *#
 					<article id="regulatory_info" class="tab_content">
-						<div style="clear:both;">
-							#tab_notes("$type" "regulatory_information" "top")
-						</div>
+						$Controller.notes("$type","regulatory_information","top")
 						#parse("center/types_tabs/drug/regulatory_info.vm")
-						<div style="clear:both;">
-							#tab_notes("$type" "regulatory_information" "bottom")
-						</div>
+						$Controller.notes("$type","regulatory_information","bottom")
 					</article>
 #* *#
 #* dosing_admin ------------ *#
 #* *#
 					<article id="dosing_admin" class="tab_content">
-						<div style="clear:both;">
-							#tab_notes("$type" "dosing_administration" "top")
-						</div>
+						$Controller.notes("$type","dosing_administration","top")
 						#parse("center/types_tabs/drug/dosing_admin.vm")
-						<div style="clear:both;">
-							#tab_notes("$type" "dosing_administration" "bottom")
-						</div>
+						$Controller.notes("$type","dosing_administration","bottom")
 					</article>
+#*
 #* *#
-#* tab3 ------------ *#
+#* lmic ------------ *#
 #* *#
-					  <article id="tab3" class="tab_content">
-						<div style="clear:both;">
-							#tab_notes("$type" "lmic_regimen_use" "top")
-						</div>
-						#parse("center/types_tabs/drug/tab3.vm")
-						<div style="clear:both;">
-							#tab_notes("$type" "lmic_regimen_use" "bottom")
-						</div>
+					  <article id="lmic" class="tab_content">
+						$Controller.notes("$type","lmic_regimen_use","top")
+						#parse("center/types_tabs/drug/lmic.vm")
+						$Controller.notes("$type","lmic_regimen_use","bottom")
 					  </article>
+*#
 #* *#
-#* tab4 ------------ *#
+#* clinical_study ------------ *#
 #* *#
-					  <article id="tab4" class="tab_content">
-						<div style="clear:both;">
-							#tab_notes("$type" "clinical_study" "top")
-						</div>
-						#parse("center/types_tabs/drug/tab4.vm")
-						<div style="clear:both;">
-							#tab_notes("$type" "clinical_study" "bottom")
-						</div>
+					  <article id="clinical_study" class="tab_content">
+						$Controller.notes("$type","clinical_study","top")
+						#parse("center/types_tabs/drug/clinical_study.vm")
+						$Controller.notes("$type","clinical_study","bottom")
 					  </article>
 			  
 #* *#
 #* tab5 ------------ *#
 #* *#
 					  <article id="tab5" class="tab_content">
-						<div style="clear:both;">
-						#tab_notes("$type" "market" "top")
-						</div>
+						$Controller.notes("$type","market","top")	
 						#parse("center/types_tabs/drug/tab5.vm")
-						<div style="clear:both;">
-						#tab_notes("$type" "market" "bottom")
-						</div>				
+						$Controller.notes("$type","market","bottom")			
 					  </article>
 #* *#
 #* tab6 ------------ *#
 #* *#
 						<article id="tab6" class="tab_content">
-							<div style="clear:both;">
-								#tab_notes("$type" "sra" "top")
-							</div>
-								#parse("center/types_tabs/drug/tab6.vm")
-							<div style="clear:both;">
-								#tab_notes("$type" "sra" "bottom")
-							</div>
+							$Controller.notes("$type","sra","top")	
+							#parse("center/types_tabs/drug/tab6.vm")
+							$Controller.notes("$type","sra","bottom")	
 						</article>
 					</div>
 				</div>
