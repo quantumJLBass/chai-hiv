@@ -4,7 +4,8 @@
 	*#
 	
 	<label for="LMICdata">LMIC:</label>
-	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="LMICdata" width="100%">
+	<div id="LMICdata">
+	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" width="100%">
 		<thead>
 			<tr>
 				<th>Form</th>
@@ -18,7 +19,7 @@
 		<tbody>
 				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
 					<td>$Controller.feilds("select","$type","", "", $dose_forms, "","","","")</td>
-					<td>$Controller.feilds("textinput","$type","atm", $!item.atm ,"","","","")</td>
+					<td>$Controller.feilds("textinput","$type","atm", $!item.atm ,"","label claim amount","","")</td>
 					<td data-order="1"><input type="checkbox" value=""/></td>
 					<td data-order="0"><input type="checkbox" value=""/></td>
 					<td data-order="1"><input type="checkbox" value=""/></td>
@@ -30,7 +31,7 @@
 				</tr>
 				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
 					<td>$Controller.feilds("select","$type","", "", $dose_forms, "","","","")</td>
-					<td>$Controller.feilds("textinput","$type","atm", $!item.atm ,"","","","")</td>
+					<td>$Controller.feilds("textinput","$type","atm", $!item.atm ,"","label claim amount","","")</td>
 					<td data-order="0"><input type="checkbox" value=""/></td>
 					<td data-order="1"><input type="checkbox" value=""/></td>
 					<td data-order="0"><input type="checkbox" value=""/></td>
@@ -62,8 +63,8 @@
 				<th width="5%"></th>
 			</tr></tfoot>
 	</table>
-	<a href="#" id="drug_interaction" class="button add_to_list" data-type="drug_interaction">Add LMIC</a>
-
+	<a href="#" id="add_lmic" class="button add_lmic" data-type="drug_lmic">Add LMIC</a>
+</div>
 
 
 <!--<ul class="grid col-one-half mq2-col-full full-input">

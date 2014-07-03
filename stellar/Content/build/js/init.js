@@ -697,7 +697,7 @@ $(document).ready(function() {
 	
 			var contentHtml = drPro_tabDefaultContent;/*.replace( /\{\{YEAR\}\}/g, label ) ;
 			contentHtml = contentHtml.replace( /\{\{COUNT\}\}/g, drPro_tabCounter+1 ).replace( /\{\{__\}\}/g, "" ) ;*/
-			drProTab.prepend( "<div id='" + id + "'>" + contentHtml + "</div>" );
+			drProTab.prepend( "<div id='" + id + "'>" + contentHtml + "<a href='#' id='drug_interaction' class='button add_drPro' data-type='" + alias +"'>Add " + alias +" form</a></div>" );
 			drProTab.tabs( "refresh" );
 			drProTab.tabs( "option", "active", drPro_tabCounter );
 			$('.drpro_table:not(".dataTable")').DataTable({ 
@@ -822,10 +822,11 @@ $(document).ready(function() {
 	});
 	
 	$.each($('.drpro_table:not(".dataTable")'),function(){
-		var id=$(this).closest('.tabedItem').attr('id');
-		var alias=$(this).closest('.tabedItem').attr('alias');
-		var name=$(this).closest('.tabedItem').attr('name');
-		$(this).DataTable({ 
+		var self = $(this);
+		var id=self.closest('.tabedItem').attr('id');
+		var alias=self.closest('.tabedItem').attr('alias');
+		var name=self.closest('.tabedItem').attr('name');
+		self.DataTable({ 
 				"bJQueryUI": true,
 				"sPaginationType": "full_numbers", 
 				"fnDrawCallback": function() {//(oSettings ) {
@@ -858,8 +859,35 @@ $(document).ready(function() {
 				}
 		});	
 	});			
-	
+	$('#add_lmic').on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			var dataTable = $('#LMICdata').find('.dataTable');
+			var tableData = [];
+			
+			var count = $(".drug_item.list_item").length;
+			var html = '<input type="hidden" name="drugs['+(count)+'].baseid" value="" class="drug_item list_item"/><select><option value="select">Select</option></select>';
+			tableData.push( html );
+			tableData.push( '<input type="text" value="" placeholder="label claim amount" />' );
+			tableData.push( '<input type="checkbox" value=""/>' ); 
+			tableData.push( '<input type="checkbox" value=""/>' ); 
+			tableData.push( '<input type="checkbox" value=""/>' ); 
+			tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 
+			
+			dataTable.dataTable().fnAddData( tableData );
+			
+			$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				var targetrow = $(this).closest("tr");
+				var datatable = $(this).closest('.dataTable').dataTable();
+				targetrow.fadeOut( "75" ,function(){ 
+					datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
+				});
+			});
+	});
+	
 	
 	
 	

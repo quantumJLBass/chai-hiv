@@ -48,7 +48,7 @@
 						#end
 					#end
 					#if($k>1)
-						</tbody></table></div>
+						</tbody></table><a href="#" id="drug_interaction" class="button add_drPro" data-type="${dose.alias}">Add ${dose.alias} form</a></div>
 					#end
 					
 					
