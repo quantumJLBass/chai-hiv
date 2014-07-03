@@ -5,15 +5,11 @@
 	</li>				  
 #* dosing *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.dosing)
-		#feild_selectinput($type "dosing" $daval "" "taxed" "")
+		$Controller.feilds("select","$type","dosing", $!item.dosing , $dosings,"","","taxed","")
 	</li>				  
 #* dose_form *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.dose_form)
-		#feild_selectinput($type "dose_form" $daval $!dose_forms  "" "taxed" "")
+		$Controller.feilds("select","$type","dose_form", $!item.dose_form , $dose_forms,"","","taxed","")
 	</li>				  
 #* route_of_administration *#
 	<li>
