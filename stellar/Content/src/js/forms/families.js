@@ -419,97 +419,97 @@ $(document).ready(function() {
 		var alias=self.closest('.tabedItem').attr('alias');
 		var name=self.closest('.tabedItem').attr('name');
 		self.DataTable({ 
-				"bJQueryUI": true,
-				"sPaginationType": "full_numbers", 
-				"fnDrawCallback": function() {//(oSettings ) {
-					
-					
-					
-					if($("#" + id).find('.fg-toolbar .add_drPro').length<=0){
-						$("#" + id).find('.fg-toolbar.ui-widget-header:first').prepend('<a href="#" class="button add_drPro" style="float:left;">Add <i title="edit" class="icon-plus"></i></a>');
-					}
-					$("#" + id).find('.drpro_table .dataTables_empty').html('No '+name+' products available. <a href="#" class="add_drPro">Add <i title="edit" class="icon-plus"></i></a>');
-					$("#" + id).find('.add_drPro').off().on("click",function(e){
-						e.preventDefault();
-						e.stopPropagation();
-						add_drProTableRow(alias);
-					});
-					//make_datatable_popup_add(datatable);
-					
-					$("#" + id).find('.removal').off().on("click",function(e){
-						e.preventDefault();
-						e.stopPropagation();
-						var targetrow = $(this).closest("tr");
-						var datatable = $(this).closest('.dataTable').dataTable();
-						targetrow.fadeOut( "75" ,function(){ 
-							datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-							//targetrow.remove();
-						});
-					});
-	
-					
+			"bJQueryUI": true,
+			"sPaginationType": "full_numbers", 
+			"fnDrawCallback": function() {//(oSettings ) {
+				
+				
+				
+				if($("#" + id).find('.fg-toolbar .add_drPro').length<=0){
+					$("#" + id).find('.fg-toolbar.ui-widget-header:first').prepend('<a href="#" class="button add_drPro" style="float:left;">Add <i title="edit" class="icon-plus"></i></a>');
 				}
+				$("#" + id).find('.drpro_table .dataTables_empty').html('No '+name+' products available. <a href="#" class="add_drPro">Add <i title="edit" class="icon-plus"></i></a>');
+				$("#" + id).find('.add_drPro').off().on("click",function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					add_drProTableRow(alias);
+				});
+				//make_datatable_popup_add(datatable);
+				
+				$("#" + id).find('.removal').off().on("click",function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					var targetrow = $(this).closest("tr");
+					var datatable = $(this).closest('.dataTable').dataTable();
+					targetrow.fadeOut( "75" ,function(){ 
+						datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
+						//targetrow.remove();
+					});
+				});
+
+				
+			}
 		});	
 	});			
 	$('#add_lmic').on("click",function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		var dataTable = $('#LMICdata').find('.dataTable');
+		var tableData = [];
+		
+		var count = $("#LMICdata tbody select").length;
+		
+		var options=$('#dirty_options select').html();
+		
+		var html = '<input type="hidden" name="lmics['+(count)+'].id" value=""/><select name="lmics['+(count)+'].form">'+options+'</select>';
+		tableData.push( html );
+		tableData.push( '<input type="text" value="" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
+		tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_1l"/>' ); 
+		tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_2l"/>' ); 
+		tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_3l"/>' ); 
+		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+
+		
+		dataTable.dataTable().fnAddData( tableData );
+		
+		$("#LMICdata tbody .removal").off().on("click",function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			var dataTable = $('#LMICdata').find('.dataTable');
-			var tableData = [];
-			
-			var count = $("#LMICdata tbody select").length;
-			
-			var options=$('#dirty_options select').html();
-			
-			var html = '<input type="hidden" name="lmics['+(count)+'].id" value=""/><select name="lmics['+(count)+'].form">'+options+'</select>';
-			tableData.push( html );
-			tableData.push( '<input type="text" value="" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
-			tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_1l"/>' ); 
-			tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_2l"/>' ); 
-			tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_3l"/>' ); 
-			tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
-
-			
-			dataTable.dataTable().fnAddData( tableData );
-			
-			$("#LMICdata tbody .removal").off().on("click",function(e){
-				e.preventDefault();
-				e.stopPropagation();
-				var targetrow = $(this).closest("tr");
-				var datatable = $(this).closest('.dataTable').dataTable();
-				targetrow.fadeOut( "75" ,function(){ 
-					datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-				});
+			var targetrow = $(this).closest("tr");
+			var datatable = $(this).closest('.dataTable').dataTable();
+			targetrow.fadeOut( "75" ,function(){ 
+				datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
 			});
+		});
 	});
 	
 	$('#drug_interaction').on("click",function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		var dataTable = $('#ddi').find('.dataTable');
+		var tableData = [];
+		
+		var count = $("#ddi tbody select").length;
+		
+		var options=$('#dirty_options select').html();
+		
+		var html = '<input type="hidden" name="interactions['+(count)+'].id" value=""/><select name="interactions['+(count)+'].substance">'+options+'</select>';
+		tableData.push( html );
+		tableData.push( '<textarea placeholder="label claim amount" name="interactions['+(count)+'].descriptions"  rows="1"></textarea>' );
+		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+
+		
+		dataTable.dataTable().fnAddData( tableData );
+		
+		$("#ddi tbody .removal").off().on("click",function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			var dataTable = $('#ddi').find('.dataTable');
-			var tableData = [];
-			
-			var count = $("#ddi tbody select").length;
-			
-			var options=$('#dirty_options select').html();
-			
-			var html = '<input type="hidden" name="interactions['+(count)+'].id" value=""/><select name="interactions['+(count)+'].substance">'+options+'</select>';
-			tableData.push( html );
-			tableData.push( '<textarea placeholder="label claim amount" name="interactions['+(count)+'].descriptions"  rows="1"></textarea>' );
-			tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
-
-			
-			dataTable.dataTable().fnAddData( tableData );
-			
-			$("#ddi tbody .removal").off().on("click",function(e){
-				e.preventDefault();
-				e.stopPropagation();
-				var targetrow = $(this).closest("tr");
-				var datatable = $(this).closest('.dataTable').dataTable();
-				targetrow.fadeOut( "75" ,function(){ 
-					datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-				});
+			var targetrow = $(this).closest("tr");
+			var datatable = $(this).closest('.dataTable').dataTable();
+			targetrow.fadeOut( "75" ,function(){ 
+				datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
 			});
+		});
 	});
 		
 	

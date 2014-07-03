@@ -41,6 +41,6 @@
 				<th width="5%"></th>
 			</tr></tfoot>
 	</table>
-	<a href="#" id="drug_interaction" class="button add_to_list" data-type="drug_interaction">Add Drug Interaction</a>
+	<a href="#" id="drug_interaction" class="button" data-type="drug_interaction">Add Drug Interaction</a>
 	
 	
