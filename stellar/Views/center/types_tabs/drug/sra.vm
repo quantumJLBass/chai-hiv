@@ -1,9 +1,7 @@
 <ul class="grid col-one-half mq2-col-full full-input">
 	#* sra *#
 		<li>
-			#set($daval ="")
-				#set($daval = $!item.sra)
-			#feild_selectinput($type "sra" $daval $!sras  "" "taxed" "")
+			$Controller.feilds("select","$type","sra", $!item.sra , $sras,"","","taxed","")
 		</li>	
 	#* sra_approval_status *#
 		<li>
@@ -22,14 +20,11 @@
 					});
 				});
 			</script>
-			#set($daval ="")
-				#set($daval = $!item.sra_approval_status)
-			#feild_selectinput($type "sra_approval_status" $daval $!sra_approval_statuss  "" "" "")
+			$Controller.feilds("select","$type","sra_approval_status", $!item.sra_approval_status , $sra_approval_statuss,"","","","")
+			
 		#* sra_approval_date *#
 			 <div class="sra_approval_date" #if($!item.sra_approval_status!="approved")style="display:none;"#end >
-				#set($daval ="")
-				#set($daval = "$!{item.sra_approval_date}")
-				#feild_textinput("$type" "sra_approval_date" $daval "" "MM/DD/YYYY" "" " rel='date' ")
+				$Controller.feilds("textinput","$type","sra_approval_date", $!item.sra_approval_date ,"","MM/DD/YYYY",""," rel='date' ")
 			 </div>
 		</li>				  
 </ul>

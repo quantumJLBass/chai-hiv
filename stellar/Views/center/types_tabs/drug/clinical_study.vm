@@ -23,9 +23,9 @@
 		
 		
 		 <div class="clin_date" #if($!item.clin_phase_1!="Succeeded" && $!item.clin_phase_1!="Failed")style="display:none;"#end >
-			#set($daval ="")
-				#set($daval = $!item.clin_phase_1_date)
-			#feild_dateinput("$type" "clin_phase_1_date" $daval "Date" "MM/DD/YYYY" "" "")
+
+			$Controller.feilds("textinput","$type","clin_phase_1_date", $!item.clin_phase_1_date ,"Date","MM/DD/YYYY",""," rel='date' ")
+			
 		 </div>
 		 </div>
 	</li>				  
@@ -35,9 +35,9 @@
 		$Controller.feilds("select","$type","clin_phase_2", $!item.clin_phase_2 , "TBD,Failed,Succeeded,On going","","","","")
 		
 		 <div class="clin_date" #if($!item.clin_phase_2!="Succeeded" && $!item.clin_phase_2!="Failed")style="display:none;"#end >
-			#set($daval ="")
-				#set($daval = $!item.clin_phase_2_date)
-			 #feild_dateinput("$type" "clin_phase_2_date" $daval "Date" "MM/DD/YYYY" "" "")
+			 
+			 $Controller.feilds("textinput","$type","clin_phase_2_date", $!item.clin_phase_2_date ,"Date","MM/DD/YYYY",""," rel='date' ")
+			 
 		 </div>
 	</li>				  
 	#* clin_phase_3 *#
@@ -47,9 +47,10 @@
 		
 		
 		 <div class="clin_date" #if($!item.clin_phase_3!="Succeeded" && $!item.clin_phase_3!="Failed")style="display:none;"#end >
-			#set($daval ="")
-				#set($daval = $!item.clin_phase_3_date)
-			 #feild_dateinput("$type" "clin_phase_3_date" $daval "Date" "MM/DD/YYYY" "" "")
+
+			  $Controller.feilds("textinput","$type","clin_phase_3_date", $!item.clin_phase_3_date ,"Date","MM/DD/YYYY",""," rel='date' ")
+			 
+			 
 		 </div>
 	</li>				  
 </ul>
