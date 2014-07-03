@@ -30,8 +30,8 @@
 		<ul>
 			<li class="header">Drugs</li>
 			<li><a href="/center/families.castle" #if($page=="families"||$page=="family")class="navactive"#end>Families</a></li>
-			<li><a href="/center/drugs.castle" #if($page=="drugs"||$page=="drug")class="navactive"#end>Products</a></li>
 			<li><a href="/center/substances.castle" #if($page=="substances"||$page=="substance")class="navactive"#end>Substances</a></li>
+			<li><a href="/center/drugs.castle" #if($page=="drugs"||$page=="drug")class="navactive"#end>Products</a></li>
 		</ul>
 		<ul>
 			<li class="header">Assets</li>
