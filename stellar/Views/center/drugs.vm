@@ -24,15 +24,20 @@
 			#set($name = false)
 			#set($taxedname = false)
 			#set($manufacturer = false)
+			#set($fam_sub_code = "")
 		
 #capturefor(fam_sub_code)
+
 #foreach($part in  $item.families)
+
 #foreach($sub in  $part.substances)
 $sub.lab_code
 #between
 <em>:</em>
 #end
+
 #end
+
 #end	
 		
 		
@@ -43,7 +48,7 @@ $sub.lab_code
 				
 				<td>$!item.label_claim</td>
 			
-				<td>#if($fam_sub_code.trim()!="" && $item.attached) $!fam_sub_code #else <em><b>orphaned</b></em> #end</td>
+				<td>#if($!fam_sub_code.trim()!="" && $item.attached) $!fam_sub_code #else <em><b>orphaned</b></em> #end</td>
 				
 				#set($name = $item.get_named())
 				#set($taxedname = $!postingService.get_taxonomy($name).name)

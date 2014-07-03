@@ -522,34 +522,6 @@ namespace stellar.Controllers {
             PropertyBag["skiplayout"] = skiplayout;
             IList<drug_family> items = ActiveRecordBase<drug_family>.FindAll();
             
-            foreach (drug_family fam in items) {
-
-                IList<int> ids = new List<int>();
-                List<drug> drugs = new List<drug>();
-                foreach (drug drug in fam.drugs) {
-                    if (drug.attached == true) {
-                        if (!ids.Contains(drug.baseid)) {
-                            drug.families.Clear();
-                            
-                            ActiveRecordMediator<drug>.Save(drug);
-                            drug.families.Add(fam);
-                            ActiveRecordMediator<drug>.Save(drug);
-                            drugs.Add(drug);
-                            ids.Add(drug.baseid);
-                        }
-                    } else {
-                        ActiveRecordMediator<drug>.Delete(drug);
-                    }
-                }
-                fam.drugs.Clear();
-                fam.drugs = drugs;
-
-                ActiveRecordMediator<drug_family>.Delete(fam);
-
-            }
-
-
-
 
 
 
@@ -667,7 +639,9 @@ namespace stellar.Controllers {
             IList<int> ids = new List<int>();
             foreach (drug drug in drugs) {
                 if (drug.attached) {
-                    item.drugs.Add(drug);
+                    if (!item.drugs.Any(x => x.baseid == drug.baseid)) { 
+                        item.drugs.Add(drug);
+                    }
                 }
             }
 
