@@ -1,4 +1,4 @@
-<label for="Treatmentdata">Clinical Summary:</label>
+<label for="Treatmentdata">Clinical Trials:</label>
 <table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Treatmentdata" width="100%">
 	<thead>
 		<tr>

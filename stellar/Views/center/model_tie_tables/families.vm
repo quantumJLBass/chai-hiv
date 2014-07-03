@@ -1,5 +1,5 @@
 #if(!$skiplayout)
-	<label for="Drugdata">Drug Products:</label>
+	<label for="Drugdata">Drug Families:</label>
 	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Drugdata" width="100%">
 		<thead>
 			<tr>
