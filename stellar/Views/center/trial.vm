@@ -10,16 +10,17 @@
 
 		
 			
-			<ul class="grid col-one-half mq2-col-full full-input">
+
+			<ul class="grid col-one-full mq2-col-full full-input">
 				<li>
-#* number *#
-					$Controller.feilds("textinput","$type","number", $!item.number ,"Trial Number","","required","")
+#* title *#
+					$Controller.feilds("textinput","$type","title", $!item.title ,"Trial Title","","required","")
 				</li>	
 			</ul>
 			<ul class="grid col-one-half mq2-col-full full-input">
 				<li>
-#* title *#
-					$Controller.feilds("textinput","$type","title", $!item.title ,"Trial Title","","required","")
+#* number *#
+					$Controller.feilds("textinput","$type","number", $!item.number ,"Trial Number","","required","")
 				</li>	
 			</ul>
 

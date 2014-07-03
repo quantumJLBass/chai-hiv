@@ -35,6 +35,13 @@ $part.name => $part.alias
 				#set($daval = $!item.generic_name)
 				#feild_selectinput($type "generic_name" $daval $generic_names "" "taxed" "")
 			</li>
+			
+#* lab_code *#
+			<li>
+				<label>Abbreviation</label>
+				$Controller.feilds("textinput","$type","abbreviated", $!item.abbreviated ,"","","","")
+			</li>
+			
 #* lab_code *#
 			<li>
 				#set($daval ="")
