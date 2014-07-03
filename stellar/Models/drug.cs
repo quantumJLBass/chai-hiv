@@ -72,7 +72,7 @@ namespace stellar.Models {
             virtual public string sra_approval_date { get; set; }
         #endregion
 
-            #region(Dosing and Administration)
+        #region(Dosing and Administration)
             /// <summary> </summary>
             [Property(SqlType = "nvarchar(MAX)")]
             virtual public string label_claim { get; set; }
@@ -151,7 +151,7 @@ namespace stellar.Models {
             //virtual public string clin_phase_4 { get; set; }
         #endregion
 
-            /// <summary> </summary>
+        /// <summary> </summary>
         [HasAndBelongsToMany(typeof(trial), Lazy = true, Table = "trial_to_drugs", ColumnKey = "drug_id", ColumnRef = "trial_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
             virtual public IList<trial> trials { get; set; }
 
@@ -159,15 +159,9 @@ namespace stellar.Models {
         [HasAndBelongsToMany(typeof(clinical), Lazy = true, Table = "clinical_to_drugs", ColumnKey = "drug_id", ColumnRef = "clinical_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<clinical> clinicals { get; set; }
 
-
-
         /// <summary> </summary>
         [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "drug_to_drug_family", ColumnKey = "drug_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug_family> families { get; set; }
-
-
-
-
 
         /// <summary> </summary>
         virtual public String get_named() {
@@ -181,8 +175,5 @@ namespace stellar.Models {
 
 
     }
-
-
-
 
 }

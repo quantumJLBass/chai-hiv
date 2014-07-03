@@ -46,14 +46,6 @@ namespace stellar.Models {
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string mechanism_of_action { get; set; }
 
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string pro_drug { get; set; }
-
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string active_moiety { get; set; }
-
 
 
 
@@ -108,8 +100,35 @@ namespace stellar.Models {
         }
 
 
+        /// <summary> </summary>
+        [HasMany(typeof(substance_salt), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
+        virtual public IList<substance_salt> salts { get; set; }
 
 
+    }
+
+
+
+
+    /// <summary> </summary>
+    [ActiveRecord(Lazy = true, BatchSize = 5)]
+    public class substance_salt : ActiveRecordBase<substance_salt> {
+        /// <summary> </summary>
+        [PrimaryKey("salt_id")]
+        virtual public int id { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string pro_drug { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string active_moiety { get; set; }
+
+
+        /// <summary> </summary>
+        [BelongsTo]
+        virtual public substance substance { get; set; }
 
     }
 
