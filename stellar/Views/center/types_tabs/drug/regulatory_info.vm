@@ -21,9 +21,7 @@ $!part.lab_code
 		
 		#* common_name_or_abbreviation *#
 			<li>
-				#set($daval ="")
-				#set($daval = $!{item.common_name_or_abbreviation})
-				#feild_textinput("$type" "common_name_or_abbreviation" $daval "Colloquial name / abbreviation" "" "" "")
+				$Controller.feilds("textinput","$type","common_name_or_abbreviation", $!item.common_name_or_abbreviation ,"","Colloquial name / abbreviation","","")
 			</li>
 		
 		#* brand_name *#
@@ -34,9 +32,7 @@ $!part.lab_code
 			</li>				  
 		#* new_drug_code *#
 			<li>
-				#set($daval ="")
-				#set($daval = $!item.new_drug_code)
-				#feild_textinput("$type" "new_drug_code" $daval "" "" "" "")
+				$Controller.feilds("textinput","$type","new_drug_code", $!item.new_drug_code ,"","","","")
 			</li>				  
 		</ul>
 		<ul>			  
