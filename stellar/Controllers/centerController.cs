@@ -648,14 +648,19 @@ namespace stellar.Controllers {
 
             item.lmics.Clear();
             foreach (drug_lmic lmic in lmics) {
-                item.lmics.Add(lmic);
+                if (lmic.id == 0) {
+                    ActiveRecordMediator<drug_lmic>.Save(lmic);
+                }
+                if (!item.lmics.Contains(lmic)) {
+                    item.lmics.Add(lmic);
+                }
             }
 
-            item.markets.Clear();
+  /*          item.markets.Clear();
             foreach (drug_market market in markets) {
                 item.markets.Add(market);
             }
-
+            */
 
             //item.substances.Clear();
             /* for the expaned lookup table */

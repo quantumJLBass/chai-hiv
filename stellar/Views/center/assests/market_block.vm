@@ -2,24 +2,24 @@
   <article >
 	<ul class="grid col-one-half mq2-col-full full-input">
 	<input type="hidden" name="markets_counts[${i}]" class="list_item drug_item" value="${i}" />
-	<input type="hidden" name="markets[${i}].id" class="list_item drug_item" value="$!market.id" />
-	<input type="hidden" name="markets[${i}].year" value="$!market.year" />
+	<input type="hidden" name="item.markets[${i}].id" class="list_item drug_item" value="$!market.id" />
+	<input type="hidden" name="item.markets[${i}].year" value="$!market.year" />
 	
 #* chai_ceiling_price *#
 	<li>
 		<label for="chai_ceiling_price_${i}">CHAI ceiling price: <i class="icon-question-sign blue" title="Price per patient per year (pppy)"></i></label>
-		$ <input type="text" name="markets[${i}].chai_ceiling_price" id="chai_ceiling_price_${i}" placeholder="00.00" class="" value="$!market.chai_ceiling_price">
+		$ <input type="text" name="item.markets[${i}].chai_ceiling_price" id="chai_ceiling_price_${i}" placeholder="00.00" class="" value="$!market.chai_ceiling_price">
 	</li>				  			  
 #* patients_on_therapy *#
 	<li>
 		<label for="patients_on_therapy_${i}">Number of patients on therapy in LMIC:</label>
-		<input type="text" name="markets[${i}].patients_on_therapy" id="patients_on_therapy_${i}" placeholder="" class="" value="$!market.patients_on_therapy">
+		<input type="text" name="item.markets[${i}].patients_on_therapy" id="patients_on_therapy_${i}" placeholder="" class="" value="$!market.patients_on_therapy">
 	</li>				  
 	<li><hr/></li>
 #* source_one *#
 	<li>
 		<label for="source_one_${i}">Source One:</label>
-		<select name="markets[$i].source_one" id="source_one_$i" >
+		<select name="item.markets[$i].source_one" id="source_one_$i" >
 		  <option value="">Select</option>
 		  #set($val=$!market.source_one)
 		  <option #if($val=="PEPFAR")selected #end >PEPFAR</option>
@@ -31,14 +31,14 @@
 #* source_one *#
 	<li>
 		<label for="source_one_price_${i}">Source One price: <i class="icon-question-sign blue" title="Price per patient per year (pppy)"></i></label>
-		$ <input type="text" name="markets[${i}].source_one_price" id="source_one_price_${i}" placeholder="00.00" class="" value="$!market.source_one_price">
+		$ <input type="text" name="item.markets[${i}].source_one_price" id="source_one_price_${i}" placeholder="00.00" class="" value="$!market.source_one_price">
 	</li>  
 
 	<li><hr/></li>
 #* source_two *#
 	<li>
 		<label for="source_two_${i}">Source Two:</label>
-		<select name="markets[$i].source_two" id="source_two_$i" >
+		<select name="item.markets[$i].source_two" id="source_two_$i" >
 		  <option value="">Select</option>
 		  #set($val=$!market.source_two)
 		  <option #if($val=="PEPFAR")selected #end >PEPFAR</option>
@@ -50,7 +50,7 @@
 #* source_two *#
 	<li>
 		<label for="source_two_price_${i}">Source Two price: <i class="icon-question-sign blue" title="Price per patient per year (pppy)"></i></label>
-		$ <input type="text" name="markets[${i}].source_two_price" id="source_two_price_${i}" placeholder="00.00" class="" value="$!market.source_two_price">
+		$ <input type="text" name="item.markets[${i}].source_two_price" id="source_two_price_${i}" placeholder="00.00" class="" value="$!market.source_two_price">
 	</li>  
 	</ul>
   </article>

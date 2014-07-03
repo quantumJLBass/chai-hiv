@@ -461,12 +461,12 @@ $(document).ready(function() {
 		
 		var options=$('#dirty_options select').html();
 		
-		var html = '<input type="hidden" name="lmics['+(count)+'].id" value=""/><select name="lmics['+(count)+'].form">'+options+'</select>';
+		var html = '<input type="hidden" name="lmics['+(count)+'].id" value="0"/><select name="lmics['+(count)+'].form">'+options+'</select>';
 		tableData.push( html );
-		tableData.push( '<input type="text" value="" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
-		tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_1l"/>' ); 
-		tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_2l"/>' ); 
-		tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_3l"/>' ); 
+		tableData.push( '<input type="text" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
+		tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_1l"/>' ); 
+		tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_2l"/>' ); 
+		tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_3l"/>' ); 
 		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 
 		
@@ -490,10 +490,9 @@ $(document).ready(function() {
 		var tableData = [];
 		
 		var count = $("#ddi tbody select").length;
-		
 		var options="<option value=''>Select</option>";//$('#dirty_options select').html();
 		
-		var html = '<input type="hidden" name="interactions['+(count)+'].id" value=""/><select name="interactions['+(count)+'].substance">'+options+'</select>';
+		var html = '<input type="hidden" name="interactions['+(count)+'].id" value="0"/><select name="interactions['+(count)+'].substance">'+options+'</select>';
 		tableData.push( html );
 		tableData.push( '<textarea placeholder="Describe the interaction between the two drugs" name="interactions['+(count)+'].descriptions"  rows="1"></textarea>' );
 		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
