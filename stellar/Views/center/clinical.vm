@@ -104,8 +104,8 @@
 					#parse("center/model_tie_tables/treatment.vm")
 				</li>
 		  </ul>
-			#set($type="clinical")
-			#parse("center/ref.vm")
+			#*#set($type="clinical")
+			#parse("center/ref.vm")*#
 		#end
 		</article>
 	</form>
