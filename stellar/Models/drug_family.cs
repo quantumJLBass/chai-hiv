@@ -46,25 +46,26 @@ namespace stellar.Models {
         [HasAndBelongsToMany(typeof(drug), Lazy = true, Table = "drug_to_drug_family", ColumnKey = "drug_family_id", ColumnRef = "drug_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug> drugs { get; set; }
 
+
         /// <summary> </summary>
-        [HasAndBelongsToMany(typeof(drug_interaction), Lazy = true, Table = "drug_to_drug_interaction", ColumnKey = "drug_family_id", ColumnRef = "interaction_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        [HasMany(typeof(drug_market), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
+        virtual public IList<drug_market> markets { get; set; }
+
+        /// <summary> </summary>
+        [HasMany(typeof(drug_interaction), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
         virtual public IList<drug_interaction> interactions { get; set; }
 
         /// <summary> </summary>
-        [HasAndBelongsToMany(typeof(drug_lmic), Lazy = true, Table = "drug_family_to_drug_lmic", ColumnKey = "drug_family_id", ColumnRef = "lmic_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        [HasMany(typeof(drug_lmic), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
         virtual public IList<drug_lmic> lmics { get; set; }
 
-
-        /// <summary> </summary>
-        [HasAndBelongsToMany(typeof(drug_market), Lazy = true, Table = "drug_family_to_drug_market", ColumnKey = "drug_family_id", ColumnRef = "drug_market_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<drug_market> markets { get; set; }
 
     }
 
     /// <summary> </summary>
     [ActiveRecord(Lazy = true, BatchSize = 10)]
     public class family_substance : ActiveRecordBase<family_substance> {
-        private int ID;
+
         /// <summary> </summary>
         [PrimaryKey]
         virtual public int id { get; set; }
@@ -88,23 +89,26 @@ namespace stellar.Models {
 
     /// <summary> </summary>
     [ActiveRecord(Lazy = true, BatchSize = 5)]
-    public class drug_interaction : publish_base {
+    public class drug_interaction : ActiveRecordBase<drug_interaction> {
         /// <summary> </summary>
-        [JoinedKey("interaction_id")]
+        [PrimaryKey("interaction_id")]
         virtual public int id { get; set; }
 
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string descriptions { get; set; }
 
         /// <summary> </summary>
-        [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "drug_to_drug_interaction", ColumnKey = "interaction_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<drug_family> drugs { get; set; }
+        [BelongsTo]
+        drug_family drug_family { get; set; }
 
     }
 
     /// <summary> </summary>
     [ActiveRecord(Lazy = true, BatchSize = 5)]
-    public class drug_lmic : publish_base {
+    public class drug_lmic : ActiveRecordBase<drug_lmic> {
         /// <summary> </summary>
-        [JoinedKey("lmic_id")]
+        [PrimaryKey("lmic_id")]
         virtual public int id { get; set; }
 
         /// <summary> </summary>
@@ -119,9 +123,10 @@ namespace stellar.Models {
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string lmic_3l { get; set; }
 
+
         /// <summary> </summary>
-        [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "drug_family_to_drug_lmic", ColumnKey = "lmic_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<drug_family> drugs { get; set; }
+        [BelongsTo]
+        drug_family drug_family { get; set; }
 
     }
 
@@ -129,9 +134,9 @@ namespace stellar.Models {
 
     /// <summary> </summary>
     [ActiveRecord(Lazy = true, BatchSize = 5)]
-    public class drug_market : publish_base {
+    public class drug_market : ActiveRecordBase<drug_market> {
         /// <summary> </summary>
-        [JoinedKey("drug_market_id")]
+        [PrimaryKey("drug_market_id")]
         virtual public int id { get; set; }
 
 
@@ -164,9 +169,12 @@ namespace stellar.Models {
         virtual public string source_two_price { get; set; }
 
 
+
         /// <summary> </summary>
-        [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "drug_family_to_drug_market", ColumnKey = "drug_market_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<drug_family> drugs { get; set; }
+        [BelongsTo]
+        drug_family drug_family { get; set; }
+
+
 
     }
 }
