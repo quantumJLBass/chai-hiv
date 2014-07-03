@@ -21,6 +21,43 @@
 
 $(document).ready(function() {
 
+	$('#substances_disabled').on("click",function(e){
+		e.preventDefault();
+		e.stopPropagation();
+			if($("#substances_disabled_mess").length<=0){
+				$('body').append('<div id="substances_disabled_mess">');
+			}
+			$("#substances_disabled_mess").html( $(this).attr('title') );
+			$( "#substances_disabled_mess" ).dialog({
+				autoOpen: true,
+				resizable: false,
+				width: 350,
+				minHeight: 25,
+				modal: true,
+				draggable : false,
+				create:function(){
+					$('.ui-dialog-titlebar').remove();
+					//$(".ui-dialog-buttonpane").remove();
+					$('body').css({overflow:"hidden"});
+				},
+				open:function(){},
+				buttons:{
+					Ok:function(){
+						$( this ).dialog( "close" );
+					}
+				},
+				close: function() {
+					$('body').css({overflow:"auto"});
+					$( "#substances_disabled_mess" ).dialog( "destroy" );
+					$( "#substances_disabled_mess" ).remove();
+				}
+			});
+	});
+
+
+
+
+
 
 	$("#sortable").sortable({
 		handle: ".sortable_handle",

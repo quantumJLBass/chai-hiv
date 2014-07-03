@@ -521,7 +521,7 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             IList<drug_family> items = ActiveRecordBase<drug_family>.FindAll();
-
+            
             foreach (drug_family fam in items) {
 
                 IList<int> ids = new List<int>();
@@ -554,6 +554,8 @@ namespace stellar.Controllers {
 
 
 
+            IList<substance> subitems = ActiveRecordBase<substance>.FindAll();
+            PropertyBag["substance_count"] = subitems.Where(x => !x.tmp && !x.deleted).Count();
 
 
             PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
@@ -583,23 +585,26 @@ namespace stellar.Controllers {
             if (id > 0) {
                 drug_family fam = ActiveRecordBase<drug_family>.Find(id);
 
-                IList<int> ids = new List<int>();
-                List<drug> drugs = new List<drug>();
-                foreach (drug drug in fam.drugs) {
-                    if (drug.attached == true) {
-                        if (!ids.Contains(drug.baseid)) {
-                            drug.families.Clear();
-                            drug.families.Add(fam);
-                            ActiveRecordMediator<drug>.Save(drug);
-                            drugs.Add(drug);
-                            ids.Add(drug.baseid);
+
+                if (fam.drugs!=null){
+                    IList<int> ids = new List<int>();
+                    List<drug> drugs = new List<drug>();
+                    foreach (drug drug in fam.drugs) {
+                        if (drug.attached == true) {
+                            if (!ids.Contains(drug.baseid)) {
+                                drug.families.Clear();
+                                drug.families.Add(fam);
+                                ActiveRecordMediator<drug>.Save(drug);
+                                drugs.Add(drug);
+                                ids.Add(drug.baseid);
+                            }
+                        } else {
+                            ActiveRecordMediator<drug>.Delete(drug);
                         }
-                    } else {
-                        ActiveRecordMediator<drug>.Delete(drug);
                     }
+                    fam.drugs.Clear();
+                    fam.drugs = drugs;
                 }
-                fam.drugs.Clear();
-                fam.drugs = drugs;
                 ActiveRecordMediator<drug_family>.Save(fam);
 
                 PropertyBag["item"] = fam;
