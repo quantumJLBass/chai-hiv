@@ -78,7 +78,7 @@ $(document).ready(function() {
 				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-lab_code='"+v.lab_code+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.lab_code+" )<br/></span>";
 				}
 			});
-			if(html == ""){
+			if(html === ""){
 				html = "There are no substances to use.";	
 			}
 			if($("#substances_list").length<=0){
@@ -261,7 +261,7 @@ $(document).ready(function() {
 				});
 			},
 			buttons:{
-				Ok:function(){
+				Close:function(){
 					$( this ).dialog( "close" );
 				}
 			},
