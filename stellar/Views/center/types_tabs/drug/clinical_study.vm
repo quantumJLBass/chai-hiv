@@ -18,9 +18,10 @@
 			});
 		</script>
 		<div class="clin_date">
-		#set($daval ="")
-				#set($daval = $!item.clin_phase_1)
-		#feild_selectinput($type "clin_phase_1" $daval "TBD,Failed,Succeeded,On going" "" "" "")
+
+			$Controller.feilds("select","$type","clin_phase_1", $!item.clin_phase_1 , "TBD,Failed,Succeeded,On going","","","","")
+		
+		
 		 <div class="clin_date" #if($!item.clin_phase_1!="Succeeded" && $!item.clin_phase_1!="Failed")style="display:none;"#end >
 			#set($daval ="")
 				#set($daval = $!item.clin_phase_1_date)
@@ -30,9 +31,9 @@
 	</li>				  
 	#* clin_phase_2 *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.clin_phase_2)
-		#feild_selectinput($type "clin_phase_2" $daval "TBD,Failed,Succeeded,On going" "" "" "")
+		
+		$Controller.feilds("select","$type","clin_phase_2", $!item.clin_phase_2 , "TBD,Failed,Succeeded,On going","","","","")
+		
 		 <div class="clin_date" #if($!item.clin_phase_2!="Succeeded" && $!item.clin_phase_2!="Failed")style="display:none;"#end >
 			#set($daval ="")
 				#set($daval = $!item.clin_phase_2_date)
@@ -41,9 +42,10 @@
 	</li>				  
 	#* clin_phase_3 *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.clin_phase_3)
-		#feild_selectinput($type "clin_phase_3" $daval "TBD,Failed,Succeeded,On going" "" "" "")
+
+		$Controller.feilds("select","$type","clin_phase_3", $!item.clin_phase_3 , "TBD,Failed,Succeeded,On going","","","","")
+		
+		
 		 <div class="clin_date" #if($!item.clin_phase_3!="Succeeded" && $!item.clin_phase_3!="Failed")style="display:none;"#end >
 			#set($daval ="")
 				#set($daval = $!item.clin_phase_3_date)
