@@ -458,12 +458,15 @@ $(document).ready(function() {
 			var tableData = [];
 			
 			var count = $(".drug_item.list_item").length;
-			var html = '<input type="hidden" name="drugs['+(count)+'].baseid" value="" class="drug_item list_item"/><select><option value="select">Select</option></select>';
+			
+			var options=$('#dirty_options select').html();
+			
+			var html = '<input type="hidden" name="item.lmics['+(count)+'].id" value="0"/><select name="item.lmics['+(count)+'].form"><option value="select">Select</option>'+options+'</select>';
 			tableData.push( html );
-			tableData.push( '<input type="text" value="" placeholder="label claim amount" />' );
-			tableData.push( '<input type="checkbox" value=""/>' ); 
-			tableData.push( '<input type="checkbox" value=""/>' ); 
-			tableData.push( '<input type="checkbox" value=""/>' ); 
+			tableData.push( '<input type="text" value="" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
+			tableData.push( '<input type="checkbox" value="1" name="item.lmics['+(count)+'].lmic_1l"/>' ); 
+			tableData.push( '<input type="checkbox" value="1" name="item.lmics['+(count)+'].lmic_2l"/>' ); 
+			tableData.push( '<input type="checkbox" value="1" name="item.lmics['+(count)+'].lmic_3l"/>' ); 
 			tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 
 			

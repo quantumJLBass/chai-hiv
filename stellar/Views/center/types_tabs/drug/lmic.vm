@@ -16,8 +16,12 @@
 				<th width="5%"></th>
 			</tr>
 		</thead>
+		<div id="dirty_options" style="display:none;">
+		$Controller.feilds("select","$type","", "", $dose_forms, "","","","")
+		
+		</div>
 		<tbody>
-				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
+				<!--<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
 					<td>$Controller.feilds("select","$type","", "", $dose_forms, "","","","")</td>
 					<td>$Controller.feilds("textinput","$type","atm", $!item.atm ,"","label claim amount","","")</td>
 					<td data-order="1"><input type="checkbox" value=""/></td>
@@ -40,18 +44,28 @@
 					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
 					#end
 					</td>
-				</tr>
+				</tr>-->
 			#foreach($part in $item.interactions)
+
 				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
-					<td>val 1</td>
-					<td>asdfas sadf asdsadg sad asdg sadg asdg sdg sdg</td>
+					<td>
+					<input type="hidden" name="item.lmics[${velocityCount}].id" value="$!part.id"/>
+					$Controller.feilds("select","$type","item.lmics[${velocityCount}].form", $!part.form, $dose_forms, "","","","")</td>
+					<td>$Controller.feilds("textinput","$type","item.lmics[${velocityCount}].amount", $!part.amount ,"","label claim amount","","")</td>
+					<td data-order="0"><input type="checkbox" name="item.lmics[${velocityCount}].lmic_1l" value="1" #if($!part.amount==1) checked #end/></td>
+					<td data-order="1"><input type="checkbox" name="item.lmics[${velocityCount}].lmic_2l" value="1" #if($!part.amount==1) checked #end/></td>
+					<td data-order="0"><input type="checkbox" name="item.lmics[${velocityCount}].lmic_3l" value="1" #if($!part.amount==1) checked #end/></td>
 					<td>
 					#if($viewonly) #else
-					<a href="ddi.castle?id=$item.baseid&skiplayout=1" class="button small inline_edit"  data-type="drug"><i class="icon-edit" title="Edit"></i></a> | 
 					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
 					#end
 					</td>
 				</tr>
+				
+				
+				
+				
+				
 			#end
 		</tbody>
 		<tfoot>			<tr>

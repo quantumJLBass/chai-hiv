@@ -113,6 +113,14 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string form { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string amount { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
         virtual public string lmic_1l { get; set; }
 
         /// <summary> </summary>
@@ -122,7 +130,6 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string lmic_3l { get; set; }
-
 
         /// <summary> </summary>
         [BelongsTo]
