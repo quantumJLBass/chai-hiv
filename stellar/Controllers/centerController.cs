@@ -1663,7 +1663,9 @@ namespace stellar.Controllers {
             if (custom_lable != "") {
                 lable = custom_lable + ": ";
             }
-
+            if (String.IsNullOrWhiteSpace(html_attr)) {
+                html_attr = " rel='' ";
+            }
             if (is_viewonly()) {
                 html = "<label >" + lable + field_helper + "</label> " + value;
             } else {
