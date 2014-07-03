@@ -1,9 +1,7 @@
 <ul class="grid col-one-half mq2-col-full full-input">				  
 #* label_claim *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.label_claim)
-		#feild_textinput("$type" "label_claim" $daval "" "" "" "")
+		$Controller.feilds("textinput","$type","label_claim", $!item.label_claim ,"","","","")
 	</li>				  
 #* dosing *#
 	<li>
@@ -19,21 +17,15 @@
 	</li>				  
 #* route_of_administration *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.route_of_administration)
-		#feild_textinput("$type" "route_of_administration" $daval "" "" "" "")
+		$Controller.feilds("textinput","$type","route_of_administration", $!item.route_of_administration ,"","","","")
 	</li>
 #* frequency *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.frequency)
-		#feild_selectinput($type "frequency" $daval $!frequencys  "" "taxed" "")
+		$Controller.feilds("select","$type","frequency", $!item.frequency , $frequencys,"","","taxed","")
 	</li>
 #* pill_burden *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.pill_burden)
-		#feild_textinput("$type" "pill_burden" $daval "" "" "" "")
+		$Controller.feilds("textinput","$type","pill_burden", $!item.pill_burden ,"","","","")
 	</li>
 </ul>
 
@@ -51,26 +43,18 @@
 	</li>				  
 #* alternative_indications *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.alternative_indications)
-		#feild_textinput("$type" "alternative_indications" $daval "" "(Hep B, etc.)" "" "")
+		$Controller.feilds("textinput","$type","alternative_indications", $!item.alternative_indications ,"","(Hep B, etc.)","","")
 	</li>				  
 #* special_considerations *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.special_considerations)
-		#feild_textinput("$type" "special_considerations" $daval "" "(w/food, dietary restrictions, etc.)" "" "")
+		$Controller.feilds("textinput","$type","special_considerations", $!item.special_considerations ,"","(w/food, dietary restrictions, etc.)","","")
 	</li>				  
 #* special_populations *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.special_populations)
-		#feild_textinput("$type" "special_populations" $daval "" "(TB patients, pregnant women, etc.)" "" "")
+		$Controller.feilds("textinput","$type","special_populations", $!item.special_populations ,"","(TB patients, pregnant women, etc.)","","")
 	</li>				  
 #* storage_condition *#
 	<li>
-		#set($daval ="")
-				#set($daval = $!item.storage_condition)
-		#feild_textinput("$type" "storage_condition" $daval "" "storage conditions as listed on label or literature" "" "")
+		$Controller.feilds("textinput","$type","storage_condition", $!item.storage_condition ,"","storage conditions as listed on label or literature","","")
 	</li>
 </ul>

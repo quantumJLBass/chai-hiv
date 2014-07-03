@@ -63,7 +63,7 @@ $part.name => $part.alias
 			</li>
 
 #* pro_drug *#
-			<li>
+#*			<li>
 				<script>
 				$(function() {
 					$("#pro_drug").on("change",function(){
@@ -85,6 +85,46 @@ $part.name => $part.alias
 					#feild_textinput("$type" "active_moiety" $daval "" "" "" "")
 				</div>
 			</li>
+*#
+
+			<li>
+<label for="Saltdata">Salts:</label>
+<table cellpadding="0" cellspacing="0" border="0" class="salt_table display datagrid" id="Saltdata" width="100%">
+<thead><tr><th>pro_drug</th><th>Active Moiety</th><th>Active Metabolites</th><th>Actions</th></tr></thead>
+<tfoot><tr><th></th><th></th><th></th><th></th></tr></tfoot>
+<tbody></tbody>
+</table>
+<a href="#" class="button add_to_list" data-type="substance_salt"><i class="icon-plus blue" title="Add"></i> Add Salt</a>			
+			
+				<!--
+				<script>
+				$(function() {
+					$("#pro_drug").on("change",function(){
+						var val=$("#pro_drug :selected").val();
+						if(val=="Yes"){
+							$("#active_moiety_area").show();
+						}else{
+							$("#active_moiety_area input").val("");
+							$("#active_moiety_area").hide();
+						}
+					});
+				});
+				</script>
+				#set($daval ="")
+				#set($daval = $!item.pro_drug)
+				#feild_selectinput($type "pro_drug" $daval "Yes,No" "" "" "")
+				<div id="active_moiety_area" #if($!item.pro_drug!="Yes")style="display:none;"#end>
+					#set($daval = $!item.active_moiety)
+					#feild_textinput("$type" "active_moiety" $daval "" "" "" "")
+				</div>
+				-->
+			</li>
+
+
+
+
+
+
 
 #* metabolites *#
 			<li>
