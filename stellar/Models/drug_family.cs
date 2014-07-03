@@ -100,7 +100,7 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [BelongsTo]
-        drug_family drug_family { get; set; }
+        virtual public drug_family drug_family { get; set; }
 
     }
 
@@ -126,7 +126,7 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [BelongsTo]
-        drug_family drug_family { get; set; }
+        virtual public drug_family drug_family { get; set; }
 
     }
 
@@ -172,7 +172,7 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [BelongsTo]
-        drug_family drug_family { get; set; }
+        virtual public drug_family drug_family { get; set; }
 
 
 

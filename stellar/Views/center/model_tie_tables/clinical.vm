@@ -5,7 +5,7 @@
 			<th width="15%">ID</th>
 			<th>Name</th>
 			<th>Drug</th>
-			<th width="20%">Actions</th>
+			<th width="20%">ACTIONS</th>
 		</tr>
 	</thead>
 	<tbody>

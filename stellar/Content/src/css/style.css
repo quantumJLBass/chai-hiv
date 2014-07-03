@@ -802,12 +802,33 @@ select option.add:hover{ background-color:#6F3;border:1px inset #666;font-style:
 
 
 
+#DDIdata td select{
+	
+}
+#DDIdata tbody td{ padding:0px; }
+
+#DDIdata tbody tr td:nth-child(1) { vertical-align: middle; }
+#DDIdata tbody td select{ width:100%; }
+
+#DDIdata td textarea{
+	background-color:transparent;
+	border:none;
+	padding: 0 3px;
+	height:auto;
+	min-height: 25px;
+	max-height:150px;
+	overflow-y:auto;
+}
 
 
 
-
-
-
+#DDIdata td textarea:hover{
+	background-color:#D3EAF0;
+	border:1px solid #6A6A6A;
+}
+#DDIdata td textarea:focus{
+	background-color: #F0F0F0;
+}
 
 
 

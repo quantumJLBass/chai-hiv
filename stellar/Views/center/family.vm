@@ -147,8 +147,9 @@ $part.lab_code
 			<ul class="tabs clearfix">
 			  <li><a href="#lmic">LMIC Regimen Use</a></li>
 			  <li><a href="#ddi">DDI</a></li>
-			  <li><a href="#market">Market</a></li>
 			  <li><a href="#drug_products">Drugs</a></li>
+			  <li><a href="#market">Market</a></li>
+			  
 			</ul>
 			<div class="tab_container">
 #* *#
@@ -162,7 +163,7 @@ $part.lab_code
 #* *#
 #* ddi ------------ *#
 #* *#
-			  <article id="tab4" class="tab_content">
+			  <article id="ddi" class="tab_content">
 				$Controller.notes("$type","ddi","top")
 			  	#parse("center/types_tabs/drug/ddi.vm")
 				$Controller.notes("$type","ddi","bottom")
