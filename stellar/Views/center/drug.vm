@@ -138,9 +138,7 @@ $sub.lab_code
 				<ul class="tabs clearfix">
 					<li><a href="#regulatory_info">Regulatory Information</a></li>
 					<li><a href="#dosing_admin">Dosing & Administration</a></li>
-					#*<li><a href="#lmic">LMIC Regimen Use</a></li>*#
 					<li><a href="#clinical_study">Clinical Study</a></li>
-					#*<li><a href="#tab5">Market</a></li>*#
 					<li><a href="#sra">SRA</a></li>
 				</ul>
 				<div class="tab_container">
@@ -161,16 +159,8 @@ $sub.lab_code
 						#parse("center/types_tabs/drug/dosing_admin.vm")
 						$Controller.notes("$type","dosing_administration","bottom")
 					</article>
-#*
-#* *#
-#* lmic ------------ *#
-#* *#
-					  <article id="lmic" class="tab_content">
-						$Controller.notes("$type","lmic_regimen_use","top")
-						#parse("center/types_tabs/drug/lmic.vm")
-						$Controller.notes("$type","lmic_regimen_use","bottom")
-					  </article>
-*#
+
+
 #* *#
 #* clinical_study ------------ *#
 #* *#
@@ -179,16 +169,8 @@ $sub.lab_code
 						#parse("center/types_tabs/drug/clinical_study.vm")
 						$Controller.notes("$type","clinical_study","bottom")
 					  </article>
-#*			  
-#* *#
-#* tab5 ------------ *#
-#* *#
-					  <article id="tab5" class="tab_content">
-						$Controller.notes("$type","market","top")	
-						#parse("center/types_tabs/drug/tab5.vm")
-						$Controller.notes("$type","market","bottom")			
-					  </article>
-*#
+
+
 #* *#
 #* sra ------------ *#
 #* *#
