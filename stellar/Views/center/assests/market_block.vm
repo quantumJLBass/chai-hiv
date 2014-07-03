@@ -2,7 +2,7 @@
   <article >
 	<ul class="grid col-one-half mq2-col-full full-input">
 	<input type="hidden" name="markets_counts[${i}]" class="list_item drug_item" value="${i}" />
-	<input type="hidden" name="markets[${i}].baseid" class="list_item drug_item" value="$!market.baseid" />
+	<input type="hidden" name="markets[${i}].id" class="list_item drug_item" value="$!market.id" />
 	<input type="hidden" name="markets[${i}].year" value="$!market.year" />
 	
 #* chai_ceiling_price *#

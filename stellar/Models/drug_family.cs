@@ -96,6 +96,10 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string substance { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
         virtual public string descriptions { get; set; }
 
         /// <summary> </summary>

@@ -13,7 +13,7 @@
 			</tr>
 		</thead>
 		<tbody>
-				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
+			<!--	<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
 					<td>$Controller.feilds("select","$type","with", "with" , "With","","","","")</td>
 					<td>$Controller.feilds("textarea","$type","discription", "sadg dl ksdisnle slnvfoslencvsk sdodlksdn" ,"","",""," rows='1' ")</td>
 					<td>
@@ -21,11 +21,11 @@
 					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
 					#end
 					</td>
-				</tr>
+				</tr>-->
 			#foreach($part in $item.interactions)
 				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
-					<td>val 1</td>
-					<td>asdfas sadf asdsadg sad asdg sadg asdg sdg sdg</td>
+					<td> </td>
+					<td> </td>
 					<td>
 					#if($viewonly) #else
 					<a href="ddi.castle?id=$item.baseid&skiplayout=1" class="button small inline_edit"  data-type="drug"><i class="icon-edit" title="Edit"></i></a> | 

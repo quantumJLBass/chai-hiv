@@ -457,22 +457,22 @@ $(document).ready(function() {
 			var dataTable = $('#LMICdata').find('.dataTable');
 			var tableData = [];
 			
-			var count = $(".drug_item.list_item").length;
+			var count = $("#LMICdata tbody select").length;
 			
 			var options=$('#dirty_options select').html();
 			
-			var html = '<input type="hidden" name="item.lmics['+(count)+'].id" value="0"/><select name="item.lmics['+(count)+'].form"><option value="select">Select</option>'+options+'</select>';
+			var html = '<input type="hidden" name="lmics['+(count)+'].id" value=""/><select name="lmics['+(count)+'].form">'+options+'</select>';
 			tableData.push( html );
 			tableData.push( '<input type="text" value="" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
-			tableData.push( '<input type="checkbox" value="1" name="item.lmics['+(count)+'].lmic_1l"/>' ); 
-			tableData.push( '<input type="checkbox" value="1" name="item.lmics['+(count)+'].lmic_2l"/>' ); 
-			tableData.push( '<input type="checkbox" value="1" name="item.lmics['+(count)+'].lmic_3l"/>' ); 
+			tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_1l"/>' ); 
+			tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_2l"/>' ); 
+			tableData.push( '<input type="checkbox" value="1" name="lmics['+(count)+'].lmic_3l"/>' ); 
 			tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 
 			
 			dataTable.dataTable().fnAddData( tableData );
 			
-			$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
+			$("#LMICdata tbody .removal").off().on("click",function(e){
 				e.preventDefault();
 				e.stopPropagation();
 				var targetrow = $(this).closest("tr");
@@ -483,7 +483,35 @@ $(document).ready(function() {
 			});
 	});
 	
-	
+	$('#drug_interaction').on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			var dataTable = $('#ddi').find('.dataTable');
+			var tableData = [];
+			
+			var count = $("#ddi tbody select").length;
+			
+			var options=$('#dirty_options select').html();
+			
+			var html = '<input type="hidden" name="interactions['+(count)+'].id" value=""/><select name="interactions['+(count)+'].substance">'+options+'</select>';
+			tableData.push( html );
+			tableData.push( '<textarea placeholder="label claim amount" name="interactions['+(count)+'].descriptions"  rows="1"></textarea>' );
+			tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+
+			
+			dataTable.dataTable().fnAddData( tableData );
+			
+			$("#ddi tbody .removal").off().on("click",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				var targetrow = $(this).closest("tr");
+				var datatable = $(this).closest('.dataTable').dataTable();
+				targetrow.fadeOut( "75" ,function(){ 
+					datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
+				});
+			});
+	});
+		
 	
 	
 });

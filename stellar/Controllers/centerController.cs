@@ -616,6 +616,9 @@ namespace stellar.Controllers {
             [ARDataBind("substances", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance[] substances,
 
             [ARDataBind("drugs", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug[] drugs,
+            [ARDataBind("lmics", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_lmic[] lmics,
+            [ARDataBind("markets", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_market[] markets,
+
 
             Boolean ajaxed_update,
             Boolean forced_tmp,
@@ -635,8 +638,6 @@ namespace stellar.Controllers {
 
 
             item.drugs.Clear();
-
-            IList<int> ids = new List<int>();
             foreach (drug drug in drugs) {
                 if (drug.attached) {
                     if (!item.drugs.Any(x => x.baseid == drug.baseid)) { 
@@ -645,31 +646,13 @@ namespace stellar.Controllers {
                 }
             }
 
+            item.lmics.Clear();
+            foreach (drug_lmic lmic in lmics) {
+                item.lmics.Add(lmic);
+            }
 
             item.markets.Clear();
-            String[] keys = HttpContext.Current.Request.Params.AllKeys.Where(x => x.StartsWith("markets_counts[")).ToArray();
-            for (int i = 1; i <= keys.Count(); i++) {
-                String param_id = HttpContext.Current.Request.Form["markets_counts[" + i + "]"];
-                String baseid = HttpContext.Current.Request.Form["markets[" + param_id + "].baseid"];
-                String year = HttpContext.Current.Request.Form["markets[" + param_id + "].year"];
-                String chai_ceiling_price = HttpContext.Current.Request.Form["markets[" + param_id + "].chai_ceiling_price"];
-                String patients_on_therapy = HttpContext.Current.Request.Form["markets[" + param_id + "].patients_on_therapy"];
-                String source_one = HttpContext.Current.Request.Form["markets[" + param_id + "].source_one"];
-                String source_one_price = HttpContext.Current.Request.Form["markets[" + param_id + "].source_one_price"];
-                String source_two = HttpContext.Current.Request.Form["markets[" + param_id + "].source_two"];
-                String source_two_price = HttpContext.Current.Request.Form["markets[" + param_id + "].source_two_price"];
-
-                drug_market market = new drug_market() {
-                    year = year,
-                    chai_ceiling_price = chai_ceiling_price,
-                    patients_on_therapy = patients_on_therapy,
-                    source_one = source_one,
-                    source_one_price = source_one_price,
-                    source_two = source_two,
-                    source_two_price = source_two_price
-                };
-
-                ActiveRecordMediator<drug_market>.Save(market);
+            foreach (drug_market market in markets) {
                 item.markets.Add(market);
             }
 

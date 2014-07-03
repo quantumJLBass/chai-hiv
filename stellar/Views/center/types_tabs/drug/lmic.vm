@@ -21,51 +21,22 @@
 		
 		</div>
 		<tbody>
-				<!--<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
-					<td>$Controller.feilds("select","$type","", "", $dose_forms, "","","","")</td>
-					<td>$Controller.feilds("textinput","$type","atm", $!item.atm ,"","label claim amount","","")</td>
-					<td data-order="1"><input type="checkbox" value=""/></td>
-					<td data-order="0"><input type="checkbox" value=""/></td>
-					<td data-order="1"><input type="checkbox" value=""/></td>
-					<td>
-					#if($viewonly) #else
-					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
-					#end
-					</td>
-				</tr>
-				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
-					<td>$Controller.feilds("select","$type","", "", $dose_forms, "","","","")</td>
-					<td>$Controller.feilds("textinput","$type","atm", $!item.atm ,"","label claim amount","","")</td>
-					<td data-order="0"><input type="checkbox" value=""/></td>
-					<td data-order="1"><input type="checkbox" value=""/></td>
-					<td data-order="0"><input type="checkbox" value=""/></td>
-					<td>
-					#if($viewonly) #else
-					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
-					#end
-					</td>
-				</tr>-->
-			#foreach($part in $item.interactions)
+			#foreach($part in $item.lmics)
 
-				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
+				<tr class="#if($velocityCount%2<1)even #else odd #end "  data-baseid="$part.id">
 					<td>
-					<input type="hidden" name="item.lmics[${velocityCount}].id" value="$!part.id"/>
-					$Controller.feilds("select","$type","item.lmics[${velocityCount}].form", $!part.form, $dose_forms, "","","","")</td>
-					<td>$Controller.feilds("textinput","$type","item.lmics[${velocityCount}].amount", $!part.amount ,"","label claim amount","","")</td>
-					<td data-order="0"><input type="checkbox" name="item.lmics[${velocityCount}].lmic_1l" value="1" #if($!part.amount==1) checked #end/></td>
-					<td data-order="1"><input type="checkbox" name="item.lmics[${velocityCount}].lmic_2l" value="1" #if($!part.amount==1) checked #end/></td>
-					<td data-order="0"><input type="checkbox" name="item.lmics[${velocityCount}].lmic_3l" value="1" #if($!part.amount==1) checked #end/></td>
+					<input type="hidden" name="lmics[${velocityCount}].id" value="$!part.id"/>
+					$Controller.feilds("select","$type","lmics[${velocityCount}].form", $!part.form, $dose_forms, "","","","")</td>
+					<td>$Controller.feilds("textinput","$type","lmics[${velocityCount}].amount", $!part.amount ,"","label claim amount","","")</td>
+					<td data-order="0"><input type="checkbox" name="lmics[${velocityCount}].lmic_1l" value="1" #if($!part.amount==1) checked #end/></td>
+					<td data-order="1"><input type="checkbox" name="lmics[${velocityCount}].lmic_2l" value="1" #if($!part.amount==1) checked #end/></td>
+					<td data-order="0"><input type="checkbox" name="lmics[${velocityCount}].lmic_3l" value="1" #if($!part.amount==1) checked #end/></td>
 					<td>
 					#if($viewonly) #else
 					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
 					#end
 					</td>
 				</tr>
-				
-				
-				
-				
-				
 			#end
 		</tbody>
 		<tfoot>			<tr>
