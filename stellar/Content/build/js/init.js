@@ -1047,6 +1047,14 @@ $(document).ready(function() {
 	});
 })(jQuery);
 // JavaScript Document
+// JavaScript Document
+$(document).ready(function() {
+	$(".trial_arm_form").on("click",function(){
+		
+		
+	});
+
+});
 (function($) {
 	
 	function moa_dmpk_setup(){
