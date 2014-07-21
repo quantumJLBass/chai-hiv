@@ -31,6 +31,10 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string abbreviated { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
         virtual public string lab_code { get; set; }
 
         /// <summary> </summary>
