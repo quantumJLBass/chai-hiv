@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 				'src/js/forms/families.js',
 				'src/js/forms/markets.js',
 				'src/js/forms/reports.js',
+				'src/js/forms/trail.js',
 				'src/js/init.js',
 				'build/js/init.js'
 			],
@@ -39,6 +40,7 @@ module.exports = function(grunt) {
 					'src/js/forms/families.js',
 					'src/js/forms/markets.js',
 					'src/js/forms/reports.js',
+					'src/js/forms/trail.js',
 					'src/js/init.js'
 				],
 				dest: 'build/js/init.js',
