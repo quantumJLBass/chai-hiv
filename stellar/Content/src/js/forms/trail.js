@@ -32,11 +32,14 @@ $(document).ready(function() {
 
 						$( "#mess" ).dialog( "destroy" );
 						$( "#mess" ).remove();
-						//setup_tabs();
+						setup_tabs();
 						
 						$('body').css({overflow:"hidden"});
 						$(".ui-dialog-buttonpane").remove();
-
+						make_maskes();
+						moa_dmpk_setup();
+						apply_tax_request();
+						apply_taxed_add();
 	
 						$(".popuptab").off().on("click",function(e){
 							e.preventDefault();
@@ -49,6 +52,27 @@ $(document).ready(function() {
 							$(id).show();	
 							
 						});
+						
+						$("#trial_arm_form [type='submit']").on("click",function(e){
+							
+							var form = $(this).closest("form");
+							if (form.find(':invalid').length<=0) {
+								e.preventDefault();
+								e.stopPropagation();
+								popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i>Saving...</span>',true);
+								$.post(form.attr("action")+"?skiplayout=1&ajaxed_update=1",form.serialize(),function(){//(data){
+									//var parts= data.split(',');
+									$( "#mess" ).dialog( "destroy" );
+									$( "#mess" ).remove();
+									$( "#trial_arm_form" ).dialog( "destroy" );
+									$( "#trial_arm_form" ).remove();
+									//$(".add_to_list[data-type='"+type+"']").trigger("click");
+								});
+							}/*else{
+								popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i>Saving...</span>',false);	
+							}*/
+						});	
+						
 						//set_up_form(type,inlist,use);
 						//activate_adverse_ui();
 					},

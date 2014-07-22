@@ -158,6 +158,95 @@ function make_maskes(){
 	$( "label i[title]" ).tooltip();
 	$( '[type="date"],[rel="date"]' ).datepicker();
 }
+
+function setup_tabs(){
+	var tabContents = $(".tab_content").hide(), 
+	    tabs = $("ul.tabs li");
+	tabs.addClass("tabed");
+	tabs.first().addClass("active").show();
+	tabContents.first().show();
+	
+	tabs.on("click",function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	    var $this = $(this), 
+	        activeTab = $this.find('a').attr('href');
+	    
+	    if(!$this.hasClass('active')){
+	        $this.addClass('active').siblings().removeClass('active');
+	        tabContents.hide().filter(activeTab).fadeIn();
+	    }
+	    return false;
+	});	
+	
+	$( ".uitabs" ).tabs();
+	
+}
+
+
+
+
+	function make_tax_form(select_target,callback,secselect_target){
+		var target_form = $("#taxonomyitem form");
+		target_form.find('[type="submit"]').on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			$('#taxonomyitem form').on("change",function(){
+				var test_empty = true;
+				$.each($('input,select'),function(){
+					if($(this).not(":hidden").val()!==""&&$(this).not(":hidden").find(":selected").val()!==""){
+						test_empty = false;
+					}
+				});
+				$('#taxonomyitem form input[name="empty"]').val(test_empty+"");
+			});
+	
+			if(!target_form.find('input[name="empty"]').val()){
+				if(typeof(callback)!=="undefined"){
+					callback();
+				}
+				var form_data = target_form.find( "input, textarea, select" ).serializeArray();
+				$.ajax({cache: false,
+				   url:"/admin/update_taxonomy.castle?ajax=true",
+				   data:form_data,
+				   dataType : "json",
+				   success: function(returndata){
+						if(returndata.alias!==""){
+							select_target.find('.add').before('<option value="'+ returndata.alias +'" '+(select_target.is(secselect_target)?"selected":"")+' >'+returndata.name +'</option>');
+							$( "#taxonomyitem" ).dialog( "destroy" );
+							$( "#taxonomyitem" ).remove();
+							popup_message($("<span><h5>You have added a  new taxonomy!</h5>It has also selected for you</span>"));
+							$('form[name="entry_form"] :input:first').trigger("change");
+						}else{
+							popup_message($("<span>failed to save, try again.</span>"));
+						}
+					}
+				});
+			}
+		});
+	}
+
+
+	function moa_dmpk_setup(){
+		$.each($('.has_moa_dmpk:not(.activated)'),function(){
+			var tar = $(this);
+			$(this).addClass('activated');
+			var dep = tar.closest('.moa_dmpk_block').find('.moa_dmpk');
+			if(tar.val()===""){
+				dep.hide();
+			}
+			tar.on("keyup",function(){
+				if(tar.val()===""){
+					dep.find(':selected').attr('selected',false);
+					dep.hide();
+				}else{
+					dep.show();
+				}
+			});
+		});
+	}
+
+
 function popup_message(html_message,clean){
 	if(typeof(clean)==="undefined"){
 		clean=false;
@@ -370,5 +459,122 @@ function setting_item_pub(parentObj){
 					}
 				});
 			}
+		});
+	}
+
+	function apply_tax_request(){
+		$.each($('.requested_taxed:not(.activated)'),function(){
+			var tar = $(this);
+			tar.addClass('activated');
+			if(tar.find('.add').length<=0){
+				tar.find('option:last').after('<option value="" class="add">Request new option</option>');
+			}
+		});
+	
+		$('.requested_taxed').on('change',function(){
+				var select_target = $(this);
+				var target = $(this).find('option:selected');
+				if(!target.hasClass("add")){
+					return;
+				}
+		
+				target.removeAttr("selected");
+				
+				
+				if($( "#taxonomyitem" ).length<=0){
+					$('body').append("<div id='taxonomyitem'>");
+				}
+				var data='<h3>Make a request for a new item</h3><lable>Name:</lable><input type="text" value=""/><br/><br/><input type="submit" value="Subbmit Request"/>';
+				var dialog_obj = $("#taxonomyitem");
+					dialog_obj.html(data);
+					dialog_obj.dialog({
+							autoOpen: true,
+							resizable: false,
+							width: 450,
+							//height: $(window).height()*.50,
+							modal: true,
+							draggable : false,
+							create:function(){
+								$('body').css({overflow:"hidden"});
+								$(".ui-dialog-buttonpane").remove();
+								dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
+								make_tax_form(select_target,function(){
+									alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+								});
+							},
+							open:function(){
+								turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+								},
+							close: function() {
+								$('body').css({overflow:"auto"});
+								$( "#taxonomyitem" ).dialog( "destroy" );
+								$( "#taxonomyitem" ).remove();
+								
+							}
+						});
+						
+		});
+	}
+
+	function apply_taxed_add(){
+		/* add taxonomy */
+		$.each($('.taxed:not(.activated)'),function(){
+			var tar = $(this);
+			tar.addClass('activated');
+			if(tar.find('.add').length<=0){
+				tar.find('option:last').after('<option value="" class="add">Add new option</option>');
+			}
+		});
+		$('.taxed').on('change',function(){
+			var select_target = $(this);
+			var target = $(this).find('option:selected');
+			if(!target.hasClass("add")){
+				return;
+			}
+	
+			target.removeAttr("selected");
+			
+			
+			if($( "#taxonomyitem" ).length<=0){
+				$('body').append("<div id='taxonomyitem'>");
+			}
+			var dialog_obj = $("#taxonomyitem");
+			
+			var secselect_target;
+			var type = select_target.attr("rel")!=="" ? select_target.attr("rel") : select_target.attr("id");
+			if(select_target.attr("rel").length){
+				secselect_target = $('[rel="'+type+'"]');
+			}
+			$.ajax({cache: false,
+			   url:"/admin/edit_taxonomy.castle",
+			   data:{"skiplayout":1,"type":type},
+			   success: function(data){
+					dialog_obj.html(data);
+					dialog_obj.dialog({
+							autoOpen: true,
+							resizable: false,
+							modal: true,
+							draggable : false,
+							create:function(){
+								$('body').css({overflow:"hidden"});
+								$(".ui-dialog-buttonpane").remove();
+								dialog_obj.find('input[name$=".alias"]').closest('p').css({"display":"none"});
+								make_tax_form(select_target,function(){
+									alais_scruber(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+								},secselect_target);
+							},
+							open:function(){
+								turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
+								},
+							close: function() {
+								$('body').css({overflow:"auto"});
+								$( "#taxonomyitem" ).dialog( "destroy" );
+								$( "#taxonomyitem" ).remove();
+							}
+						});
+						$(window).resize(function(){$("#taxonomyitem" ).dialog('option', { width: $(window).width()*0.25,  height: $(window).height()*0.25,});																													
+					});
+				}
+			});
 		});
 	}
