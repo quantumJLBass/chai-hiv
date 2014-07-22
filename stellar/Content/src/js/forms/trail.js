@@ -66,11 +66,8 @@ $(document).ready(function() {
 									$( "#mess" ).remove();
 									$( "#trial_arm_form" ).dialog( "destroy" );
 									$( "#trial_arm_form" ).remove();
-									//$(".add_to_list[data-type='"+type+"']").trigger("click");
 								});
-							}/*else{
-								popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i>Saving...</span>',false);	
-							}*/
+							}
 						});	
 						
 						//set_up_form(type,inlist,use);

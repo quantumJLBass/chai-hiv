@@ -44,6 +44,7 @@ $(document).ready(function() {
 				buttons:{
 					Ok:function(){
 						$( this ).dialog( "close" );
+						window.location = '/center/substance.castle';
 					}
 				},
 				close: function() {
