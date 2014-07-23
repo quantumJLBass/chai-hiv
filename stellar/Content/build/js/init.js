@@ -158,7 +158,7 @@ function make_maskes(){
 	$( "label i[title]" ).tooltip();
 	$( '[type="date"],[rel="date"]' ).datepicker();
 }
-
+/*
 function setup_tabs(){
 	var tabContents = $(".tab_content").hide(), 
 	    tabs = $("ul.tabs li");
@@ -182,7 +182,7 @@ function setup_tabs(){
 	$( ".uitabs" ).tabs();
 	
 }
-
+*/
 
 
 
@@ -1271,8 +1271,9 @@ $(document).ready(function() {
 		   url:"/center/clinical.castle",
 		   data:{"skiplayout":1,"id":typeof(id)==="undefined"?"":id,typed_ref:$('[name="typed_ref"]').val()},
 		   success: function(data){
-				$( "#trial_arm_form" ).html(data);
-				$( "#trial_arm_form" ).dialog({
+			   var trial_arm_form_dialog = $( "#trial_arm_form" );
+				trial_arm_form_dialog.html(data);
+				trial_arm_form_dialog.dialog({
 					autoOpen: true,
 					resizable: false,
 					width: $(window).width()-50,
@@ -1288,28 +1289,32 @@ $(document).ready(function() {
 
 						$( "#mess" ).dialog( "destroy" );
 						$( "#mess" ).remove();
-						setup_tabs();
+						
 						
 						$('body').css({overflow:"hidden"});
 						$(".ui-dialog-buttonpane").remove();
+						
 						make_maskes();
 						moa_dmpk_setup();
 						apply_tax_request();
 						apply_taxed_add();
-	
-						$(".popuptab").off().on("click",function(e){
-							e.preventDefault();
-							e.stopPropagation();
-							var id = $(".popuptab.active").attr("href");
-							$(id).hide();
-							$(".popuptab.active").removeClass('active');
-							$(this).addClass('active');
-							id = $(this).attr("href");
-							$(id).show();	
-							
-						});
 						
-						$("#trial_arm_form [type='submit']").on("click",function(e){
+						var tabContents = trial_arm_form_dialog.find(".tab_content").hide(), tabs = trial_arm_form_dialog.find("ul.tabs li");
+						tabs.addClass("tabed");
+						tabs.first().addClass("active").show();
+						tabContents.first().show();
+						
+						tabs.on("click",function(e) { e.preventDefault(); e.stopPropagation();
+							var $this = $(this), activeTab = $this.find('a').attr('href');
+							
+							if(!$this.hasClass('active')){
+								$this.addClass('active').siblings().removeClass('active');
+								tabContents.hide().filter(activeTab).fadeIn();
+							} return false;
+						});	
+						$( ".uitabs" ).tabs();
+
+						trial_arm_form_dialog.find("[type='submit']").on("click",function(e){
 							
 							var form = $(this).closest("form");
 							if (form.find(':invalid').length<=0) {
@@ -1320,6 +1325,39 @@ $(document).ready(function() {
 									//var parts= data.split(',');
 									$( "#mess" ).dialog( "destroy" );
 									$( "#mess" ).remove();
+
+									var dataTable = $("#trial_arms.tab_content").find('.dataTable');
+									var tableData = [];
+									
+									var count = $(".drug_item.list_item").length;
+									var html = form.find('[name="item.name"]').val() +
+												'<input type="hidden" name="trials['+(count)+'].baseid" value="'+form.find('[name="item.baseid"]').val()+'" class="drug_item list_item"/><input type="hidden" name="trials['+(count)+'].attached" value="1" class="drug_item list_item"/>';
+									
+									tableData.push( html );
+									tableData.push( form.find('[name="item.name"]').val() );
+									tableData.push( form.find('[name="item.name"]').val() ); 
+									tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+									dataTable.dataTable().fnAddData( tableData );
+									
+									$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
+										e.preventDefault();
+										e.stopPropagation();
+										var targetrow = $(this).closest("tr");
+										var datatable = $(this).closest('.dataTable').dataTable();
+										targetrow.fadeOut( "75" ,function(){ 
+											datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
+										});
+									});
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
 									$( "#trial_arm_form" ).dialog( "destroy" );
 									$( "#trial_arm_form" ).remove();
 								});

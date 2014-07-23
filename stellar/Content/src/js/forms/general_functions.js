@@ -158,7 +158,7 @@ function make_maskes(){
 	$( "label i[title]" ).tooltip();
 	$( '[type="date"],[rel="date"]' ).datepicker();
 }
-
+/*
 function setup_tabs(){
 	var tabContents = $(".tab_content").hide(), 
 	    tabs = $("ul.tabs li");
@@ -182,7 +182,7 @@ function setup_tabs(){
 	$( ".uitabs" ).tabs();
 	
 }
-
+*/
 
 
 
