@@ -6,7 +6,8 @@
 		<thead>
 			<tr>
 				<th width="15%">Record ID</th>
-				<th>Acronym</th>
+				<th>Number</th>
+				<th>Title</th>
 				<th width="20%">action</th>
 			</tr>
 		</thead>
@@ -14,7 +15,8 @@
 		#foreach($item in $items)
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.baseid" data-baseid="$item.baseid">
 				<td>#if($item.baseid)$!item.baseid#else -- #end</td>
-				<td>#if($item.acronym)$!item.acronym#else -- #end</td>
+				<td>#if($item.number)$!item.number#else -- #end</td>
+				<td>#if($item.acronym)$!item.title#else -- #end</td>
 				<td>
 					#if($viewonly)
 						<a href="trial.castle?id=$item.baseid" class="button small">View</a>

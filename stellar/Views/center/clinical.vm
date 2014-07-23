@@ -14,11 +14,12 @@
 	<article class="grid col-full">
 	<form id="contact_form" class="contact_form" action="/center/saveclinical.castle" method="post" name="contact_form">
 	  <input type="hidden" name="item.baseid" value="$!item.baseid" />
+	  <input type="hidden" name="item.trials.baseid" value="$!item.trials.baseid" />
 	  
 		<article id="navtabs" class="grid col-full">
 		  <article class="grid col-full">
 			<h2 id="header_title">
-			  #if(!$item.baseid || $item.tmp)New #end Clinical Trial Arms </h2>
+			  #if(!$item.baseid || $item.tmp)New #end Clinical Trial Arms #if($item.trials.number) <span style="font-size:14px"> <i>(trial #$!item.trials.number)</i> </span> #end</h2>
 			  <ul class="grid col-one-full mq2-col-full full-input">		  
 					<li>
 					#* name *#

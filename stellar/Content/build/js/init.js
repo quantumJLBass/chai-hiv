@@ -1314,6 +1314,9 @@ $(document).ready(function() {
 						});	
 						$( ".uitabs" ).tabs();
 
+
+						trial_arm_form_dialog.find('[name="item.trials.baseid"]').val($('.container [name="item.baseid"]').val());
+
 						trial_arm_form_dialog.find("[type='submit']").on("click",function(e){
 							
 							var form = $(this).closest("form");
@@ -1329,9 +1332,8 @@ $(document).ready(function() {
 									var dataTable = $("#trial_arms.tab_content").find('.dataTable');
 									var tableData = [];
 									
-									var count = $(".drug_item.list_item").length;
-									var html = form.find('[name="item.name"]').val() +
-												'<input type="hidden" name="trials['+(count)+'].baseid" value="'+form.find('[name="item.baseid"]').val()+'" class="drug_item list_item"/><input type="hidden" name="trials['+(count)+'].attached" value="1" class="drug_item list_item"/>';
+									//var count = $(".drug_item.list_item").length;
+									var html = form.find('[name="item.name"]').val();// + '<input type="hidden" name="trial_arms['+(count)+'].baseid" value="'+form.find('[name="item.baseid"]').val()+'" class="drug_item list_item"/>';
 									
 									tableData.push( html );
 									tableData.push( form.find('[name="item.name"]').val() );

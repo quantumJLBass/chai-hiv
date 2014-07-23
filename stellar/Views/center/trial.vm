@@ -50,7 +50,7 @@
 						$Controller.notes("$type","trial_arms","top")
 						
 						#* drugdata *#
-						#set($typed_list = $item.clinicals)
+						#set($typed_list = $item.trial_arms)
 						#parse("center/model_tie_tables/clinical.vm")
 						
 						$Controller.notes("$type","trial_arms","bottom")

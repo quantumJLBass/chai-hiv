@@ -13,6 +13,7 @@
 		<thead>
 			<tr>
 				<th width="15%">ID</th>
+				<th>Trail Number</th>
 				<th>Name</th>
 				<th>Drug</th>
 				<th width="20%">Actions</th>
@@ -22,6 +23,7 @@
 			#foreach($item in $items)
 				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.ln_clinical_t" data-baseid="$item.baseid">
 					<td>$!item.baseid</td>
+					<td>#if($item.trails.number)$!item.trails.number#else -- #end</td>
 					<td>$!item.name</td>
 					<td>#if($!item.drugs.Count>0)$!taxonomyService.get_taxonomy($!item.drugs.get_item(0).brand_name).name#else Not set#end</td>
 					<td>
