@@ -1,16 +1,42 @@
-<ul class="grid col-one-half mq2-col-full full-input">				  
-#* label_claim *#
-	<li>
-		$Controller.feilds("textinput","$type","label_claim", $!item.label_claim ,"","","","")
-	</li>				  
-#* dosing *#
-	<li>
-		$Controller.feilds("select","$type","dosing", $!item.dosing , $dosings,"","","taxed","")
-	</li>				  
+
+
+<fieldset class="grid col-one-full mq2-col-full full-input" style="border:1px solid #ccc"><legend style="border-bottom:1px solid #494949">Make up</legend>
+<ul class="grid col-one-half mq2-col-full full-input">
 #* dose_form *#
 	<li>
 		$Controller.feilds("select","$type","dose_form", $!item.dose_form , $dose_forms,"","","taxed","")
-	</li>				  
+	</li>
+#* inactive_ingredients *#
+	<li>
+		
+		#set($daval ="")
+
+		#set($daval = $!item.inactive_ingredients)
+		#feild_multipleselectinput($type "inactive_ingredients" $daval $!inactive_ingredientss  "" "" "" "tt")
+		<input name="item.inactive_ingredients" type="hidden" value="$!item.inactive_ingredients" />
+		<a href="#" class="tax_add button xsmall blue" data-select="#inactive_ingredients" data-type="inactive_ingredients" >Add New</a>
+		<i><b>Note:</b> Use Ctrl+ click or Shift + click to select more then one item</i>
+	</li>
+</ul>
+<ul class="grid col-one-half mq2-col-full full-input">
+#foreach($part in  $item.families)
+	#foreach($sub in  $part.substances)
+	#* label_claim *#
+		<li data-sub_id="$sub.baseid" data-sub_sort="$sub.basid">
+			$Controller.feilds("textinput","$type","label_claim", $!item.label_claim ,"${sub.abbreviated} Label Claim", "","","")
+		</li>	
+	
+	#end
+#end
+</ul>
+</fieldset>
+
+
+<ul class="grid col-one-half mq2-col-full full-input">
+#* dosing *#
+	<li>
+		$Controller.feilds("select","$type","dosing", $!item.dosing , $dosings,"","","taxed","")
+	</li>	
 #* route_of_administration *#
 	<li>
 		$Controller.feilds("textinput","$type","route_of_administration", $!item.route_of_administration ,"","","","")
@@ -26,17 +52,7 @@
 </ul>
 
 <ul class="grid col-one-half mq2-col-full full-input"> 
-#* inactive_ingredients *#
-	<li>
-		
-		#set($daval ="")
-
-		#set($daval = $!item.inactive_ingredients)
-		#feild_multipleselectinput($type "inactive_ingredients" $daval $!inactive_ingredientss  "" "" "" "tt")
-		<input name="item.inactive_ingredients" type="hidden" value="$!item.inactive_ingredients" />
-		<a href="#" class="tax_add button xsmall blue" data-select="#inactive_ingredients" data-type="inactive_ingredients" >Add New</a>
-		<i><b>Note:</b> Use Ctrl+ click or Shift + click to select more then one item</i>
-	</li>				  
+				  
 #* alternative_indications *#
 	<li>
 		$Controller.feilds("textinput","$type","alternative_indications", $!item.alternative_indications ,"","(Hep B, etc.)","","")

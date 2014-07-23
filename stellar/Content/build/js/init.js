@@ -863,14 +863,14 @@ $(document).ready(function() {
 									var dataTable = $("[id^='drPro_tabs_"+form+"']").find('.dataTable');
 									var tableData = [];
 									
-									var count = $(".drug_item.list_item").length;
-									var html = v.label_claim + '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="drugs['+(count)+'].attached" value="1" class="drug_item list_item"/>';
+									//var count = $(".drug_item.list_item").length;
+									var html = v.label_claim ;//+ '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="drugs['+(count)+'].attached" value="1" class="drug_item list_item"/>';
 									
 									$.each($(".substance_item"),function(){
 										tableData.push( html );
 									});
 									
-									tableData.push( html );
+									//tableData.push( html );
 									tableData.push( v.manufacturer ); 
 									tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 									dataTable.dataTable().fnAddData( tableData );
