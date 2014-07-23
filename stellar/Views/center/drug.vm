@@ -127,7 +127,7 @@ $sub.abbreviated
 				<ul class="grid col-one-half mq2-col-full full-input header" style=" text-align:right;">
 					<li><h4 style="margin-bottom:5px; bottom-border:1px solid #e2e2e2;">General Definition</h4><li>
 					<li><b id="dose_form_info">Dose form:</b> $!taxonomyService.get_taxonomy($!item.dose_form).name</li>
-					<li><b id="label_claim_info">Label claim:</b> <span id="CLAIM">$!item.label_claim</span></li>
+					<li><b id="label_claim_info">Label claim: ( $!item.dose_unit )</b> <span id="CLAIM">$!item.label_claim</span></li>
 					<li><b id="manufacturer_info">Manufacturer:</b> $!postingService.get_taxonomy($!item.manufacturer).name</li>
 				</ul>			
 				

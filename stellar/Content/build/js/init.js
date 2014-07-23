@@ -796,17 +796,19 @@ $(document).ready(function() {
 				html+="<div id='create_drPros_stub' class='full-input'>";
 					html+="<form action='/center/savedrug.castle' method='post'><input name='item.baseid' type='hidden' value='0'>";
 						html+="<input type='hidden' name='item.families.substance_id' value='"+$("[name='item.baseid']").val()+"'/>";
-						html+="<input type='hidden' name='item.dose_form' value='"+form+"'/>";
-						html+="<input type='hidden' name='item.attached' value='false'/>";
+						html+="<input type='hidden' name='item.dose_form' value='"+form+"' style='display: inline-block; max-width:50%;'/>";
 						
+						
+						
+						html+="<input type='hidden' name='item.attached' value='false'/>";
+						html+="<label>Unit <select name='item.dose_unit' style='display: inline-block; max-width:50%;'><option value=''>Select Unit</option><option value='ml'>ml</option></select></label>";
 						html+="<label>Amounts<br/>";
 						$.each($(".substance_item"),function(){
-							html+= $(this).find('.sub_code').text()+": <input type='text' class='sub_label_claim' style='width: auto; display: inline-block; max-width: 100%;' /><br/>";
+							html+= "<span style='min-width:20%'>"+$(this).find('.sub_code').text()+":</span> <input type='text' class='sub_label_claim' style='width: auto; display: inline-block; max-width: 100%;' /><br/>";
 						});
 						html+="</label>";
 						html+= "<input type='hidden' name='label_claim'/><br/>";
 						html+="<label>Manufacturer<br/><select name='item.manufacturer' id='quick_drPro_manufacturer'><option value=''>Select</option></select><br/></label>";
-						html+="<a href='#' id='create_drPros_stub_submit' class='button'>Add drug product stub</a>";
 					html+="</form>";
 				html+="</div>";
 		html+="</div>";
@@ -829,6 +831,7 @@ $(document).ready(function() {
 				$('.ui-dialog-titlebar').remove();
 				//$(".ui-dialog-buttonpane").remove();
 				$('body').css({overflow:"hidden"});
+				$(".ui-dialog-buttonset").prepend("<a href='#' id='create_drPros_stub_submit' class='button'>Add drug product stub</a>");
 			},
 			open:function(){
 				$.getJSON('/center/get_taxonomies.castle?tax=commercial&callback=?',  function(data){

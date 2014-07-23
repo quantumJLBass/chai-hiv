@@ -87,6 +87,10 @@ namespace stellar.Models {
 
             /// <summary> </summary>
             [Property(SqlType = "nvarchar(MAX)")]
+            virtual public string dose_unit { get; set; }
+
+            /// <summary> </summary>
+            [Property(SqlType = "nvarchar(MAX)")]
             virtual public string route_of_administration { get; set; }
 
             /// <summary> </summary>
