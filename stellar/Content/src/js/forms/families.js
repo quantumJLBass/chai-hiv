@@ -181,7 +181,7 @@ $(document).ready(function() {
 			html+="<h4>Create new "+form+"</h4>";
 				html+="<div id='create_drPros_stub' class='full-input'>";
 					html+="<form action='/center/savedrug.castle' method='post'><input name='item.baseid' type='hidden' value='0'>";
-						html+="<input type='hidden' name='item.families.baseid' value='"+$("[name='item.baseid']").val()+"'/>";
+						html+="<input type='hidden' name='item.families.substance_id' value='"+$("[name='item.baseid']").val()+"'/>";
 						html+="<input type='hidden' name='item.dose_form' value='"+form+"'/>";
 						html+="<input type='hidden' name='item.attached' value='false'/>";
 						
@@ -190,7 +190,7 @@ $(document).ready(function() {
 							html+= $(this).find('.sub_code').text()+": <input type='text' class='sub_label_claim' style='width: auto; display: inline-block; max-width: 100%;' /><br/>";
 						});
 						html+="</label>";
-						html+= "<input type='hidden' name='item.label_claim'/><br/>";
+						html+= "<input type='hidden' name='label_claim'/><br/>";
 						html+="<label>Manufacturer<br/><select name='item.manufacturer' id='quick_drPro_manufacturer'><option value=''>Select</option></select><br/></label>";
 						html+="<a href='#' id='create_drPros_stub_submit' class='button'>Add drug product stub</a>";
 					html+="</form>";
@@ -242,7 +242,8 @@ $(document).ready(function() {
 						}
 						code+=$.trim($(this).val());
 					});	
-					$('[name="item.label_claim"]').val(code);
+					$('[name="label_claim"]').val(code);
+					$('[name="label_claim"]').val(code);
 					var form_data = $('#create_drPros_stub form').find( "input, textarea, select" ).serializeArray();
 					
 					$.ajax({cache: false,
@@ -258,7 +259,7 @@ $(document).ready(function() {
 									var dataTable = $("[id^='drPro_tabs_"+form+"']").find('.dataTable');
 									var tableData = [];
 									
-									//var count = $(".drug_item.list_item").length;
+									var count = $(".drug_item.list_item").length;
 									//var html = v.label_claim;//+ '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="drugs['+(count)+'].attached" value="1" class="drug_item list_item"/>';
 									
 									$.each(v.label_claim.split(':'),function(i,val){
@@ -267,7 +268,7 @@ $(document).ready(function() {
 									
 									//tableData.push( html );
 									tableData.push( v.manufacturer ); 
-									tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+									tableData.push( '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 									dataTable.dataTable().fnAddData( tableData );
 									
 									$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){

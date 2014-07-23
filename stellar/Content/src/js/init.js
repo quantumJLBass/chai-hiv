@@ -364,8 +364,14 @@
 			}).trigger("change");
 		}
 	
-	
-	
+			$(".claim_item").on("keyup",function(){
+				var code="";
+				$.each($(".claim_item"),function(){
+					code+= (code===""?"":":") + $(this).val();
+				});
+				$("#item_label_claim").val(code);
+				$("#CLAIM").text(code);
+			});
 	
 	
 

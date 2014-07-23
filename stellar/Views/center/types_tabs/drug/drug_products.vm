@@ -41,18 +41,38 @@
 									
 							#end
 								<tr>
-								#if($drug.label_claim)
-									#set($label_claims = $objectService.explode($drug.label_claim,":"))
-									#set($i = 0)
-									#foreach($part in  $item.substances)
-										<td>${label_claims.get_Item($i)}#**#</td>
-										#set($i = $i+1)
-									#end
-								#else
-									#foreach($part in  $item.substances)
-										<td> -- </td>
-									#end
-								#end
+								
+								
+	#if($drug.label_claim)
+		#set($label_claims = $objectService.explode($!drug.label_claim,":"))
+		#set($i = 0)
+		#foreach($sub in  $item.substances)
+			#set($label_claim = "")
+			#if($i<$!label_claims.Count)
+				#set($label_claim = ${label_claims.get_Item($i)})
+				<td>$label_claim</td>
+			#end
+			#set($i = $i+1)
+		#end
+	#else
+		#foreach($sub in  $item.substances)
+			<td> -- </td>
+		#end
+	#end
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
 									<td>${drug.manufacturer}</td>
 									<td>
 										<input type="hidden" name="drugs[${k}].baseid" value="${drug.baseid}" class="drug_item list_item"/>

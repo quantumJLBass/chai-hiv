@@ -20,14 +20,31 @@
 </ul>
 <ul class="grid col-one-half mq2-col-full full-input">
 
-#foreach($sub in  $item.families.substances)
-#* label_claim *#
-	<li data-sub_id="$sub.baseid" data-sub_sort="$sub.basid">
-		$Controller.feilds("textinput","$type","label_claim", $!item.label_claim ,"${sub.abbreviated} Label Claim", "","","")
-	</li>
-#end
-
+	#if($item.label_claim)
+		#set($label_claims = $objectService.explode($!item.label_claim,":"))
+		#set($i = 0)
+		#foreach($sub in  $item.families.substances)
+			#set($label_claim = "")
+			#if($i<$!label_claims.Count)
+				#* label_claim *#
+					<li data-sub_id="$sub.baseid" data-sub_sort="$sub.basid">
+						#set($label_claim = ${label_claims.get_Item($i)})
+						$Controller.feilds("textinput","$type","label_claim", $label_claim ,"[ ${sub.abbreviated} ] Label Claim", "","claim_item","")
+					</li>
+			#end
+			#set($i = $i+1)
+		#end
+	#else
+		#foreach($sub in  $item.families.substances)
+			#* label_claim *#
+			<li data-sub_id="$sub.baseid" data-sub_sort="$sub.basid">
+			$Controller.feilds("textinput","$type","label_claim", $!item.label_claim ,"[ ${sub.abbreviated} ] Label Claim", "","","")
+			</li>
+		#end
+	#end
+	
 </ul>
+<input type="hidden" name="label_claim" value="$!item.label_claim" id="item_label_claim"/>
 </fieldset>
 
 

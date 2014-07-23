@@ -639,11 +639,11 @@ namespace stellar.Controllers {
 
             item.drugs.Clear();
             foreach (drug drug in drugs) {
-                if (drug.attached) {
+                //if (drug.attached) {
                     if (!item.drugs.Any(x => x.baseid == drug.baseid)) { 
                         item.drugs.Add(drug);
                     }
-                }
+               // }
             }
 
             item.lmics.Clear();
@@ -839,6 +839,7 @@ namespace stellar.Controllers {
         /// <summary> </summary>
         [SkipFilter()]
         public void savedrug([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug item,
+            String label_claim,
             Boolean ajaxed_update,
             Boolean json,
             String callback,
@@ -888,6 +889,7 @@ namespace stellar.Controllers {
 
             item.tmp = false;
             if (item.published) item.content = "";
+            item.label_claim = label_claim;
             ActiveRecordMediator<drug>.Save(item);
 
             //do the auth
