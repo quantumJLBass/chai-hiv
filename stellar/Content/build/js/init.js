@@ -623,7 +623,7 @@ function setting_item_pub(parentObj){
 		var code="";
 		$.each($(".substance_item"),function(i){
 			code+= (code===""?"":"<em>:</em>") + $(this).find('.sub_code').text();
-			$('.substanceOrder').val(i+1);
+			$(this).find('.substanceOrder').val(i+1);
 		});
 		$("#sub_code").html(code);
 	}
@@ -690,7 +690,7 @@ $(document).ready(function() {
 			var html = "";
 			$.each(data,function(i,v){
 				if($('[name="substances['+v.baseid+'].baseid"]').length<=0){
-				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-lab_code='"+v.lab_code+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.lab_code+" )<br/></span>";
+				html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-abbreviated='"+v.abbreviated+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.abbreviated+" )<br/></span>";
 				}
 			});
 			if(html === ""){
@@ -718,12 +718,12 @@ $(document).ready(function() {
 						par.fadeOut("fast");
 						var html ="<li class='substance_item'>";
 						html+="<i title='edit' class='icon-trash'></i>";
-						html+="<span class='sortable_handle'>handle</span> "+par.data("name")+" (<span class='sub_code'>"+par.data("lab_code")+"</span>)";
+						html+="<span class='sortable_handle'>handle</span> "+par.data("name")+" (<span class='sub_code'>"+par.data("abbreviated")+"</span>)";
 
 						html+="<input type='hidden' name='substances["+par.data("baseid")+"].baseid' value='"+par.data("baseid")+"' class='substance'/>";
 						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].baseid' value='0'  class=''/>";
 						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].family.baseid' value='"+$('[name="item.baseid"]').val()+"'  class=''/>";
-						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].substance_order' value='"+$(".substance_item").length+"'  class='substanceOrder'/>";
+						html+="<input type='text' name='family_substance["+par.data("baseid")+"].substance_order' value='"+$(".substance_item").length+"'  class='substanceOrder'/>";
 						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].substance.baseid' value='"+par.data("baseid")+"'  class=''/>";
 						html+="</li>";
 
@@ -776,9 +776,17 @@ $(document).ready(function() {
 
 	var drPro_tabTemplate = "<li><a href='#{href}' data-baseid='#{baseid}' data-name='#{name}' data-alias='#{alias}'>#{label}</a> <i class='icon-remove'></i></li>";
 	var drPro_tabCounter = $( "#drPro_tabed li" ).length;
-	var drPro_tabDefaultContent = '<table width="100%" class="drpro_table display" cellspacing="0"><thead><tr><th>Amt.</th><th>Manufacure</th><th>Actions</th></tr></thead><tfoot><tr><th></th><th></th><th></th></tr></tfoot><tbody></tbody></table>';
-
-
+	
+	//build the tables for the drug forms
+	var drPro_tabDefaultContent = '<table width="100%" class="drpro_table display" cellspacing="0"><thead><tr>';
+	$.each($(".substance_item"),function(){
+		drPro_tabDefaultContent+= '<th>'+$(this).find('.sub_code').text()+' Amt.</th>';
+	});
+	drPro_tabDefaultContent+='<th>Manufacure</th><th>Actions</th></tr></thead><tfoot><tr>';
+	$.each($(".substance_item"),function(){
+		drPro_tabDefaultContent+= '<th></th>';
+	});
+	drPro_tabDefaultContent+='<th></th><th></th></tr></tfoot><tbody></tbody></table>';
 
 
 	function add_drProTableRow(form){
@@ -790,7 +798,13 @@ $(document).ready(function() {
 						html+="<input type='hidden' name='item.families[1].baseid' value='"+$("[name='item.baseid']").val()+"'/>";
 						html+="<input type='hidden' name='item.dose_form' value='"+form+"'/>";
 						html+="<input type='hidden' name='item.attached' value='false'/>";
-						html+="<label>Amount<br/><input type='text' name='item.label_claim'/><br/></label>";
+						
+						html+="<label>Amounts<br/>";
+						$.each($(".substance_item"),function(){
+							html+= $(this).find('.sub_code').text()+": <input type='text' name='item.label_claim' style='width: auto; display: inline-block; max-width: 100%;' /><br/>";
+						});
+						html+="</label>";
+						
 						html+="<label>Manufacturer<br/><select name='item.manufacturer' id='quick_drPro_manufacturer'><option value=''>Select</option></select><br/></label>";
 						html+="<a href='#' id='create_drPros_stub_submit' class='button'>Add drug product stub</a>";
 					html+="</form>";
@@ -851,6 +865,11 @@ $(document).ready(function() {
 									
 									var count = $(".drug_item.list_item").length;
 									var html = v.label_claim + '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="drugs['+(count)+'].attached" value="1" class="drug_item list_item"/>';
+									
+									$.each($(".substance_item"),function(){
+										tableData.push( html );
+									});
+									
 									tableData.push( html );
 									tableData.push( v.manufacturer ); 
 									tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
@@ -1331,10 +1350,8 @@ $(document).ready(function() {
 
 									var dataTable = $("#trial_arms.tab_content").find('.dataTable');
 									var tableData = [];
-									
-									//var count = $(".drug_item.list_item").length;
-									var html = form.find('[name="item.name"]').val();// + '<input type="hidden" name="trial_arms['+(count)+'].baseid" value="'+form.find('[name="item.baseid"]').val()+'" class="drug_item list_item"/>';
-									
+
+									var html = form.find('[name="item.name"]').val();
 									tableData.push( html );
 									tableData.push( form.find('[name="item.name"]').val() );
 									tableData.push( form.find('[name="item.name"]').val() ); 

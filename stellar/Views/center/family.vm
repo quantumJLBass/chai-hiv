@@ -105,7 +105,7 @@ $part.name => $part.alias
 	#* *#
 #capturefor(fam_sub_code)
 #foreach($part in  $item.substances)
-$part.lab_code
+$part.abbreviated
 #between
 <em>:</em>
 #end
@@ -127,7 +127,7 @@ $part.lab_code
 						<li class='substance_item'>
 							<i title="edit" class="icon-trash"></i>
 							<span class='sortable_handle'>handle</span>
-							$!postingService.get_taxonomy($substance.generic_name).name (<span class='sub_code'> $substance.lab_code </span>)
+							$!postingService.get_taxonomy($substance.generic_name).name (<span class='sub_code'> $substance.abbreviated </span>)
 
 							<input type="hidden" name="substances[$!{substance.baseid}].baseid" value="$!{substance.baseid}" class="substance"/>	
 							<input type="hidden" name="family_substance[$!{substance.baseid}].baseid" value="$!{substance.family_substance.get_Item(0).id}" class="substance"/>	

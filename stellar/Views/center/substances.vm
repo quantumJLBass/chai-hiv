@@ -6,6 +6,7 @@
 		<thead>
 			<tr>
 				<th width="15%">CAS</th>
+				<th width="15%">Abbreviated</th>
 				<th class="sorting_asc">Name</th>
 				<th width="20%">action</th>
 			</tr>
@@ -14,6 +15,7 @@
 		#foreach($item in $items)
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
 				<td>#if($item.cas_reg_number)$!item.cas_reg_number#else -- #end</td>
+				<td>#if($item.abbreviated)$!item.abbreviated#else -- #end</td>
 				<td>$!postingService.get_taxonomy($item.generic_name).name</td>
 				<td>
 					#if($viewonly)

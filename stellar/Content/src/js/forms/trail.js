@@ -75,10 +75,8 @@ $(document).ready(function() {
 
 									var dataTable = $("#trial_arms.tab_content").find('.dataTable');
 									var tableData = [];
-									
-									//var count = $(".drug_item.list_item").length;
-									var html = form.find('[name="item.name"]').val();// + '<input type="hidden" name="trial_arms['+(count)+'].baseid" value="'+form.find('[name="item.baseid"]').val()+'" class="drug_item list_item"/>';
-									
+
+									var html = form.find('[name="item.name"]').val();
 									tableData.push( html );
 									tableData.push( form.find('[name="item.name"]').val() );
 									tableData.push( form.find('[name="item.name"]').val() ); 

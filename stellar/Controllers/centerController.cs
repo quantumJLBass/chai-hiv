@@ -986,7 +986,7 @@ namespace stellar.Controllers {
                     json_str += @"""baseid"":"""+sub.baseid+@""",";
                    // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
                     json_str += @"""name"":""" + postingService.get_taxonomy(sub.generic_name).name + @""",";
-                    json_str += @"""lab_code"":""" + sub.lab_code + @"""";
+                    json_str += @"""abbreviated"":""" + sub.abbreviated + @"""";
                     json_str += @"
 },";
                     // this vodo of the new line is wrong

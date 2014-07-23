@@ -19,7 +19,7 @@
 		<article id="navtabs" class="grid col-full">
 		  <article class="grid col-full">
 			<h2 id="header_title">
-			  #if(!$item.baseid || $item.tmp)New #end Clinical Trial Arms #if($item.trials.number) <span style="font-size:14px"> <i>(trial #$!item.trials.number)</i> </span> #end</h2>
+			  #if(!$item.baseid || $item.tmp)New #end Clinical Trial Arms #if($item.trials.number) <span style="font-size:16px"> <i>( trial #$!item.trials.number )</i> </span> #end</h2>
 			  <ul class="grid col-one-full mq2-col-full full-input">		  
 					<li>
 					#* name *#
