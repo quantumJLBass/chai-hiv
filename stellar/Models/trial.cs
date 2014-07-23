@@ -94,7 +94,7 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [HasMany(typeof(clinical), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
-        virtual public IList<clinical> clinicals { get; set; }
+        virtual public IList<clinical> trial_arms { get; set; }
 
 
 
