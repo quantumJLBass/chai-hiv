@@ -109,7 +109,7 @@ $(document).ready(function() {
 						html+="<input type='hidden' name='substances["+par.data("baseid")+"].baseid' value='"+par.data("baseid")+"' class='substance'/>";
 						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].baseid' value='0'  class=''/>";
 						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].family.baseid' value='"+$('[name="item.baseid"]').val()+"'  class=''/>";
-						html+="<input type='text' name='family_substance["+par.data("baseid")+"].substance_order' value='"+$(".substance_item").length+"'  class='substanceOrder'/>";
+						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].substance_order' value='"+$(".substance_item").length+"'  class='substanceOrder'/>";
 						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].substance.baseid' value='"+par.data("baseid")+"'  class=''/>";
 						html+="</li>";
 
@@ -181,16 +181,16 @@ $(document).ready(function() {
 			html+="<h4>Create new "+form+"</h4>";
 				html+="<div id='create_drPros_stub' class='full-input'>";
 					html+="<form action='/center/savedrug.castle' method='post'><input name='item.baseid' type='hidden' value='0'>";
-						html+="<input type='hidden' name='item.families[1].baseid' value='"+$("[name='item.baseid']").val()+"'/>";
+						html+="<input type='hidden' name='item.families.baseid' value='"+$("[name='item.baseid']").val()+"'/>";
 						html+="<input type='hidden' name='item.dose_form' value='"+form+"'/>";
 						html+="<input type='hidden' name='item.attached' value='false'/>";
 						
 						html+="<label>Amounts<br/>";
 						$.each($(".substance_item"),function(){
-							html+= $(this).find('.sub_code').text()+": <input type='text' name='item.label_claim' style='width: auto; display: inline-block; max-width: 100%;' /><br/>";
+							html+= $(this).find('.sub_code').text()+": <input type='text' class='sub_label_claim' style='width: auto; display: inline-block; max-width: 100%;' /><br/>";
 						});
 						html+="</label>";
-						
+						html+= "<input type='hidden' name='item.label_claim'/><br/>";
 						html+="<label>Manufacturer<br/><select name='item.manufacturer' id='quick_drPro_manufacturer'><option value=''>Select</option></select><br/></label>";
 						html+="<a href='#' id='create_drPros_stub_submit' class='button'>Add drug product stub</a>";
 					html+="</form>";
@@ -234,8 +234,17 @@ $(document).ready(function() {
 				$('#create_drPros_stub_submit').on("click",function(e){
 					e.preventDefault();
 					e.stopPropagation();
+					
+					var code = "";
+					$.each($('.sub_label_claim'),function(i){
+						if(i>0){
+							code+=":";
+						}
+						code+=$.trim($(this).val());
+					});	
+					$('[name="item.label_claim"]').val(code);
 					var form_data = $('#create_drPros_stub form').find( "input, textarea, select" ).serializeArray();
-	
+					
 					$.ajax({cache: false,
 					   url:$('#create_drPros_stub form').attr('action')+"?json=true&ajaxed_update=true&callback=?",
 					   data:form_data,
@@ -250,10 +259,10 @@ $(document).ready(function() {
 									var tableData = [];
 									
 									//var count = $(".drug_item.list_item").length;
-									var html = v.label_claim ;//+ '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="drugs['+(count)+'].attached" value="1" class="drug_item list_item"/>';
+									//var html = v.label_claim;//+ '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="drugs['+(count)+'].attached" value="1" class="drug_item list_item"/>';
 									
-									$.each($(".substance_item"),function(){
-										tableData.push( html );
+									$.each(v.label_claim.split(':'),function(i,val){
+										tableData.push(val);
 									});
 									
 									//tableData.push( html );
@@ -436,8 +445,8 @@ $(document).ready(function() {
 	$.each($('.drpro_table:not(".dataTable")'),function(){
 		var self = $(this);
 		var id=self.closest('.tabedItem').attr('id');
-		var alias=self.closest('.tabedItem').attr('alias');
-		var name=self.closest('.tabedItem').attr('name');
+		var alias=self.closest('.tabedItem').data('alias');
+		var name=self.closest('.tabedItem').data('name');
 		self.DataTable({ 
 			"bJQueryUI": true,
 			"sPaginationType": "full_numbers", 
@@ -513,6 +522,12 @@ $(document).ready(function() {
 		var options="<option value=''>Select</option>";//$('#dirty_options select').html();
 		
 		var html = '<input type="hidden" name="interactions['+(count)+'].id" value="0"/><select name="interactions['+(count)+'].substance">'+options+'</select>';
+		tableData.push( html );
+		
+		html = '<select name="interactions['+(count)+'].yes_no"><option value="yes">Yes</option><option value="no">No</option></select>';
+		tableData.push( html );
+		
+		html = '<input type="text" name="interactions['+(count)+'].dose_amount" value="" style="width:100%"/>';
 		tableData.push( html );
 		tableData.push( '<textarea placeholder="Describe the interaction between the two drugs" name="interactions['+(count)+'].descriptions"  rows="1"></textarea>' );
 		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 

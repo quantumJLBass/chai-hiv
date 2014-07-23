@@ -8,6 +8,8 @@
 		<thead>
 			<tr>
 				<th width="15%">With this substance</th>
+				<th width="15%">Interactions</th>
+				<th width="15%">Amount</th>
 				<th>description</th>
 				<th width="5%"></th>
 			</tr>
@@ -26,6 +28,8 @@
 				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
 					<td> </td>
 					<td> </td>
+					<td> </td>
+					<td> </td>
 					<td>
 					#if($viewonly) #else
 					<a href="ddi.castle?id=$item.baseid&skiplayout=1" class="button small inline_edit"  data-type="drug"><i class="icon-edit" title="Edit"></i></a> | 
@@ -36,6 +40,8 @@
 			#end
 		</tbody>
 		<tfoot>			<tr>
+				<th width="15%"></th>
+				<th width="15%"></th>
 				<th width="15%"></th>
 				<th></th>
 				<th width="5%"></th>

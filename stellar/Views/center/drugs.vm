@@ -15,10 +15,20 @@
 				<th width="15%">Label claim</th>
 				<th width="15%">Family</th>
 				<th class="sorting_asc">Name (brand name)</th>
-				<th width="15%">manufacturer</th>
-				<th width="20%"></th>
+				<th width="15%">Manufacturer</th>
+				<th width="20%">action</th>
 			</tr>
 		</thead>
+		<tfoot>
+			<tr>
+				<th width="15%"></th>
+				<th width="15%"></th>
+				<th width="15%"></th>
+				<th></th>
+				<th width="15%"></th>
+				<th width="20%"></th>
+			</tr>
+		</tfoot>
 		<tbody>
 		#foreach($item in $items)
 			#set($name = false)
@@ -28,14 +38,11 @@
 		
 #capturefor(fam_sub_code)
 
-#foreach($part in  $item.families)
 
-#foreach($sub in  $part.substances)
-$sub.lab_code
+#foreach($sub in  $item.families.substances)
+$sub.abbreviated
 #between
 <em>:</em>
-#end
-
 #end
 
 #end	
@@ -44,15 +51,15 @@ $sub.lab_code
 		
 		
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
-				<td>$!taxonomyService.get_taxonomy($!item.dose_form).name</td>
+				<td>#if($!taxonomyService.get_taxonomy($!item.dose_form).name) $!taxonomyService.get_taxonomy($!item.dose_form).name #else - #end</td>
 				
-				<td>$!item.label_claim</td>
+				<td>#if($!item.label_claim) $!item.label_claim #else - #end</td>
 			
-				<td>#if($!fam_sub_code.trim()!="" && $item.attached) $!fam_sub_code #else <em><b>orphaned</b></em> #end</td>
+				<td>#if($!fam_sub_code.trim()!="") $!fam_sub_code #else <em><b>orphaned</b></em> #end</td>
 				
 				#set($name = $item.get_named())
 				#set($taxedname = $!postingService.get_taxonomy($name).name)
-				<td>#if($taxedname)$taxedname#else$name#end</td>
+				<td>#if($taxedname)$taxedname#else #if($name!="")$name#else -- #end #end</td>
 				
 				#set($manufacturer = $!postingService.get_taxonomy($item.manufacturer).name)
 				<td>#if($manufacturer)$!manufacturer #else - #end</td>
@@ -64,6 +71,11 @@ $sub.lab_code
 					#else
 						#if(!$skiplayout)
 						<a href="drug.castle?id=$item.baseid" class="button small">Edit</a> | <a href="remove_drug.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> #*| <a href="copydrug.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>*#
+						#else
+
+						<a href="#ADD" class="additem button med">Add</a>
+						
+						
 						#end 
 					#end
 				</td>

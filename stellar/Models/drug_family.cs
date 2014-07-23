@@ -42,8 +42,11 @@ namespace stellar.Models {
             set { SUBSTANCES = value; }
         }
 
-        /// <summary> </summary>
+        /*/// <summary> </summary>
         [HasAndBelongsToMany(typeof(drug), Lazy = true, Table = "drug_to_drug_family", ColumnKey = "drug_family_id", ColumnRef = "drug_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        virtual public IList<drug> drugs { get; set; }*/
+        /// <summary> </summary>
+        [HasMany(typeof(drug), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
         virtual public IList<drug> drugs { get; set; }
 
 

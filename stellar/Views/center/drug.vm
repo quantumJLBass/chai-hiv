@@ -105,13 +105,13 @@ $part.name => $part.alias
 	#* *#
 		
 #capturefor(fam_sub_code)
-#foreach($part in  $item.families)
-#foreach($sub in  $part.substances)
+
+#foreach($sub in  $item.families.substances)
 $sub.abbreviated
 #between
 <em>:</em>
 #end
-#end
+
 #end	
 		
 <article class="grid col-full">

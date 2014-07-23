@@ -9,7 +9,7 @@
 		<thead>
 			<tr>
 				<th width="15%">Drug code</th>
-				<th class="sorting_asc">Label Claim</th>
+				<th class="sorting_asc">Substances</th>
 				<th width="20%"></th>
 			</tr>
 		</thead>

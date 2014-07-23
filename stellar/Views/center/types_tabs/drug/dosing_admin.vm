@@ -19,15 +19,14 @@
 	</li>
 </ul>
 <ul class="grid col-one-half mq2-col-full full-input">
-#foreach($part in  $item.families)
-	#foreach($sub in  $part.substances)
-	#* label_claim *#
-		<li data-sub_id="$sub.baseid" data-sub_sort="$sub.basid">
-			$Controller.feilds("textinput","$type","label_claim", $!item.label_claim ,"${sub.abbreviated} Label Claim", "","","")
-		</li>	
-	
-	#end
+
+#foreach($sub in  $item.families.substances)
+#* label_claim *#
+	<li data-sub_id="$sub.baseid" data-sub_sort="$sub.basid">
+		$Controller.feilds("textinput","$type","label_claim", $!item.label_claim ,"${sub.abbreviated} Label Claim", "","","")
+	</li>
 #end
+
 </ul>
 </fieldset>
 

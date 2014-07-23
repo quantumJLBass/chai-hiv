@@ -723,7 +723,7 @@ $(document).ready(function() {
 						html+="<input type='hidden' name='substances["+par.data("baseid")+"].baseid' value='"+par.data("baseid")+"' class='substance'/>";
 						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].baseid' value='0'  class=''/>";
 						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].family.baseid' value='"+$('[name="item.baseid"]').val()+"'  class=''/>";
-						html+="<input type='text' name='family_substance["+par.data("baseid")+"].substance_order' value='"+$(".substance_item").length+"'  class='substanceOrder'/>";
+						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].substance_order' value='"+$(".substance_item").length+"'  class='substanceOrder'/>";
 						html+="<input type='hidden' name='family_substance["+par.data("baseid")+"].substance.baseid' value='"+par.data("baseid")+"'  class=''/>";
 						html+="</li>";
 
@@ -795,16 +795,16 @@ $(document).ready(function() {
 			html+="<h4>Create new "+form+"</h4>";
 				html+="<div id='create_drPros_stub' class='full-input'>";
 					html+="<form action='/center/savedrug.castle' method='post'><input name='item.baseid' type='hidden' value='0'>";
-						html+="<input type='hidden' name='item.families[1].baseid' value='"+$("[name='item.baseid']").val()+"'/>";
+						html+="<input type='hidden' name='item.families.baseid' value='"+$("[name='item.baseid']").val()+"'/>";
 						html+="<input type='hidden' name='item.dose_form' value='"+form+"'/>";
 						html+="<input type='hidden' name='item.attached' value='false'/>";
 						
 						html+="<label>Amounts<br/>";
 						$.each($(".substance_item"),function(){
-							html+= $(this).find('.sub_code').text()+": <input type='text' name='item.label_claim' style='width: auto; display: inline-block; max-width: 100%;' /><br/>";
+							html+= $(this).find('.sub_code').text()+": <input type='text' class='sub_label_claim' style='width: auto; display: inline-block; max-width: 100%;' /><br/>";
 						});
 						html+="</label>";
-						
+						html+= "<input type='hidden' name='item.label_claim'/><br/>";
 						html+="<label>Manufacturer<br/><select name='item.manufacturer' id='quick_drPro_manufacturer'><option value=''>Select</option></select><br/></label>";
 						html+="<a href='#' id='create_drPros_stub_submit' class='button'>Add drug product stub</a>";
 					html+="</form>";
@@ -848,8 +848,17 @@ $(document).ready(function() {
 				$('#create_drPros_stub_submit').on("click",function(e){
 					e.preventDefault();
 					e.stopPropagation();
+					
+					var code = "";
+					$.each($('.sub_label_claim'),function(i){
+						if(i>0){
+							code+=":";
+						}
+						code+=$.trim($(this).val());
+					});	
+					$('[name="item.label_claim"]').val(code);
 					var form_data = $('#create_drPros_stub form').find( "input, textarea, select" ).serializeArray();
-	
+					
 					$.ajax({cache: false,
 					   url:$('#create_drPros_stub form').attr('action')+"?json=true&ajaxed_update=true&callback=?",
 					   data:form_data,
@@ -864,10 +873,10 @@ $(document).ready(function() {
 									var tableData = [];
 									
 									//var count = $(".drug_item.list_item").length;
-									var html = v.label_claim ;//+ '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="drugs['+(count)+'].attached" value="1" class="drug_item list_item"/>';
+									//var html = v.label_claim;//+ '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="drugs['+(count)+'].attached" value="1" class="drug_item list_item"/>';
 									
-									$.each($(".substance_item"),function(){
-										tableData.push( html );
+									$.each(v.label_claim.split(':'),function(i,val){
+										tableData.push(val);
 									});
 									
 									//tableData.push( html );
@@ -1050,8 +1059,8 @@ $(document).ready(function() {
 	$.each($('.drpro_table:not(".dataTable")'),function(){
 		var self = $(this);
 		var id=self.closest('.tabedItem').attr('id');
-		var alias=self.closest('.tabedItem').attr('alias');
-		var name=self.closest('.tabedItem').attr('name');
+		var alias=self.closest('.tabedItem').data('alias');
+		var name=self.closest('.tabedItem').data('name');
 		self.DataTable({ 
 			"bJQueryUI": true,
 			"sPaginationType": "full_numbers", 
@@ -1127,6 +1136,12 @@ $(document).ready(function() {
 		var options="<option value=''>Select</option>";//$('#dirty_options select').html();
 		
 		var html = '<input type="hidden" name="interactions['+(count)+'].id" value="0"/><select name="interactions['+(count)+'].substance">'+options+'</select>';
+		tableData.push( html );
+		
+		html = '<select name="interactions['+(count)+'].yes_no"><option value="yes">Yes</option><option value="no">No</option></select>';
+		tableData.push( html );
+		
+		html = '<input type="text" name="interactions['+(count)+'].dose_amount" value="" style="width:100%"/>';
 		tableData.push( html );
 		tableData.push( '<textarea placeholder="Describe the interaction between the two drugs" name="interactions['+(count)+'].descriptions"  rows="1"></textarea>' );
 		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
@@ -1414,6 +1429,145 @@ $(document).ready(function() {
 	});
 
 });
+// JavaScript Document
+
+
+$(document).ready(function() {
+	$(".drug_pro_add_item").on('click',function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		
+		if($("#drug_form").length===0){
+			$("#staging").append("<div id='drug_form'><div id='drug_list'></div></div>");
+		}
+
+		var inlist="";
+		$.ajax({cache: false,
+		   url:"/center/drugs.castle",
+		   data:{"skiplayout":1,"exclude":inlist,typed_ref:$('[name="typed_ref"]').val()},
+		   success: function(data){
+			   $("#drug_list").html(data);
+				$( "#drug_form" ).dialog({
+						autoOpen: true,
+						resizable: false,
+						width: $(window).width()-50,
+						height: $(window).height()-50,
+						modal: true,
+						draggable : false,
+						buttons: {
+							Cancel: function() {
+								$( this ).dialog( "close" );
+							}
+						},
+						create:function(){
+							
+							$( "#mess" ).dialog( "destroy" );
+							$( "#mess" ).remove();
+							
+							$('body').css({overflow:"hidden"});
+							$(".ui-dialog-buttonpane").remove();
+						},
+						open:function(){
+							
+								var table = $("#drug_list #data").DataTable({ 
+									"bJQueryUI": true,
+									"sPaginationType": "full_numbers",
+									"fnDrawCallback": function() {}
+								});
+								$.each($("#drug_list #data thead th"), function ( i ) {
+									var select = $('<select><option value=""></option></select>')
+										.appendTo( $(this) )
+										.on( 'change', function () {
+											var val = $(this).val();
+							 
+											table.column( i )
+												.search( val, false, true, true )
+												.draw();
+										});
+									table.column( i ).data().unique().sort().each( function ( d ) {
+										select.append( '<option value="'+d+'">'+d+'</option>' );
+									} );
+								});	
+								
+								$('.additem').off().on('click',function(e){
+									e.preventDefault();
+									e.stopPropagation();
+									var table = $("#drug_list #data").dataTable();
+									var trigger = $(this);
+									var targetrow = trigger.closest('tr');
+									var baseid = targetrow.data("baseid");
+									
+									var count = table.find("tbody").find("tr").length;
+									
+									var tdCount = targetrow.find("td").length;
+									var tableData = [];
+									
+									var html = targetrow.find("td:first").text() + '<input type="hidden" name="item.drugs['+(count-1)+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
+									tableData.push( html );
+									tableData.push( targetrow.find("td:first").next('td').text() ); 
+									if(tdCount>2){
+										tableData.push( targetrow.find("td:first").next('td').next('td').text() ); 
+									}
+									if(tdCount>3){
+										tableData.push( targetrow.find("td:first").next('td').next('td').next('td').text() ); 
+									}
+									if(tdCount>4){
+										tableData.push( targetrow.find("td:first").next('td').next('td').next('td').next('td').text() ); 
+									}/**/
+									tableData.push(
+										'<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>'
+									); 
+						
+									$("#drug_products").find(".datagrid").dataTable().fnAddData( tableData );
+									
+									targetrow.fadeOut( "75" ,function(){ table.fnDeleteRow( table.fnGetPosition( targetrow.get(0) ) ); });
+									
+									$("#drug_form").append("<span class='dialog_message ui-state-highlight'>Added to this "+$("#header_title").text()+"</span>");
+									
+									setTimeout(function(){$(".dialog_message").fadeOut("500");},"1000");
+									
+									$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
+										e.preventDefault();
+										e.stopPropagation();
+										var targetrow = $(this).closest("tr");
+										var datatable = $(this).closest('.datagrid').dataTable();
+										targetrow.fadeOut( "75" ,function(){ datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) ); });
+									});
+								});
+								
+								
+								
+								
+														
+							},
+						close: function() {
+							$('body').css({overflow:"auto"});
+							$( "#drug_form" ).dialog( "destroy" );
+							$( "#drug_form" ).remove();
+
+						}
+					});
+					$(window).resize(function(){$("#drug_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});
+
+				});
+			}
+		});
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	});
+	
+});
 (function($) {
 	
 
@@ -1493,7 +1647,7 @@ $(document).ready(function() {
 			use = ["new","list"];
 		}
 		if($("#drug_form").length===0){
-			$("#staging").append("<div id='drug_form'><div id='drug_list'></div><div id='drug_item'></div>");
+			$("#staging").append("<div id='drug_form'><div id='drug_list'></div><div id='drug_item'></div></div>");
 		}
 
 		var buttons = "";
@@ -1672,7 +1826,7 @@ $(document).ready(function() {
 			var count = datatable.find("tbody").find("tr").length;
 			
 			var tdCount = targetrow.find("td").length;
-			alert(tdCount);
+			//alert(tdCount);
 			var tableData = [];
 			
 			var html = targetrow.find("td:first").text() + '<input type="hidden" name="item.'+type+'s['+(count-1)+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
@@ -1705,6 +1859,8 @@ $(document).ready(function() {
 		});
 	}
 
+
+
 	//var parent_datagrid = null;
 	var last_datatable=null;
 	function make_popup_datatable(type){
@@ -1722,6 +1878,8 @@ $(document).ready(function() {
 			make_datatable_popup_add(datatable,type);
 		});
 	}
+
+
 
 
 
@@ -1943,7 +2101,7 @@ $(document).ready(function() {
 					if(focused_grid.find(".dataTables_empty").length<=0){
 						list = get_table_ids( focused_grid );
 					}
-					popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> </span>',true);
+					popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> loading ... </span>',true);
 					add_item_popup(type, list, ["new","list"]);
 				});
 			});

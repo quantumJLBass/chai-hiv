@@ -168,7 +168,14 @@ $part.abbreviated
 			  	#parse("center/types_tabs/drug/ddi.vm")
 				$Controller.notes("$type","ddi","bottom")
 			  </article>
-			  
+#* *#
+#* drug_products ------------ *#
+#* *#
+				<article id="drug_products" class="tab_content">
+					$Controller.notes("$type","drug_products","top")
+			  		#parse("center/types_tabs/drug/drug_products.vm")
+					$Controller.notes("$type","drug_products","bottom")
+				</article>			  
 #* *#
 #* market ------------ *#
 #* *#
@@ -177,14 +184,7 @@ $part.abbreviated
 			  	#parse("center/types_tabs/drug/market.vm")
 				$Controller.notes("$type","market","bottom")				
 			  </article>
-#* *#
-#* drug_products ------------ *#
-#* *#
-				<article id="drug_products" class="tab_content">
-					$Controller.notes("$type","drug_products","top")
-			  		#parse("center/types_tabs/drug/drug_products.vm")
-					$Controller.notes("$type","drug_products","bottom")
-				</article>
+
 			</div>
 		  </div>
 		</article>

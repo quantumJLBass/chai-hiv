@@ -159,9 +159,15 @@ namespace stellar.Models {
         [HasAndBelongsToMany(typeof(clinical), Lazy = true, Table = "clinical_to_drugs", ColumnKey = "drug_id", ColumnRef = "clinical_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<clinical> clinicals { get; set; }
 
-        /// <summary> </summary>
+        /*/// <summary> </summary>
         [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "drug_to_drug_family", ColumnKey = "drug_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<drug_family> families { get; set; }
+        virtual public IList<drug_family> families { get; set; }*/
+
+
+        /// <summary> </summary>
+        [BelongsTo("substance_id")]
+        virtual public drug_family families { get; set; }
+
 
         /// <summary> </summary>
         virtual public String get_named() {

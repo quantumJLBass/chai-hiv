@@ -3,13 +3,26 @@
 	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Drugdata" width="100%">
 		<thead>
 			<tr>
-				<th>New Drug Code</th>
-				<th>Name</th>
-				<th></th>
+				<th width="15%">Form</th>
+				<th width="15%">Label claim</th>
+				<th width="15%">Family</th>
+				<th class="sorting_asc">Name (brand name)</th>
+				<th width="15%">Manufacturer</th>
+				<th width="20%">action</th>
 			</tr>
 		</thead>
+		<tfoot>
+			<tr>
+				<th width="15%"></th>
+				<th width="15%"></th>
+				<th width="15%"></th>
+				<th></th>
+				<th width="15%"></th>
+				<th width="20%"></th>
+			</tr>
+		</tfoot>
 		<tbody>
-			#foreach($item in $typed_list)
+			#*#foreach($item in $typed_list)
 				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
 					<td>#if($item.new_drug_code)$!item.new_drug_code #else -- #end<input type="hidden" name="item.drugs[$velocityCount].baseid" value="$item.baseid" class="list_item drug_item"/></td>
 					<td>#if($!postingService.get_taxonomy($item.brand_name).name)$!postingService.get_taxonomy($item.brand_name).name #else --#end</td>
@@ -20,12 +33,66 @@
 					#end
 					</td>
 				</tr>
-			#end
+			#end*#
+			
+		<tbody>
+		#foreach($item in $typed_list)
+			#set($name = false)
+			#set($taxedname = false)
+			#set($manufacturer = false)
+			#set($fam_sub_code = "")
+		
+#capturefor(fam_sub_code)
+
+
+#foreach($sub in  $item.families.substances)
+$sub.abbreviated
+#between
+<em>:</em>
+#end
+
+#end	
+		
+		
+		
+		
+			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
+				<td>#if($!taxonomyService.get_taxonomy($!item.dose_form).name!="") $!taxonomyService.get_taxonomy($!item.dose_form).name #else - #end</td>
+				
+				<td>#if($!item.label_claim!="") $!item.label_claim #else - #end</td>
+			
+				<td>#if($!fam_sub_code.trim()!="") $!fam_sub_code #else <em><b>orphaned</b></em> #end</td>
+				
+				#set($name = $item.get_named())
+				#set($taxedname = $!postingService.get_taxonomy($name).name)
+				<td>#if($taxedname)$taxedname#else #if($name!="")$name#else -- #end #end</td>
+				
+				#set($manufacturer = $!postingService.get_taxonomy($item.manufacturer).name)
+				<td>#if($manufacturer)$!manufacturer #else - #end</td>
+				
+				
+				<td>
+					#if($viewonly)
+						<a href="drug.castle?id=$item.baseid" class="button small">View</a>
+					#else
+						#if(!$skiplayout)
+						<a href="drug.castle?id=$item.baseid" class="button small">Edit</a> | <a href="remove_drug.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> #*| <a href="copydrug.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>*#
+						#else
+
+						<a href="#ADD" class="additem button med">Add</a>
+						
+						
+						#end 
+					#end
+				</td>
+			</tr>
+		#end
+			
+			
 		</tbody>
-		<tfoot></tfoot>
 	</table>
 	#if($viewonly) #else
-	<a href="#"  class="button add_to_list" data-type="drug"><i class="icon-plus blue" title="Add"></i> Add Drug</a>
+	<a href="#"  class="button drug_pro_add_item" data-type="drug"><i class="icon-plus blue" title="Add"></i> Add Drug</a>
 	#end
 	
 #else

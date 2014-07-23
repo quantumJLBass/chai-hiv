@@ -77,7 +77,7 @@
 			use = ["new","list"];
 		}
 		if($("#drug_form").length===0){
-			$("#staging").append("<div id='drug_form'><div id='drug_list'></div><div id='drug_item'></div>");
+			$("#staging").append("<div id='drug_form'><div id='drug_list'></div><div id='drug_item'></div></div>");
 		}
 
 		var buttons = "";
@@ -256,7 +256,7 @@
 			var count = datatable.find("tbody").find("tr").length;
 			
 			var tdCount = targetrow.find("td").length;
-			alert(tdCount);
+			//alert(tdCount);
 			var tableData = [];
 			
 			var html = targetrow.find("td:first").text() + '<input type="hidden" name="item.'+type+'s['+(count-1)+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
@@ -289,6 +289,8 @@
 		});
 	}
 
+
+
 	//var parent_datagrid = null;
 	var last_datatable=null;
 	function make_popup_datatable(type){
@@ -306,6 +308,8 @@
 			make_datatable_popup_add(datatable,type);
 		});
 	}
+
+
 
 
 
@@ -527,7 +531,7 @@
 					if(focused_grid.find(".dataTables_empty").length<=0){
 						list = get_table_ids( focused_grid );
 					}
-					popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> </span>',true);
+					popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> loading ... </span>',true);
 					add_item_popup(type, list, ["new","list"]);
 				});
 			});

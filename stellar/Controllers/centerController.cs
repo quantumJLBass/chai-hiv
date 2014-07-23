@@ -558,7 +558,7 @@ namespace stellar.Controllers {
                 drug_family fam = ActiveRecordBase<drug_family>.Find(id);
 
 
-                if (fam.drugs!=null){
+                /*if (fam.drugs!=null){
                     IList<int> ids = new List<int>();
                     List<drug> drugs = new List<drug>();
                     foreach (drug drug in fam.drugs) {
@@ -577,7 +577,7 @@ namespace stellar.Controllers {
                     fam.drugs.Clear();
                     fam.drugs = drugs;
                 }
-                ActiveRecordMediator<drug_family>.Save(fam);
+                ActiveRecordMediator<drug_family>.Save(fam);*/
 
                 PropertyBag["item"] = fam;
 
