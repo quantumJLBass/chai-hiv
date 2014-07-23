@@ -88,9 +88,17 @@ namespace stellar.Models {
         [HasAndBelongsToMany(typeof(drug), Lazy = true, Table = "trial_to_drugs", ColumnKey = "trial_id", ColumnRef = "drug_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug> drugs { get; set; }
 
-        /// <summary> </summary>
+       /* /// <summary> </summary>
         [HasAndBelongsToMany(typeof(clinical), Lazy = true, Table = "clinical_to_trials", ColumnKey = "trial_id", ColumnRef = "clinical_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        virtual public IList<clinical> clinicals { get; set; } */
+
+        /// <summary> </summary>
+        [HasMany(typeof(clinical), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
         virtual public IList<clinical> clinicals { get; set; }
+
+
+
+
 
 
     }

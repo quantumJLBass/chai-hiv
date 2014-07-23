@@ -317,9 +317,12 @@ namespace stellar.Models {
 
 
 
-        /// <summary> </summary>
+        /*/// <summary> </summary>
         [HasAndBelongsToMany(typeof(trial), Lazy = true, Table = "clinical_to_trials", ColumnKey = "clinical_id", ColumnRef = "trial_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<trial> trials { get; set; }
+        virtual public IList<trial> trials { get; set; }*/
+        /// <summary> </summary>
+        [BelongsTo]
+        virtual public trial trials { get; set; }
 
         /// <summary> </summary>
         [HasAndBelongsToMany(typeof(drug_family), Lazy = true, Table = "clinical_to_drug_family", ColumnKey = "clinical_id", ColumnRef = "drug_family_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
