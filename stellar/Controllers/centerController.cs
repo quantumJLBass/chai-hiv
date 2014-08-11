@@ -1039,6 +1039,7 @@ namespace stellar.Controllers {
         /// <summary> </summary>
         [SkipFilter()]
         public void savesubstance([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] substance item,
+            [ARDataBind("salts", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance_salt[] salts,
             HttpPostedFile newfile,
             Boolean remove_file,
             Boolean ajaxed_update,
@@ -1057,6 +1058,15 @@ namespace stellar.Controllers {
             }
 
 
+            item.salts.Clear();
+            foreach (substance_salt salt in salts) {
+                if (salt.id == 0) {
+                    ActiveRecordMediator<substance_salt>.Save(salt);
+                }
+                if (!item.salts.Contains(salt)) {
+                    item.salts.Add(salt);
+                }
+            }
 
             item.tmp = false;
             if (item.published) item.content = "";

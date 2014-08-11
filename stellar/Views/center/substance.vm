@@ -99,9 +99,27 @@ $part.name => $part.alias
 <table cellpadding="0" cellspacing="0" border="0" class="salt_table display datagrid" id="Saltdata" width="100%">
 <thead><tr><th>pro_drug</th><th>Active Moiety</th><th>Active Metabolites</th><th>Actions</th></tr></thead>
 <tfoot><tr><th></th><th></th><th></th><th></th></tr></tfoot>
-<tbody></tbody>
+<tbody>
+#foreach($part in  $item.salts)
+<tr>
+	<td>
+		<input type="hidden" name="salts[[${velocityCount}].id" value="$!part.id"/>
+		$Controller.feilds("select","$type","salts[${velocityCount}].pro_drug", $!part.pro_drug, "Yes,No", "","","","")
+	</td>
+	<td>
+		$Controller.feilds("textinput","$type","salts[${velocityCount}].active_moiety", $!part.active_moiety ,"","","","")
+	</td>
+	<td>
+		$Controller.feilds("textinput","$type","salts[${velocityCount}].active_metabolites", $!part.active_metabolites ,"","","","")
+	</td>
+	<td>
+		<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
+	</td>
+</tr>
+#end
+</tbody>
 </table>
-<a href="#" class="button add_to_list" data-type="substance_salt"><i class="icon-plus blue" title="Add"></i> Add Salt</a>			
+<a href="#" id="add_substance_salt" class="button " data-type="substance_salt"><i class="icon-plus blue" title="Add"></i> Add Salt</a>			
 			
 				<!--
 				<script>

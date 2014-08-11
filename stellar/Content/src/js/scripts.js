@@ -1,30 +1,30 @@
-function setup_tabs(){
-	var tabContents = $(".tab_content").hide(), 
-	    tabs = $("ul.tabs li");
-	tabs.addClass("tabed");
-	tabs.first().addClass("active").show();
-	tabContents.first().show();
-	
-	tabs.on("click",function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-	    var $this = $(this), 
-	        activeTab = $this.find('a').attr('href');
-	    
-	    if(!$this.hasClass('active')){
-	        $this.addClass('active').siblings().removeClass('active');
-	        tabContents.hide().filter(activeTab).fadeIn();
-	    }
-	    return false;
-	});	
-	
-	var uitabs = $( ".uitabs" ).tabs();
-	
-};
+
 
 
 $(document).ready(function() {
-
+	function setup_tabs(){
+		var tabContents = $(".tab_content").hide(), 
+			tabs = $("ul.tabs li");
+		tabs.addClass("tabed");
+		tabs.first().addClass("active").show();
+		tabContents.first().show();
+		
+		tabs.on("click",function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			var $this = $(this), 
+				activeTab = $this.find('a').attr('href');
+			
+			if(!$this.hasClass('active')){
+				$this.addClass('active').siblings().removeClass('active');
+				tabContents.hide().filter(activeTab).fadeIn();
+			}
+			return false;
+		});	
+		
+		var uitabs = $( ".uitabs" ).tabs();
+		
+	};
 
 
 // Slider  	

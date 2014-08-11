@@ -542,7 +542,8 @@ function setting_item_pub(parentObj){
 			
 			var secselect_target;
 			var type = select_target.attr("rel")!=="" ? select_target.attr("rel") : select_target.attr("id");
-			if(select_target.attr("rel").length){
+			var attr=select_target.attr("rel");
+			if (typeof attr !== typeof undefined && attr !== false) {
 				secselect_target = $('[rel="'+type+'"]');
 			}
 			$.ajax({cache: false,

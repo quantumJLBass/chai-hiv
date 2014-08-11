@@ -129,6 +129,9 @@ namespace stellar.Models {
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string active_moiety { get; set; }
 
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string active_metabolites { get; set; }
 
         /// <summary> </summary>
         [BelongsTo]
