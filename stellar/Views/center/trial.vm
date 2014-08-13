@@ -63,7 +63,7 @@
 							$Controller.notes("$type","regulatory_information","top")
 
 							#* Results *#
-							$Controller.feilds("textarea","$type","discription", $!item.discription , "Results","Enter trial discription and details","required"," cols='100' rows='6' ")
+							$Controller.feilds("textarea","$type","results", $!item.results , "Results","Enter trial discription and details","required"," cols='100' rows='6' ")
 							
 							$Controller.notes("$type","regulatory_information","bottom")
 						</article>
