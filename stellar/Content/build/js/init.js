@@ -1418,21 +1418,19 @@ $(document).ready(function() {
 		});
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	$(".trial_arm_form").on("click",function(e){
 		e.preventDefault();
 		e.stopPropagation();
 		popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> Loading content...</span>',true);
 		trial_arm_form();
 	});
-
+	$('.trial_inline_edit').on('click',function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> Loading content...</span>',true);
+		trial_arm_form($(this).closest('tr').data('baseid'));
+	});
 });
 // JavaScript Document
 
@@ -1716,6 +1714,7 @@ $(document).ready(function() {
 									});
 									set_up_form(type,inlist,use);
 									activate_adverse_ui();
+									
 								},
 								close: function() {
 									$('body').css({overflow:"auto"});
@@ -2152,6 +2151,7 @@ $(document).ready(function() {
 			e.stopPropagation();
 			popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> </span>',true);
 			add_item_popup($(this).data('type'),"",["new"], $(this).closest('tr').data('baseid') );
+			
 		});
 		
 		

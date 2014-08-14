@@ -141,6 +141,7 @@
 									});
 									set_up_form(type,inlist,use);
 									activate_adverse_ui();
+									
 								},
 								close: function() {
 									$('body').css({overflow:"auto"});
@@ -577,6 +578,7 @@
 			e.stopPropagation();
 			popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> </span>',true);
 			add_item_popup($(this).data('type'),"",["new"], $(this).closest('tr').data('baseid') );
+			
 		});
 		
 		

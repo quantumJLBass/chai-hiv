@@ -123,19 +123,17 @@ $(document).ready(function() {
 		});
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	$(".trial_arm_form").on("click",function(e){
 		e.preventDefault();
 		e.stopPropagation();
 		popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> Loading content...</span>',true);
 		trial_arm_form();
 	});
-
+	$('.trial_inline_edit').on('click',function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> Loading content...</span>',true);
+		trial_arm_form($(this).closest('tr').data('baseid'));
+	});
 });

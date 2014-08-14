@@ -22,7 +22,7 @@
 			</td>
 			<td>
 				#if($viewonly) #else
-					<a href="clinical.castle?id=$part.baseid" class="button small inline_edit" data-type="clinical"><i class="icon-edit" title="Edit"></i></a> | 
+					<a href="clinical.castle?id=$part.baseid" class="button small trial_inline_edit" data-type="clinical"><i class="icon-edit" title="Edit"></i></a> | 
 					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
 				#end
 			</td>
