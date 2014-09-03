@@ -105,9 +105,13 @@ namespace stellar.Models {
 
 
         /// <summary> </summary>
+        [HasMany(typeof(substance_prodrug), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
+        virtual public IList<substance_prodrug> prodrugs { get; set; }
+
+        /// <summary> </summary>
         [HasMany(typeof(substance_salt), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
         virtual public IList<substance_salt> salts { get; set; }
-
+       
 
     }
 
@@ -116,9 +120,9 @@ namespace stellar.Models {
 
     /// <summary> </summary>
     [ActiveRecord(Lazy = true, BatchSize = 5)]
-    public class substance_salt : ActiveRecordBase<substance_salt> {
+    public class substance_prodrug : ActiveRecordBase<substance_prodrug> {
         /// <summary> </summary>
-        [PrimaryKey("salt_id")]
+        [PrimaryKey("prodrug_id")]
         virtual public int id { get; set; }
 
         /// <summary> </summary>
@@ -132,6 +136,28 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string active_metabolites { get; set; }
+
+        /// <summary> </summary>
+        [BelongsTo]
+        virtual public substance substance { get; set; }
+
+    }
+
+
+    /// <summary> </summary>
+    [ActiveRecord(Lazy = true, BatchSize = 5)]
+    public class substance_salt : ActiveRecordBase<substance_salt> {
+        /// <summary> </summary>
+        [PrimaryKey("salt_id")]
+        virtual public int id { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string is_salt { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string form { get; set; }
 
         /// <summary> </summary>
         [BelongsTo]
