@@ -2187,7 +2187,32 @@ $(document).ready(function() {
 	});	
 
 		
-	
+	$('#add_substance_prodrug').on("click",function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		var dataTable = $('#Prodrugdata.dataTable');
+		var tableData = [];
+		
+		var count = $("#Prodrugdata tbody select").length;
+
+		var html = '<input type="hidden" name="prodrugs['+(count)+'].id" value="0"/><select name="salts['+(count)+'].is_salt"><option value="Yes">Yes</option><option value="No">No</option></select>';
+		tableData.push( html );
+		tableData.push( '<input type="text" value="" name="prodrugs['+(count)+'].form"/>' ); 
+		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+
+		
+		dataTable.dataTable().fnAddData( tableData );
+		
+		$("#Prodrugdata tbody .removal").off().on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			var targetrow = $(this).closest("tr");
+			var datatable = $(this).closest('.dataTable').dataTable();
+			targetrow.fadeOut( "75" ,function(){ 
+				datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
+			});
+		});
+	});	
 	
 	
 	});
