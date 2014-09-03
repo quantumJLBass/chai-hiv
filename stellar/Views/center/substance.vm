@@ -107,14 +107,14 @@ $part.name => $part.alias
 #foreach($part in  $item.prodrugs)
 <tr>
 	<td>
-		<input type="hidden" name="salts[[${velocityCount}].id" value="$!part.id"/>
-		$Controller.feilds("select","$type","salts[${velocityCount}].pro_drug", $!part.pro_drug, "Yes,No", "","","","")
+		<input type="hidden" name="prodrugs[[${velocityCount}].id" value="$!part.id"/>
+		$Controller.feilds("select","$type","prodrugs[${velocityCount}].pro_drug", $!part.pro_drug, "Yes,No", "","","","")
 	</td>
 	<td>
-		$Controller.feilds("textinput","$type","salts[${velocityCount}].active_moiety", $!part.active_moiety ,"","","","")
+		$Controller.feilds("textinput","$type","prodrugs[${velocityCount}].active_moiety", $!part.active_moiety ,"","","","")
 	</td>
 	<td>
-		$Controller.feilds("textinput","$type","salts[${velocityCount}].active_metabolites", $!part.active_metabolites ,"","","","")
+		$Controller.feilds("textinput","$type","prodrugs[${velocityCount}].active_metabolites", $!part.active_metabolites ,"","","","")
 	</td>
 	<td>
 		<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
@@ -140,11 +140,11 @@ $part.name => $part.alias
 #foreach($part in  $item.salts)
 <tr>
 	<td>
-		<input type="hidden" name="prodrugs[[${velocityCount}].id" value="$!part.id"/>
-		$Controller.feilds("select","$type","prodrugs[${velocityCount}].is_salt", $!part.is_salt, "Yes,No", "","","","")
+		<input type="hidden" name="salts[[${velocityCount}].id" value="$!part.id"/>
+		$Controller.feilds("select","$type","salts[${velocityCount}].is_salt", $!part.is_salt, "Yes,No", "","","","")
 	</td>
 	<td>
-		$Controller.feilds("textinput","$type","prodrugs[${velocityCount}].form", $!part.form ,"","","","")
+		$Controller.feilds("textinput","$type","salts[${velocityCount}].form", $!part.form ,"","","","")
 	</td>
 	<td>
 		<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
