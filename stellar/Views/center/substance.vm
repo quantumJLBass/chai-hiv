@@ -94,13 +94,17 @@ $part.name => $part.alias
 			</li>
 *#
 
-			<li>
-<label for="Saltdata">Salts:</label>
-<table cellpadding="0" cellspacing="0" border="0" class="salt_table display datagrid" id="Saltdata" width="100%">
-<thead><tr><th>pro_drug</th><th>Active Moiety</th><th>Active Metabolites</th><th>Actions</th></tr></thead>
+
+
+
+<li>
+<label for="Prodrugdata">Prodrugs:</label>
+<table cellpadding="0" cellspacing="0" border="0" class="prodrug_table display datagrid" id="Prodrugdata" width="100%">
+<thead><tr><th>pro_drug</th><th>Active Moiety</th><th>Active Metabolites</th><th>Actions</th></tr></tr></thead>
 <tfoot><tr><th></th><th></th><th></th><th></th></tr></tfoot>
 <tbody>
-#foreach($part in  $item.salts)
+
+#foreach($part in  $item.prodrugs)
 <tr>
 	<td>
 		<input type="hidden" name="salts[[${velocityCount}].id" value="$!part.id"/>
@@ -119,19 +123,21 @@ $part.name => $part.alias
 #end
 </tbody>
 </table>
-<a href="#" id="add_substance_salt" class="button " data-type="substance_salt"><i class="icon-plus blue" title="Add"></i> Add Salt</a>			
+<a href="#" id="add_substance_prodrug" class="button " data-type="substance_prodrug"><i class="icon-plus blue" title="Add"></i> Add Prodrug</a>
 			</li>
 
 
 
 
-<li>
-<label for="Prodrugdata">Prodrugs:</label>
-<table cellpadding="0" cellspacing="0" border="0" class="prodrug_table display datagrid" id="Prodrugdata" width="100%">
-<thead><tr><th>Is Salt</th><th>Form</th><th>Actions</th></tr></thead>
+
+
+			<li>
+<label for="Saltdata">Salts:</label>
+<table cellpadding="0" cellspacing="0" border="0" class="salt_table display datagrid" id="Saltdata" width="100%">
+<thead><tr><th>Is Salt</th><th>Form</th><th>Actions</th></thead>
 <tfoot><tr><th></th><th></th><th></th></tr></tfoot>
 <tbody>
-#foreach($part in  $item.prodrugs)
+#foreach($part in  $item.salts)
 <tr>
 	<td>
 		<input type="hidden" name="prodrugs[[${velocityCount}].id" value="$!part.id"/>
@@ -147,8 +153,9 @@ $part.name => $part.alias
 #end
 </tbody>
 </table>
-<a href="#" id="add_substance_prodrug" class="button " data-type="substance_prodrug"><i class="icon-plus blue" title="Add"></i> Add Prodrug</a>
+<a href="#" id="add_substance_salt" class="button " data-type="substance_salt"><i class="icon-plus blue" title="Add"></i> Add Salt</a>			
 			</li>
+
 
 
 

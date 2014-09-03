@@ -109,8 +109,8 @@ namespace stellar.Models {
         virtual public IList<substance_prodrug> prodrugs { get; set; }
 
         /// <summary> </summary>
-        [HasMany(typeof(substance_salt), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
-        virtual public IList<substance_salt> salts { get; set; }
+        [HasMany(typeof(substance_salts), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
+        virtual public IList<substance_salts> salts { get; set; }
        
 
     }
@@ -146,7 +146,7 @@ namespace stellar.Models {
 
     /// <summary> </summary>
     [ActiveRecord(Lazy = true, BatchSize = 5)]
-    public class substance_salt : ActiveRecordBase<substance_salt> {
+    public class substance_salts : ActiveRecordBase<substance_salts> {
         /// <summary> </summary>
         [PrimaryKey("salt_id")]
         virtual public int id { get; set; }

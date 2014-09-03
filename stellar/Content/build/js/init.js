@@ -2166,12 +2166,11 @@ $(document).ready(function() {
 		
 		var count = $("#Saltdata tbody select").length;
 
-		var html = '<input type="hidden" name="salts['+(count)+'].id" value="0"/><select name="salts['+(count)+'].pro_drug"><option value="Yes">Yes</option><option value="No">No</option></select>';
-		tableData.push( html );
-		tableData.push( '<input type="text" value="" name="salts['+(count)+'].active_moiety"/>' ); 
-		tableData.push( '<input type="text" value="" name="salts['+(count)+'].active_metabolites"/>' );
-		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 
+		var html = '<input type="hidden" name="salts['+(count)+'].id" value="0"/><select name="salts['+(count)+'].is_salt"><option value="Yes">Yes</option><option value="No">No</option></select>';
+		tableData.push( html );
+		tableData.push( '<input type="text" value="" name="salts['+(count)+'].form"/>' ); 
+		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 		
 		dataTable.dataTable().fnAddData( tableData );
 		
@@ -2195,9 +2194,10 @@ $(document).ready(function() {
 		
 		var count = $("#Prodrugdata tbody select").length;
 
-		var html = '<input type="hidden" name="prodrugs['+(count)+'].id" value="0"/><select name="salts['+(count)+'].is_salt"><option value="Yes">Yes</option><option value="No">No</option></select>';
+		var html = '<input type="hidden" name="prodrugs['+(count)+'].id" value="0"/><select name="prodrugs['+(count)+'].pro_drug"><option value="Yes">Yes</option><option value="No">No</option></select>';
 		tableData.push( html );
-		tableData.push( '<input type="text" value="" name="prodrugs['+(count)+'].form"/>' ); 
+		tableData.push( '<input type="text" value="" name="prodrugs['+(count)+'].active_moiety"/>' ); 
+		tableData.push( '<input type="text" value="" name="prodrugs['+(count)+'].active_metabolites"/>' );
 		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 
 		
