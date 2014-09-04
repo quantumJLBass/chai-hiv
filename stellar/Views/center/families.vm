@@ -14,7 +14,11 @@
 			</tr>
 		</thead>
 		<tbody>
+
+
 #foreach($item in $items)
+
+#set($fam_sub_code = "")
 #capturefor(fam_sub_code)
 #foreach($part in  $item.substances)
 $part.abbreviated
