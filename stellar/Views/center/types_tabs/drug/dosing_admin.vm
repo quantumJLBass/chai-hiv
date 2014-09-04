@@ -43,6 +43,10 @@
 		#end
 	#end
 	
+	
+	$Controller.feilds("select","$type","dose_unit", $!item.dose_unit , "ml,mg,cc","","","taxed","")
+	
+	
 </ul>
 <input type="hidden" name="label_claim" value="$!item.label_claim" id="item_label_claim"/>
 </fieldset>
