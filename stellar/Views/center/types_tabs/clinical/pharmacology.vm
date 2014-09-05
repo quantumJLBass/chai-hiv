@@ -24,7 +24,7 @@
 
 #* fasting_tmax *#
 		<li>
-			$Controller.feilds("textinput","$type","fasting_cmax", $!item.fasting_tmax ,"","(hours)","","")
+			$Controller.feilds("textinput","$type","fasting_tmax", $!item.fasting_tmax ,"","(hours)","","")
 		</li>
 
 #* fasting_auc *#
