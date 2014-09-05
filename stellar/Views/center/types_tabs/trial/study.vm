@@ -21,7 +21,7 @@
 	
 #* study_sick_healthy *#
 	<li>
-		$Controller.feilds("select","$type","study_sick_healthy", $!item.study_sick_healthy ,"HIV infected,HIV uninfected,Health Human volunteer","","","","")
+		$Controller.feilds("select","$type","study_sick_healthy", $!item.study_sick_healthy ,"Healthy volunteers,HIV-infected treatment-naive,HIV-infected treated","","","","")
 	</li>
 </ul>
 
