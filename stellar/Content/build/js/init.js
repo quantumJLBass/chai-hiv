@@ -802,7 +802,7 @@ $(document).ready(function() {
 						
 						
 						html+="<input type='hidden' name='item.attached' value='false'/>";
-						html+="<label>Unit <select name='item.dose_unit' style='display: inline-block; max-width:50%;'><option value=''>Select Unit</option><option value='ml'>ml</option><option value='mg'>mg</option><option value='cc'>cc</option></select></label>";
+						html+="<label>Unit <select name='item.dose_unit' style='display: inline-block; max-width:50%;'><option value=''>Select Unit</option><option value='mg'>mg</option><option value='mg/ml'>mg/ml</option></select></label>";
 						html+="<label>Amounts<br/>";
 						$.each($(".substance_item"),function(){
 							html+= "<span style='min-width:20%'>"+$(this).find('.sub_code').text()+":</span> <input type='text' class='sub_label_claim' style='width: auto; display: inline-block; max-width: 100%;' /><br/>";
