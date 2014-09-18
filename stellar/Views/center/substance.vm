@@ -21,7 +21,7 @@ $part.name => $part.alias
 	#set($generic_name = $postingService.get_taxonomies("generic_name"))
 	#set($chemical_name = $postingService.get_taxonomies("chemical_name"))
 	 *#
-<form id="contact_form" class="contact_form" action="/center/savesubstance.castle" method="post" name="contact_form" enctype="multipart/form-data">
+<form id="contact_form" class="contact_form autosave" action="/center/savesubstance.castle" method="post" name="contact_form" enctype="multipart/form-data">
 	<input type="hidden" name="item.baseid" value="$!item.baseid" />
 	<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
 
@@ -100,16 +100,16 @@ $part.name => $part.alias
 <li>
 <label for="Prodrugdata">Prodrugs:</label>
 <table cellpadding="0" cellspacing="0" border="0" class="prodrug_table display datagrid" id="Prodrugdata" width="100%">
-<thead><tr><th>pro_drug</th><th>Active Moiety</th><th>Active Metabolites</th><th>Actions</th></tr></tr></thead>
-<tfoot><tr><th></th><th></th><th></th><th></th></tr></tfoot>
+<thead><tr><!--<th>pro_drug</th>--><th>Active Moiety</th><th>Active Metabolites</th><th>Actions</th></tr></tr></thead>
+<tfoot><tr><!--<th></th>--><th></th><th></th><th></th></tr></tfoot>
 <tbody>
 
 #foreach($part in  $item.prodrugs)
 <tr>
-	<td>
+	#*<td>
 		<input type="hidden" name="prodrugs[[${velocityCount}].id" value="$!part.id"/>
 		$Controller.feilds("select","$type","prodrugs[${velocityCount}].pro_drug", $!part.pro_drug, "Yes,No", "","","","")
-	</td>
+	</td>*#
 	<td>
 		$Controller.feilds("textinput","$type","prodrugs[${velocityCount}].active_moiety", $!part.active_moiety ,"","","","")
 	</td>
@@ -134,15 +134,15 @@ $part.name => $part.alias
 			<li>
 <label for="Saltdata">Salts:</label>
 <table cellpadding="0" cellspacing="0" border="0" class="salt_table display datagrid" id="Saltdata" width="100%">
-<thead><tr><th>Is Salt</th><th>Form</th><th>Actions</th></thead>
-<tfoot><tr><th></th><th></th><th></th></tr></tfoot>
+<thead><tr><!--<th>Is Salt</th>--><th>Form</th><th>Actions</th></thead>
+<tfoot><tr><!--<th></th>--><th></th><th></th></tr></tfoot>
 <tbody>
 #foreach($part in  $item.salts)
 <tr>
-	<td>
+	#*<td>
 		<input type="hidden" name="salts[[${velocityCount}].id" value="$!part.id"/>
 		$Controller.feilds("select","$type","salts[${velocityCount}].is_salt", $!part.is_salt, "Yes,No", "","","","")
-	</td>
+	</td>*#
 	<td>
 		$Controller.feilds("textinput","$type","salts[${velocityCount}].form", $!part.form ,"","","","")
 	</td>

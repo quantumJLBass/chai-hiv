@@ -12,7 +12,7 @@
 	#set($not_props = $objectService.explode("name,alias,publish_time,post_type,outputError,editing,owner,baseid,published,checksum,filehash,static_file,url,position,sort,revision,version,deleted,is_active,is_default,is_visible,is_core,is_visible_to_others,is_frontend,is_admin,admin_url,is_link,is_editable,is_frontend_editable,is_Public,protect_post,is_deletable,is_cachable,is_trackable,loads_file,tmp,gets_media,gets_url,is_tabable_content,is_summarizable,is_taggable,gets_metadata,is_taxonomyable,is_categorized,is_templatable,parent,children,menuoptions,seen,options,theme,users,taxonomy_types,taxonomies,site,meta_data,meta_data_date,meta_data_geo,editable,root,logings,references,updated_date,creation_date,id,record_id,ln_clinical_t,content"))
 	
 	<article class="grid col-full">
-	<form id="contact_form" class="contact_form" action="/center/saveclinical.castle" method="post" name="contact_form">
+	<form id="contact_form" class="contact_form autosave" action="/center/saveclinical.castle" method="post" name="contact_form">
 	  <input type="hidden" name="item.baseid" value="$!item.baseid" />
 	  <input type="hidden" name="item.trials.baseid" value="$!item.trials.baseid" />
 	  

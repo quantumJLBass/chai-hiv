@@ -114,7 +114,7 @@ $part.abbreviated
 		
 		
 	<article class="grid col-full">
-	  <form id="entry_form" class="entry_form" action="/center/savefamily.castle" method="post" name="entry_form">
+	  <form id="entry_form" class="entry_form autosave" action="/center/savefamily.castle" method="post" name="entry_form">
 		<input type="hidden" name="item.baseid" value="$!item.baseid" />
 		<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
 		<article id="navtabs" class="grid col-full">
@@ -145,29 +145,10 @@ $part.abbreviated
 		  
 		  <div class="">
 			<ul class="tabs clearfix">
-			  <li><a href="#lmic">LMIC Regimen Use</a></li>
-			  <li><a href="#ddi">DDI</a></li>
-			  <li><a href="#drug_products">Drugs</a></li>
-			  <li><a href="#market">Market</a></li>
-			  
+				<li><a href="#drug_products">Drugs</a></li>			  
 			</ul>
 			<div class="tab_container">
-#* *#
-#* lmic ------------ *#
-#* *#
-			  <article id="lmic" class="tab_content">
-				$Controller.notes("$type","lmic_regimen_use","top")
-			  	#parse("center/types_tabs/drug/lmic.vm")
-				$Controller.notes("$type","lmic_regimen_use","bottom")
-			  </article>
-#* *#
-#* ddi ------------ *#
-#* *#
-			  <article id="ddi" class="tab_content">
-				$Controller.notes("$type","ddi","top")
-			  	#parse("center/types_tabs/drug/ddi.vm")
-				$Controller.notes("$type","ddi","bottom")
-			  </article>
+
 #* *#
 #* drug_products ------------ *#
 #* *#
@@ -176,14 +157,7 @@ $part.abbreviated
 			  		#parse("center/types_tabs/drug/drug_products.vm")
 					$Controller.notes("$type","drug_products","bottom")
 				</article>			  
-#* *#
-#* market ------------ *#
-#* *#
-			  <article id="market" class="tab_content">
-				$Controller.notes("$type","market","top")
-			  	#parse("center/types_tabs/drug/market.vm")
-				$Controller.notes("$type","market","bottom")				
-			  </article>
+
 
 			</div>
 		  </div>

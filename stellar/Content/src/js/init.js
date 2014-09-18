@@ -1,6 +1,7 @@
 (function($) {
 	
 
+	
 
 	function re_index_query_items(){
 		$.each($(".query_item:not('#queryBed .query_item')"),function(i){
@@ -316,6 +317,33 @@
 
 	$(document).ready(function() {
 
+	if($('form.autosave').length){
+		window.setInterval(function() {
+			$.each($('form.autosave'),function() {
+				if($(".dialog_message.autosave").length<=0){
+					$("body").append("<div class='dialog_message ui-state-highlight autosave'>");
+				}
+				$(".dialog_message.autosave").html("Auto saving");
+				$(".dialog_message.autosave").show();
+				$.ajax({
+					url: $(this).attr("action"),
+					data: "autosave=true&"+$(this).serialize(),
+					type: "POST",
+					success: function(data){
+						if(data && data === "success") {
+							$(".dialog_message.autosave").html("Auto saved form");
+						}else{
+							$(".dialog_message.autosave").html("Failed to auto save");
+						}
+						$(".dialog_message.autosave").show();
+						setTimeout(function(){$(".dialog_message.autosave").fadeOut("500");},"1000");
+					}
+				});
+			});
+		}, 10 * 1000);
+	}
+
+
 		$("select[name*='inactive_ingredients[]']").on("change",function(){
 			var sel="";
 			$.each($(this).find(':selected'),function(i){
@@ -621,9 +649,9 @@
 		
 		var count = $("#Prodrugdata tbody select").length;
 
-		var html = '<input type="hidden" name="prodrugs['+(count)+'].id" value="0"/><select name="prodrugs['+(count)+'].pro_drug"><option value="Yes">Yes</option><option value="No">No</option></select>';
-		tableData.push( html );
-		tableData.push( '<input type="text" value="" name="prodrugs['+(count)+'].active_moiety"/>' ); 
+		var html = '<input type="hidden" name="prodrugs['+(count)+'].id" value="0"/>';//<select name="prodrugs['+(count)+'].pro_drug"><option value="Yes">Yes</option><option value="No">No</option></select>';
+		//tableData.push( html );
+		tableData.push( html+'<input type="text" value="" name="prodrugs['+(count)+'].active_moiety"/>' ); 
 		tableData.push( '<input type="text" value="" name="prodrugs['+(count)+'].active_metabolites"/>' );
 		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 

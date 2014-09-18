@@ -27,56 +27,46 @@
 							#if($k==1)
 							<div id='drPro_tabs_${dose.alias}_${j}' class="tabedItem" data-baseid='${dose.baseid}' data-name='${dose.name}' data-alias='${dose.alias}'>
 								<table width="100%" class="drpro_table display" ellspacing="0">
-									<thead><tr>
-									#foreach($part in  $item.substances)
-									<th>$part.abbreviated Amt.</th>
-									#end
-									<th>Manufacure</th><th>Actions</th></tr></thead>
-									<tfoot><tr>
-									#foreach($part in  $item.substances)
-									<th></th>
-									#end
-									<th></th><th></th></tr></tfoot>
+									<thead>
+										<tr>
+										#foreach($part in  $item.substances)
+										<th>$part.abbreviated Amt.</th>
+										#end
+										<th>Manufacure</th><th>Actions</th></tr>
+									</thead>
+									<tfoot>
+										<tr>
+										#foreach($part in  $item.substances)
+										<th></th>
+										#end
+										<th></th><th></th></tr>
+									</tfoot>
 									<tbody>
-									
 							#end
 								<tr>
-								
-								
-	#if($drug.label_claim)
-		#set($label_claims = $objectService.explode($!drug.label_claim,":"))
-		#set($i = 0)
-		#foreach($sub in  $item.substances)
-			#set($label_claim = "")
-			#if($i<$!label_claims.Count)
-				#set($label_claim = ${label_claims.get_Item($i)})
-				<td>$label_claim</td>
-			#end
-			#set($i = $i+1)
-		#end
-	#else
-		#foreach($sub in  $item.substances)
-			<td> -- </td>
-		#end
-	#end
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
+									#if($drug.label_claim)
+										#set($label_claims = $objectService.explode($!drug.label_claim,":"))
+										#set($i = 0)
+										#foreach($sub in  $item.substances)
+											#set($label_claim = "")
+											#if($i<$!label_claims.Count)
+												#set($label_claim = ${label_claims.get_Item($i)})
+												<td>$label_claim</td>
+											#end
+											#set($i = $i+1)
+										#end
+									#else
+										#foreach($sub in  $item.substances)
+											<td> -- </td>
+										#end
+									#end
+
 									<td>${drug.manufacturer}</td>
 									<td>
 										<input type="hidden" name="drugs[${k}].baseid" value="${drug.baseid}" class="drug_item list_item"/>
 										<input type="hidden" name="drugs[${k}].attached" value="1" class="drug_item list_item"/>
+										
+										<a href="#" class="button small"><i class="icon-pencile" title="Edit"></i>Edit</a>
 										<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
 									</td>
 						

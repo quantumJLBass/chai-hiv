@@ -158,9 +158,9 @@ namespace stellar.Controllers {
             
             if (!String.IsNullOrWhiteSpace(item.url)) {
                 reference refer = ActiveRecordBase<reference>.FindFirst(new Order("url", false),
-                   new List<AbstractCriterion>() { 
-                                   Expression.Eq("url", item.url),
-                               }.ToArray()
+                    new List<AbstractCriterion>() { 
+                                    Expression.Eq("url", item.url),
+                                }.ToArray()
                 );
                 if (refer!=null && refer.baseid > 0)
                 {
@@ -226,12 +226,6 @@ namespace stellar.Controllers {
                 ActiveRecordMediator<reference>.Save(item);
             }
 
-
-
-
-
-
-
             //do the auth
             if (apply != null || ajaxed_update) {
                 logger.writelog("Applied to reference edits", getView(), getAction(), item.baseid);
@@ -261,7 +255,7 @@ namespace stellar.Controllers {
             }
         }
         /// <summary> </summary>
-         [SkipFilter()]
+        [SkipFilter()]
         public void remove_reference(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             delete_post<reference>(id);
@@ -270,13 +264,12 @@ namespace stellar.Controllers {
         }
 
         #endregion
-
-         #region(clinicals)
-         /// <summary> </summary>
-         public void clinicals(Boolean skiplayout, String exclude, Boolean pub) {
-             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
-             pub = is_pubview(pub);
-             PropertyBag["published"] = pub;
+        #region(clinicals)
+        /// <summary> </summary>
+        public void clinicals(Boolean skiplayout, String exclude, Boolean pub) {
+            if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+            pub = is_pubview(pub);
+            PropertyBag["published"] = pub;
             //do the auth
             userService.clearTmps<clinical>();
             if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
@@ -293,21 +286,21 @@ namespace stellar.Controllers {
             }
             RenderView("clinicals");
         }
-         /// <summary> </summary>
-         public void copyclinical(int id, String name) {
-             CancelLayout();
-             CancelView();
-             var newObj = versionService._copy<clinical>(id, name, false);
-             if (newObj != null && newObj.baseid > 0) {
-                 Flash["message"] = "New copy saved to the system.  You may now edit " + name;
-                 RedirectToUrl("~/center/clinical.castle?id=" + newObj.baseid);
-             } else {
-                 Flash["error"] = "Failed to copy item.";
-                 Hashtable hashtable = new Hashtable();
-                 Redirect("center", "clinicals", hashtable);
-             }
-         }
-         /// <summary> </summary>
+        /// <summary> </summary>
+        public void copyclinical(int id, String name) {
+            CancelLayout();
+            CancelView();
+            var newObj = versionService._copy<clinical>(id, name, false);
+            if (newObj != null && newObj.baseid > 0) {
+                Flash["message"] = "New copy saved to the system.  You may now edit " + name;
+                RedirectToUrl("~/center/clinical.castle?id=" + newObj.baseid);
+            } else {
+                Flash["error"] = "Failed to copy item.";
+                Hashtable hashtable = new Hashtable();
+                Redirect("center", "clinicals", hashtable);
+            }
+        }
+        /// <summary> </summary>
         public static int make_clinical_tmp() {
             clinical tmp = new clinical();
             tmp.tmp = true;
@@ -331,12 +324,13 @@ namespace stellar.Controllers {
         }
 
         /// <summary> </summary>
-         [SkipFilter()]
+        [SkipFilter()]
         public void saveclinical([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] clinical item,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
             String cancel,
+            String autosave,
             Boolean skiplayout) {
                 if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
 
@@ -371,7 +365,10 @@ namespace stellar.Controllers {
             if (item.published) item.content = "";
             item.tmp = false;
             ActiveRecordMediator<clinical>.Save(item);
-
+            if (autosave != null && autosave == "true") {
+                RenderText("success");
+                return;
+            }
             //do the auth
             if (apply != null || ajaxed_update) {
                 logger.writelog("Applied " + item.alias + " edits", getView(), getAction(), item.baseid);
@@ -400,8 +397,8 @@ namespace stellar.Controllers {
                 return;
             }
         }
-         /// <summary> </summary>
-         [SkipFilter()]
+            /// <summary> </summary>
+        [SkipFilter()]
         public void remove_clinical(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             delete_post<clinical>(id);
@@ -409,9 +406,9 @@ namespace stellar.Controllers {
             Redirect("center", "clinicals", new Hashtable());
         }
         #endregion
-         #region(trials)
-         /// <summary> </summary>
-         public void trials(Boolean skiplayout, String exclude, Boolean pub) {
+        #region(trials)
+            /// <summary> </summary>
+            public void trials(Boolean skiplayout, String exclude, Boolean pub) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
@@ -430,17 +427,17 @@ namespace stellar.Controllers {
             }
             RenderView("trials");
         }
-         /// <summary> </summary>
-         public static int make_trial_tmp() {
-             trial tmp = new trial();
-             tmp.tmp = true;
-             appuser user = userService.getUserFull();
-             tmp.editing = user;
-             ActiveRecordMediator<trial>.Save(tmp);
-             return tmp.baseid;
-         }
-         /// <summary> </summary>
-         public void trial(int id, Boolean skiplayout) {
+            /// <summary> </summary>
+            public static int make_trial_tmp() {
+                trial tmp = new trial();
+                tmp.tmp = true;
+                appuser user = userService.getUserFull();
+                tmp.editing = user;
+                ActiveRecordMediator<trial>.Save(tmp);
+                return tmp.baseid;
+            }
+            /// <summary> </summary>
+            public void trial(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             //do the auth
             if (skiplayout) CancelLayout();
@@ -449,14 +446,15 @@ namespace stellar.Controllers {
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<trial>.Find(id);
             RenderView("trial");
         }
-         /// <summary> </summary>
+            /// <summary> </summary>
         [SkipFilter()]
-         public void savetrial([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] trial item,
+            public void savetrial([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] trial item,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
             String cancel,
             String transition,
+            String autosave,
             Boolean skiplayout) {
                 if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             if (skiplayout) CancelLayout();
@@ -469,6 +467,11 @@ namespace stellar.Controllers {
             item.tmp = false;
             if (item.published) item.content = "";
             ActiveRecordMediator<trial>.Save(item);
+
+            if (autosave != null && autosave == "true") {
+                RenderText("success");
+                return;
+            }
 
             //do the auth
             if (apply != null || ajaxed_update) {
@@ -614,17 +617,13 @@ namespace stellar.Controllers {
         public void savefamily([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug_family item,
             [ARDataBind("family_substance", Validate = true, AutoLoad = AutoLoadBehavior.OnlyNested)]family_substance[] family_substance,
             [ARDataBind("substances", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance[] substances,
-
             [ARDataBind("drugs", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug[] drugs,
-            [ARDataBind("lmics", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_lmic[] lmics,
-            [ARDataBind("markets", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_market[] markets,
-
-
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
             String cancel,
             String transition,
+            String autosave,
             Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
 
@@ -643,20 +642,12 @@ namespace stellar.Controllers {
                     if (!item.drugs.Any(x => x.baseid == drug.baseid)) { 
                         item.drugs.Add(drug);
                     }
-               // }
+                // }
             }
 
-            item.lmics.Clear();
-            foreach (drug_lmic lmic in lmics) {
-                if (lmic.id == 0) {
-                    ActiveRecordMediator<drug_lmic>.Save(lmic);
-                }
-                if (!item.lmics.Contains(lmic)) {
-                    item.lmics.Add(lmic);
-                }
-            }
-
-  /*          item.markets.Clear();
+            
+            /*
+            item.markets.Clear();
             foreach (drug_market market in markets) {
                 item.markets.Add(market);
             }
@@ -693,6 +684,10 @@ namespace stellar.Controllers {
             if (item.published) item.content = "";
             ActiveRecordMediator<drug_family>.Save(item);
 
+            if (autosave != null && autosave == "true") {
+                RenderText("success");
+                return;
+            }
             //do the auth
             if (apply != null || ajaxed_update) {
                 logger.writelog("Applied " + item.baseid + " edits", getView(), getAction(), item.baseid);
@@ -751,7 +746,7 @@ namespace stellar.Controllers {
 
                 String[] filtering = new string[0];
                 if (!String.IsNullOrWhiteSpace(filter)) {
-                   filtering = filter.Split(':');
+                    filtering = filter.Split(':');
                 }
 
 
@@ -763,7 +758,7 @@ namespace stellar.Controllers {
                 }
                 
                 json_str += @"  { 
-";
+        ";
                 foreach (drug item in items) {
                     json_str += @"""" + item.baseid + @""":{";
                     json_str += @"""baseid"":""" + item.baseid + @""",";
@@ -774,15 +769,15 @@ namespace stellar.Controllers {
                     json_str += @"""label_claim"":""" + item.label_claim + @""",";
                     json_str += @"""manufacturer"":""" + item.manufacturer + @"""";
                     json_str += @"
-},";
+        },";
                     // this vodo of the new line is wrong
                     json_str += "".Replace(@"
-", String.Empty);
+        ", String.Empty);
 
 
                 }
                 json_str += @"
-}";
+        }";
 
 
                 if (!string.IsNullOrEmpty(callback)) {
@@ -839,6 +834,8 @@ namespace stellar.Controllers {
         /// <summary> </summary>
         [SkipFilter()]
         public void savedrug([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug item,
+            [ARDataBind("lmics", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_lmic[] lmics,
+            [ARDataBind("markets", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_market[] markets,
             String label_claim,
             Boolean ajaxed_update,
             Boolean json,
@@ -847,6 +844,7 @@ namespace stellar.Controllers {
             String apply,
             String cancel,
             String transition,
+            String autosave,
             Boolean skiplayout) {
                 if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
 
@@ -857,6 +855,17 @@ namespace stellar.Controllers {
                 Redirect("center", "drugs", new Hashtable());
                 return;
             }
+
+            item.lmics.Clear();
+            foreach (drug_lmic lmic in lmics) {
+                if (lmic.id == 0) {
+                    ActiveRecordMediator<drug_lmic>.Save(lmic);
+                }
+                if (!item.lmics.Contains(lmic)) {
+                    item.lmics.Add(lmic);
+                }
+            }
+
             /*
             item.markets.Clear();
             String[] keys = HttpContext.Current.Request.Params.AllKeys.Where(x => x.StartsWith("markets_counts[")).ToArray();
@@ -892,6 +901,11 @@ namespace stellar.Controllers {
             item.label_claim = label_claim;
             ActiveRecordMediator<drug>.Save(item);
 
+
+            if (autosave != null && autosave == "true") {
+                RenderText("success");
+                return;
+            }
             //do the auth
             if (apply != null || ajaxed_update) {
                 logger.writelog("Applied " + item.baseid + " edits", getView(), getAction(), item.baseid);
@@ -903,7 +917,7 @@ namespace stellar.Controllers {
                             String json_str = "";
 
                             json_str += @"  { 
-";
+        ";
 
                             json_str += @"""" + item.baseid + @""":{";
                             json_str += @"""baseid"":""" + item.baseid + @""",";
@@ -912,14 +926,14 @@ namespace stellar.Controllers {
                             json_str += @"""label_claim"":""" + item.label_claim + @""",";
                             json_str += @"""manufacturer"":""" + item.manufacturer + @"""";
                             json_str += @"
-},";
+        },";
                                 // this vodo of the new line is wrong
                             json_str += "".Replace(@"
-", String.Empty);
+        ", String.Empty);
 
 
                             json_str += @"
-}";
+        }";
 
 
                             if (!string.IsNullOrEmpty(callback)) {
@@ -952,7 +966,7 @@ namespace stellar.Controllers {
             }
         }
         /// <summary> </summary>
-         [SkipFilter()]
+        [SkipFilter()]
         public void remove_drug(int id, Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             delete_post<drug>(id);
@@ -960,206 +974,204 @@ namespace stellar.Controllers {
             Redirect("center", "drugs", new Hashtable());
         }
         #endregion
-         #region(substances)
-         /// <summary> </summary>
-         public void substances(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback) {
-             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
-             pub = is_pubview(pub);
-             PropertyBag["published"] = pub;
-             //do the auth
-            userService.clearTmps<substance>();
-            if (String.IsNullOrWhiteSpace(exclude)) exclude = "0";
-            String[] drop = exclude.Split(',');
-            if (skiplayout) CancelLayout();
-            PropertyBag["skiplayout"] = skiplayout;
-            IList<substance> items = ActiveRecordBase<substance>.FindAll();
-            PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+        #region(substances)
+        /// <summary> </summary>
+        public void substances(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback) {
+            if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+            pub = is_pubview(pub);
+            PropertyBag["published"] = pub;
+            //do the auth
+        userService.clearTmps<substance>();
+        if (String.IsNullOrWhiteSpace(exclude)) exclude = "0";
+        String[] drop = exclude.Split(',');
+        if (skiplayout) CancelLayout();
+        PropertyBag["skiplayout"] = skiplayout;
+        IList<substance> items = ActiveRecordBase<substance>.FindAll();
+        PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
 
 
-            if (json) {
-                CancelLayout();
-                CancelView();
-                String json_str = "";
-                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
-                json_str += @"  { 
-";
-                foreach (substance sub in items) {
-                    json_str += @""""+sub.baseid+@""":{";
-                    json_str += @"""baseid"":"""+sub.baseid+@""",";
-                   // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
-                    json_str += @"""name"":""" + postingService.get_taxonomy(sub.generic_name).name + @""",";
-                    json_str += @"""abbreviated"":""" + sub.abbreviated + @"""";
-                    json_str += @"
-},";
-                    // this vodo of the new line is wrong
-                    json_str += "".Replace(@"
-", String.Empty);
-
-
-                }
+        if (json) {
+            CancelLayout();
+            CancelView();
+            String json_str = "";
+            items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
+            json_str += @"  { 
+    ";
+            foreach (substance sub in items) {
+                json_str += @""""+sub.baseid+@""":{";
+                json_str += @"""baseid"":"""+sub.baseid+@""",";
+                // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
+                json_str += @"""name"":""" + postingService.get_taxonomy(sub.generic_name).name + @""",";
+                json_str += @"""abbreviated"":""" + sub.abbreviated + @"""";
                 json_str += @"
-}";
+    },";
+                // this vodo of the new line is wrong
+                json_str += "".Replace(@"
+    ", String.Empty);
 
 
-                if (!string.IsNullOrEmpty(callback)) {
-                    json_str = callback + "(" + json_str + ")";
-                }
-                Response.ContentType = "application/json; charset=UTF-8";
-                RenderText(json_str);
+            }
+            json_str += @"
+    }";
+
+
+            if (!string.IsNullOrEmpty(callback)) {
+                json_str = callback + "(" + json_str + ")";
+            }
+            Response.ContentType = "application/json; charset=UTF-8";
+            RenderText(json_str);
+        } else {
+            if (skiplayout) {
+                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
             } else {
-                if (skiplayout) {
-                    items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
-                } else {
-                    items = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString())).ToList();
-                }
-                 PropertyBag["items"] = items;
-                RenderView("substances");
+                items = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString())).ToList();
             }
+                PropertyBag["items"] = items;
+            RenderView("substances");
         }
+    }
 
-         /// <summary> </summary>
-        public static int make_substance_tmp() {
-             substance tmp = new substance();
-             tmp.tmp = true;
-             appuser user = userService.getUserFull();
-             tmp.editing = user;
-             ActiveRecordMediator<substance>.Save(tmp);
-             return tmp.baseid;
-         }
         /// <summary> </summary>
-        public void substance(int id, Boolean skiplayout) {
+    public static int make_substance_tmp() {
+            substance tmp = new substance();
+            tmp.tmp = true;
+            appuser user = userService.getUserFull();
+            tmp.editing = user;
+            ActiveRecordMediator<substance>.Save(tmp);
+            return tmp.baseid;
+        }
+    /// <summary> </summary>
+    public void substance(int id, Boolean skiplayout) {
+        if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+        //do the auth
+        if (skiplayout) CancelLayout();
+        PropertyBag["skiplayout"] = skiplayout;
+        if (id <= 0) id = make_substance_tmp();
+        if (id > 0) PropertyBag["item"] = ActiveRecordBase<substance>.Find(id);
+        RenderView("substance");
+    }
+    /// <summary> </summary>
+    [SkipFilter()]
+    public void savesubstance([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] substance item,
+        [ARDataBind("prodrugs", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance_prodrug[] prodrugs,
+        [ARDataBind("salts", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance_salts[] salts,
+        HttpPostedFile newfile,
+        Boolean remove_file,
+        Boolean ajaxed_update,
+        Boolean forced_tmp,
+        String apply,
+        String cancel,
+        String transition,
+        String autosave,
+        Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
-            //do the auth
-            if (skiplayout) CancelLayout();
-            PropertyBag["skiplayout"] = skiplayout;
-            if (id <= 0) id = make_substance_tmp();
-            if (id > 0) PropertyBag["item"] = ActiveRecordBase<substance>.Find(id);
-            RenderView("substance");
-        }
-        /// <summary> </summary>
-        [SkipFilter()]
-        public void savesubstance([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] substance item,
-            [ARDataBind("prodrugs", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance_prodrug[] prodrugs,
-            [ARDataBind("salts", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance_salts[] salts,
-            HttpPostedFile newfile,
-            Boolean remove_file,
-            Boolean ajaxed_update,
-            Boolean forced_tmp,
-            String apply,
-            String cancel,
-            String transition,
-            Boolean skiplayout) {
-                if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
-            if (skiplayout) CancelLayout();
-            PropertyBag["skiplayout"] = skiplayout;
-            if (cancel != null) {
-                if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<substance>.Delete(item);
-                Redirect("center", "substances", new Hashtable());
-                return;
-            }
-
-
-            item.prodrugs.Clear();
-            foreach (substance_prodrug prodrug in prodrugs) {
-                if (prodrug.id == 0) {
-                    ActiveRecordMediator<substance_prodrug>.Save(prodrug);
-                }
-                if (!item.prodrugs.Contains(prodrug)) {
-                    item.prodrugs.Add(prodrug);
-                }
-            }
-
-            item.salts.Clear();
-            foreach (substance_salts salt in salts) {
-                if (salt.id == 0) {
-                    ActiveRecordMediator<substance_salts>.Save(salt);
-                }
-                if (!item.salts.Contains(salt)) {
-                    item.salts.Add(salt);
-                }
-            }
-
-
-            item.tmp = false;
-            if (item.published) item.content = "";
-
-            if (remove_file) item.static_file = "";
-            ActiveRecordMediator<substance>.Save(item);
-
-            if (newfile.ContentLength != 0)
-            {
-                String Fname = System.IO.Path.GetFileName(newfile.FileName);
-
-
-                Stream stream = newfile.InputStream;
-                MemoryStream memoryStream = new MemoryStream();
-                httpService.CopyStream(stream, memoryStream);
-                memoryStream.Position = 0;
-                stream = memoryStream;
-
-                // a var for uploads will start here
-                String uploadPath = file_info.root_path();
-                if (!uploadPath.EndsWith("\\"))
-                    uploadPath += "\\";
-                uploadPath += @"substances\";
-
-                if (!file_info.dir_exists(uploadPath))
-                {
-                    System.IO.Directory.CreateDirectory(uploadPath);
-                }
-                string file_path = uploadPath + item.baseid + "." + Fname;
-                newfile.SaveAs(file_path);
-                item.static_file = @"/substances/" + item.baseid + "." + Fname;
-                ActiveRecordMediator<substance>.Save(item);
-            }
-
-            //do the auth
-            if (apply != null || ajaxed_update) {
-                logger.writelog("Applied " + item.lab_code + " edits", getView(), getAction(), item.baseid);
-                Flash["message"] = "Applied " + item.lab_code + " edits for " + item.generic_name;
-                if (item.baseid > 0) {
-                    if (ajaxed_update) {
-                        CancelLayout(); CancelView();
-                        RenderText(item.baseid.ToString() + "," + item.generic_name);
-                    } else {
-                        RedirectToUrl("~/center/substance.castle?id=" + item.baseid);
-                    }
-                    return;
-                } else {
-                    RedirectToReferrer();
-                    return;
-                }
-            } else {
-                item.editing = null;
-                logger.writelog("Saved " + item.lab_code + " edits on", getView(), getAction(), item.baseid);
-                Flash["message"] = "Saved " + item.lab_code + " edits for " + item.generic_name;
-                ActiveRecordMediator<substance>.Save(item);
-                // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
-                Hashtable hashtable = new Hashtable();
-                //hashtable.Add("post_type", item.post_type.alias);
-                Redirect("center", "substances", hashtable);
-                return;
-            }
-
-            //do the auth
-            //RenderView("substance");
-        }
-        /// <summary> </summary>
-         [SkipFilter()]
-        public void remove_substance(int id, Boolean skiplayout) {
-            if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
-            delete_post<substance>(id);
-            Flash["message"] = "Removed Item";
+        if (skiplayout) CancelLayout();
+        PropertyBag["skiplayout"] = skiplayout;
+        if (cancel != null) {
+            if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<substance>.Delete(item);
             Redirect("center", "substances", new Hashtable());
+            return;
         }
 
-         #endregion
+
+        item.prodrugs.Clear();
+        foreach (substance_prodrug prodrug in prodrugs) {
+            if (prodrug.id == 0) {
+                ActiveRecordMediator<substance_prodrug>.Save(prodrug);
+            }
+            if (!item.prodrugs.Contains(prodrug)) {
+                item.prodrugs.Add(prodrug);
+            }
+        }
+
+        item.salts.Clear();
+        foreach (substance_salts salt in salts) {
+            if (salt.id == 0) {
+                ActiveRecordMediator<substance_salts>.Save(salt);
+            }
+            if (!item.salts.Contains(salt)) {
+                item.salts.Add(salt);
+            }
+        }
 
 
+        item.tmp = false;
+        if (item.published) item.content = "";
+
+        if (remove_file) item.static_file = "";
+        ActiveRecordMediator<substance>.Save(item);
+
+        if (newfile.ContentLength != 0)
+        {
+            String Fname = System.IO.Path.GetFileName(newfile.FileName);
 
 
+            Stream stream = newfile.InputStream;
+            MemoryStream memoryStream = new MemoryStream();
+            httpService.CopyStream(stream, memoryStream);
+            memoryStream.Position = 0;
+            stream = memoryStream;
 
+            // a var for uploads will start here
+            String uploadPath = file_info.root_path();
+            if (!uploadPath.EndsWith("\\"))
+                uploadPath += "\\";
+            uploadPath += @"substances\";
 
+            if (!file_info.dir_exists(uploadPath))
+            {
+                System.IO.Directory.CreateDirectory(uploadPath);
+            }
+            string file_path = uploadPath + item.baseid + "." + Fname;
+            newfile.SaveAs(file_path);
+            item.static_file = @"/substances/" + item.baseid + "." + Fname;
+            ActiveRecordMediator<substance>.Save(item);
+        }
+        if (autosave != null && autosave == "true") {
+            RenderText("success");
+            return;
+        }
+        //do the auth
+        if (apply != null || ajaxed_update) {
+            logger.writelog("Applied " + item.lab_code + " edits", getView(), getAction(), item.baseid);
+            Flash["message"] = "Applied " + item.lab_code + " edits for " + item.generic_name;
+            if (item.baseid > 0) {
+                if (ajaxed_update) {
+                    CancelLayout(); CancelView();
+                    RenderText(item.baseid.ToString() + "," + item.generic_name);
+                } else {
+                    RedirectToUrl("~/center/substance.castle?id=" + item.baseid);
+                }
+                return;
+            } else {
+                RedirectToReferrer();
+                return;
+            }
+        } else {
+            item.editing = null;
+            logger.writelog("Saved " + item.lab_code + " edits on", getView(), getAction(), item.baseid);
+            Flash["message"] = "Saved " + item.lab_code + " edits for " + item.generic_name;
+            ActiveRecordMediator<substance>.Save(item);
+            // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
+            Hashtable hashtable = new Hashtable();
+            //hashtable.Add("post_type", item.post_type.alias);
+            Redirect("center", "substances", hashtable);
+            return;
+        }
+
+        //do the auth
+        //RenderView("substance");
+    }
+    /// <summary> </summary>
+        [SkipFilter()]
+    public void remove_substance(int id, Boolean skiplayout) {
+        if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+        delete_post<substance>(id);
+        Flash["message"] = "Removed Item";
+        Redirect("center", "substances", new Hashtable());
+    }
+
+        #endregion
 
 
 

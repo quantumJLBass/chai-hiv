@@ -377,7 +377,6 @@ $(document).ready(function() {
 				if($("[id^='drPro_tabs_" + v.alias +"_']").length<=0){
 					html+="<span class='item i"+i+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-alias='"+v.alias+"'  ><i title='edit' class='icon-plus'></i>"+v.name+" ( "+v.alias+" )<br/></span>";
 				}
-				
 			});
 			html += "</div>";
 			html+="<span id='add_drform' style='cursor:pointer;'><hr/><i title='edit' class='icon-plus'></i>Add a New form</span>";
@@ -492,14 +491,15 @@ $(document).ready(function() {
 		
 		var count = $("#LMICdata tbody select").length;
 		
-		var options=$('#dirty_options select').html();
+		//var options=$('#dirty_options select').html();
 		
-		var html = '<input type="hidden" name="lmics['+(count)+'].id" value="0"/><select name="lmics['+(count)+'].form">'+options+'</select>';
-		tableData.push( html );
-		tableData.push( '<input type="text" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
+		var html = '<input type="hidden" name="lmics['+(count)+'].id" value="0"/>';
+		//tableData.push( html );
+		tableData.push( html+'<input type="text" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
 		tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_1l"/>' ); 
 		tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_2l"/>' ); 
 		tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_3l"/>' ); 
+		tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].tbd"/>' ); 
 		tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 
 		
