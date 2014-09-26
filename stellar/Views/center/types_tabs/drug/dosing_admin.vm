@@ -44,7 +44,7 @@
 	#end
 	
 	
-	$Controller.feilds("select","$type","dose_unit", $!item.dose_unit , "mg,mg/ml","","","taxed","")
+	$Controller.feilds("select","$type","dose_unit", $!item.dose_unit , "mg,mg/ml","Dose unit","","taxed","")
 	
 	
 </ul>

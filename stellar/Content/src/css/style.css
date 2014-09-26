@@ -869,7 +869,7 @@ font-weight: bold;
 cursor: pointer;}
 
 .dialog_message.autosave{
-position:absolute;
+position:fixed;
 top:4px;
 left:5px;
 }

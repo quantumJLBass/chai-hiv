@@ -74,6 +74,10 @@
 				<label for="source_two_price_{{YEAR}}">Source Two price: <i class="icon-question-sign blue" title="Price per patient per year (pppy)"></i></label>
 				$ <input type="text" name="{{__}}markets[{{COUNT}}].source_two_price" id="source_two_price_{{YEAR}}" placeholder="00.00" class="" value="">
 			</li>  
+			<li>
+				<label for="comment_{{YEAR}}">Comment:</label>
+				<textarea name="{{__}}markets[{{COUNT}}].comment" id="comment_{{YEAR}}" class=""></textarea>
+			</li> 
 			</ul>
 		  </article>
 

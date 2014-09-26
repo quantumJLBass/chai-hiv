@@ -47,7 +47,7 @@ $!part.lab_code
 			<ul>
 		#* manufacturer *#
 			<li data-type_id="$manufacturer_type_id">
-				$Controller.feilds("select","$type","manufacturer", $!item.manufacturer , $manufacturers,"","","taxed"," rel='commercial' ")
+				$Controller.feilds("select","$type","manufacturer", $!item.manufacturer , $manufacturers,"Manufacturer","","taxed"," rel='commercial' ")
 			</li>
 		  </ul>
 		</fieldset>

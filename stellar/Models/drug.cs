@@ -303,6 +303,9 @@ namespace stellar.Models {
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string source_two_price { get; set; }
 
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string comment { get; set; }
 
 
         /// <summary> </summary>
