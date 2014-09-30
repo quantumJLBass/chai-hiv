@@ -22,20 +22,6 @@
 			</tr>
 		</tfoot>
 		<tbody>
-			#*#foreach($item in $typed_list)
-				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
-					<td>#if($item.new_drug_code)$!item.new_drug_code #else -- #end<input type="hidden" name="item.drugs[$velocityCount].baseid" value="$item.baseid" class="list_item drug_item"/></td>
-					<td>#if($!postingService.get_taxonomy($item.brand_name).name)$!postingService.get_taxonomy($item.brand_name).name #else --#end</td>
-					<td>
-					#if($viewonly) #else
-					<a href="drug.castle?id=$item.baseid&skiplayout=1" class="button small inline_edit"  data-type="drug"><i class="icon-edit" title="Edit"></i></a> | 
-					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
-					#end
-					</td>
-				</tr>
-			#end*#
-			
-		<tbody>
 		#foreach($item in $typed_list)
 			#set($name = false)
 			#set($taxedname = false)

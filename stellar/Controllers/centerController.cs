@@ -856,13 +856,15 @@ namespace stellar.Controllers {
                 return;
             }
 
-            item.lmics.Clear();
-            foreach (drug_lmic lmic in lmics) {
-                if (lmic.id == 0) {
-                    ActiveRecordMediator<drug_lmic>.Save(lmic);
-                }
-                if (!item.lmics.Contains(lmic)) {
-                    item.lmics.Add(lmic);
+            if (item.lmics != null) { 
+                item.lmics.Clear();
+                foreach (drug_lmic lmic in lmics) {
+                    if (lmic.id == 0) {
+                        ActiveRecordMediator<drug_lmic>.Save(lmic);
+                    }
+                    if (!item.lmics.Contains(lmic)) {
+                        item.lmics.Add(lmic);
+                    }
                 }
             }
 
