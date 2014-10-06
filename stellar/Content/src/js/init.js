@@ -318,7 +318,7 @@
 	$(document).ready(function() {
 
 	if($('form.autosave').length){
-		window.setInterval(function() {
+		var t=window.setInterval(function() {
 			$.each($('form.autosave'),function() {
 				if($(".dialog_message.autosave").length<=0){
 					$("body").append("<div class='dialog_message ui-state-highlight autosave'>");
@@ -332,6 +332,12 @@
 					success: function(data){
 						if(data && data === "success") {
 							$(".dialog_message.autosave").html("Auto saved form");
+						}else if(data && data === "unsaved") {
+							window.clearInterval(t);
+							$(".dialog_message.autosave").html("Will not auto save untill the item is saved.");
+							$(".dialog_message.autosave").show();
+							setTimeout(function(){$(".dialog_message.autosave").fadeOut("500");},"4000");
+							return;
 						}else{
 							$(".dialog_message.autosave").html("Failed to auto save");
 						}

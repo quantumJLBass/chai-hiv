@@ -10,7 +10,7 @@
 			window.location = window.location.href;//.split('?')[0]+"?"+state;
 		});
 		$( ".pubstate" ).buttonset();
-		$('.pubstate.menuaction :radio').change(function () {
+		$('.pubstate.menuaction :radio').on('change',function () {
 			$('.pubstate :radio').next("label").find("i").removeClass("icon-check-empty").removeClass("icon-check");
 			$('.pubstate :radio').not(":checked").next("label").find("i").addClass("icon-check-empty");
 			$('.pubstate :radio:checked').next("label").find("i").addClass("icon-check");
@@ -18,7 +18,7 @@
 			$.cookie('hivpubview', state===1?"true":"false", { expires:1, path: '/' });
 			//state = "pub="+state;
 			
-			window.location = window.location.href;//.split('?')[0]+"?"+state;
+			window.location = window.location.href.split('?')[0]+"?pub="+state;
 		});
 	
 		setting_item_pub($(".container"));

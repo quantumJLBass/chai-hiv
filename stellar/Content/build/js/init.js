@@ -592,7 +592,7 @@ function setting_item_pub(parentObj){
 			window.location = window.location.href;//.split('?')[0]+"?"+state;
 		});
 		$( ".pubstate" ).buttonset();
-		$('.pubstate.menuaction :radio').change(function () {
+		$('.pubstate.menuaction :radio').on('change',function () {
 			$('.pubstate :radio').next("label").find("i").removeClass("icon-check-empty").removeClass("icon-check");
 			$('.pubstate :radio').not(":checked").next("label").find("i").addClass("icon-check-empty");
 			$('.pubstate :radio:checked').next("label").find("i").addClass("icon-check");
@@ -600,7 +600,7 @@ function setting_item_pub(parentObj){
 			$.cookie('hivpubview', state===1?"true":"false", { expires:1, path: '/' });
 			//state = "pub="+state;
 			
-			window.location = window.location.href;//.split('?')[0]+"?"+state;
+			window.location = window.location.href.split('?')[0]+"?pub="+state;
 		});
 	
 		setting_item_pub($(".container"));
@@ -1891,7 +1891,7 @@ $(document).ready(function() {
 	$(document).ready(function() {
 
 	if($('form.autosave').length){
-		window.setInterval(function() {
+		var t=window.setInterval(function() {
 			$.each($('form.autosave'),function() {
 				if($(".dialog_message.autosave").length<=0){
 					$("body").append("<div class='dialog_message ui-state-highlight autosave'>");
@@ -1905,6 +1905,12 @@ $(document).ready(function() {
 					success: function(data){
 						if(data && data === "success") {
 							$(".dialog_message.autosave").html("Auto saved form");
+						}else if(data && data === "unsaved") {
+							window.clearInterval(t);
+							$(".dialog_message.autosave").html("Will not auto save untill the item is saved.");
+							$(".dialog_message.autosave").show();
+							setTimeout(function(){$(".dialog_message.autosave").fadeOut("500");},"4000");
+							return;
 						}else{
 							$(".dialog_message.autosave").html("Failed to auto save");
 						}
