@@ -26,8 +26,8 @@ namespace stellar.Models {
         virtual public int id { get; set; }
 
         /// <summary> </summary>
-        [HasAndBelongsToMany(typeof(clinical), Lazy = true, Table = "clinical_to_drug_family", ColumnKey = "drug_family_id", ColumnRef = "clinical_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
-        virtual public IList<clinical> clinicals { get; set; }
+        /*[HasAndBelongsToMany(typeof(clinical), Lazy = true, Table = "clinical_to_drug_family", ColumnKey = "drug_family_id", ColumnRef = "clinical_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        virtual public IList<clinical> clinicals { get; set; }*/
 
         /*/// <summary> </summary>
         [HasAndBelongsToMany(typeof(substance), Lazy = true, Table = "substance_to_drug_family", ColumnKey = "drug_family_id", ColumnRef = "substance_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
