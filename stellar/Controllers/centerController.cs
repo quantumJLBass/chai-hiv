@@ -337,11 +337,16 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             if (cancel != null) {
-                if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<clinical>.Delete(item);
+                ActiveRecordMediator<clinical>.Delete(item);
                 Redirect("center", "clinicals", new Hashtable());
                 return;
             }
-            
+            if (autosave != null && autosave == "true") {
+                if (item.tmp == true && item.baseid > 0) {
+                    RenderText("unsaved");
+                    return;
+                }
+            }
 
             //todo abstract this since the taxonmies also have need for this.  
             //when it's done remeber it should account for children
@@ -463,6 +468,12 @@ namespace stellar.Controllers {
                 if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<trial>.Delete(item);
                 Redirect("center", "trials", new Hashtable());
                 return;
+            }
+            if (autosave != null && autosave == "true") {
+                if (item.tmp == true && item.baseid > 0) {
+                    RenderText("unsaved");
+                    return;
+                }
             }
             item.tmp = false;
             if (item.published) item.content = "";
@@ -634,7 +645,12 @@ namespace stellar.Controllers {
                 Redirect("center", "families", new Hashtable());
                 return;
             }
-
+            if (autosave != null && autosave == "true") {
+                if (item.tmp == true && item.baseid > 0) {
+                    RenderText("unsaved");
+                    return;
+                }
+            }
 
             item.drugs.Clear();
             foreach (drug drug in drugs) {
@@ -855,7 +871,12 @@ namespace stellar.Controllers {
                 Redirect("center", "drugs", new Hashtable());
                 return;
             }
-
+            if (autosave != null && autosave == "true") {
+                if (item.tmp == true && item.baseid > 0) {
+                    RenderText("unsaved");
+                    return;
+                }
+            }
             if (item.lmics != null) { 
                 item.lmics.Clear();
                 foreach (drug_lmic lmic in lmics) {
@@ -1074,7 +1095,12 @@ namespace stellar.Controllers {
             Redirect("center", "substances", new Hashtable());
             return;
         }
-
+        if (autosave != null && autosave == "true") {
+            if (item.tmp == true && item.baseid > 0) {
+                RenderText("unsaved");
+                return;
+            }
+        }
 
         item.prodrugs.Clear();
         foreach (substance_prodrug prodrug in prodrugs) {
