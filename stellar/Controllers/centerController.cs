@@ -55,6 +55,7 @@ using System.Collections.Specialized;
 using System.DirectoryServices;
 using System.DirectoryServices.Protocols;
 using System.DirectoryServices.AccountManagement;
+using Castle.MonoRail.Framework.Helpers;
 #endregion
 
 
@@ -562,7 +563,7 @@ namespace stellar.Controllers {
             return tmp.baseid;
         }
         /// <summary> </summary>
-        public void family(int id, Boolean skiplayout) {
+        public void family(int id, Boolean skiplayout,int page) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             //do the auth
             if (skiplayout) CancelLayout();
@@ -594,6 +595,15 @@ namespace stellar.Controllers {
                 ActiveRecordMediator<drug_family>.Save(fam);*/
 
                 PropertyBag["item"] = fam;
+
+                List<AbstractCriterion> baseEx = new List<AbstractCriterion>();
+
+                baseEx.AddRange(baseEx);
+                baseEx.Add(Expression.Eq("obj_id", fam.baseid));
+
+                IList<logs> listing_tems = ActiveRecordBase<logs>.FindAll(new Order[] { Order.Desc("date") }, baseEx.ToArray());
+                listing_tems.Where( x => x.obj_id == fam.baseid ).ToList();
+                PropertyBag["logs"] = PaginationHelper.CreatePagination(listing_tems, 15, page);
 
                 List<substance> substances = new List<substance>();
                 substances.AddRange(fam.substances);
