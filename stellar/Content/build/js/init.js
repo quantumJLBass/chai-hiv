@@ -1923,6 +1923,42 @@ $(document).ready(function() {
 	}
 
 
+$('#viewlog').on('click',function(e){
+	e.preventDefault();
+	e.stopPropagation();
+	$.get('/center/retriveLog.castle',{'id':$(this).data('item_id')},function(html){
+		if($('#view_log_area').length<=0){
+			$('body').append('<div id="view_log_area">');	
+		}
+		$('#view_log_area').html(html);
+		$( "#view_log_area" ).dialog({
+			autoOpen: true,
+			resizable: false,
+			width: $(window).width()*0.8,
+			height:$(window).height()*0.8,
+			modal: true,
+			draggable : false,
+			buttons: {
+				Close: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			create:function(){
+				$('body').css({overflow:"hidden"});
+				//$(".ui-dialog-buttonpane").remove();
+			},
+			close: function() {
+				$('body').css({overflow:"auto"});
+				$('#view_log_area').dialog( "destroy" );
+				$('#view_log_area').remove();
+			}
+		});
+	});
+});
+
+
+
+
 		$("select[name*='inactive_ingredients[]']").on("change",function(){
 			var sel="";
 			$.each($(this).find(':selected'),function(i){
