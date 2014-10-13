@@ -1,0 +1,52 @@
+			<div style="clear:both;">
+				<div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top">
+					#set($Pagination_location='top')
+					#set($target = $status.title)
+					#parse("admin/listings/areas/pagination.vm")
+				</div>
+				
+				<table cellpadding="0" cellspacing="0" border="0" class="display ui-widget ui-helper-reset ui-widget-content" id="example" width="100%">
+					<thead class="">
+						<tr>
+							<th class="ui-state-default" rowspan="1" colspan="1" style="width:15%;">User</th>
+							<th class="ui-state-default" rowspan="1" colspan="1">Entry</th>
+							<th class="ui-state-default" rowspan="1" colspan="1" style="width:15%;">Date</th>
+							<th class="ui-state-default" rowspan="1" colspan="1" style="width:1%;"></th>
+						</tr>
+					</thead>
+					<tbody>
+						#set($c=0)
+						#foreach($item in $logs)#set($c=$c+1)#end
+						#if($logs && $c>0)
+							#set($iCount=0)
+							#foreach($item in $logs)
+								#if($iCount%2==0) #set($polarity="even") #else #set($polarity="odd") #end
+								<tr class="item item_aTar item_$!item.baseid $polarity" rel="$!item.baseid">
+									<td><strong>$!item.nid</strong></td>
+									<td align="center">$item.entry</td>
+									<td align="center">$item.date</td>
+									<td  align="center"></td>
+								</tr>
+								<tr class="item-child  $polarity closed">
+									<td colspan="5">#if($!item.outputError)<b title="There seems to be an error on this item and it will not show." class="itemError">!</b>#end</td>
+								</tr>
+								#set($iCount=$iCount+1)
+							#end
+						#end   
+					</tbody>
+					<tfoot>
+						<tr>
+							<th class="ui-state-default" rowspan="1" colspan="1">Name</th>
+							<th class="ui-state-default" rowspan="1" colspan="1">Onwer</th>
+							<th class="ui-state-default" rowspan="1" colspan="1">Date</th>
+							<th class="ui-state-default" rowspan="1" colspan="1"></th>
+						</tr>
+					</tfoot>
+				</table>
+				
+				
+				<div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-bottom">
+					#set($Pagination_location='bottom')
+					#parse("listing_parts/areas/pagination.vm")    
+				</div>
+			</div>

@@ -20,6 +20,8 @@
 				</div>
 			</div>
 		</div>
+		
+		<button id="viewlog" class="button fright" title="View the log for this item" data-item_id="$item.baseid">Log</button>
 	</div>
 #end		
 		

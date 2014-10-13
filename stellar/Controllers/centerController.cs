@@ -596,14 +596,7 @@ namespace stellar.Controllers {
 
                 PropertyBag["item"] = fam;
 
-                List<AbstractCriterion> baseEx = new List<AbstractCriterion>();
-
-                baseEx.AddRange(baseEx);
-                baseEx.Add(Expression.Eq("obj_id", fam.baseid));
-
-                IList<logs> listing_tems = ActiveRecordBase<logs>.FindAll(new Order[] { Order.Desc("date") }, baseEx.ToArray());
-                listing_tems.Where( x => x.obj_id == fam.baseid ).ToList();
-                PropertyBag["logs"] = PaginationHelper.CreatePagination(listing_tems, 15, page);
+                
 
                 List<substance> substances = new List<substance>();
                 substances.AddRange(fam.substances);
@@ -617,6 +610,24 @@ namespace stellar.Controllers {
 
             RenderView("family");
         }
+
+        /// <summary> </summary>
+        public void retriveLog(int id, int page) {
+            CancelLayout();
+            CancelView();
+            List<AbstractCriterion> baseEx = new List<AbstractCriterion>();
+
+            baseEx.AddRange(baseEx);
+            baseEx.Add(Expression.Eq("obj_id", id));
+
+            IList<logs> listing_tems = ActiveRecordBase<logs>.FindAll(new Order[] { Order.Desc("date") }, baseEx.ToArray());
+            listing_tems.Where(x => x.obj_id == id).ToList();
+            PropertyBag["logs"] = PaginationHelper.CreatePagination(listing_tems, 15, page);
+            RenderView("logblock");
+
+        }
+
+
 
         /// <summary> </summary>
         public void copyfamily(int id, String name) {
