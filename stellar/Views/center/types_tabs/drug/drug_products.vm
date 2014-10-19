@@ -1,91 +1,54 @@
-<div class="">
-	<div id="drPro_tabed" >
-		<ul class="">
-			#if($item.drugs)
-			
-				#set($i=0)
-				#foreach($dose in $dose_form)
-					#set($k=0)
-					#foreach($drug in $!item.drugs)
-						#if($drug.dose_form==$dose.alias  && $k==0)
-							<li><a href='#drPro_tabs_${dose.alias}_${k}' data-baseid='${dose.baseid}' data-name='${dose.name}' data-alias='${dose.alias}'>${dose.name}</a> <i class='icon-remove'></i></li>
-							#set($k=$k+1)
-						#end
-					#end
-				#end	
+<div id="drpro_table">
+	<table width="100%" class="drpro_table display" ellspacing="0">
+		<thead>
+			<tr>
+			<th>Form</th>
+			#foreach($part in  $item.substances)
+			<th>$part.abbreviated Amt.</th>
 			#end
-			<a href="#" id="addDrugForm"><i class="icon-plus"></i> Add a drug form</a>
-		</ul>
-		<div class="">
-			#if($item.drugs)
-
-				#foreach($dose in $dose_form)
-					#set($k=1)
-					#set($j=0)
-					#foreach($drug in $!item.drugs)
-						#if($drug.dose_form==$dose.alias)
-							#if($k==1)
-							<div id='drPro_tabs_${dose.alias}_${j}' class="tabedItem" data-baseid='${dose.baseid}' data-name='${dose.name}' data-alias='${dose.alias}'>
-								<table width="100%" class="drpro_table display" ellspacing="0">
-									<thead>
-										<tr>
-										#foreach($part in  $item.substances)
-										<th>$part.abbreviated Amt.</th>
-										#end
-										<th>Manufacure</th><th>Actions</th></tr>
-									</thead>
-									<tfoot>
-										<tr>
-										#foreach($part in  $item.substances)
-										<th></th>
-										#end
-										<th></th><th></th></tr>
-									</tfoot>
-									<tbody>
-							#end
-								<tr>
-									#if($drug.label_claim)
-										#set($label_claims = $objectService.explode($!drug.label_claim,":"))
-										#set($i = 0)
-										#foreach($sub in  $item.substances)
-											#set($label_claim = "")
-											#if($i<$!label_claims.Count)
-												#set($label_claim = ${label_claims.get_Item($i)})
-												<td>$label_claim</td>
-											#end
-											#set($i = $i+1)
-										#end
-									#else
-										#foreach($sub in  $item.substances)
-											<td> -- </td>
-										#end
-									#end
-
-									<td>${drug.manufacturer}</td>
-									<td>
-										<input type="hidden" name="drugs[${k}].baseid" value="${drug.baseid}" class="drug_item list_item"/>
-										<input type="hidden" name="drugs[${k}].attached" value="1" class="drug_item list_item"/>
-										
-										<a href="#" class="button small"><i class="icon-pencile" title="Edit"></i>Edit</a>
-										<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
-									</td>
-						
-								</tr>
-							#set($k=$k+1)
-							#set($j=$j+1)
-						#end
-					#end
-					#if($k>1)
-						</tbody></table><a href="#" id="drug_interaction" class="button add_drPro" data-type="${dose.alias}">Add ${dose.alias} form</a></div>
-					#end
-					
-					
-				#end	
+			<th>Manufacure</th><th>Actions</th></tr>
+		</thead>
+		<tfoot>
+			<tr>
+			<th></th>
+			#foreach($part in  $item.substances)
+			<th></th>
 			#end
-		<div>
+			<th></th><th></th></tr>
+		</tfoot>
+		<tbody>
+		#set($k=0)
+		#foreach($drug in $!item.drugs)
+			<tr>
+				<td>${drug.dose_form}</td>
+				#if($drug.label_claim)
+					#set($label_claims = $objectService.explode($!drug.label_claim,":"))
+					#set($i = 0)
+					#foreach($sub in  $item.substances)
+						#set($label_claim = "")
+						#if($i<$!label_claims.Count)
+							#set($label_claim = ${label_claims.get_Item($i)})
+							<td>$label_claim</td>
+						#end
+						#set($i = $i+1)
+					#end
+				#else
+					#foreach($sub in  $item.substances)
+						<td> -- </td>
+					#end
+				#end
 
-
-
-
-	</div>
+				<td>${drug.manufacturer}</td>
+				<td>
+					<input type="hidden" name="drugs[${k}].baseid" value="${drug.baseid}" class="drug_item list_item"/>
+					<input type="hidden" name="drugs[${k}].attached" value="1" class="drug_item list_item"/>
+					
+					<a href="#" class="button small"><i class="icon-pencile" title="Edit"></i>Edit</a>
+					<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
+				</td>
+			</tr>
+			#set($k=$k+1)
+			#set($j=$j+1)
+		#end
+	</tbody></table><a href="#" id="family_drug" class="button add_drPro" >Add drug</a>
 </div>
