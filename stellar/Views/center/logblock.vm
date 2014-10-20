@@ -14,6 +14,14 @@
 							<th class="ui-state-default" rowspan="1" colspan="1" style="width:1%;"></th>
 						</tr>
 					</thead>
+					<tfoot>
+						<tr>
+							<th class="ui-state-default" rowspan="1" colspan="1" style="width:15%;">User</th>
+							<th class="ui-state-default" rowspan="1" colspan="1">Entry</th>
+							<th class="ui-state-default" rowspan="1" colspan="1" style="width:15%;">Date</th>
+							<th class="ui-state-default" rowspan="1" colspan="1" style="width:1%;"></th>
+						</tr>
+					</tfoot>
 					<tbody>
 						#set($c=0)
 						#foreach($item in $logs)#set($c=$c+1)#end
@@ -34,14 +42,7 @@
 							#end
 						#end   
 					</tbody>
-					<tfoot>
-						<tr>
-							<th class="ui-state-default" rowspan="1" colspan="1">Name</th>
-							<th class="ui-state-default" rowspan="1" colspan="1">Onwer</th>
-							<th class="ui-state-default" rowspan="1" colspan="1">Date</th>
-							<th class="ui-state-default" rowspan="1" colspan="1"></th>
-						</tr>
-					</tfoot>
+
 				</table>
 				
 				
