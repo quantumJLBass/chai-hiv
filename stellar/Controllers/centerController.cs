@@ -374,15 +374,15 @@ namespace stellar.Controllers {
             ActiveRecordMediator<clinical>.Save(item);
             if (autosave != null && autosave == "true") {
                 if (autosaved == "false") {
-                    logger.writelog("Auto saved changes on " + item.alias + " edits", getView(), getAction(), item.baseid);
+                    logger.writelog("Auto saved changes on " + item.name + " edits", getView(), getAction(), item.baseid);
                 }
                 RenderText("success");
                 return;
             }
             //do the auth
             if (apply != null || ajaxed_update) {
-                logger.writelog("Saved and returned " + item.alias + " edits", getView(), getAction(), item.baseid);
-                Flash["message"] = "Applied " + item.alias + " edits for " + item.ln_clinical_t;
+                logger.writelog("Saved and returned " + item.name + " edits", getView(), getAction(), item.baseid);
+                Flash["message"] = "Applied " + item.name + " edits for " + item.ln_clinical_t;
                 if (item.baseid > 0) {
                     if (ajaxed_update) {
                         CancelLayout(); CancelView();
@@ -397,8 +397,8 @@ namespace stellar.Controllers {
                 }
             } else {
                 item.editing = null;
-                logger.writelog("Saved " + item.alias + " edits on", getView(), getAction(), item.baseid);
-                Flash["message"] = "Saved " + item.alias + " edits for " + item.ln_clinical_t;
+                logger.writelog("Saved " + item.name + " edits on", getView(), getAction(), item.baseid);
+                Flash["message"] = "Saved " + item.name + " edits for " + item.ln_clinical_t;
                 ActiveRecordMediator<clinical>.Save(item);
                 // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
                 Hashtable hashtable = new Hashtable();
