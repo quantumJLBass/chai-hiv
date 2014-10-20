@@ -42,7 +42,7 @@ $(document).ready(function() {
 						moa_dmpk_setup();
 						apply_tax_request();
 						apply_taxed_add();
-						
+						activate_adverse_ui();
 						var tabContents = trial_arm_form_dialog.find(".tab_content").hide(), tabs = trial_arm_form_dialog.find("ul.tabs li");
 						tabs.addClass("tabed");
 						tabs.first().addClass("active").show();

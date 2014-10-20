@@ -185,6 +185,65 @@ function setup_tabs(){
 */
 
 
+	function activate_adverse_ui(){
+		
+		function controll_meta_items(){
+			$('.remove').hover(function(){$(this).removeClass('red');},function(){$(this).addClass('red');});
+			$('.remove').on("click",function(){
+				var container = $(this).closest('li');
+				var option = container.find('[name^="option"]').val();
+				$(".adverse_events option[value='"+option+"']").removeAttr("disabled");
+				container.fadeOut(function(){ $(this).remove(); });
+			});
+			re_index_meta_items();
+		}	
+		function re_index_meta_items(){
+			$.each(
+			   $(".adverse_events").closest('ul').find("li[data-taxorder]"),
+			   function(i){
+					$(this).data('taxorder',i);
+					$.each($(this).find("input,select:not([name=''])"),function(){
+						//var name = $(this).attr('name');
+						$(this).attr('name', $(this).attr('name').split('[')[0]+"["+i+"]");
+					}); 
+				}
+			);
+		}
+		
+		$(".adverse_events").on("change", function(){
+			var selected = $(this).val();
+			var selected_obj = $(this).find('option[value="'+selected+'"]');
+			var container = $(this).closest('ul');
+			
+			var baseid = selected_obj.data('baseid');
+			var content = selected_obj.data('content');
+			var alias = selected_obj.data('alias');
+			
+			
+			//this works by
+			//tax is picked. 
+			//the tax, since it's a base id can have a child.
+			//that child is the 
+			
+			var is_none = alias ==="none"?"":"required";
+			
+			container.append(
+				 '<li data-taxorder="9999" data-name="'+selected_obj.val()+'">'+
+					'<i class="icon-remove-circle red right remove"></i>'+
+					 '<label>'+ selected_obj.text() +' <i class="icon-question-sign blue" title="'+ content +'"></i>'+
+					 '</label>'+
+					 '<input type="'+(alias ==="none"?"hidden":"text")+'" name="value[9999]" id="" '+is_none+' value=""/>'+//child
+					 '<input type="hidden" name="option_key[9999]" value="'+baseid+'" />'+//tax_id
+				 '</li>'
+			);
+			selected_obj.attr("disabled",true);
+			$(this).val("");
+			controll_meta_items();
+			re_index_meta_items();
+			make_maskes();
+		});
+		controll_meta_items();
+	}
 
 	function make_tax_form(select_target,callback,secselect_target){
 		var target_form = $("#taxonomyitem form");
