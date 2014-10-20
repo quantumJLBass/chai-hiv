@@ -106,7 +106,7 @@
 				$Controller.feilds("textinput","$type","steady_state_auc", $!item.steady_state_auc ,"","(ng/ml)","","")
 			</div>	
 			<div class="grid col-one-half">	
-				$Controller.feilds("select","$type","steady_state_auc_unit", $!item.steady_state_auc_unit ,"inf.,0-24,0-last","","","","")
+				$Controller.feilds("select","$type","steady_state_auc_unit", $!item.steady_state_auc_unit ,"inf.,0-24,0-last","Unit","","","")
 			</div>
 		</li>
 
