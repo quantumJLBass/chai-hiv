@@ -256,6 +256,7 @@ var t=null;
 function autoSaver(){
 	t=window.setInterval(function() {
 		$.each($('form.autosave'),function() {
+			var self = $(this);
 			if($(".dialog_message.autosave").length<=0){
 				$("body").append("<div class='dialog_message ui-state-highlight autosave'>");
 			}
@@ -269,6 +270,7 @@ function autoSaver(){
 					if(data && data === "success") {
 						autosaved=true;
 						$(".dialog_message.autosave").html("Auto saved form");
+						self.trigger('reinitialize.areYouSure');
 					}else if(data && data === "unsaved") {
 						window.clearInterval(t);
 						t=null;
