@@ -332,6 +332,7 @@ namespace stellar.Controllers {
             String apply,
             String cancel,
             String autosave,
+            String autosaved,
             Boolean skiplayout) {
                 if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
 
@@ -372,7 +373,9 @@ namespace stellar.Controllers {
             item.tmp = false;
             ActiveRecordMediator<clinical>.Save(item);
             if (autosave != null && autosave == "true") {
-                logger.writelog("Auto saved changes on " + item.alias + " edits", getView(), getAction(), item.baseid);
+                if (autosaved == "false") {
+                    logger.writelog("Auto saved changes on " + item.alias + " edits", getView(), getAction(), item.baseid);
+                }
                 RenderText("success");
                 return;
             }
@@ -462,6 +465,7 @@ namespace stellar.Controllers {
             String cancel,
             String transition,
             String autosave,
+            String autosaved,
             Boolean skiplayout) {
                 if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             if (skiplayout) CancelLayout();
@@ -482,7 +486,9 @@ namespace stellar.Controllers {
             ActiveRecordMediator<trial>.Save(item);
 
             if (autosave != null && autosave == "true") {
-                logger.writelog("Auto saved changes to trial " + item.number + " edits", getView(), getAction(), item.baseid);
+                if (autosaved == "false") { 
+                    logger.writelog("Auto saved changes to trial " + item.number + " edits", getView(), getAction(), item.baseid);
+                }
                 RenderText("success");
                 return;
             }
@@ -658,6 +664,7 @@ namespace stellar.Controllers {
             String cancel,
             String transition,
             String autosave,
+            String autosaved,
             Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
 
@@ -724,7 +731,9 @@ namespace stellar.Controllers {
             ActiveRecordMediator<drug_family>.Save(item);
 
             if (autosave != null && autosave == "true") {
-                logger.writelog("Auto saved changes " + item.name + " edits", getView(), getAction(), item.baseid);
+                if (autosaved == "false") {
+                    logger.writelog("Auto saved changes " + item.name + " edits", getView(), getAction(), item.baseid);
+                }
                 RenderText("success");
                 return;
             }
@@ -885,6 +894,7 @@ namespace stellar.Controllers {
             String cancel,
             String transition,
             String autosave,
+            String autosaved,
             Boolean skiplayout) {
                 if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
 
@@ -950,7 +960,9 @@ namespace stellar.Controllers {
 
 
             if (autosave != null && autosave == "true") {
-                logger.writelog("Auto saved changes " + item.brand_name + " edits", getView(), getAction(), item.baseid);
+                if (autosaved == "false") {
+                    logger.writelog("Auto saved changes " + item.brand_name + " edits", getView(), getAction(), item.baseid);
+                }
                 RenderText("success");
                 return;
             }
@@ -1111,6 +1123,7 @@ namespace stellar.Controllers {
         String cancel,
         String transition,
         String autosave,
+        String autosaved,
         Boolean skiplayout) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
         if (skiplayout) CancelLayout();
@@ -1181,7 +1194,9 @@ namespace stellar.Controllers {
             ActiveRecordMediator<substance>.Save(item);
         }
         if (autosave != null && autosave == "true") {
-            logger.writelog("Auto saved changes " + item.lab_code + " edits", getView(), getAction(), item.baseid);
+            if (autosaved == "false") {
+                logger.writelog("Auto saved changes " + item.lab_code + " edits", getView(), getAction(), item.baseid);
+            }
             RenderText("success");
             return;
         }

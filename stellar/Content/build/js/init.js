@@ -1889,6 +1889,7 @@ $(document).ready(function() {
 			make_datatable_popup_add(datatable,type);
 		});
 	}
+var autosaved=false;
 var t=null;
 function autoSaver(){
 	t=window.setInterval(function() {
@@ -1900,10 +1901,11 @@ function autoSaver(){
 			$(".dialog_message.autosave").show();
 			$.ajax({
 				url: $(this).attr("action"),
-				data: "autosave=true&"+$(this).serialize(),
+				data: "autosave=true&autosaved="+autosaved+"&"+$(this).serialize(),
 				type: "POST",
 				success: function(data){
 					if(data && data === "success") {
+						autosaved=true;
 						$(".dialog_message.autosave").html("Auto saved form");
 					}else if(data && data === "unsaved") {
 						window.clearInterval(t);
@@ -1928,6 +1930,7 @@ function autoSaver(){
 
 	$(document).ready(function() {
 		$('form.autosave').areYouSure({
+			'silent':true,
 			change: function() {
 				// Enable save button only if the form is dirty. i.e. something to save.
 				if ($(this).hasClass('dirty')) {
