@@ -229,7 +229,7 @@ namespace stellar.Controllers {
 
             //do the auth
             if (apply != null || ajaxed_update) {
-                logger.writelog("Applied to reference edits", getView(), getAction(), item.baseid);
+                logger.writelog("Saved and returned to reference edits", getView(), getAction(), item.baseid);
                 Flash["message"] = "Applied to reference edits";
                 if (item.baseid > 0) {
                     if (ajaxed_update) {
@@ -372,12 +372,13 @@ namespace stellar.Controllers {
             item.tmp = false;
             ActiveRecordMediator<clinical>.Save(item);
             if (autosave != null && autosave == "true") {
+                logger.writelog("Auto saved changes on " + item.alias + " edits", getView(), getAction(), item.baseid);
                 RenderText("success");
                 return;
             }
             //do the auth
             if (apply != null || ajaxed_update) {
-                logger.writelog("Applied " + item.alias + " edits", getView(), getAction(), item.baseid);
+                logger.writelog("Saved and returned " + item.alias + " edits", getView(), getAction(), item.baseid);
                 Flash["message"] = "Applied " + item.alias + " edits for " + item.ln_clinical_t;
                 if (item.baseid > 0) {
                     if (ajaxed_update) {
@@ -481,13 +482,14 @@ namespace stellar.Controllers {
             ActiveRecordMediator<trial>.Save(item);
 
             if (autosave != null && autosave == "true") {
+                logger.writelog("Auto saved changes to trial " + item.number + " edits", getView(), getAction(), item.baseid);
                 RenderText("success");
                 return;
             }
 
             //do the auth
             if (apply != null || ajaxed_update) {
-                logger.writelog("Applied " + item.record_id + " edits", getView(), getAction(), item.baseid);
+                logger.writelog("Saved and returned trial " + item.number + " edits", getView(), getAction(), item.baseid);
                 Flash["message"] = "Applied " + item.record_id + " edits for " + item.number;
                 if (item.baseid > 0) {
                     if (ajaxed_update) {
@@ -503,7 +505,7 @@ namespace stellar.Controllers {
                 }
             } else {
                 item.editing = null;
-                logger.writelog("Saved " + item.record_id + " edits on", getView(), getAction(), item.baseid);
+                logger.writelog("Saved trial " + item.number + " edits on", getView(), getAction(), item.baseid);
                 Flash["message"] = "Saved " + item.record_id + " edits for " + item.number;
                 ActiveRecordMediator<trial>.Save(item);
                 // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
@@ -722,12 +724,13 @@ namespace stellar.Controllers {
             ActiveRecordMediator<drug_family>.Save(item);
 
             if (autosave != null && autosave == "true") {
+                logger.writelog("Auto saved changes " + item.name + " edits", getView(), getAction(), item.baseid);
                 RenderText("success");
                 return;
             }
             //do the auth
             if (apply != null || ajaxed_update) {
-                logger.writelog("Applied " + item.baseid + " edits", getView(), getAction(), item.baseid);
+                logger.writelog("Saved and returned " + item.name + " edits", getView(), getAction(), item.baseid);
                 Flash["message"] = "Applied " + item.baseid + " edits for " + item.name;
                 if (item.baseid > 0) {
                     if (ajaxed_update) {
@@ -743,7 +746,7 @@ namespace stellar.Controllers {
                 }
             } else {
                 item.editing = null;
-                logger.writelog("Saved " + item.baseid + " edits on", getView(), getAction(), item.baseid);
+                logger.writelog("Saved " + item.name + " edits on", getView(), getAction(), item.baseid);
                 Flash["message"] = "Saved " + item.baseid + " edits for " + item.name;
                 ActiveRecordMediator<drug_family>.Save(item);
                 // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
@@ -947,12 +950,13 @@ namespace stellar.Controllers {
 
 
             if (autosave != null && autosave == "true") {
+                logger.writelog("Auto saved changes " + item.brand_name + " edits", getView(), getAction(), item.baseid);
                 RenderText("success");
                 return;
             }
             //do the auth
             if (apply != null || ajaxed_update) {
-                logger.writelog("Applied " + item.baseid + " edits", getView(), getAction(), item.baseid);
+                logger.writelog("Saved and returned " + item.brand_name + " edits", getView(), getAction(), item.baseid);
                 Flash["message"] = "Applied " + item.baseid + " edits for " + item.brand_name;
                 if (item.baseid > 0) {
                     if (ajaxed_update) {
@@ -999,7 +1003,7 @@ namespace stellar.Controllers {
                 }
             } else {
                 item.editing = null;
-                logger.writelog("Saved " + item.baseid + " edits on", getView(), getAction(), item.baseid);
+                logger.writelog("Saved " + item.brand_name + " edits on", getView(), getAction(), item.baseid);
                 Flash["message"] = "Saved " + item.baseid + " edits for " + item.brand_name;
                 ActiveRecordMediator<drug>.Save(item);
                 // ok this is where it gets merky.. come back to   Redirect(post.post_type.alias, "update", post); ?
@@ -1177,12 +1181,13 @@ namespace stellar.Controllers {
             ActiveRecordMediator<substance>.Save(item);
         }
         if (autosave != null && autosave == "true") {
+            logger.writelog("Auto saved changes " + item.lab_code + " edits", getView(), getAction(), item.baseid);
             RenderText("success");
             return;
         }
         //do the auth
         if (apply != null || ajaxed_update) {
-            logger.writelog("Applied " + item.lab_code + " edits", getView(), getAction(), item.baseid);
+            logger.writelog("Saved and returned " + item.lab_code + " edits", getView(), getAction(), item.baseid);
             Flash["message"] = "Applied " + item.lab_code + " edits for " + item.generic_name;
             if (item.baseid > 0) {
                 if (ajaxed_update) {
