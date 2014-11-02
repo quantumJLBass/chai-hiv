@@ -115,6 +115,18 @@ $.chai.clinical = {
 					});
 				}
 			});	
-		});		
+		});
+		$('.show_fieldset').on('change',function(){
+			var tar_area = $(this).closest('fieldset').find('ul');
+			if(tar_area.is('.open')){
+				tar_area.hide('fast',function(){
+					tar_area.removeClass('open');
+				});
+			}else{
+				tar_area.show('fast',function(){
+					tar_area.addClass('open');
+				});
+			}
+		});	
 	}
 };

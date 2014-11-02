@@ -1625,6 +1625,12 @@ $.chai.reports = {
 			$.chai.reports.set_prop_sel($("#types").val());
 		});
 		$.chai.reports.make_prop_select();
+		$('#start_save_query').on('click',function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			$('#to_save_query').slideDown();
+			$('#start_save_query').slideUp();
+		});
 	},
 	re_index_query_items:function (){
 		$.each($(".query_item:not('#queryBed .query_item')"),function(i){
@@ -1920,7 +1926,19 @@ $.chai.clinical = {
 					});
 				}
 			});	
-		});		
+		});
+		$('.show_fieldset').on('change',function(){
+			var tar_area = $(this).closest('fieldset').find('ul');
+			if(tar_area.is('.open')){
+				tar_area.hide('fast',function(){
+					tar_area.removeClass('open');
+				});
+			}else{
+				tar_area.show('fast',function(){
+					tar_area.addClass('open');
+				});
+			}
+		});	
 	}
 };
 
@@ -1929,6 +1947,13 @@ $.chai.clinical = {
 $.chai.drug = {
 	ini:function(){
 		$.chai.markets.ini();
+		$("select[name*='inactive_ingredients[]']").on("change",function(){
+			var sel="";
+			$.each($(this).find(':selected'),function(i){
+				sel+=(i>0?",":"")+$(this).val();
+			});
+			$("[name$='inactive_ingredients']").val(sel);
+		});
 	}
 };
 
@@ -2016,20 +2041,7 @@ $.chai.substance = {
 	
 
 	
-			$('.show_fieldset').on('change',function(){
-				var tar_area = $(this).closest('fieldset').find('ul');
-				if(tar_area.is('.open')){
-					tar_area.hide('fast',function(){
-						tar_area.removeClass('open');
-					});
-				}else{
-					tar_area.show('fast',function(){
-						tar_area.addClass('open');
-					});
-				}
-				
-				
-			});
+
 			
 			$.chai.reports.ini();
 			$.chai.clinical.ini();
@@ -2037,21 +2049,12 @@ $.chai.substance = {
 			$.chai.trial.ini();
 			$.chai.drug.ini();
 			$.chai.trial_arm.ini();
+			$.chai.substance.ini();
 			
-			$("select[name*='inactive_ingredients[]']").on("change",function(){
-				var sel="";
-				$.each($(this).find(':selected'),function(i){
-					sel+=(i>0?",":"")+$(this).val();
-				});
-				$("[name$='inactive_ingredients']").val(sel);
-			});
+					
+			
 		
-			$('#start_save_query').on('click',function(e){
-				e.preventDefault();
-				e.stopPropagation();
-				$('#to_save_query').slideDown();
-				$('#start_save_query').slideUp();
-			});
+
 	
 			$.chai.core.util.moa_dmpk_setup();
 			$.chai.core.util.make_maskes();

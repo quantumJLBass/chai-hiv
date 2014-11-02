@@ -30,6 +30,12 @@ $.chai.reports = {
 			$.chai.reports.set_prop_sel($("#types").val());
 		});
 		$.chai.reports.make_prop_select();
+		$('#start_save_query').on('click',function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			$('#to_save_query').slideDown();
+			$('#start_save_query').slideUp();
+		});
 	},
 	re_index_query_items:function (){
 		$.each($(".query_item:not('#queryBed .query_item')"),function(i){
