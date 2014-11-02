@@ -27,6 +27,7 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Dynamic;
 using System.Runtime.Serialization;
+using System.Web.Script.Serialization;
 #endregion
 
 namespace stellar.Services {
@@ -155,11 +156,32 @@ namespace stellar.Services {
         public static List<String> get_type_properties(String type) {
             List<String> prop_list = new List<String>();
 
-            Type t = Type.GetType("stellar.Models." + type);
+            String filename = "/"+type + "_type_properties_cache.json";
+            String uploadPath = file_info.root_path();
+            if (!uploadPath.EndsWith("\\"))
+                uploadPath += "\\";
+            uploadPath += @"cache/objs/types\";
 
-            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(t)) {
-                prop_list.Add(descriptor.Name);
-                //object value = descriptor.GetValue(obj);
+            if (!file_info.dir_exists(uploadPath)) {
+                System.IO.Directory.CreateDirectory(uploadPath);
+            }
+            string file_path = uploadPath + filename;
+            if (!File.Exists(file_path)) {
+                Type t = Type.GetType("stellar.Models." + type);
+                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(t)) {
+                    prop_list.Add(descriptor.Name);
+                    //object value = descriptor.GetValue(obj);
+                }
+                var json = new JavaScriptSerializer().Serialize(prop_list);
+                Console.WriteLine("The file exists.");
+                StreamWriter writetext = new StreamWriter(file_path);
+                writetext.WriteLine(json);
+                writetext.Close();
+            } else {
+                StreamReader readtext = new StreamReader(file_path);
+                string json = readtext.ReadLine();
+                readtext.Close();
+                prop_list = new JavaScriptSerializer().Deserialize<List<String>>(json);
             }
             return prop_list;
         }
