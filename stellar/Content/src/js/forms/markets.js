@@ -1,11 +1,15 @@
 // JavaScript Document
 
-(function($) {
-	$(document).ready(function() {
-		
+$.chai.markets = {
+	ui:{
+		tabs:null,
+		tabTitle:null,
+		tabTemplate:null,
+		tabCounter:null,
+	},
+	ini:function(){
 
-
-		var tabs = $( "#tabed" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+		$.chai.markets.ui.tabs = $( "#tabed" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
 		//var uitabs = $( ".uitabs" ).tabs();
 		
 		$('.ui-state-default span.ui-icon-close').on("click", function(e){
@@ -13,7 +17,7 @@
 			e.stopPropagation();
 			var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
 			$( "#" + panelId ).remove();
-			tabs.tabs( "refresh" );
+			$.chai.markets.ui.tabs.tabs( "refresh" );
 			$.each( $('input[name^="markets_counts["]' ), function(i){
 				$(this).attr('name','markets_counts['+ (i+1) +']');
 			});
@@ -26,9 +30,9 @@
 			if($( "#marketdialog" ).length<=0){
 				$('body').append('<div id="marketdialog" title="Tab data"><form><fieldset class="ui-helper-reset"><label for="tab_title">Year</label><input type="number" name="tab_date" id="tab_date" value="" class="ui-widget-content ui-corner-all" /></fieldset></form></div>');
 			}	
-			var tabTitle = $( "#tab_date" );
-			var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>";
-			var tabCounter = $( "#tabed li" ).length;
+			$.chai.markets.ui.tabTitle = $( "#tab_date" );
+			$.chai.markets.ui.tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>";
+			$.chai.markets.ui.tabCounter = $( "#tabed li" ).length;
 	
 			var today = new Date();
 	
@@ -37,7 +41,7 @@
 				autoOpen: true,
 				modal: true,
 				create:function(){
-					make_maskes();
+					$.chai.core.util.make_maskes();
 					$('#tab_date').spinner({
 						min: 1980,
 						max: today.getFullYear() + 2,
@@ -56,7 +60,7 @@
 					},
 				buttons: {
 					Add: function() {
-						addTab();
+						$.chai.markets.addTab();
 						$( this ).dialog( "close" );
 					},
 					Cancel: function() {
@@ -71,54 +75,47 @@
 			// addTab form: calls addTab function on submit and closes the dialog
 		
 			var form = dialog.find( "form" ).submit(function( event ) {
-				addTab();
+				$.chai.markets.addTab();
 				dialog.dialog( "close" );
 				event.preventDefault();
 			});
 			// actual addTab function: adds new tab using the input from the form above
 		
-			function addTab() {
-				var label = tabTitle.val() || "Tab " + tabCounter,
-					id = "tabs-" + tabCounter,
-					li = $( tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) );
-				tabs.find( ".ui-tabs-nav" ).prepend( li );
-				var content = $("#querybed").html();
-				var contentHtml = content.replace( /\{\{YEAR\}\}/g, label ) ;
-				contentHtml = contentHtml.replace( /\{\{COUNT\}\}/g, tabCounter+1 ).replace( /\{\{__\}\}/g, "" ) ;
-				tabs.append( "<div id='" + id + "'>" + contentHtml + "</div>" );
-				tabs.tabs( "refresh" );
-				tabs.tabs( "option", "active", tabCounter );
-				tabCounter++;
-				$.each( $('input[name^="markets_counts["]' ), function(i){
-					$(this).attr('name','markets_counts['+ (i+1) +']');
-				});
-			}
+
 		
 		
-			tabs.delegate( "span.ui-icon-close", "click", function() {
+			$.chai.markets.ui.tabs.delegate( "span.ui-icon-close", "click", function() {
 				var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
 				$( "#" + panelId ).remove();
-				tabs.tabs( "refresh" );
+				$.chai.markets.ui.tabs.tabs( "refresh" );
 				$.each( $('input[name^="markets_counts["]' ), function(i){
 					$(this).attr('name','markets_counts['+ (i+1) +']');
 				});
 			});
 		
-			tabs.bind( "keyup", function( event ) {
+			$.chai.markets.ui.tabs.bind( "keyup", function( event ) {
 				if ( event.altKey && event.keyCode === $.ui.keyCode.BACKSPACE ) {
-					var panelId = tabs.find( ".ui-tabs-active" ).remove().attr( "aria-controls" );
+					var panelId = $.chai.markets.ui.tabs.find( ".ui-tabs-active" ).remove().attr( "aria-controls" );
 					$( "#" + panelId ).remove();
-					tabs.tabs( "refresh" );
+					$.chai.markets.ui.tabs.tabs( "refresh" );
 				}
 			});
 		});
-
-
-
-
-
-
-
-		
-	});
-})(jQuery);
+	},
+	addTab:function() {
+		var label = $.chai.markets.ui.tabTitle.val() || "Tab " + $.chai.markets.ui.tabCounter,
+			id = "tabs-" + $.chai.markets.ui.tabCounter,
+			li = $( $.chai.markets.ui.tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) );
+		$.chai.markets.ui.tabs.find( ".ui-tabs-nav" ).prepend( li );
+		var content = $("#querybed").html();
+		var contentHtml = content.replace( /\{\{YEAR\}\}/g, label ) ;
+		contentHtml = contentHtml.replace( /\{\{COUNT\}\}/g, $.chai.markets.ui.tabCounter+1 ).replace( /\{\{__\}\}/g, "" ) ;
+		$.chai.markets.ui.tabs.append( "<div id='" + id + "'>" + contentHtml + "</div>" );
+		$.chai.markets.ui.tabs.tabs( "refresh" );
+		$.chai.markets.ui.tabs.tabs( "option", "active", $.chai.markets.ui.tabCounter );
+		$.chai.markets.ui.tabCounter++;
+		$.each( $('input[name^="markets_counts["]' ), function(i){
+			$(this).attr('name','markets_counts['+ (i+1) +']');
+		});
+	},
+};

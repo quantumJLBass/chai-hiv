@@ -21,7 +21,7 @@
 			window.location = window.location.href.split('?')[0]+"?pub="+state;
 		});
 	
-		setting_item_pub($(".container"));
+		$.chai.core.util.setting_item_pub($(".container"));
 
 		if($(".message.ui-state-highlight").length){
 			setTimeout(function(){ $(".message.ui-state-highlight").fadeOut(500); },2000);

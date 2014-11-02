@@ -17,14 +17,19 @@ module.exports = function(grunt) {
 		watch: {
 			files: [
 				'src/css/style.css',
-				'src/js/forms/general_functions.js',
+				'src/js/chai.stub.js',
+				'src/js/chai.core.util.js',
+				'src/js/chai.general_functions.js',
 				'src/js/forms/global.js',
 				'src/js/forms/families.js',
 				'src/js/forms/markets.js',
 				'src/js/forms/reports.js',
 				'src/js/forms/trail.js',
+				'src/js/forms/trail_arm.js',
 				'src/js/forms/clinical.js',
-				'src/js/init.js',
+				'src/js/forms/drug.js',
+				'src/js/forms/substance.js',
+				'src/js/chai.init.js',
 				'build/js/init.js'
 			],
 			tasks: [ 'concat', 'jshint', 'env:dev', 'cssmin', 'uglify' ]
@@ -36,15 +41,19 @@ module.exports = function(grunt) {
 			},*/
 			scripts: {
 				src: [
-					'src/js/forms/stub.js',
-					'src/js/forms/general_functions.js',
+					'src/js/chai.stub.js',
+					'src/js/chai.core.util.js',
+					'src/js/chai.general_functions.js',
 					'src/js/forms/global.js',
 					'src/js/forms/families.js',
 					'src/js/forms/markets.js',
 					'src/js/forms/reports.js',
 					'src/js/forms/trail.js',
+					'src/js/forms/trail_arm.js',
 					'src/js/forms/clinical.js',
-					'src/js/init.js'
+					'src/js/forms/drug.js',
+					'src/js/forms/substance.js',
+					'src/js/chai.init.js'
 				],
 				dest: 'build/js/init.js',
 			},
@@ -68,7 +77,21 @@ module.exports = function(grunt) {
 			}
 		},
 		jshint: {
-			files: ['Gruntfile.js','build/js/init.js', ],
+			files: ['Gruntfile.js',
+					'src/js/chai.stub.js',
+					'src/js/chai.core.util.js',
+					'src/js/chai.general_functions.js',
+					'src/js/forms/global.js',
+					'src/js/forms/families.js',
+					'src/js/forms/markets.js',
+					'src/js/forms/reports.js',
+					'src/js/forms/trail.js',
+					'src/js/forms/trail_arm.js',
+					'src/js/forms/clinical.js',
+					'src/js/forms/drug.js',
+					'src/js/forms/substance.js',
+					'src/js/chai.init.js'
+				],
 			options: {
 				// options here to override JSHint defaults
 				boss: true,
