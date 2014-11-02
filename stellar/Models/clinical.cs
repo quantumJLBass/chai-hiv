@@ -88,6 +88,9 @@ namespace stellar.Models {
         virtual public string metabolites_of_parent { get; set; }
 
 
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string is_fasting { get; set; }
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
@@ -116,6 +119,9 @@ namespace stellar.Models {
         virtual public string fasting_tmax { get; set; }
 
 
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string is_fed { get; set; }
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
@@ -143,6 +149,10 @@ namespace stellar.Models {
         virtual public string fed_tmax { get; set; }
 
 
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string is_steady { get; set; }
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string steady_state_cmax { get; set; }
