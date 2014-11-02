@@ -835,8 +835,8 @@ select option.add:hover{ background-color:#6F3;border:1px inset #666;font-style:
 	background-color: #F0F0F0;
 }
 
-
-
+.optional_fieldset ul{display:none;}
+.optional_fieldset ul.open{display:block;}
 
 
 /* -------------------------------------------------------------
