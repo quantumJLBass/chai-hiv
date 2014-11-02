@@ -13,9 +13,12 @@
 	</ul>	
 	<hr/>
 	
-	<fieldset class="grid col-one-half mq2-col-full full-input" style="border:1px solid #ccc">
-	<legend>Fasting:</legend>
-	<ul>	
+	<fieldset class="grid col-one-half mq2-col-full full-input optional_fieldset" style="border:1px solid #ccc">
+	<legend>
+		<input type="hidden" name="item.is_fasting" value="no" />
+		<input type="checkbox" name="item.is_fasting" #if($item.is_fasting=="yes") checked #end class="show_fieldset" value="yes"/>
+		 Fasting:</legend>
+	<ul class="#if($item.is_fasting=="yes") open #end ">	
 
 #* fasting_cmax *#
 		<li>
@@ -48,9 +51,12 @@
 	</ul>		  
 	</fieldset>	 
 	 
-	<fieldset class="grid col-one-half mq2-col-full full-input" style="border:1px solid #ccc">
-	<legend>Fed:</legend>
-	<ul>	  
+	<fieldset class="grid col-one-half mq2-col-full full-input optional_fieldset" style="border:1px solid #ccc">
+	<legend>
+		<input type="hidden" name="item.is_fed" value="no" />
+		<input type="checkbox" name="item.is_fed" #if($item.is_fed=="yes") checked #end class="show_fieldset" value="yes"/>
+		 Fed:</legend>
+	<ul class="#if($item.is_fed=="yes") open #end ">		  
 
 
 #* fed_cmax *#
@@ -86,9 +92,12 @@
 	</ul>
 	</fieldset>
 	
-	<fieldset class="grid col-one-full mq2-col-full full-input" style="border:1px solid #ccc">
-	<legend>Steady State:</legend>
-	<ul  class="grid col-one-half mq2-col-full full-input">
+	<fieldset class="grid col-one-full mq2-col-full full-input optional_fieldset" style="border:1px solid #ccc">
+	<legend>
+		<input type="hidden" name="item.is_steady" value="no" />
+		<input type="checkbox" name="item.is_steady" #if($item.is_steady=="yes") checked #end class="show_fieldset" value="yes"/>
+		 Steady State:</legend>
+	<ul  class="grid col-one-half mq2-col-full full-input #if($item.is_steady=="yes") open #end ">	
 #* steady_state_cmax *#
 		<li>
 			$Controller.feilds("textinput","$type","steady_state_cmax", $!item.steady_state_cmax ,"","(ng/ml)","","")
