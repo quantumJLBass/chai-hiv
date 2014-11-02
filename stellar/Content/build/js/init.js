@@ -2095,7 +2095,7 @@ $(document).ready(function() {
 		
 		
 		
-		
+			/*
 			$('form[name="entry_form"] :input').on("change",function(){
 				
 				var test_empty = true;
@@ -2106,7 +2106,7 @@ $(document).ready(function() {
 				});
 				$('input[name="empty"]').val(test_empty+"");
 			});
-			/*
+			
 			var bypassed = true;
 			var excepted = false;
 			$('form[name="entry_form"] [type="submit"]').on("click",function(){
@@ -2152,52 +2152,9 @@ $(document).ready(function() {
 	
 			apply_tax_request();
 			apply_taxed_add();
-		
-	
-			
-			
-			
-			
-			
-			
-			
 			apply_a_taxed_add();
-	
-			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			
-			
-			
-	
-			
-			
-			
 			activate_adverse_ui();
-		
-			
-		
-			
-			
-		
-	
-			
-			
-		
-		
+
 			if($('.datagrid').length){
 				
 				var datagrids = $('.datagrid');
