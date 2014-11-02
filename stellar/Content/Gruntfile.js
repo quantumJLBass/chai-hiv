@@ -36,6 +36,7 @@ module.exports = function(grunt) {
 			},*/
 			scripts: {
 				src: [
+					'src/js/forms/stub.js',
 					'src/js/forms/general_functions.js',
 					'src/js/forms/global.js',
 					'src/js/forms/families.js',

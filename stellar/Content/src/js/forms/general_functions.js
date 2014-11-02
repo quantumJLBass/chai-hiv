@@ -274,6 +274,13 @@
     });
   };
 })(jQuery);
+
+
+
+
+
+
+
 $.fn.hideOptionGroup = function() {
 	$.each($(this),function(){
 		var optgroup = $(this);
@@ -298,7 +305,44 @@ $.fn.showOptionGroup = function() {
 	});
 };
 
+var autosaved=false;
+var t=null;
+function autoSaver(){
+	t=window.setInterval(function() {
+		$.each($('form.autosave'),function() {
+			var self = $(this);
+			if($(".dialog_message.autosave").length<=0){
+				$("body").append("<div class='dialog_message ui-state-highlight autosave'>");
+			}
+			$(".dialog_message.autosave").html("Auto saving");
+			$(".dialog_message.autosave").show();
+			$.ajax({
+				url: $(this).attr("action"),
+				data: "autosave=true&autosaved="+autosaved+"&"+$(this).serialize(),
+				type: "POST",
+				success: function(data){
+					if(data && data === "success") {
+						autosaved=true;
+						$(".dialog_message.autosave").html("Auto saved form");
+						self.trigger('reinitialize.areYouSure');
+					}else if(data && data === "unsaved") {
+						window.clearInterval(t);
+						t=null;
+						$(".dialog_message.autosave").html("Will not auto save untill the item is saved.");
+						$(".dialog_message.autosave").show();
+						setTimeout(function(){$(".dialog_message.autosave").fadeOut("500");},"4000");
+						return;
+					}else{
+						$(".dialog_message.autosave").html("Failed to auto save");
+					}
+					$(".dialog_message.autosave").show();
+					setTimeout(function(){$(".dialog_message.autosave").fadeOut("500");},"1000");
+				}
+			});
+		});
+	}, 10 * 1000);	
 	
+}	
 function alais_scruber(input,jObj){
 	var str = input.val();
 		str=str.split(' ').join('-');
