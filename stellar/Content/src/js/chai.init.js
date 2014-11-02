@@ -70,59 +70,6 @@
 				$(".load_file:visible input").attr("required",true);
 			});
 
-			/*
-			$('form[name="entry_form"] :input').on("change",function(){
-				
-				var test_empty = true;
-				$.each($('input,select'),function(){
-					if($('form[name="entry_form"] :input').not(":hidden").val()!==""){
-						test_empty = false;
-					}
-				});
-				$('input[name="empty"]').val(test_empty+"");
-			});
-			
-			var bypassed = true;
-			var excepted = false;
-			$('form[name="entry_form"] [type="submit"]').on("click",function(){
-				var target = $(this);
-				 if($('input[name="empty"]').val()==="true" && !excepted&& !bypassed){
-					 if($( "#message" ).length<=0){
-						 $('body').append("<div id='message'>");
-					 }
-					 $( "#message" ).html("The form is empty, are you sure you want to add the record?");
-					 $( "#message" ).dialog({
-						autoOpen: true,
-						resizable: false,
-						width: 350,
-						height:200,
-						modal: true,
-						draggable : false,
-						buttons: {
-							Cancel: function() {
-								$( this ).dialog( "close" );
-							},
-							Ok: function() {
-								$( this ).dialog( "close" );
-								excepted=true;
-								target.trigger("click");
-							}
-						},
-						create:function(){
-							$('body').css({overflow:"hidden"});
-							//$(".ui-dialog-buttonpane").remove();
-						},
-						close: function() {
-							$('body').css({overflow:"auto"});
-							$( "#message" ).dialog( "destroy" );
-							$( "#message" ).remove();
-						}
-					});
-				}
-				 return ( $('input[name="empty"]').val()==="true" && !excepted && !bypassed )?false:true;
-			});
-			*/
-
 			
 			$.chai.core.util.apply_tax_request();
 			$.chai.core.util.apply_taxed_add();
