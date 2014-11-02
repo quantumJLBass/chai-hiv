@@ -121,7 +121,7 @@
 			});
 	
 			$.chai.reports.ini();
-			
+			$.chai.clinical.ini();
 		
 		
 		
