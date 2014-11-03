@@ -2,6 +2,8 @@
 $.chai.trial = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
+		$.chai.form_base.ini();
+		
 		$(".trial_arm_form").on("click",function(e){
 			e.preventDefault();
 			e.stopPropagation();

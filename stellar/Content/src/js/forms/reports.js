@@ -2,6 +2,7 @@
 
 $.chai.reports = {
 	ini:function(){
+		$.chai.form_base.ini();
 		if($('select[name^="property"],.property_selector').length){
 			$("#types").on("change",function(){
 	

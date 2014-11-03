@@ -39,6 +39,20 @@
 			}, 10 * 1000);	
 			
 		},
+		start_autoSaver:function(){
+			$('form.autosave').areYouSure({
+				'silent':true,
+				change: function() {
+					// Enable save button only if the form is dirty. i.e. something to save.
+					if ($(this).hasClass('dirty')) {
+						$.chai.core.util.autoSaver();
+					} else {
+						window.clearInterval($.chai.core.util.t);
+						$.chai.core.util.t=null;
+					}
+				}
+			});
+		},
 		alais_scruber:function (input,jObj){
 			var str = input.val();
 				str=str.split(' ').join('-');
@@ -78,6 +92,10 @@
 			$( '[type="date"],[rel="date"]' ).datepicker();
 		},
 
+
+
+
+
 		setup_viewlog:function(){
 			$('#viewlog').on('click',function(e){
 				e.preventDefault();
@@ -112,7 +130,24 @@
 				});
 			});
 		},
-	
+		setup_refs:function(){
+			$('.add_ref').on("click",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				//var targetrow = $(this).closest("grid");
+				
+				var datatable = $(this).closest('.datagrid').dataTable({
+					"aaSorting": [[1,'asc']]
+					});
+				//var count = datatable.find("tbody").find("tr").length;
+				datatable.dataTable().fnAddData( [
+					'<input type="hidden" name="item.references[$count].baseid" value="$part.baseid" class="drug_item"/>$part.type',
+					'<a href="$item.url" class="ref_link"><i class="icon-external-link"></i></a>',
+					'$item.note',
+					'<a href="substance.castle?id=$part.baseid" class="button small inline_edit" data-type="substance">Edit</a> | <a href="#" class="button xsmall crimson defocus removal">Remove</a>' ]
+				);
+			});
+		},
 	
 		setting_item_pub:function(parentObj){
 			parentObj.find( ".pubstate" ).buttonset();
@@ -746,7 +781,58 @@
 				$.chai.core.util.make_datatable_popup_add(datatable,type);
 			});
 		},
-
+		make_dataTables:function(){
+			if($('.datagrid').length){
+				var datagrids = $('.datagrid');
+				$.each(datagrids,function(){
+					var datatable = $(this);
+					datatable.dataTable( {
+						"bJQueryUI": true,
+						"sPaginationType": "full_numbers",
+						"aaSorting": [[1,'asc']]
+					});
+				});
+				
+				var addTos = $(".add_to_list");
+				$.each(addTos,function(){
+					var targ = $(this);
+					targ.on("click",function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						var targ = $(this);
+						var type = targ.data('type');
+						
+						var focused_grid = targ.prev('.dataTables_wrapper').find('.datagrid');
+						$("[data-active_grid='true']").attr("data-active_grid",false);
+						focused_grid.attr("data-active_grid",true);
+		
+						var list ="";
+						if(focused_grid.find(".dataTables_empty").length<=0){
+							list = $.chai.core.util.get_table_ids( focused_grid );
+						}
+						$.chai.core.util.popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> loading ... </span>',true);
+						$.chai.core.util.add_item_popup(type, list, ["new","list"]);
+					});
+				});
+				
+				var removals = $(".display.datagrid.dataTable .removal");
+				$.each(removals,function(){
+					var targ = $(this);
+					targ.on("click",function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						var targ = $(this);
+						var targetrow = targ.closest("tr");
+						var datatable = targ.closest('.datagrid').dataTable();
+						targetrow.fadeOut( "75" ,function(){ 
+							var row = targetrow.get(0);
+							datatable.fnDeleteRow( datatable.fnGetPosition( row ) );
+						});
+					});
+				});
+		
+			}
+		},
 	};
 
 })(jQuery);

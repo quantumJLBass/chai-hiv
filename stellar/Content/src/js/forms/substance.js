@@ -3,6 +3,8 @@
 $.chai.substance = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
+		$.chai.form_base.ini();
+		
 		$('#add_substance_salt').on("click",function(e){
 			e.preventDefault();
 			e.stopPropagation();

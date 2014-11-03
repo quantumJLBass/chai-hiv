@@ -3,6 +3,8 @@
 $.chai.families = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
+		$.chai.form_base.ini();
+		
 		$('#substances_disabled').on("click",function(e){
 			e.preventDefault();
 			e.stopPropagation();

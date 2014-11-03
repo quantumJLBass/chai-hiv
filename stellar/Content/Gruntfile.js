@@ -21,6 +21,7 @@ module.exports = function(grunt) {
 				'src/js/chai.core.util.js',
 				'src/js/chai.general_functions.js',
 				'src/js/forms/global.js',
+				'src/js/chai.form_base.js',
 				'src/js/forms/families.js',
 				'src/js/forms/markets.js',
 				'src/js/forms/reports.js',
@@ -29,6 +30,7 @@ module.exports = function(grunt) {
 				'src/js/forms/clinical.js',
 				'src/js/forms/drug.js',
 				'src/js/forms/substance.js',
+				'src/js/forms/reference.js',
 				'src/js/chai.init.js',
 				'build/js/init.js'
 			],
@@ -45,6 +47,7 @@ module.exports = function(grunt) {
 					'src/js/chai.core.util.js',
 					'src/js/chai.general_functions.js',
 					'src/js/forms/global.js',
+					'src/js/chai.form_base.js',
 					'src/js/forms/families.js',
 					'src/js/forms/markets.js',
 					'src/js/forms/reports.js',
@@ -53,6 +56,7 @@ module.exports = function(grunt) {
 					'src/js/forms/clinical.js',
 					'src/js/forms/drug.js',
 					'src/js/forms/substance.js',
+					'src/js/forms/reference.js',
 					'src/js/chai.init.js'
 				],
 				dest: 'build/js/init.js',
@@ -82,6 +86,7 @@ module.exports = function(grunt) {
 					'src/js/chai.core.util.js',
 					'src/js/chai.general_functions.js',
 					'src/js/forms/global.js',
+					'src/js/chai.form_base.js',
 					'src/js/forms/families.js',
 					'src/js/forms/markets.js',
 					'src/js/forms/reports.js',
@@ -90,6 +95,7 @@ module.exports = function(grunt) {
 					'src/js/forms/clinical.js',
 					'src/js/forms/drug.js',
 					'src/js/forms/substance.js',
+					'src/js/forms/reference.js',
 					'src/js/chai.init.js'
 				],
 			options: {

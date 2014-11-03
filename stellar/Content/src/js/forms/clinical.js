@@ -3,6 +3,8 @@
 $.chai.clinical = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
+		$.chai.form_base.ini();
+		
 		$(".drug_pro_add_item").on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();
