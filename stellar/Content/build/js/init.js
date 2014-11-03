@@ -2050,6 +2050,20 @@ $.chai.clinical = {
 				}
 			});	
 		});
+		function resetBlocks(tar){
+			if( $('#fed_block').find('ul').is('.open') && $('#fasting_block').find('ul').is('.open') ){
+				var notId;
+				if(tar.closest('fieldset').is('#fed_block')){
+					notId='#fasting_block';
+				}else{
+					notId='#fed_block';
+				}
+				$(notId).find('ul').hide('fast',function(){
+					$(notId).find('ul').removeClass('open');
+					$(notId).find(':checkbox').attr('checked',false);
+				});
+			}	
+		}
 		$('.show_fieldset').on('change',function(){
 			var tar_area = $(this).closest('fieldset').find('ul');
 			if(tar_area.is('.open')){
@@ -2059,8 +2073,10 @@ $.chai.clinical = {
 			}else{
 				tar_area.show('fast',function(){
 					tar_area.addClass('open');
+					resetBlocks(tar_area);
 				});
 			}
+
 		});	
 	}
 };

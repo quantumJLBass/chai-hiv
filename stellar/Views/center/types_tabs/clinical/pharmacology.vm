@@ -13,7 +13,7 @@
 	</ul>	
 	<hr/>
 	
-	<fieldset class="grid col-one-half mq2-col-full full-input optional_fieldset" style="border:1px solid #ccc">
+	<fieldset class="grid col-one-half mq2-col-full full-input optional_fieldset" id="fasting_block" style="border:1px solid #ccc">
 	<legend>
 		<input type="hidden" name="item.is_fasting" value="no" />
 		<input type="checkbox" name="item.is_fasting" #if($item.is_fasting=="yes") checked #end class="show_fieldset" value="yes"/>
@@ -51,7 +51,7 @@
 	</ul>		  
 	</fieldset>	 
 	 
-	<fieldset class="grid col-one-half mq2-col-full full-input optional_fieldset" style="border:1px solid #ccc">
+	<fieldset class="grid col-one-half mq2-col-full full-input optional_fieldset" id="fed_block" style="border:1px solid #ccc">
 	<legend>
 		<input type="hidden" name="item.is_fed" value="no" />
 		<input type="checkbox" name="item.is_fed" #if($item.is_fed=="yes") checked #end class="show_fieldset" value="yes"/>
