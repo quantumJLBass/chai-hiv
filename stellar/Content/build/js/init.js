@@ -1186,6 +1186,7 @@ $.fn.showOptionGroup = function() {
 })(jQuery);
 $.chai.form_base = {
 	ini:function(){
+
 		$.chai.core.util.start_autoSaver();
 		$.chai.core.util.moa_dmpk_setup();
 		$.chai.core.util.make_maskes();
@@ -1194,7 +1195,6 @@ $.chai.form_base = {
 		$.chai.core.util.apply_taxed_add();
 		$.chai.core.util.apply_a_taxed_add();
 		$.chai.core.util.activate_adverse_ui();
-
 		$.chai.core.util.make_dataTables();
 
 		$('option.add_item').on('click',function(e){
@@ -1215,7 +1215,7 @@ $.chai.form_base = {
 };
 // JavaScript Document
 
-$.chai.families = {
+$.chai.family = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
 		$.chai.form_base.ini();
@@ -1258,7 +1258,7 @@ $.chai.families = {
 		$("#sortable").sortable({
 			handle: ".sortable_handle",
 			placeholder: "ui-state-highlight",
-			stop:function(){ $.chai.families.sortedCode(); }
+			stop:function(){ $.chai.family.sortedCode(); }
 		});
 		
 		$("#famSubAdd").on("click",function(e){
@@ -1310,7 +1310,7 @@ $.chai.families = {
 	
 							$(html).appendTo("#sortable");
 							$("#sortable").sortable("refresh");
-							$.chai.families.sortedCode();
+							$.chai.family.sortedCode();
 							
 						});
 					},
@@ -1348,7 +1348,7 @@ $.chai.families = {
 				$("#subCodeEdit").addClass("closed");
 			});
 		});
-		$.chai.families.sortedCode();
+		$.chai.family.sortedCode();
 	
 	
 	
@@ -1364,7 +1364,7 @@ $.chai.families = {
 					$("#drpro_table").find('.add_drPro').off().on("click",function(e){
 						e.preventDefault();
 						e.stopPropagation();
-						$.chai.families.add_drProTableRow();
+						$.chai.family.add_drProTableRow();
 					});
 					//$.chai.core.util.make_datatable_popup_add(datatable);
 					
@@ -1453,7 +1453,7 @@ $.chai.families = {
 		$('.substance_item .icon-trash').off().on("click",function(){
 			$(this).closest('.substance_item').fadeOut("fast",function(){
 				$(this).remove();
-				$.chai.families.sortedCode();
+				$.chai.family.sortedCode();
 			});
 		});
 		var code="";
@@ -1837,12 +1837,12 @@ $.chai.trial = {
 								
 								$('body').css({overflow:"hidden"});
 								$(".ui-dialog-buttonpane").remove();
-								
-								$.chai.core.util.make_maskes();
-								$.chai.core.util.moa_dmpk_setup();
-								$.chai.core.util.apply_tax_request();
-								$.chai.core.util.apply_taxed_add();
-								$.chai.core.util.activate_adverse_ui();
+								/*
+								$(".formstateaction").html($(".ui-dialog-buttonpane"));
+								$(".ui-dialog-buttonpane:not(.formstateaction .ui-dialog-buttonpane)").remove();
+								*/
+								$.chai.clinical.ini();
+
 								var tabContents = trial_arm_form_dialog.find(".tab_content").hide(), tabs = trial_arm_form_dialog.find("ul.tabs li");
 								tabs.addClass("tabed");
 								tabs.first().addClass("active").show();
@@ -2173,21 +2173,15 @@ $.chai.reference = {
 (function($) {
 	$.chai.ready=function (options){
 		$(document).ready(function() {
-			var page;
-			page=window.location.pathname.substring(window.location.pathname.lastIndexOf("/") + 1);
+			var page,location;
+			location=window.location.pathname;
+			page=location.substring(location.lastIndexOf("/") + 1);
 			page=page.substring(0,page.lastIndexOf("."));
-			console.log(page);
-			$.chai[page].ini();
-			/*
-			$.chai.families.ini();
-			$.chai.trial.ini();
-			$.chai.drug.ini();
-			$.chai.trial_arm.ini();
-			$.chai.substance.ini();
-			$.chai.reference.ini();
-			$.chai.reports.ini();
-			*/
-
+			if(typeof($.chai[page])!=="undefined"){
+				$.chai[page].ini();
+			}else{
+				$.chai.core.util.make_dataTables();
+			}
 			return options;
 		});
 	};

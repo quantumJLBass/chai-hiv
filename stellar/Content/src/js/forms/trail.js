@@ -47,12 +47,12 @@ $.chai.trial = {
 								
 								$('body').css({overflow:"hidden"});
 								$(".ui-dialog-buttonpane").remove();
-								
-								$.chai.core.util.make_maskes();
-								$.chai.core.util.moa_dmpk_setup();
-								$.chai.core.util.apply_tax_request();
-								$.chai.core.util.apply_taxed_add();
-								$.chai.core.util.activate_adverse_ui();
+								/*
+								$(".formstateaction").html($(".ui-dialog-buttonpane"));
+								$(".ui-dialog-buttonpane:not(.formstateaction .ui-dialog-buttonpane)").remove();
+								*/
+								$.chai.clinical.ini();
+
 								var tabContents = trial_arm_form_dialog.find(".tab_content").hide(), tabs = trial_arm_form_dialog.find("ul.tabs li");
 								tabs.addClass("tabed");
 								tabs.first().addClass("active").show();
