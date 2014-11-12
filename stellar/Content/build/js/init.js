@@ -272,11 +272,11 @@
 					   url:"/center/"+type+".castle",
 					   data:{"skiplayout":1,"id":typeof(id)==="undefined"?"":id,typed_ref:$('[name="typed_ref"]').val()},
 					   success: function(data){
-						   if($.inArray("new", use)>-1){
+							if($.inArray("new", use)>-1){
 								$("#drug_item").html(data);
 								buttons += "<a href='#drug_item' id='drug_item_tab' class='popuptab button med'>New</a>";
-						   }
-						$( "#drug_form" ).dialog({
+							}
+							$( "#drug_form" ).dialog({
 								autoOpen: true,
 								resizable: false,
 								width: $(window).width()-50,
@@ -318,7 +318,6 @@
 									});
 									$.chai.core.util.set_up_form(type,inlist,use);
 									$.chai.core.util.activate_adverse_ui();
-									
 								},
 								close: function() {
 									$.chai.core.util.close_dialog_modle($( "#drug_form" ));
