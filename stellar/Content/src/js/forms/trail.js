@@ -122,9 +122,11 @@ $.chai.trial = {
 								//$.chai.core.util.activate_adverse_ui();
 							},
 							close: function() {
+								$( "#trial_arm_form" ).dialog( "destroy" );
+								$( "#trial_arm_form" ).remove();
+								if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
 									$('body').css({overflow:"auto"});
-									$( "#trial_arm_form" ).dialog( "destroy" );
-									$( "#trial_arm_form" ).remove();
+								}
 							}
 						});
 							$(window).resize(function(){$("#trial_arm_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});

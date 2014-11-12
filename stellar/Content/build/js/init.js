@@ -321,11 +321,13 @@
 										
 									},
 									close: function() {
-										$('body').css({overflow:"auto"});
+
 										$( "#drug_form" ).dialog( "destroy" );
 										$( "#drug_form" ).remove();
-										
 										$.chai.core.util.last_datatable=null;
+										if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
+											$('body').css({overflow:"auto"});
+										}
 									}
 								});
 								$(window).resize(function(){$("#drug_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});
@@ -1245,9 +1247,12 @@ $.chai.family = {
 						}
 					},
 					close: function() {
-						$('body').css({overflow:"auto"});
 						$( "#substances_disabled_mess" ).dialog( "destroy" );
 						$( "#substances_disabled_mess" ).remove();
+						if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
+							$('body').css({overflow:"auto"});
+						}
+
 					}
 				});
 		});
@@ -1318,9 +1323,11 @@ $.chai.family = {
 						}
 					},
 					close: function() {
-						$('body').css({overflow:"auto"});
 						$( "#substances_list" ).dialog( "destroy" );
 						$( "#substances_list" ).remove();
+						if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
+							$('body').css({overflow:"auto"});
+						}
 					}
 				});
 			});
@@ -1579,9 +1586,11 @@ $.chai.family = {
 					}
 				},
 				close: function() {
-					$('body').css({overflow:"auto"});
 					$( "#form_list" ).dialog( "destroy" );
 					$( "#form_list" ).remove();
+					if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
+						$('body').css({overflow:"auto"});
+					}
 				}
 			});
 		}
@@ -1910,9 +1919,11 @@ $.chai.trial = {
 								//$.chai.core.util.activate_adverse_ui();
 							},
 							close: function() {
+								$( "#trial_arm_form" ).dialog( "destroy" );
+								$( "#trial_arm_form" ).remove();
+								if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
 									$('body').css({overflow:"auto"});
-									$( "#trial_arm_form" ).dialog( "destroy" );
-									$( "#trial_arm_form" ).remove();
+								}
 							}
 						});
 							$(window).resize(function(){$("#trial_arm_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});
@@ -2038,9 +2049,11 @@ $.chai.clinical = {
 									});							
 								},
 							close: function() {
-								$('body').css({overflow:"auto"});
 								$( "#drug_form" ).dialog( "destroy" );
 								$( "#drug_form" ).remove();
+								if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
+									$('body').css({overflow:"auto"});
+								}
 							}
 						});
 						$(window).resize(function(){$("#drug_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});

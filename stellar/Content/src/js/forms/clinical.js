@@ -108,9 +108,11 @@ $.chai.clinical = {
 									});							
 								},
 							close: function() {
-								$('body').css({overflow:"auto"});
 								$( "#drug_form" ).dialog( "destroy" );
 								$( "#drug_form" ).remove();
+								if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
+									$('body').css({overflow:"auto"});
+								}
 							}
 						});
 						$(window).resize(function(){$("#drug_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});

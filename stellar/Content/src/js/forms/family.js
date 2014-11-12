@@ -32,9 +32,12 @@ $.chai.family = {
 						}
 					},
 					close: function() {
-						$('body').css({overflow:"auto"});
 						$( "#substances_disabled_mess" ).dialog( "destroy" );
 						$( "#substances_disabled_mess" ).remove();
+						if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
+							$('body').css({overflow:"auto"});
+						}
+
 					}
 				});
 		});
@@ -105,9 +108,11 @@ $.chai.family = {
 						}
 					},
 					close: function() {
-						$('body').css({overflow:"auto"});
 						$( "#substances_list" ).dialog( "destroy" );
 						$( "#substances_list" ).remove();
+						if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
+							$('body').css({overflow:"auto"});
+						}
 					}
 				});
 			});
@@ -366,9 +371,11 @@ $.chai.family = {
 					}
 				},
 				close: function() {
-					$('body').css({overflow:"auto"});
 					$( "#form_list" ).dialog( "destroy" );
 					$( "#form_list" ).remove();
+					if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
+						$('body').css({overflow:"auto"});
+					}
 				}
 			});
 		}
