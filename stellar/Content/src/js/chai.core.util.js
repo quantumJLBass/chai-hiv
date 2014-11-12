@@ -315,13 +315,8 @@
 										
 									},
 									close: function() {
-
-										$( "#drug_form" ).dialog( "destroy" );
-										$( "#drug_form" ).remove();
+										$.chai.core.util.close_dialog_modle($( "#drug_form" ));
 										$.chai.core.util.last_datatable=null;
-										if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
-											$('body').css({overflow:"auto"});
-										}
 									}
 								});
 								$(window).resize(function(){$("#drug_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});
@@ -331,7 +326,15 @@
 				}
 			});
 		},
-	
+
+		close_dialog_modle: function(jObj){
+			jObj.dialog( "destroy" );
+			jObj.remove();
+			if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
+				$('body').css({overflow:"auto"});
+			}
+		},
+
 		moa_dmpk_setup:function (){
 			$.each($('.has_moa_dmpk:not(.activated)'),function(){
 				var tar = $(this);

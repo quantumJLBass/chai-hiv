@@ -32,12 +32,7 @@ $.chai.family = {
 						}
 					},
 					close: function() {
-						$( "#substances_disabled_mess" ).dialog( "destroy" );
-						$( "#substances_disabled_mess" ).remove();
-						if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
-							$('body').css({overflow:"auto"});
-						}
-
+						$.chai.core.util.close_dialog_modle($( "#substances_disabled_mess" ));
 					}
 				});
 		});
@@ -108,11 +103,7 @@ $.chai.family = {
 						}
 					},
 					close: function() {
-						$( "#substances_list" ).dialog( "destroy" );
-						$( "#substances_list" ).remove();
-						if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
-							$('body').css({overflow:"auto"});
-						}
+						$.chai.core.util.close_dialog_modle($( "#substances_list" ));
 					}
 				});
 			});
@@ -371,11 +362,7 @@ $.chai.family = {
 					}
 				},
 				close: function() {
-					$( "#form_list" ).dialog( "destroy" );
-					$( "#form_list" ).remove();
-					if($(".ui-dialog.ui-widget.ui-widget-content").length<=0){
-						$('body').css({overflow:"auto"});
-					}
+					$.chai.core.util.close_dialog_modle($( "#form_list" ));
 				}
 			});
 		}
