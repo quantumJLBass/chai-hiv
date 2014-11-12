@@ -782,8 +782,8 @@
 			});
 		},
 		make_dataTables:function(){
-			if($('.datagrid').length){
-				var datagrids = $('.datagrid');
+			if($('.datagrid:not(.dataTable)').length){
+				var datagrids = $('.datagrid:not(.dataTable)');
 				$.each(datagrids,function(){
 					var datatable = $(this);
 					datatable.dataTable( {
@@ -814,25 +814,23 @@
 						$.chai.core.util.add_item_popup(type, list, ["new","list"]);
 					});
 				});
-				
-				var removals = $(".display.datagrid.dataTable .removal");
-				$.each(removals,function(){
-					var targ = $(this);
-					targ.on("click",function(e){
-						e.preventDefault();
-						e.stopPropagation();
+			}
+			var removals = $(".display.datagrid.dataTable .removal");
+					$.each(removals,function(){
 						var targ = $(this);
-						var targetrow = targ.closest("tr");
-						var datatable = targ.closest('.datagrid').dataTable();
-						targetrow.fadeOut( "75" ,function(){ 
-							var row = targetrow.get(0);
-							datatable.fnDeleteRow( datatable.fnGetPosition( row ) );
+						targ.on("click",function(e){
+							e.preventDefault();
+							e.stopPropagation();
+							var targ = $(this);
+							var targetrow = targ.closest("tr");
+							var datatable = targ.closest('.datagrid').dataTable();
+							targetrow.fadeOut( "75" ,function(){ 
+								var row = targetrow.get(0);
+								datatable.fnDeleteRow( datatable.fnGetPosition( row ) );
+							});
 						});
 					});
-				});
-		
-			}
-		},
+			},
 	};
 
 })(jQuery);
