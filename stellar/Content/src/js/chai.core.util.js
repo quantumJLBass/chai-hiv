@@ -262,71 +262,77 @@
 						$("#drug_list").html(data);
 						buttons += "<a href='#drug_list' id='drug_list_tab' class='popuptab button med active'>List</a>";
 					}
-						$.ajax({cache: false,
-						   url:"/center/"+type+".castle",
-						   data:{"skiplayout":1,"id":typeof(id)==="undefined"?"":id,typed_ref:$('[name="typed_ref"]').val()},
-						   success: function(data){
-							   if($.inArray("new", use)>-1){
-									$("#drug_item").html(data);
-									buttons += "<a href='#drug_item' id='drug_item_tab' class='popuptab button med'>New</a>";
-							   }
-							$( "#drug_form" ).dialog({
-									autoOpen: true,
-									resizable: false,
-									width: $(window).width()-50,
-									height: $(window).height()-50,
-									modal: true,
-									draggable : false,
-									buttons: {
-										Cancel: function() {
-											$( this ).dialog( "close" );
-										}
-									},
-									create:function(){
-	
-										$( "#mess" ).dialog( "destroy" );
-										$( "#mess" ).remove();
-										if($("#drug_item").html()!=="" && $("#drug_list").html()!==""){
-											$("#drug_form").closest('.ui-dialog').find('.ui-dialog-title').append(buttons);
-											$("#drug_item").hide();
-										}
-										//setup_tabs();
-										
-										$('body').css({overflow:"hidden"});
-										$(".ui-dialog-buttonpane").remove();
-										
-										if($("#drug_list").html().length>0){
-											$.chai.core.util.make_popup_datatable(type);
-										}
-					
-										$(".popuptab").off().on("click",function(e){
-											e.preventDefault();
-											e.stopPropagation();
-											var id = $(".popuptab.active").attr("href");
-											$(id).hide();
-											$(".popuptab.active").removeClass('active');
-											$(this).addClass('active');
-											id = $(this).attr("href");
-											$(id).show();	
-											
-										});
-										$.chai.core.util.set_up_form(type,inlist,use);
-										$.chai.core.util.activate_adverse_ui();
-										
-									},
-									close: function() {
-										$.chai.core.util.close_dialog_modle($( "#drug_form" ));
-										$.chai.core.util.last_datatable=null;
+					$.ajax({cache: false,
+					   url:"/center/"+type+".castle",
+					   data:{"skiplayout":1,"id":typeof(id)==="undefined"?"":id,typed_ref:$('[name="typed_ref"]').val()},
+					   success: function(data){
+						   if($.inArray("new", use)>-1){
+								$("#drug_item").html(data);
+								buttons += "<a href='#drug_item' id='drug_item_tab' class='popuptab button med'>New</a>";
+						   }
+						$( "#drug_form" ).dialog({
+								autoOpen: true,
+								resizable: false,
+								width: $(window).width()-50,
+								height: $(window).height()-50,
+								modal: true,
+								draggable : false,
+								buttons: {
+									Cancel: function() {
+										$( this ).dialog( "close" );
 									}
-								});
-								$(window).resize(function(){$("#drug_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});
+								},
+								create:function(){
+
+									$( "#mess" ).dialog( "destroy" );
+									$( "#mess" ).remove();
+									if($("#drug_item").html()!=="" && $("#drug_list").html()!==""){
+										$("#drug_form").closest('.ui-dialog').find('.ui-dialog-title').append(buttons);
+										$("#drug_item").hide();
+									}
+									//setup_tabs();
+									
+									$('body').css({overflow:"hidden"});
+									$(".ui-dialog-buttonpane").remove();
+									
+									if($("#drug_list").html().length>0){
+										$.chai.core.util.make_popup_datatable(type);
+									}
+				
+									$(".popuptab").off().on("click",function(e){
+										e.preventDefault();
+										e.stopPropagation();
+										var id = $(".popuptab.active").attr("href");
+										$(id).hide();
+										$(".popuptab.active").removeClass('active');
+										$(this).addClass('active');
+										id = $(this).attr("href");
+										$(id).show();	
+										
+									});
+									$.chai.core.util.set_up_form(type,inlist,use);
+									$.chai.core.util.activate_adverse_ui();
+									
+								},
+								close: function() {
+									$.chai.core.util.close_dialog_modle($( "#drug_form" ));
+									$.chai.core.util.last_datatable=null;
+								}
 							});
+							$.chai.core.util.set_diamodle_resizing($( "#drug_form" ));	
 						}
 					});
 				}
 			});
 		},
-
+		set_diamodle_resizing:function(jObj){
+			$(window).resize(function(){
+				jObj.dialog('option', {
+					width: $(window).width()-50,
+					height: $(window).height()-50
+				});
+			});
+		},
 		close_dialog_modle: function(jObj){
 			jObj.dialog( "destroy" );
 			jObj.remove();

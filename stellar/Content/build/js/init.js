@@ -268,71 +268,77 @@
 						$("#drug_list").html(data);
 						buttons += "<a href='#drug_list' id='drug_list_tab' class='popuptab button med active'>List</a>";
 					}
-						$.ajax({cache: false,
-						   url:"/center/"+type+".castle",
-						   data:{"skiplayout":1,"id":typeof(id)==="undefined"?"":id,typed_ref:$('[name="typed_ref"]').val()},
-						   success: function(data){
-							   if($.inArray("new", use)>-1){
-									$("#drug_item").html(data);
-									buttons += "<a href='#drug_item' id='drug_item_tab' class='popuptab button med'>New</a>";
-							   }
-							$( "#drug_form" ).dialog({
-									autoOpen: true,
-									resizable: false,
-									width: $(window).width()-50,
-									height: $(window).height()-50,
-									modal: true,
-									draggable : false,
-									buttons: {
-										Cancel: function() {
-											$( this ).dialog( "close" );
-										}
-									},
-									create:function(){
-	
-										$( "#mess" ).dialog( "destroy" );
-										$( "#mess" ).remove();
-										if($("#drug_item").html()!=="" && $("#drug_list").html()!==""){
-											$("#drug_form").closest('.ui-dialog').find('.ui-dialog-title').append(buttons);
-											$("#drug_item").hide();
-										}
-										//setup_tabs();
-										
-										$('body').css({overflow:"hidden"});
-										$(".ui-dialog-buttonpane").remove();
-										
-										if($("#drug_list").html().length>0){
-											$.chai.core.util.make_popup_datatable(type);
-										}
-					
-										$(".popuptab").off().on("click",function(e){
-											e.preventDefault();
-											e.stopPropagation();
-											var id = $(".popuptab.active").attr("href");
-											$(id).hide();
-											$(".popuptab.active").removeClass('active');
-											$(this).addClass('active');
-											id = $(this).attr("href");
-											$(id).show();	
-											
-										});
-										$.chai.core.util.set_up_form(type,inlist,use);
-										$.chai.core.util.activate_adverse_ui();
-										
-									},
-									close: function() {
-										$.chai.core.util.close_dialog_modle($( "#drug_form" ));
-										$.chai.core.util.last_datatable=null;
+					$.ajax({cache: false,
+					   url:"/center/"+type+".castle",
+					   data:{"skiplayout":1,"id":typeof(id)==="undefined"?"":id,typed_ref:$('[name="typed_ref"]').val()},
+					   success: function(data){
+						   if($.inArray("new", use)>-1){
+								$("#drug_item").html(data);
+								buttons += "<a href='#drug_item' id='drug_item_tab' class='popuptab button med'>New</a>";
+						   }
+						$( "#drug_form" ).dialog({
+								autoOpen: true,
+								resizable: false,
+								width: $(window).width()-50,
+								height: $(window).height()-50,
+								modal: true,
+								draggable : false,
+								buttons: {
+									Cancel: function() {
+										$( this ).dialog( "close" );
 									}
-								});
-								$(window).resize(function(){$("#drug_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});
+								},
+								create:function(){
+
+									$( "#mess" ).dialog( "destroy" );
+									$( "#mess" ).remove();
+									if($("#drug_item").html()!=="" && $("#drug_list").html()!==""){
+										$("#drug_form").closest('.ui-dialog').find('.ui-dialog-title').append(buttons);
+										$("#drug_item").hide();
+									}
+									//setup_tabs();
+									
+									$('body').css({overflow:"hidden"});
+									$(".ui-dialog-buttonpane").remove();
+									
+									if($("#drug_list").html().length>0){
+										$.chai.core.util.make_popup_datatable(type);
+									}
+				
+									$(".popuptab").off().on("click",function(e){
+										e.preventDefault();
+										e.stopPropagation();
+										var id = $(".popuptab.active").attr("href");
+										$(id).hide();
+										$(".popuptab.active").removeClass('active');
+										$(this).addClass('active');
+										id = $(this).attr("href");
+										$(id).show();	
+										
+									});
+									$.chai.core.util.set_up_form(type,inlist,use);
+									$.chai.core.util.activate_adverse_ui();
+									
+								},
+								close: function() {
+									$.chai.core.util.close_dialog_modle($( "#drug_form" ));
+									$.chai.core.util.last_datatable=null;
+								}
 							});
+							$.chai.core.util.set_diamodle_resizing($( "#drug_form" ));	
 						}
 					});
 				}
 			});
 		},
-
+		set_diamodle_resizing:function(jObj){
+			$(window).resize(function(){
+				jObj.dialog('option', {
+					width: $(window).width()-50,
+					height: $(window).height()-50
+				});
+			});
+		},
 		close_dialog_modle: function(jObj){
 			jObj.dialog( "destroy" );
 			jObj.remove();
@@ -1805,109 +1811,109 @@ $.chai.trial = {
 		});
 	},
 	trial_arm_form:function (id){
-				if($("#trial_arm_form").length===0){
-					$("#staging").append("<div id='trial_arm_form'></div>");
-				}
-				$.ajax({cache: false,
-				   url:"/center/clinical.castle",
-				   data:{"skiplayout":1,"id":typeof(id)==="undefined"?"":id,typed_ref:$('[name="typed_ref"]').val()},
-				   success: function(data){
-					   var trial_arm_form_dialog = $( "#trial_arm_form" );
-						trial_arm_form_dialog.html(data);
-						trial_arm_form_dialog.dialog({
-							autoOpen: true,
-							resizable: false,
-							width: $(window).width()-50,
-							height: $(window).height()-50,
-							modal: true,
-							draggable : false,
-							buttons: {
-								Cancel: function() {
-									$( this ).dialog( "close" );
-								}
-							},
-							create:function(){
-		
-								$( "#mess" ).dialog( "destroy" );
-								$( "#mess" ).remove();
-								
-								
-								$('body').css({overflow:"hidden"});
-								$(".ui-dialog-buttonpane").remove();
-								/*
-								$(".formstateaction").html($(".ui-dialog-buttonpane"));
-								$(".ui-dialog-buttonpane:not(.formstateaction .ui-dialog-buttonpane)").remove();
-								*/
-								$.chai.clinical.ini();
+		if($("#trial_arm_form").length===0){
+			$("#staging").append("<div id='trial_arm_form'></div>");
+		}
+		$.ajax({cache: false,
+		   url:"/center/clinical.castle",
+		   data:{"skiplayout":1,"id":typeof(id)==="undefined"?"":id,typed_ref:$('[name="typed_ref"]').val()},
+		   success: function(data){
+			   var trial_arm_form_dialog = $( "#trial_arm_form" );
+				trial_arm_form_dialog.html(data);
+				trial_arm_form_dialog.dialog({
+					autoOpen: true,
+					resizable: false,
+					width: $(window).width()-50,
+					height: $(window).height()-50,
+					modal: true,
+					draggable : false,
+					buttons: {
+						Cancel: function() {
+							$( this ).dialog( "close" );
+						}
+					},
+					create:function(){
 
-								var tabContents = trial_arm_form_dialog.find(".tab_content").hide(), tabs = trial_arm_form_dialog.find("ul.tabs li");
-								tabs.addClass("tabed");
-								tabs.first().addClass("active").show();
-								tabContents.first().show();
-								
-								tabs.on("click",function(e) { e.preventDefault(); e.stopPropagation();
-									var $this = $(this), activeTab = $this.find('a').attr('href');
+						$( "#mess" ).dialog( "destroy" );
+						$( "#mess" ).remove();
+						
+						
+						$('body').css({overflow:"hidden"});
+						$(".ui-dialog-buttonpane").remove();
+						/*
+						$(".formstateaction").html($(".ui-dialog-buttonpane"));
+						$(".ui-dialog-buttonpane:not(.formstateaction .ui-dialog-buttonpane)").remove();
+						*/
+						$.chai.clinical.ini();
+
+						var tabContents = trial_arm_form_dialog.find(".tab_content").hide(), tabs = trial_arm_form_dialog.find("ul.tabs li");
+						tabs.addClass("tabed");
+						tabs.first().addClass("active").show();
+						tabContents.first().show();
+						
+						tabs.on("click",function(e) { e.preventDefault(); e.stopPropagation();
+							var $this = $(this), activeTab = $this.find('a').attr('href');
+							
+							if(!$this.hasClass('active')){
+								$this.addClass('active').siblings().removeClass('active');
+								tabContents.hide().filter(activeTab).fadeIn();
+							} return false;
+						});	
+						$( ".uitabs" ).tabs();
+
+
+						trial_arm_form_dialog.find('[name="item.trials.baseid"]').val($('.container [name="item.baseid"]').val());
+
+						trial_arm_form_dialog.find("[type='submit']").on("click",function(e){
+							
+							var form = $(this).closest("form");
+							if (form.find(':invalid').length<=0) {
+								e.preventDefault();
+								e.stopPropagation();
+								$.chai.core.util.popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i>Saving...</span>',true);
+								$.post(form.attr("action")+"?skiplayout=1&ajaxed_update=1",form.serialize(),function(){//(data){
+									//var parts= data.split(',');
+									$( "#mess" ).dialog( "destroy" );
+									$( "#mess" ).remove();
+
+									var dataTable = $("#trial_arms.tab_content").find('.dataTable');
+									var tableData = [];
+
+									var html = form.find('[name="item.name"]').val();
+									tableData.push( html );
+									tableData.push( form.find('[name="item.name"]').val() );
+									tableData.push( form.find('[name="item.name"]').val() ); 
+									tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+									dataTable.dataTable().fnAddData( tableData );
 									
-									if(!$this.hasClass('active')){
-										$this.addClass('active').siblings().removeClass('active');
-										tabContents.hide().filter(activeTab).fadeIn();
-									} return false;
-								});	
-								$( ".uitabs" ).tabs();
-		
-		
-								trial_arm_form_dialog.find('[name="item.trials.baseid"]').val($('.container [name="item.baseid"]').val());
-		
-								trial_arm_form_dialog.find("[type='submit']").on("click",function(e){
-									
-									var form = $(this).closest("form");
-									if (form.find(':invalid').length<=0) {
+									$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
 										e.preventDefault();
 										e.stopPropagation();
-										$.chai.core.util.popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i>Saving...</span>',true);
-										$.post(form.attr("action")+"?skiplayout=1&ajaxed_update=1",form.serialize(),function(){//(data){
-											//var parts= data.split(',');
-											$( "#mess" ).dialog( "destroy" );
-											$( "#mess" ).remove();
-		
-											var dataTable = $("#trial_arms.tab_content").find('.dataTable');
-											var tableData = [];
-		
-											var html = form.find('[name="item.name"]').val();
-											tableData.push( html );
-											tableData.push( form.find('[name="item.name"]').val() );
-											tableData.push( form.find('[name="item.name"]').val() ); 
-											tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
-											dataTable.dataTable().fnAddData( tableData );
-											
-											$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
-												e.preventDefault();
-												e.stopPropagation();
-												var targetrow = $(this).closest("tr");
-												var datatable = $(this).closest('.dataTable').dataTable();
-												targetrow.fadeOut( "75" ,function(){ 
-													datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-												});
-											});
-											$( "#trial_arm_form" ).dialog( "destroy" );
-											$( "#trial_arm_form" ).remove();
+										var targetrow = $(this).closest("tr");
+										var datatable = $(this).closest('.dataTable').dataTable();
+										targetrow.fadeOut( "75" ,function(){ 
+											datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
 										});
-									}
-								});	
-								
-								//$.chai.core.util.set_up_form(type,inlist,use);
-								//$.chai.core.util.activate_adverse_ui();
-							},
-							close: function() {
-								$.chai.core.util.close_dialog_modle($( "#trial_arm_form" ));
+									});
+									$( "#trial_arm_form" ).dialog( "destroy" );
+									$( "#trial_arm_form" ).remove();
+								});
 							}
-						});
-							$(window).resize(function(){$("#trial_arm_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});
-						});
+						});	
+						
+						//$.chai.core.util.set_up_form(type,inlist,use);
+						//$.chai.core.util.activate_adverse_ui();
+					},
+					close: function() {
+						$.chai.core.util.close_dialog_modle($( "#trial_arm_form" ));
 					}
 				});
-		
-			},
+				$.chai.core.util.set_diamodle_resizing($( "#trial_arm_form" ));	
+				
+			}
+		});
+
+	},
 };
 $.chai.trial_arm = {
 	ini:function(){
@@ -1937,99 +1943,98 @@ $.chai.clinical = {
 			   success: function(data){
 				   $("#drug_list").html(data);
 					$( "#drug_form" ).dialog({
-							autoOpen: true,
-							resizable: false,
-							width: $(window).width()-50,
-							height: $(window).height()-50,
-							modal: true,
-							draggable : false,
-							buttons: {
-								Cancel: function() {
-									$( this ).dialog( "close" );
-								}
-							},
-							create:function(){
+						autoOpen: true,
+						resizable: false,
+						width: $(window).width()-50,
+						height: $(window).height()-50,
+						modal: true,
+						draggable : false,
+						buttons: {
+							Cancel: function() {
+								$( this ).dialog( "close" );
+							}
+						},
+						create:function(){
+							
+							$( "#mess" ).dialog( "destroy" );
+							$( "#mess" ).remove();
+							
+							$('body').css({overflow:"hidden"});
+							$(".ui-dialog-buttonpane").remove();
+						},
+						open:function(){
+							
+								var table = $("#drug_list #data").DataTable({ 
+									"bJQueryUI": true,
+									"sPaginationType": "full_numbers",
+									"fnDrawCallback": function() {}
+								});
+								$.each($("#drug_list #data thead th"), function ( i ) {
+									var select = $('<select><option value=""></option></select>')
+										.appendTo( $(this) )
+										.on( 'change', function () {
+											var val = $(this).val();
+							 
+											table.column( i )
+												.search( val, false, true, true )
+												.draw();
+										});
+									table.column( i ).data().unique().sort().each( function ( d ) {
+										select.append( '<option value="'+d+'">'+d+'</option>' );
+									} );
+								});	
 								
-								$( "#mess" ).dialog( "destroy" );
-								$( "#mess" ).remove();
-								
-								$('body').css({overflow:"hidden"});
-								$(".ui-dialog-buttonpane").remove();
-							},
-							open:function(){
-								
-									var table = $("#drug_list #data").DataTable({ 
-										"bJQueryUI": true,
-										"sPaginationType": "full_numbers",
-										"fnDrawCallback": function() {}
-									});
-									$.each($("#drug_list #data thead th"), function ( i ) {
-										var select = $('<select><option value=""></option></select>')
-											.appendTo( $(this) )
-											.on( 'change', function () {
-												var val = $(this).val();
-								 
-												table.column( i )
-													.search( val, false, true, true )
-													.draw();
-											});
-										table.column( i ).data().unique().sort().each( function ( d ) {
-											select.append( '<option value="'+d+'">'+d+'</option>' );
-										} );
-									});	
+								$('.additem').off().on('click',function(e){
+									e.preventDefault();
+									e.stopPropagation();
+									var table = $("#drug_list #data").dataTable();
+									var trigger = $(this);
+									var targetrow = trigger.closest('tr');
+									var baseid = targetrow.data("baseid");
 									
-									$('.additem').off().on('click',function(e){
+									var count = table.find("tbody").find("tr").length;
+									
+									var tdCount = targetrow.find("td").length;
+									var tableData = [];
+									
+									var html = targetrow.find("td:first").text() + '<input type="hidden" name="item.drugs['+(count-1)+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
+									tableData.push( html );
+									tableData.push( targetrow.find("td:first").next('td').text() ); 
+									if(tdCount>2){
+										tableData.push( targetrow.find("td:first").next('td').next('td').text() ); 
+									}
+									if(tdCount>3){
+										tableData.push( targetrow.find("td:first").next('td').next('td').next('td').text() ); 
+									}
+									if(tdCount>4){
+										tableData.push( targetrow.find("td:first").next('td').next('td').next('td').next('td').text() ); 
+									}/**/
+									tableData.push(
+										'<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>'
+									); 
+						
+									$("#drug_products").find(".datagrid").dataTable().fnAddData( tableData );
+									
+									targetrow.fadeOut( "75" ,function(){ table.fnDeleteRow( table.fnGetPosition( targetrow.get(0) ) ); });
+									
+									$("#drug_form").append("<span class='dialog_message ui-state-highlight'>Added to this "+$("#header_title").text()+"</span>");
+									
+									setTimeout(function(){$(".dialog_message").fadeOut("500");},"1000");
+									
+									$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
 										e.preventDefault();
 										e.stopPropagation();
-										var table = $("#drug_list #data").dataTable();
-										var trigger = $(this);
-										var targetrow = trigger.closest('tr');
-										var baseid = targetrow.data("baseid");
-										
-										var count = table.find("tbody").find("tr").length;
-										
-										var tdCount = targetrow.find("td").length;
-										var tableData = [];
-										
-										var html = targetrow.find("td:first").text() + '<input type="hidden" name="item.drugs['+(count-1)+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
-										tableData.push( html );
-										tableData.push( targetrow.find("td:first").next('td').text() ); 
-										if(tdCount>2){
-											tableData.push( targetrow.find("td:first").next('td').next('td').text() ); 
-										}
-										if(tdCount>3){
-											tableData.push( targetrow.find("td:first").next('td').next('td').next('td').text() ); 
-										}
-										if(tdCount>4){
-											tableData.push( targetrow.find("td:first").next('td').next('td').next('td').next('td').text() ); 
-										}/**/
-										tableData.push(
-											'<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>'
-										); 
-							
-										$("#drug_products").find(".datagrid").dataTable().fnAddData( tableData );
-										
-										targetrow.fadeOut( "75" ,function(){ table.fnDeleteRow( table.fnGetPosition( targetrow.get(0) ) ); });
-										
-										$("#drug_form").append("<span class='dialog_message ui-state-highlight'>Added to this "+$("#header_title").text()+"</span>");
-										
-										setTimeout(function(){$(".dialog_message").fadeOut("500");},"1000");
-										
-										$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
-											e.preventDefault();
-											e.stopPropagation();
-											var targetrow = $(this).closest("tr");
-											var datatable = $(this).closest('.datagrid').dataTable();
-											targetrow.fadeOut( "75" ,function(){ datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) ); });
-										});
-									});							
-								},
-							close: function() {
-								$.chai.core.util.close_dialog_modle($( "#drug_form" ));
-							}
-						});
-						$(window).resize(function(){$("#drug_form" ).dialog('option', { width: $(window).width()-50,  height: $(window).height()-50,});
+										var targetrow = $(this).closest("tr");
+										var datatable = $(this).closest('.datagrid').dataTable();
+										targetrow.fadeOut( "75" ,function(){ datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) ); });
+									});
+								});							
+							},
+						close: function() {
+							$.chai.core.util.close_dialog_modle($( "#drug_form" ));
+						}
 					});
+					$.chai.core.util.set_diamodle_resizing($( "#drug_form" ));	
 				}
 			});	
 		});
