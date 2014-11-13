@@ -23,7 +23,7 @@
 			  <ul class="grid col-one-full mq2-col-full full-input">		  
 					<li>
 					#* name *#
-						$Controller.feilds("textinput","$type","name", $!item.name ,"","","","")
+						$Controller.feilds("textarea","$type","name", $!item.name ,"","",""," style='height:63px; min-height: auto;' ")
 					</li>
 					<li>
 					#* title *#

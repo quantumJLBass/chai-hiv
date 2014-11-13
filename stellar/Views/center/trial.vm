@@ -14,7 +14,7 @@
 			<ul class="grid col-one-full mq2-col-full full-input">
 				<li>
 #* title *#
-					$Controller.feilds("textinput","$type","title", $!item.title ,"","","required","")
+					$Controller.feilds("textarea","$type","title", $!item.title ,"","","required"," style='height:63px; min-height: auto;' ")
 				</li>	
 			</ul>
 			<ul class="grid col-one-half mq2-col-full full-input">
@@ -67,6 +67,10 @@
 							
 							$Controller.notes("$type","regulatory_information","bottom")
 						</article>
+						
+						$Controller.feilds("textarea","$type","name", $!item.name ,"","",""," style='height:63px; min-height: auto;' ")
+						
+						
 					</div>
 				</div>
 			</article>

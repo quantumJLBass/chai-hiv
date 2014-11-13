@@ -128,9 +128,7 @@
 							//$(".ui-dialog-buttonpane").remove();
 						},
 						close: function() {
-							$('body').css({overflow:"auto"});
-							$('#view_log_area').dialog( "destroy" );
-							$('#view_log_area').remove();
+							$.chai.core.util.close_dialog_modle($( "#view_log_area" ));
 						}
 					});
 				});
@@ -414,10 +412,7 @@
 							}
 							},
 						close: function() {
-							$('body').css({overflow:"auto"});
-							$( "#taxonomyitem" ).dialog( "destroy" );
-							$( "#taxonomyitem" ).remove();
-							
+							$.chai.core.util.close_dialog_modle($( "#taxonomyitem" ));
 						}
 					});
 					$(window).resize(function(){
@@ -561,10 +556,7 @@
 									$.chai.core.util.turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
 									},
 								close: function() {
-									$('body').css({overflow:"auto"});
-									$( "#taxonomyitem" ).dialog( "destroy" );
-									$( "#taxonomyitem" ).remove();
-									
+									$.chai.core.util.close_dialog_modle($( "#taxonomyitem" ));
 								}
 							});
 							
@@ -622,12 +614,11 @@
 									$.chai.core.util.turnon_alias(dialog_obj.find('input[name$=".name"]'),dialog_obj.find('input[name$=".alias"]'));
 									},
 								close: function() {
-									$('body').css({overflow:"auto"});
-									$( "#taxonomyitem" ).dialog( "destroy" );
-									$( "#taxonomyitem" ).remove();
+									$.chai.core.util.close_dialog_modle($( "#taxonomyitem" ));
 								}
 							});
-							$(window).resize(function(){$("#taxonomyitem" ).dialog('option', { width: $(window).width()*0.25,  height: $(window).height()*0.25,});																													
+						$(window).resize(function(){
+							$("#taxonomyitem" ).dialog('option', { width: $(window).width()*0.25,  height: $(window).height()*0.25,});																													
 						});
 					}
 				});
