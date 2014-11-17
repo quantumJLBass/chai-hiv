@@ -20,18 +20,22 @@
 	  <table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Referencedata" width="100%">
 		<thead>
 		  <tr>
-				<th width="15%">ref type</th>
+		  		<th width="15%">Ref ID</th>
+				<th width="15%">Type</th>
+				<th width="25%">Name</th>
 				<th>location</th>
 				#if(!$viewonly)<th width="20%"></th>#end
 		  </tr>
 		</thead>
 		<tbody>
 			#foreach($part in $item.references)
-				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code" data-baseid="$item.baseid">
-				  <td><input type="hidden" name="item.references[$velocityCount].baseid" value="$part.baseid" class="drug_item"/>$!part.get_meta("ref_type")</td>
-					<td><a href="#if($!part.url)$!part.url#else $!part.static_file #end" target="_blank">#if($!part.url)$!part.url#else $!part.static_file #end <i class="icon-external-link-sign"></i></a></td>
-				  #if(!$viewonly)<td><a href="reference.castle?id=$part.baseid" class="button small inline_edit" data-type="substance"><i class="icon-edit" title="Edit"></i></a> | <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a></td>#end
-				</tr>
+			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code" data-baseid="$item.baseid">
+				<td><input type="hidden" name="item.references[$velocityCount].baseid" value="$part.baseid" class="drug_item"/>$!part.baseid</td>
+				<td>$!part.get_meta("ref_type")</td>
+				<td>$!part.name</td>
+				<td><a href="#if($!part.url)$!part.url#else $!part.static_file #end" target="_blank">#if($!part.url)$!part.url#else $!part.static_file #end <i class="icon-external-link-sign"></i></a></td>
+			  #if(!$viewonly)<td><a href="reference.castle?id=$part.baseid" class="button small inline_edit" data-type="substance"><i class="icon-edit" title="Edit"></i></a> | <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a></td>#end
+			</tr>
 			#end
 		</tbody>
 		<tfoot>
