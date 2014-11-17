@@ -14,5 +14,5 @@
 		$Controller.feilds("textinput","$type","time_to_load_suppression", $!item.time_to_load_suppression ,"","(days +/- SD)","","")
 	</li>
 </ul>	
-
+<div style="clear: both;"></div>
 				  

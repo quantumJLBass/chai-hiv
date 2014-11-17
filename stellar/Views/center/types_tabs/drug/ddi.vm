@@ -49,4 +49,4 @@
 	</table>
 	<a href="#" id="drug_interaction" class="button" data-type="drug_interaction">Add Drug Interaction</a>
 	
-	
+	<div style="clear: both;"></div>

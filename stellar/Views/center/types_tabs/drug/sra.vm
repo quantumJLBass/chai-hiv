@@ -1,30 +1,30 @@
 <ul class="grid col-one-half mq2-col-full full-input">
-	#* sra *#
-		<li>
-			$Controller.feilds("select","$type","sra", $!item.sra , $sras,"","","taxed","")
-		</li>	
-	#* sra_approval_status *#
-		<li>
-		
-			<script>//move on clean up
-			//todo
-				$(function() {
-					$("[name^='item.sra_approval_status']").on("change",function () {
-						var val=$(this).val();
-						if(val=="approved" ){
-							$(this).next(".sra_approval_date").show();
-						}else{
-							$(this).next(".sra_approval_date").hide();
-							$(this).next(".sra_approval_date").find("input").val("");
-						}
-					});
+#* sra *#
+	<li>
+		$Controller.feilds("select","$type","sra", $!item.sra , $sras,"","","taxed","")
+	</li>	
+#* sra_approval_status *#
+	<li>
+		<script>//move on clean up
+		//todo
+			$(function() {
+				$("[name^='item.sra_approval_status']").on("change",function () {
+					var val=$(this).val();
+					if(val=="approved" ){
+						$(this).next(".sra_approval_date").show();
+					}else{
+						$(this).next(".sra_approval_date").hide();
+						$(this).next(".sra_approval_date").find("input").val("");
+					}
 				});
-			</script>
-			$Controller.feilds("select","$type","sra_approval_status", $!item.sra_approval_status , $sra_approval_statuss,"","","","")
-			
-		#* sra_approval_date *#
-			 <div class="sra_approval_date" #if($!item.sra_approval_status!="approved")style="display:none;"#end >
-				$Controller.feilds("textinput","$type","sra_approval_date", $!item.sra_approval_date ,"","MM/DD/YYYY",""," rel='date' ")
-			 </div>
-		</li>				  
+			});
+		</script>
+		$Controller.feilds("select","$type","sra_approval_status", $!item.sra_approval_status , $sra_approval_statuss,"","","","")
+		
+	#* sra_approval_date *#
+		 <div class="sra_approval_date" #if($!item.sra_approval_status!="approved")style="display:none;"#end >
+			$Controller.feilds("textinput","$type","sra_approval_date", $!item.sra_approval_date ,"","MM/DD/YYYY",""," rel='date' ")
+		 </div>
+	</li>
 </ul>
+<div style="clear: both;"></div>

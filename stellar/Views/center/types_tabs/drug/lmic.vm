@@ -74,3 +74,4 @@
 			#feild_selectinput($type "lmic_3l" $daval "Yes,No" "3L in LMIC?" "" "")
 		</li>
 </ul>-->
+<div style="clear: both;"></div>

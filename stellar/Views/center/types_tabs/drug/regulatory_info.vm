@@ -57,5 +57,6 @@ $!part.lab_code
 #* investigational *#
 	<li>
 		$Controller.feilds("select","$type","investigational", $!item.investigational , "Yes,No,TBD","","","taxed","")
-	</li>				  
+	</li>
 </ul>
+<div style="clear: both;"></div>

@@ -90,3 +90,4 @@
 		$Controller.feilds("textinput","$type","storage_condition", $!item.storage_condition ,"","storage conditions as listed on label or literature","","")
 	</li>
 </ul>
+<div style="clear: both;"></div>

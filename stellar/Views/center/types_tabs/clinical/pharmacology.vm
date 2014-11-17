@@ -132,4 +132,4 @@
 #* pharmacology_comments *#
 		$Controller.feilds("textarea","$type","pharmacology_comments", $!item.pharmacology_comments ,"","",""," rows='7'")		
 	</fieldset>
-				
+<div style="clear: both;"></div>
