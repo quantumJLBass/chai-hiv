@@ -1064,6 +1064,9 @@ namespace stellar.Controllers {
         PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
 
 
+
+        PropertyBag["ddi_only"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi=="yes").ToList();
+
         if (json) {
             CancelLayout();
             CancelView();
