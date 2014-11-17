@@ -1643,6 +1643,31 @@ namespace stellar.Controllers {
 
 
         /// <summary> </summary>
+        public string filter_refs(string content) {
+            String html = "";
+            html=Regex.Replace(content, @"#{{REF \d+}}", delegate(Match match) {
+                    String block = match.ToString();
+                    Regex regex = new Regex(@"\d+");
+                    Match matchingId = regex.Match(block);
+                    int id = int.Parse(matchingId.Value);
+
+                    reference item = ActiveRecordBase<reference>.Find(id);
+                    String href = "";
+                    if (!String.IsNullOrWhiteSpace(item.url)) {
+                        href = item.url;
+                    }else{
+                        href = item.static_file;
+                    }
+
+                    return "<a href='" + href + "' target='_blank'>REF " + item.baseid + "</a>";
+                });
+
+            return html;
+        }
+
+
+
+        /// <summary> </summary>
         public string feilds(string formfeild, string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
             return feilds(formfeild, datatype, model_prop, value, "", custom_lable, placeholder, html_class, html_attr);
         }
