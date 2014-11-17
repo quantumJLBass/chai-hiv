@@ -30,6 +30,8 @@
 						<li><a href="#study">Study</a></li>
 						<li><a href="#trial_arms">Trial Arms</a></li>
 						<li><a href="#results">Results</a></li>
+						<li><a href="#study_descriptions">Study Descriptions</a></li>
+						
 					</ul>
 					<div class="tab_container">
 #* *#
@@ -68,8 +70,12 @@
 							$Controller.notes("$type","regulatory_information","bottom")
 						</article>
 						
-						$Controller.feilds("textarea","$type","name", $!item.name ,"","",""," style='height:63px; min-height: auto;' ")
-						
+#* *#
+#* study_descriptions ------------ *#
+#* *#
+						<article id="study_descriptions" class="tab_content">	
+							$Controller.feilds("textarea","$type","descriptions", $!item.descriptions ,"Study Description","","","")
+						</article>	
 						
 					</div>
 				</div>
