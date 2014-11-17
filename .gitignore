@@ -16,3 +16,4 @@ stellar/log.txt*
 **/site_content/
 **/node_modules/
 stellar/cache/objs/types/*.json
+stellar/refs/*
