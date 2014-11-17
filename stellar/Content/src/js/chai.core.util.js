@@ -381,7 +381,7 @@
 			$('a.tax_add').on('click',function(e){
 				e.preventDefault();
 				e.stopPropagation();
-				$.chai.until.start_taxed_add(type,select_target,make_tax);
+				$.chai.core.util.start_taxed_add(type,select_target,make_tax);
 			});
 		},
 		start_taxed_add:function (type,select_target,make_tax){
@@ -639,30 +639,34 @@
 			});
 		},
 
+
+		re_index_meta_items:function(){
+			$.each(
+			   $(".adverse_events").closest('ul').find("li[data-taxorder]"),
+			   function(i){
+					$(this).data('taxorder',i);
+					$.each($(this).find("input,select:not([name=''])"),function(){
+						//var name = $(this).attr('name');
+						$(this).attr('name', $(this).attr('name').split('[')[0]+"["+i+"]");
+					}); 
+				}
+			);
+		},
+		controll_meta_items:function(){
+			$('.remove').hover(function(){$(this).removeClass('red');},function(){$(this).addClass('red');});
+			$('.remove').on("click",function(){
+				var container = $(this).closest('li');
+				var option = container.find('[name^="option"]').val();
+				$(".adverse_events option[value='"+option+"']").removeAttr("disabled");
+				container.fadeOut(function(){ $(this).remove(); });
+			});
+			$.chai.core.util.re_index_meta_items();
+		},
+
 		activate_adverse_ui:function (){
 			
-			function controll_meta_items(){
-				$('.remove').hover(function(){$(this).removeClass('red');},function(){$(this).addClass('red');});
-				$('.remove').on("click",function(){
-					var container = $(this).closest('li');
-					var option = container.find('[name^="option"]').val();
-					$(".adverse_events option[value='"+option+"']").removeAttr("disabled");
-					container.fadeOut(function(){ $(this).remove(); });
-				});
-				re_index_meta_items();
-			}	
-			function re_index_meta_items(){
-				$.each(
-				   $(".adverse_events").closest('ul').find("li[data-taxorder]"),
-				   function(i){
-						$(this).data('taxorder',i);
-						$.each($(this).find("input,select:not([name=''])"),function(){
-							//var name = $(this).attr('name');
-							$(this).attr('name', $(this).attr('name').split('[')[0]+"["+i+"]");
-						}); 
-					}
-				);
-			}
+
+
 			
 			$(".adverse_events").on("change", function(){
 				var selected = $(this).val();
@@ -698,11 +702,11 @@
 				);
 				selected_obj.attr("disabled",true);
 				$(this).val("");
-				controll_meta_items();
-				re_index_meta_items();
+				$.chai.core.util.controll_meta_items();
+				$.chai.core.util.re_index_meta_items();
 				$.chai.core.util.make_maskes();
 			});
-			controll_meta_items();
+			$.chai.core.util.controll_meta_items();
 		},
 
 		get_table_ids:function (datagrid){
