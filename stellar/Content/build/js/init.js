@@ -672,7 +672,13 @@
 			
 			$(".adverse_events").on("change", function(){
 				var selected = $(this).val();
+				
 				var selected_obj = $(this).find('option[value="'+selected+'"]');
+				
+				if(selected_obj.is('.add')){
+					return;	
+				}
+				
 				var container = $(this).closest('ul');
 				
 				var baseid = selected_obj.data('baseid');

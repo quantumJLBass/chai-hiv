@@ -29,7 +29,7 @@
 #* max_dose *#
 					<li>
 						<label for="max_dose">Adverse Events, Objective: #*<i class="icon-question-sign blue" title=""></i>*#</label>
-						<select name="" id="adverse_events_severe" class="adverse_events" >
+						<select name="" id="adverse_events_severe" class="adverse_events taxed" >
 							<option value="">Add an event</option> 
 							#foreach($part in $adverse_events_severe)
 							

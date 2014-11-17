@@ -30,7 +30,7 @@
 						<li><a href="#study">Study</a></li>
 						<li><a href="#trial_arms">Trial Arms</a></li>
 						<li><a href="#results">Results</a></li>
-						<li><a href="#study_descriptions">Study Descriptions</a></li>
+						<li><a href="#study_design">Study Design</a></li>
 						
 					</ul>
 					<div class="tab_container">
@@ -71,10 +71,10 @@
 						</article>
 						
 #* *#
-#* study_descriptions ------------ *#
+#* study_design  ------------ *#
 #* *#
-						<article id="study_descriptions" class="tab_content">	
-							$Controller.feilds("textarea","$type","descriptions", $!item.descriptions ,"Study Description","","","")
+						<article id="study_design" class="tab_content">	
+							$Controller.feilds("textarea","$type","study_design", $!item.study_design ,"Study Design","","","")
 						</article>	
 						
 					</div>
