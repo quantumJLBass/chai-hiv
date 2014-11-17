@@ -22,5 +22,93 @@ $.chai.drug = {
 			$("#CLAIM").text(code);
 		});
 		$.chai.markets.ini();
+		$.chai.trial.trial_arm_primer();
+		
+		$('#add_lmic').on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			var dataTable = $('#LMICdata').find('.dataTable');
+			var tableData = [];
+			
+			var count = $("#LMICdata tbody select").length;
+			
+			//var options=$('#dirty_options select').html();
+			
+			var html = '<input type="hidden" name="lmics['+(count)+'].id" value="0"/>';
+			//tableData.push( html );
+			tableData.push( html+'<input type="text" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
+			tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_1l"/>' ); 
+			tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_2l"/>' ); 
+			tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_3l"/>' ); 
+			tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].tbd"/>' ); 
+			tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+	
+			
+			dataTable.dataTable().fnAddData( tableData );
+			
+			$("#LMICdata tbody .removal").off().on("click",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				var targetrow = $(this).closest("tr");
+				var datatable = $(this).closest('.dataTable').dataTable();
+				targetrow.fadeOut( "75" ,function(){ 
+					datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
+				});
+			});
+		});
+		$.chai.drug.setup_ddi_ui();
+	},
+	
+	setup_ddi_ui:function(){
+		$('#drug_interaction').on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			var dataTable = $('#ddi').find('.dataTable');
+			var tableData = [];
+			var family_list = $("#ddi_drug_product").length>0;
+			var count = $("#ddi tbody select").length;
+			var options="<option value=''>Select</option>";//$('#dirty_options select').html();
+
+			var input_name = 'interactions['+(count)+']';
+			
+			var html = '';
+			
+			if(family_list){
+				input_name = 'interactions['+(count)+']';
+				var dp_options="<option value=''>Select</option>";
+				$.each($("#drpro_table tbody tr"),function(){
+					//
+				});
+				html = '<input type="hidden" name="'+input_name+'.id" value="0"/><select name="'+input_name+'.substance">'+dp_options+'</select>';
+				tableData.push( html );
+			}
+			
+			html = '<input type="hidden" name="'+input_name+'.id" value="0"/><select name="'+input_name+'.substance">'+options+'</select>';
+			tableData.push( html );
+			
+			html = '<select name="'+input_name+'.yes_no"><option value="yes">Yes</option><option value="no">No</option></select>';
+			tableData.push( html );
+			
+			html = '<input type="text" name="'+input_name+'.dose_amount" value="" style="width:100%"/>';
+			tableData.push( html );
+			tableData.push( '<textarea placeholder="Describe the interaction between the two drugs" name="'+input_name+'.descriptions"  rows="1"></textarea>' );
+			tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+	
+			
+			dataTable.dataTable().fnAddData( tableData );
+			
+			$("#ddi tbody .removal").off().on("click",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				var targetrow = $(this).closest("tr");
+				var datatable = $(this).closest('.dataTable').dataTable();
+				targetrow.fadeOut( "75" ,function(){ 
+					datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
+				});
+			});
+		});	
 	}
+	
+	
+	
 };

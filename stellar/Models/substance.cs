@@ -27,6 +27,10 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string for_ddi { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
         virtual public string generic_name { get; set; }
 
         /// <summary> </summary>

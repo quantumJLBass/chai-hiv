@@ -145,7 +145,8 @@ $part.abbreviated
 		  
 		  <div class="">
 			<ul class="tabs clearfix">
-				<li><a href="#drug_products">Drugs</a></li>			  
+				<li><a href="#drug_products">Drugs</a></li>
+				<li><a href="#ddi">DDI</a></li>
 			</ul>
 			<div class="tab_container">
 
@@ -157,6 +158,18 @@ $part.abbreviated
 			  		#parse("center/types_tabs/drug/drug_products.vm")
 					$Controller.notes("$type","drug_products","bottom")
 				</article>			  
+
+
+
+
+#* *#
+#* ddi ------------ *#
+#* *#
+			  <article id="ddi" class="tab_content">
+				$Controller.notes("$type","ddi","top")
+			  	#parse("center/types_tabs/family/ddi.vm")
+				$Controller.notes("$type","ddi","bottom")
+			  </article>
 
 
 			</div>

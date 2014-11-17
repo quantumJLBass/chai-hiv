@@ -4,12 +4,7 @@ $.chai.trial = {
 		$.chai.core.util.setup_viewlog();
 		$.chai.form_base.ini();
 		
-		$(".trial_arm_form").on("click",function(e){
-			e.preventDefault();
-			e.stopPropagation();
-			$.chai.core.util.popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> Loading content...</span>',true);
-			$.chai.trial.trial_arm_form();
-		});
+		$.chai.trial.trial_arm_primer();
 		$('.trial_inline_edit').on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();
@@ -17,6 +12,16 @@ $.chai.trial = {
 			$.chai.trial.trial_arm_form($(this).closest('tr').data('baseid'));
 		});
 	},
+	
+	trial_arm_primer:function(){
+		$(".trial_arm_form").on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			$.chai.core.util.popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> Loading content...</span>',true);
+			$.chai.trial.trial_arm_form();
+		});	
+	},
+	
 	trial_arm_form:function (id){
 		if($("#trial_arm_form").length===0){
 			$("#staging").append("<div id='trial_arm_form'></div>");

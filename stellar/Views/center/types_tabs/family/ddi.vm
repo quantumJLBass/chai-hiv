@@ -1,0 +1,56 @@
+#* drugdata *#
+	#*
+		#set($typed_list = $item.interactions)
+		#parse("center/model_tie_tables/interactions.vm")
+	*#
+	
+	<label for="DDIdata">Drug to Drug Interactions:</label>
+	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="DDIdata" width="100%">
+		<thead>
+			<tr>
+				<th width="15%" id="ddi_drug_product">Drug Product</th>
+				<th width="15%">With this substance</th>
+				<th width="15%">Interactions</th>
+				<th width="15%">Amount</th>
+				<th>Description</th>
+				<th width="5%"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--	<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
+					<td>$Controller.feilds("select","$type","with", "with" , "With","","","","")</td>
+					<td>$Controller.feilds("textarea","$type","discription", "sadg dl ksdisnle slnvfoslencvsk sdodlksdn" ,"","",""," rows='1' ")</td>
+					<td>
+					#if($viewonly) #else
+					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
+					#end
+					</td>
+				</tr>-->
+			#foreach($part in $item.interactions)
+				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>
+					#if($viewonly) #else
+					<a href="ddi.castle?id=$item.baseid&skiplayout=1" class="button small inline_edit"  data-type="drug"><i class="icon-edit" title="Edit"></i></a> | 
+					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
+					#end
+					</td>
+				</tr>
+			#end
+		</tbody>
+		<tfoot>			<tr>
+				<th width="15%"></th>
+				<th width="15%"></th>
+				<th width="15%"></th>
+				<th width="15%"></th>
+				<th></th>
+				<th width="5%"></th>
+			</tr></tfoot>
+	</table>
+	<a href="#" id="drug_interaction" class="button" data-type="drug_interaction">Add Drug Interaction</a>
+	
+	<div style="clear: both;"></div>

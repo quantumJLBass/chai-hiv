@@ -7,19 +7,14 @@
 			page=page.substring(0,page.lastIndexOf("."));
 			if(typeof($.chai[page])!=="undefined"){
 				$.chai[page].ini();
+				$.chai.core.util.setup_ref_copy();
 			}else{
 				$.chai.core.util.make_dataTables();
 			}
-			
-			$.chai.core.util.setup_ref_copy();
 			return options;
 		});
 	};
 	$.chai.ini();
-
-
-	
-	
 })(jQuery);
 
 

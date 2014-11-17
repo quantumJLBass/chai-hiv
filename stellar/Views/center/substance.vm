@@ -26,7 +26,11 @@ $part.name => $part.alias
 	<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
 
 	<article class="grid col-full">
-		<h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Substance</h2>
+		<h2 id="header_title">
+		
+		<span style="float:right;font-size: 0.5em; font-weight:normal;"><label>Used for DDI Only <input type="checkbox" name="item.for_ddi" value="yes" #if($!item.for_ddi)checked#end/></label></span>
+		#if(!$item.baseid || $item.tmp)New #end Drug Substance
+		</h2>
 		<ul class="grid col-full full-input">
 
 #* generic_name *#

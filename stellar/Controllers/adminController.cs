@@ -551,6 +551,13 @@ namespace stellar.Controllers {
 
         #region WSU MATRIX
         /// <summary> </summary>
+        public void add_taxonomy_type(String type) {
+            //PropertyBag["campuses"] = ActiveRecordBase<campus>.FindAll(Order.Asc("name"));
+            PropertyBag["taxonomy_types"] = ActiveRecordBase<taxonomy_type>.FindAll(Order.Asc("name"));
+
+            RenderView("../admin/taxonomy/list");
+        }
+        /// <summary> </summary>
         public void taxonomy() {
             //PropertyBag["campuses"] = ActiveRecordBase<campus>.FindAll(Order.Asc("name"));
             PropertyBag["taxonomy_types"] = ActiveRecordBase<taxonomy_type>.FindAll(Order.Asc("name"));

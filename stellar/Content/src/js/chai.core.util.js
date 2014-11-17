@@ -664,10 +664,6 @@
 		},
 
 		activate_adverse_ui:function (){
-			
-
-
-			
 			$(".adverse_events").on("change", function(){
 				var selected = $(this).val();
 				
