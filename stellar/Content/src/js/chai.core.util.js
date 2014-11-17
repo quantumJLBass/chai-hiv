@@ -139,14 +139,34 @@
 					});
 				//var count = datatable.find("tbody").find("tr").length;
 				datatable.dataTable().fnAddData( [
-					'<input type="hidden" name="item.references[$count].baseid" value="$part.baseid" class="drug_item"/>$part.type',
+					'$part.baseid',
+					'<input type="hidden" name="references[$count].baseid" value="$part.baseid" class="drug_item"/>$part.type',
+					'$part.name',
 					'<a href="$item.url" class="ref_link"><i class="icon-external-link"></i></a>',
 					'$item.note',
 					'<a href="substance.castle?id=$part.baseid" class="button small inline_edit" data-type="substance">Edit</a> | <a href="#" class="button xsmall crimson defocus removal">Remove</a>' ]
 				);
+				$.chai.core.util.setup_ref_copy();
 			});
 		},
-	
+		setup_ref_copy:function(){
+			$.each($(".ref_text:not(.cp_ready)"),function(){
+				var ref_btn = this;
+				$(ref_btn).on('click',function(e){
+					e.preventDefault();
+					e.stopPropagation();
+				});
+				var client = new ZeroClipboard( ref_btn );
+				client.on( "ready", function(  ) {
+					$(ref_btn).addClass("cp_ready");
+					client.on( "aftercopy", function( event ) {
+						alert("Copied text to clipboard: " + event.data["text/plain"] );
+					});
+				});
+			});
+		},
+		
+		
 		setting_item_pub:function(parentObj){
 			parentObj.find( ".pubstate" ).buttonset();
 			if(parentObj.find('.pubstate :radio:checked').val()<1){
@@ -730,12 +750,14 @@
 				var baseid = targetrow.data("baseid");
 				
 				var count = datatable.find("tbody").find("tr").length;
-				
+				if(type==="reference"){
+					count=count+1;
+				}
 				var tdCount = targetrow.find("td").length;
 				//alert(tdCount);
 				var tableData = [];
-				
-				var html = targetrow.find("td:first").text() + '<input type="hidden" name="item.'+type+'s['+(count-1)+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
+				var name = (type==="reference"?"":"item.")+type+'s['+(count-1)+'].baseid';
+				var html = targetrow.find("td:first").text() + '<input type="hidden" name="'+name+'" value="'+baseid+'" class="drug_item list_item"/>';
 				tableData.push( html );
 				tableData.push( targetrow.find("td:first").next('td').text() ); 
 				if(tdCount>3){
@@ -774,7 +796,7 @@
 					"bJQueryUI": true,
 					"sPaginationType": "full_numbers",
 					"fnDrawCallback": function() {//(oSettings ) {
-						$.chai.core.util.make_datatable_popup_add(datatable);
+						$.chai.core.util.make_datatable_popup_add(datatable,type);
 					}
 				});
 	

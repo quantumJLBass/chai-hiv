@@ -10,8 +10,17 @@
 			}else{
 				$.chai.core.util.make_dataTables();
 			}
+			
+			$.chai.core.util.setup_ref_copy();
 			return options;
 		});
 	};
 	$.chai.ini();
+
+
+	
+	
 })(jQuery);
+
+
+

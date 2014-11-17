@@ -459,6 +459,7 @@ namespace stellar.Controllers {
             /// <summary> </summary>
         [SkipFilter()]
             public void savetrial([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] trial item,
+            [ARDataBind("references", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]reference[] references,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -483,6 +484,19 @@ namespace stellar.Controllers {
             }
             item.tmp = false;
             if (item.published) item.content = "";
+
+            if (item.references != null) {
+                item.references.Clear();
+                foreach (reference reference in references) {
+                    if (reference.baseid == 0) {
+                        ActiveRecordMediator<reference>.Save(reference);
+                    }
+                    if (!item.references.Contains(reference)) {
+                        item.references.Add(reference);
+                    }
+                }
+            }
+
             ActiveRecordMediator<trial>.Save(item);
 
             if (autosave != null && autosave == "true") {

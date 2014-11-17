@@ -122,7 +122,8 @@ module.exports = function(grunt) {
 					window:true,
 					define:true,
 					alert:true,
-					setTimeout:true
+					setTimeout:true,
+					ZeroClipboard:true
 				}
 			}
 		},
