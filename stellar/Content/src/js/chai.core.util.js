@@ -763,8 +763,16 @@
 				if(tdCount>3){
 					tableData.push( targetrow.find("td:first").next('td').next('td').text() ); 
 				}
+				if(tdCount>4){
+					tableData.push( targetrow.find("td:first").next('td').next('td').next('td').text() ); 
+				}
+				var cp_btn;
+				if(type==="reference"){
+					var id = targetrow.find("td:first").text();
+					cp_btn='<button class="ref_text" data-clipboard-text="#{{REF '+id+'}}" title="Click to copy me.">Copy Ref</button>';
+				}
 				tableData.push(
-					'<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>'
+					'<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>'+cp_btn
 				); 
 	
 				$("[data-active_grid='true']").dataTable().fnAddData( tableData );
@@ -774,7 +782,9 @@
 				$("#drug_form").append("<span class='dialog_message ui-state-highlight'>Added to this "+$("#header_title").text()+"</span>");
 				
 				setTimeout(function(){$(".dialog_message").fadeOut("500");},"1000");
-				
+				if(type==="reference"){
+					$.chai.core.util.setup_ref_copy();
+				}
 				$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
 					e.preventDefault();
 					e.stopPropagation();
