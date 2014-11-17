@@ -130,7 +130,7 @@
 								<select name="" id="adverse_events" class="adverse_events" >
 									<option value="">Add an event</option> 
 									#foreach($part in $adverse_events)
-										<option #if($item.taxonomies.Contains($part))disabled #end value="$part.baseid" data-content="$part.content" data-baseid="$part.baseid" data-alias="$part.alias">$part.name</option>
+										<option #if($item.taxonomies.Contains($part))disabled #end value="$part.baseid" data-content="$!part.content" data-baseid="$!part.baseid" data-alias="$!part.alias">$part.name</option>
 									#end
 								</select>
 							</li>
