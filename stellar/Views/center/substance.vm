@@ -28,10 +28,10 @@ $part.name => $part.alias
 	<article class="grid col-full">
 		<div id="ddiradio" class="pubstate ui-buttonset" style="float: right;padding-top:15px;">Used for DDI Only
 			<input type="radio" name="item.for_ddi" id="ddiradio1" class="button" value="no" #if( $!item.for_ddi=="no" ) checked #end/>
-			<label for="ddiradio1" style="display: inline-block;font-size: 0.8em;" >#if( $!item.for_ddi=="no" )<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end Yes</label>
+			<label for="ddiradio1" style="display: inline-block;font-size: 0.8em;" >#if( $!item.for_ddi=="no" )<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end No</label>
 			
 			<input type="radio" name="item.for_ddi" id="ddiradio2" class="button" value="yes" #if( $!ddi_only || $!item.for_ddi=="yes") checked #end />
-			<label for="ddiradio2" style="display: inline-block;font-size: 0.8em;" >#if($!ddi_only || $!item.for_ddi=="yes")<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end No</label>
+			<label for="ddiradio2" style="display: inline-block;font-size: 0.8em;" >#if($!ddi_only || $!item.for_ddi=="yes")<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end Yes</label>
 		</div>
 
 		<h2 id="header_title">

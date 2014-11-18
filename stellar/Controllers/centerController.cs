@@ -280,6 +280,7 @@ namespace stellar.Controllers {
 
             IList<clinical> items = ActiveRecordBase<clinical>.FindAll();
             PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+            PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
             if (skiplayout) {
                 PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
             } else {
@@ -430,6 +431,7 @@ namespace stellar.Controllers {
             PropertyBag["skiplayout"] = skiplayout;
             IList<trial> items = ActiveRecordBase<trial>.FindAll();
             PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+            PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
             if (skiplayout) {
                 PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
             } else {
@@ -568,6 +570,7 @@ namespace stellar.Controllers {
 
 
             PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+            PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
             if (skiplayout) {
                 PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
             } else {
@@ -851,6 +854,7 @@ namespace stellar.Controllers {
             } else {
 
                 PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+                PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
                 if (skiplayout) {
                     PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
                 } else {
@@ -1062,10 +1066,10 @@ namespace stellar.Controllers {
         PropertyBag["skiplayout"] = skiplayout;
         IList<substance> items = ActiveRecordBase<substance>.FindAll();
         PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+        PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
 
 
-
-        PropertyBag["ddi_only"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi=="yes").ToList();
+        PropertyBag["ddi_only"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()) && x.for_ddi == "yes").ToList();
 
         if (json) {
             CancelLayout();
@@ -1669,6 +1673,9 @@ namespace stellar.Controllers {
         /// <summary> </summary>
         public string filter_refs(string content) {
             String html = "";
+            if (String.IsNullOrWhiteSpace(content)) {
+                return html;
+            }
             html=Regex.Replace(content, @"#{{REF \d+}}", delegate(Match match) {
                     String block = match.ToString();
                     Regex regex = new Regex(@"\d+");
