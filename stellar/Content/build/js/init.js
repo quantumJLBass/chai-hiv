@@ -1895,7 +1895,7 @@ $.chai.clinical = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
 		$.chai.form_base.ini();
-		
+		$.chai.drug.setup_ddi_ui();
 		$(".drug_pro_add_item").on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();

@@ -10,7 +10,7 @@ $part.name => $part.alias
 
 
 <div class="">
-	<div class="uitabs left ui-tabs ui-widget ui-widget-content ui-corner-all" style="width:70%">
+	<div class="uitabs left ui-tabs ui-widget ui-widget-content ui-corner-all" >
 		<ul class=" clearfix">
 			<li><a href="#Adherance">Adherance</a></li>
 			<li><a href="#Forgiveness">Forgiveness</a></li>
