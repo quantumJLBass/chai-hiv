@@ -783,6 +783,7 @@ select option.add:hover{ background-color:#6F3;border:1px inset #666;font-style:
 .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0 !important; padding-right: .1em !important; border-right-width: 1px !important; border-right-width: 1px !important; }
 .ui-tabs-vertical .ui-tabs-panel { padding: 1em !important; float: right; width: 40em;}
 
+
 .dataTables_length {max-width: 50%;}
 .dataTables_length select{width:60px;}
 .dataTables_filter input{width:75%;}
