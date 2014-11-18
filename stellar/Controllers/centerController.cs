@@ -1050,7 +1050,7 @@ namespace stellar.Controllers {
         #endregion
         #region(substances)
         /// <summary> </summary>
-        public void substances(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback) {
+        public void substances(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback, Boolean ddi_only) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
@@ -1071,7 +1071,11 @@ namespace stellar.Controllers {
             CancelLayout();
             CancelView();
             String json_str = "";
-            items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
+            if (ddi_only) {
+                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi == "yes").ToList();
+            } else {
+                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi != "yes").ToList();
+            }
             json_str += @"  { 
     ";
             foreach (substance sub in items) {
@@ -1099,9 +1103,9 @@ namespace stellar.Controllers {
             RenderText(json_str);
         } else {
             if (skiplayout) {
-                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
+                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi != "yes").ToList();
             } else {
-                items = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString())).ToList();
+                items = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()) && x.for_ddi != "yes").ToList();
             }
                 PropertyBag["items"] = items;
             RenderView("substances");

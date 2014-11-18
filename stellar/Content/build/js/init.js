@@ -2106,7 +2106,6 @@ $.chai.drug = {
 			var tableData = [];
 			var family_list = $("#ddi_drug_product").length>0;
 			var count = $("#ddi tbody select").length;
-			var options="<option value=''>Select</option>";//$('#dirty_options select').html();
 
 			var input_name = 'interactions['+(count)+']';
 			
@@ -2114,15 +2113,11 @@ $.chai.drug = {
 			
 			if(family_list){
 				input_name = 'interactions['+(count)+']';
-				var dp_options="<option value=''>Select</option>";
-				$.each($("#drpro_table tbody tr"),function(){
-					//
-				});
-				html = '<input type="hidden" name="'+input_name+'.id" value="0"/><select name="'+input_name+'.substance">'+dp_options+'</select>';
+				html = '<input type="hidden" name="'+input_name+'.id" value="0"/><select name="'+input_name+'.substance" id="drpr_'+count+'"><option value="">Select</option></select>';
 				tableData.push( html );
 			}
 			
-			html = '<input type="hidden" name="'+input_name+'.id" value="0"/><select name="'+input_name+'.substance">'+options+'</select>';
+			html = '<input type="hidden" name="'+input_name+'.id" value="0"/><select name="'+input_name+'.substance"  id="ddi_only_'+count+'"><option value="">Select</option></select>';
 			tableData.push( html );
 			
 			html = '<select name="'+input_name+'.yes_no"><option value="yes">Yes</option><option value="no">No</option></select>';
@@ -2135,6 +2130,20 @@ $.chai.drug = {
 	
 			
 			dataTable.dataTable().fnAddData( tableData );
+
+			if(family_list){
+				$.getJSON("/center/substances.castle?ddi_only=false&json=true&callback=?",function(data){
+					//alert("got data");
+					$.each(data,function(i,v){
+						$('#drpr_'+count).append("<option value='"+v.baseid+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-abbreviated='"+v.abbreviated+"'   >"+v.name+" ( "+v.abbreviated+" )</option>");
+					});
+				});	
+			}
+			$.getJSON("/center/substances.castle?ddi_only=true&json=true&callback=?",function(data){
+				$.each(data,function(i,v){
+					$('#ddi_only_'+count).append("<option value='"+v.baseid+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-abbreviated='"+v.abbreviated+"'   >"+v.name+" ( "+v.abbreviated+" )</option>");
+				});
+			});	
 			
 			$("#ddi tbody .removal").off().on("click",function(e){
 				e.preventDefault();

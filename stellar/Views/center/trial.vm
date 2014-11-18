@@ -27,10 +27,12 @@
 			<article id="navtabs" class="grid col-full">
 				<div class="">
 					<ul class="tabs clearfix">
-						<li><a href="#study">Study</a></li>
+						
+						<li><a href="#study">Study overview</a></li>
+						<li><a href="#study_design">Study Design</a></li>
 						<li><a href="#trial_arms">Trial Arms</a></li>
 						<li><a href="#results">Results</a></li>
-						<li><a href="#study_design">Study Design</a></li>
+						
 					</ul>
 					<div class="tab_container">
 #* *#
@@ -73,7 +75,29 @@
 #* study_design  ------------ *#
 #* *#
 						<article id="study_design" class="tab_content">	
-							$Controller.feilds("textarea","$type","study_design", $!item.study_design ,"Study Design","","","")
+							
+							
+
+<ul class="grid col-full full-input">	
+	<li>
+		$Controller.feilds("textarea","$type","study_design", $!item.study_design ,"Study Design","","","")
+	</li>
+#* study_primary_end_point *#
+	<li>
+		$Controller.filter_refs($!item.study_primary_end_point)#**#
+		$Controller.feilds("textarea","$type","study_primary_end_point", $!item.study_primary_end_point ,"","",""," row='7' ")
+	</li>
+#* study_secondary_end_point *#
+	<li>
+		$Controller.feilds("textarea","$type","study_secondary_end_point", $!item.study_secondary_end_point ,"","",""," row='7' ")
+	</li>
+#* study_comments *#
+	<li>
+		$Controller.feilds("textarea","$type","study_comments", $!item.study_comments ,"","",""," row='7' ")
+	</li>
+</ul>	
+							
+							
 						</article>	
 						
 					</div>
