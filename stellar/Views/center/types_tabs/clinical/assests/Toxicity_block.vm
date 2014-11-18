@@ -72,7 +72,7 @@
 				</ul><div style="clear:both;"></div>
 			</li>
 
-#* toxicity_drug_to_drug_interactions *#
+#* toxicity_drug_to_drug_interactions 
 			<li class="moa_dmpk_block">
 				<ul class="grid col-one-half mq2-col-full full-input">
 					<li>
@@ -89,7 +89,7 @@
 					</li>
 				</ul><div style="clear:both;"></div>
 			</li>	
-			
+			*#
 		</ul>
 	</div>
 	<div style="clear:both;">
