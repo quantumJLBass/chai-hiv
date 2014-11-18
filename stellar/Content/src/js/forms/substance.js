@@ -4,6 +4,16 @@ $.chai.substance = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
 		$.chai.form_base.ini();
+
+		$( "#ddiradio" ).buttonset();
+		$('#ddiradio :radio').on('change',function () {
+			$('#ddiradio :radio').next("label").find("i").removeClass("icon-check-empty").removeClass("icon-check");
+			$('#ddiradio :radio').not(":checked").next("label").find("i").addClass("icon-check-empty");
+			$('#ddiradio :radio:checked').next("label").find("i").addClass("icon-check");
+		});
+		
+		
+		
 		
 		$('#add_substance_salt').on("click",function(e){
 			e.preventDefault();

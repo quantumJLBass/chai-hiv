@@ -1050,7 +1050,7 @@ namespace stellar.Controllers {
         #endregion
         #region(substances)
         /// <summary> </summary>
-        public void substances(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback, Boolean ddi_only) {
+        public void substances(Boolean skiplayout, String exclude, Boolean pub, Boolean json, String callback, String ddi_only) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
@@ -1071,10 +1071,12 @@ namespace stellar.Controllers {
             CancelLayout();
             CancelView();
             String json_str = "";
-            if (ddi_only) {
+            if (ddi_only=="true") {
                 items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi == "yes").ToList();
-            } else {
+            } else if (ddi_only=="false") {
                 items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi != "yes").ToList();
+            }else{
+                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) ).ToList();
             }
             json_str += @"  { 
     ";
@@ -1122,11 +1124,12 @@ namespace stellar.Controllers {
             return tmp.baseid;
         }
     /// <summary> </summary>
-    public void substance(int id, Boolean skiplayout) {
+    public void substance(int id, Boolean skiplayout, Boolean ddi_only) {
         if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
         //do the auth
         if (skiplayout) CancelLayout();
         PropertyBag["skiplayout"] = skiplayout;
+        PropertyBag["ddi_only"] = ddi_only;
         if (id <= 0) id = make_substance_tmp();
         if (id > 0) PropertyBag["item"] = ActiveRecordBase<substance>.Find(id);
         RenderView("substance");

@@ -465,6 +465,7 @@ i.remove {
 	opacity: 0.8;
 }
 .button.crimson, button.button.crimson, [type="submit"].button.crimson {
+ 	/*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#850f0a', endColorstr='#420905');*/
 	background-color: #850f0a;
 	background: -webkit-linear-gradient(top, #850f0a 5%, #420905 100%);
 	background: linear-gradient(to bottom, #850f0a 5%, #420905 100% );
@@ -472,11 +473,13 @@ i.remove {
 	text-shadow: 1px 1px 0px #454545 !important;
 }
 .button.crimson:hover, button.button.crimson:hover, [type="submit"].button.crimson:hover {
+	/*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#420905', endColorstr='#850f0a');*/
 	background-color: #420905;
 	background: -webkit-linear-gradient(bottom, #850f0a 5%, #420905 100%);
 	background: linear-gradient(to top, #850f0a 5%, #420905 100% );
 }
 .button.green, button.button.green, [type="submit"].button.green {
+ 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5C8B14', endColorstr='#3EEC42');
 	background-color: #5C8B14;
 	background: -webkit-linear-gradient(top, #5C8B14 5%, #3EEC42 100%);
 	background: linear-gradient(to bottom, #5C8B14 5%, #3EEC42 100% );
@@ -484,6 +487,7 @@ i.remove {
 	text-shadow: 1px 1px 0px #454545 !important;
 }
 .button.green:hover, button.button.green:hover, [type="submit"].button.green:hover {
+ 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3EEC42', endColorstr='#5C8B14');
 	background-color: #3EEC42;
 	background: -webkit-linear-gradient(bottom, #5C8B14 5%, #3EEC42 100%);
 	background: linear-gradient(to top, #5C8B14 5%, #3EEC42 100% );

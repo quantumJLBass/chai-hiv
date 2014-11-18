@@ -26,9 +26,17 @@ $part.name => $part.alias
 	<input type="hidden" name="empty" value="#if(!$item.baseid)true#end" />
 
 	<article class="grid col-full">
+		<div id="ddiradio" class="pubstate ui-buttonset" style="float: right;padding-top:15px;">Used for DDI Only
+			<input type="radio" name="item.for_ddi" id="ddiradio1" class="button" value="no" #if( $!item.for_ddi=="no" ) checked #end/>
+			<label for="ddiradio1" style="display: inline-block;font-size: 0.8em;" >#if( $!item.for_ddi=="no" )<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end Yes</label>
+			
+			<input type="radio" name="item.for_ddi" id="ddiradio2" class="button" value="yes" #if( $!ddi_only || $!item.for_ddi=="yes") checked #end />
+			<label for="ddiradio2" style="display: inline-block;font-size: 0.8em;" >#if($!ddi_only || $!item.for_ddi=="yes")<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end No</label>
+		</div>
+
 		<h2 id="header_title">
 		
-		<span style="float:right;font-size: 0.5em; font-weight:normal;"><label>Used for DDI Only <input type="checkbox" name="item.for_ddi" value="yes" #if($!item.for_ddi)checked#end/></label></span>
+
 		#if(!$item.baseid || $item.tmp)New #end Drug Substance
 		</h2>
 		<ul class="grid col-full full-input">

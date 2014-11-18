@@ -100,7 +100,7 @@ $.chai.drug = {
 					});
 				});	
 			}
-			$.getJSON("/center/substances.castle?ddi_only=true&json=true&callback=?",function(data){
+			$.getJSON("/center/substances.castle?json=true&callback=?",function(data){
 				$.each(data,function(i,v){
 					$('#ddi_only_'+count).append("<option value='"+v.baseid+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-abbreviated='"+v.abbreviated+"'   >"+v.name+" ( "+v.abbreviated+" )</option>");
 				});

@@ -2139,7 +2139,7 @@ $.chai.drug = {
 					});
 				});	
 			}
-			$.getJSON("/center/substances.castle?ddi_only=true&json=true&callback=?",function(data){
+			$.getJSON("/center/substances.castle?json=true&callback=?",function(data){
 				$.each(data,function(i,v){
 					$('#ddi_only_'+count).append("<option value='"+v.baseid+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-abbreviated='"+v.abbreviated+"'   >"+v.name+" ( "+v.abbreviated+" )</option>");
 				});
@@ -2167,6 +2167,16 @@ $.chai.substance = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
 		$.chai.form_base.ini();
+
+		$( "#ddiradio" ).buttonset();
+		$('#ddiradio :radio').on('change',function () {
+			$('#ddiradio :radio').next("label").find("i").removeClass("icon-check-empty").removeClass("icon-check");
+			$('#ddiradio :radio').not(":checked").next("label").find("i").addClass("icon-check-empty");
+			$('#ddiradio :radio:checked').next("label").find("i").addClass("icon-check");
+		});
+		
+		
+		
 		
 		$('#add_substance_salt').on("click",function(e){
 			e.preventDefault();
