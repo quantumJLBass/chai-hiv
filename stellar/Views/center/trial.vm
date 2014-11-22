@@ -84,7 +84,7 @@
 	</li>
 #* study_primary_end_point *#
 	<li>
-		$Controller.filter_refs($!item.study_primary_end_point)#**#
+		#*$Controller.filter_refs($!item.study_primary_end_point)*#
 		$Controller.feilds("textarea","$type","study_primary_end_point", $!item.study_primary_end_point ,"","",""," row='7' ")
 	</li>
 #* study_secondary_end_point *#

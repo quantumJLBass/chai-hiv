@@ -43,6 +43,9 @@ namespace stellar.Models {
 
 
 
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_design { get; set; }
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
