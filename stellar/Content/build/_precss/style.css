@@ -1186,6 +1186,13 @@ ul.page-numbers {
 ======	MISC
 ------------------------------------------------------------- */
 
+table.dataTable.ref td{
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 #subCodeEdit.open {
 	display: block;
 }
@@ -1519,6 +1526,10 @@ select option.add:hover {
 table.dataTable {
 	background-color: #2779AA;
 }
+
+
+
+
 .relative {
 	position: relative;
 }

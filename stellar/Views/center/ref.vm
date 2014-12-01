@@ -17,7 +17,7 @@
   <ul class="grid col-one-full mq2-col-full">
 	<li>
 	  <label for="Referencedata">Reference:</label>
-	  <table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Referencedata" width="100%">
+	  <table cellpadding="0" cellspacing="0" border="0" class="display datagrid ref" id="Referencedata" width="100%">
 		<thead>
 		  <tr>
 		  		<th width="15%">Ref ID</th>
@@ -33,7 +33,7 @@
 				<td><input type="hidden" name="references[$velocityCount].baseid" value="$part.baseid" class="drug_item"/>$!part.baseid</td>
 				<td>$!part.get_meta("ref_type")</td>
 				<td>$!part.name</td>
-				<td><a href="#if($!part.url)$!part.url#else $!part.static_file #end" target="_blank">#if($!part.url)$!part.url#else $!part.static_file #end <i class="icon-external-link-sign"></i></a></td>
+				<td><a href="#if($!part.url)$!part.url#else $!part.static_file #end" target="_blank">#if($item.static_file)<i class="icon-download-alt"></i>#else<i class="icon-external-link-sign"></i>#end #if($!part.url)$!part.url#else $!part.static_file #end</a></td>
 			  #if(!$viewonly)<td><a href="reference.castle?id=$part.baseid" class="button small inline_edit" data-type="substance"><i class="icon-edit" title="Edit"></i></a> | <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
 			  
 			   <button class="ref_text" data-clipboard-text="#{{REF $!part.baseid}}" title="Click to copy me.">Copy Ref</button>
