@@ -1186,7 +1186,7 @@ ul.page-numbers {
 ======	MISC
 ------------------------------------------------------------- */
 
-table.dataTable.ref td{
+table.dataTable.ref td.no_overflow{
     max-width: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
