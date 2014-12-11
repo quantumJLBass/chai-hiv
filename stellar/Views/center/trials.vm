@@ -16,7 +16,7 @@
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.baseid" data-baseid="$item.baseid">
 				<td>#if($item.baseid)$!item.baseid#else -- #end</td>
 				<td>#if($item.number)$!item.number#else -- #end</td>
-				<td>#if($item.acronym)$!item.title#else -- #end</td>
+				<td>#if($item.title)$!item.title#else -- #end</td>
 				<td>
 					#if($viewonly)
 						<a href="trial.castle?id=$item.baseid" class="button small">View</a>
