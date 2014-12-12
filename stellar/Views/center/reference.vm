@@ -115,7 +115,7 @@
 						
 						<div class="load_file #if($item.static_file)active#end">
 						#if($item.static_file)
-							Current file : $item.static_file <i class="icon-download-alt"></i><i class="icon-remove red"></i>
+							Current file : $item.static_file <i class="icon-download-alt"></i><!--<i class="icon-remove red"></i>-->
 						#end
 #* static_file *#
 					<label for="static_file"><i class="icon-file"></i> File: #if($item.static_file)<i class="icon-question-sign blue" title="By choosing a new file you will delete the current and replace with the new file."></i>#end</label>
