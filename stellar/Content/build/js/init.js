@@ -1892,10 +1892,56 @@ $.chai.trial_arm = {
 // JavaScript Document
 
 $.chai.clinical = {
+	resetFeildset:function(checks){
+		checks.find(':radio').next("label").find("i").removeClass("icon-check-empty").removeClass("icon-check");
+		checks.find(':radio').not(":checked").next("label").find("i").addClass("icon-check-empty");
+		checks.find(':radio:checked').next("label").find("i").addClass("icon-check");	
+
+		var tar_area = checks.closest('fieldset').find('ul');
+		if(tar_area.is('.open')){
+			tar_area.hide('fast',function(){
+				tar_area.removeClass('open');
+			});
+		}else{
+			tar_area.show('fast',function(){
+				tar_area.addClass('open');
+				if( $('#fed_block').find('ul').is('.open') && $('#fasting_block').find('ul').is('.open') ){
+					var notId;
+					if(tar_area.closest('fieldset').is('#fed_block')){
+						notId=$('#fasting_block');
+					}else{
+						notId=$('#fed_block');
+					}
+					notId.find('ul').hide('fast',function(){
+						notId.find('ul').removeClass('open');
+						
+						notId.find('.showFeildset :radio[value="yes"]').removeAttr('checked');
+						notId.find('.showFeildset :radio[value="yes"]').next("label").removeClass('ui-state-active');
+						notId.find('.showFeildset :radio[value="yes"]').next("label").find("i").addClass("icon-check-empty").removeClass("icon-check");
+						
+						notId.find('.showFeildset :radio[value="no"]').next("label").find("i").addClass("icon-check").removeClass("icon-check-empty");
+						notId.find('.showFeildset :radio[value="no"]').next("label").addClass('ui-state-active');
+						notId.find('.showFeildset :radio[value="no"]').attr('checked','checked');
+					});
+				}	
+			});
+		}
+
+	},
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
 		$.chai.form_base.ini();
 		$.chai.drug.setup_ddi_ui();
+		
+		$.each($('.showFeildset'),function(){
+			var checks = $(this);
+			checks.buttonset();
+			checks.find(':radio').on('change',function () {
+				$.chai.clinical.resetFeildset(checks);
+			});
+		});
+
+		
 		$(".drug_pro_add_item").on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();
@@ -1903,7 +1949,6 @@ $.chai.clinical = {
 			if($("#drug_form").length===0){
 				$("#staging").append("<div id='drug_form'><div id='drug_list'></div></div>");
 			}
-	
 			var inlist="";
 			$.ajax({cache: false,
 			   url:"/center/drugs.castle",
@@ -2006,34 +2051,8 @@ $.chai.clinical = {
 				}
 			});	
 		});
-		function resetBlocks(tar){
-			if( $('#fed_block').find('ul').is('.open') && $('#fasting_block').find('ul').is('.open') ){
-				var notId;
-				if(tar.closest('fieldset').is('#fed_block')){
-					notId='#fasting_block';
-				}else{
-					notId='#fed_block';
-				}
-				$(notId).find('ul').hide('fast',function(){
-					$(notId).find('ul').removeClass('open');
-					$(notId).find(':checkbox').attr('checked',false);
-				});
-			}	
-		}
-		$('.show_fieldset').on('change',function(){
-			var tar_area = $(this).closest('fieldset').find('ul');
-			if(tar_area.is('.open')){
-				tar_area.hide('fast',function(){
-					tar_area.removeClass('open');
-				});
-			}else{
-				tar_area.show('fast',function(){
-					tar_area.addClass('open');
-					resetBlocks(tar_area);
-				});
-			}
 
-		});	
+		
 	}
 };
 

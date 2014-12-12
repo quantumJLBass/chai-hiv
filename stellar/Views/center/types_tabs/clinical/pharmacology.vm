@@ -15,9 +15,16 @@
 	
 	<fieldset class="grid col-one-half mq2-col-full full-input optional_fieldset" id="fasting_block" style="border:1px solid #ccc">
 	<legend>
-		<input type="hidden" name="item.is_fasting" value="no" />
-		<input type="checkbox" name="item.is_fasting" #if($item.is_fasting=="yes") checked #end class="show_fieldset" value="yes"/>
-		 Fasting:</legend>
+		<!--<input type="hidden" name="item.is_fasting" value="no" />
+		<input type="checkbox" name="item.is_fasting" #if($item.is_fasting=="yes") checked #end class="show_fieldset" value="yes"/>-->
+		<div id="is_fasting" class="showFeildset ui-buttonset" style="float: right;padding-top:15px;">Fasting:
+			<input type="radio" name="item.is_fasting" id="is_fasting1" class="button" value="no" #if( $!item.is_fasting!="yes" ) checked #end/>
+			<label for="is_fasting1" style="display: inline-block;font-size: 0.8em;" >#if( $!item.is_fasting!="yes" )<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end No</label>
+			
+			<input type="radio" name="item.is_fasting" id="is_fasting2" class="button" value="yes" #if($!item.is_fasting=="yes") checked #end />
+			<label for="is_fasting2" style="display: inline-block;font-size: 0.8em;" >#if($!item.is_fasting=="yes")<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end Yes</label>
+		</div>
+		 </legend>
 	<ul class="#if($item.is_fasting=="yes") open #end ">	
 
 #* fasting_cmax *#
@@ -53,9 +60,16 @@
 	 
 	<fieldset class="grid col-one-half mq2-col-full full-input optional_fieldset" id="fed_block" style="border:1px solid #ccc">
 	<legend>
-		<input type="hidden" name="item.is_fed" value="no" />
-		<input type="checkbox" name="item.is_fed" #if($item.is_fed=="yes") checked #end class="show_fieldset" value="yes"/>
-		 Fed:</legend>
+		<!--<input type="hidden" name="item.is_fed" value="no" />
+		<input type="checkbox" name="item.is_fed" #if($item.is_fed=="yes") checked #end class="show_fieldset" value="yes"/>-->
+		<div id="is_fed" class="showFeildset ui-buttonset" style="float: right;padding-top:15px;">Fed:
+			<input type="radio" name="item.is_fed" id="is_fed1" class="button" value="no" #if( $!item.is_fed!="yes" ) checked #end/>
+			<label for="is_fed1"  style="display: inline-block;font-size: 0.8em;" >#if( $!item.is_fed!="yes" )<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end No</label>
+			
+			<input type="radio" name="item.is_fed" id="is_fed2" class="button" value="yes" #if($!item.is_fed=="yes") checked #end />
+			<label for="is_fed2" style="display: inline-block;font-size: 0.8em;" >#if($!item.is_fed=="yes")<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end Yes</label>
+		</div>
+		 </legend>
 	<ul class="#if($item.is_fed=="yes") open #end ">		  
 
 
@@ -94,9 +108,20 @@
 	
 	<fieldset class="grid col-one-full mq2-col-full full-input optional_fieldset" style="border:1px solid #ccc">
 	<legend>
-		<input type="hidden" name="item.is_steady" value="no" />
-		<input type="checkbox" name="item.is_steady" #if($item.is_steady=="yes") checked #end class="show_fieldset" value="yes"/>
-		 Steady State:</legend>
+		<!--<input type="hidden" name="item.is_steady" value="no" />
+		<input type="checkbox" name="item.is_steady" #if($item.is_steady=="yes") checked #end class="show_fieldset" value="yes"/>-->
+		
+		
+		<div id="is_steady" class="showFeildset ui-buttonset" style="float: right;padding-top:15px;">Steady State:
+			<input type="radio" name="item.is_steady" id="is_steady1" class="button" value="no" #if( $!item.is_steady!="yes" ) checked #end/>
+			<label for="is_steady1" style="display: inline-block;font-size: 0.8em;" >#if( $!item.is_steady!="yes" )<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end No</label>
+			
+			<input type="radio" name="item.is_steady" id="is_steady2" class="button" value="yes" #if($!item.is_steady=="yes") checked #end />
+			<label for="is_steady2" style="display: inline-block;font-size: 0.8em;" >#if($!item.is_steady=="yes")<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end Yes</label>
+		</div>
+		
+		
+		 </legend>
 	<ul  class="grid col-one-half mq2-col-full full-input #if($item.is_steady=="yes") open #end ">	
 #* steady_state_cmax *#
 		<li>
