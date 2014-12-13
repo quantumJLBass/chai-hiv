@@ -103,25 +103,23 @@
 					</div>
 				</div>
 			</article>
-			#if(!$skiplayout && !$item.baseid)
+			#*#if(!$skiplayout && !$item.baseid)
 				<ul>
 					<li><h2>Save to add Drugs or Clinicals</h2></li>
 				</ul>
 				<ul>
 					<li>
-#* drugdata *#
 						#set($typed_list = $item.drugs)
 						#parse("center/model_tie_tables/drug.vm")
 					</li>
 					
 					<li>
-#* Clinicaldata *#
 						#set($typed_list = $item.clinicals)
 						#parse("center/model_tie_tables/clinical.vm")
 					</li>
 					
 				</ul>		
-			#end
+			#end*#
 			<ul>
 				#parse("center/assests/save_bar.vm")	
 			</ul>	

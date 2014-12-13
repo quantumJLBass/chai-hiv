@@ -1494,6 +1494,12 @@ select option.add:hover {
 #LMICdata tbody td [type="text"]:focus, #LMICdata tbody td textarea:focus, #DDIdata td textarea:focus {
 	background-color: #F0F0F0;
 }
+
+.optional_fieldset legend{
+    min-height: 50px;
+}
+
+
 .optional_fieldset ul {
 	display: none;
 }

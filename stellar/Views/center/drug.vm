@@ -224,18 +224,20 @@ $sub.abbreviated
 			<h2>Save to add Substances or to Clinicals</h2>
 		#end
 		
+		#*
 		#if(!$skiplayout && $item.baseid>0)
 		<article class="grid col-full datagrid_area">
 		  <hr/>
 		  <ul class="grid col-full mq2-col-full">
 			<li>
-				#* Clinicaldata *#
+				
 				#set($typed_list = $item.clinicals)
 				#parse("center/model_tie_tables/clinical.vm")
 			</li>
 		  </ul>
 		</article>
 		#end
+		*#
 		
 		#if(!$skiplayout && $item.baseid>0)
 			#set($type="drug")

@@ -101,8 +101,8 @@
 		  <ul class="grid col-one-full mq2-col-full full-input">
 				<li>
 					#* Treatmentdata *#
-					#set($typed_list = $item.treatments)
-					#parse("center/model_tie_tables/treatment.vm")
+					#set($typed_list = $item.trials)
+					#parse("center/model_tie_tables/trial.vm")
 				</li>
 		  </ul>
 			#*#set($type="clinical")

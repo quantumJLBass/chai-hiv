@@ -133,7 +133,7 @@
 			$Controller.feilds("textinput","$type","steady_state_cmin", $!item.steady_state_cmin ,"","(ng/ml)","","")
 		</li>
 	</ul>
-	<ul  class="grid col-one-half mq2-col-full full-input">	
+	<ul  class="grid col-one-half mq2-col-full full-input #if($item.is_steady=="yes") open #end">	
 #* steady_state_auc *#
 		<li>
 			<div class="grid col-one-half">	

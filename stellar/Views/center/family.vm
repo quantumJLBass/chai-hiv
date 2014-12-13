@@ -111,6 +111,13 @@ $part.abbreviated
 #end
 #end	
 
+
+<div id="drug_forms" class="hidden">
+$Controller.feilds("select","drug_family","dose_form", "", $dose_forms, "","","","")
+</div>
+
+
+
 		
 		
 	<article class="grid col-full">

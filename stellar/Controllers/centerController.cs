@@ -478,6 +478,7 @@ namespace stellar.Controllers {
         [SkipFilter()]
             public void savetrial([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] trial item,
             [ARDataBind("references", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]reference[] references,
+            [ARDataBind("trial_arms", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]clinical[] trial_arms,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -514,7 +515,14 @@ namespace stellar.Controllers {
                     }
                 }
             }
-
+            item.trial_arms.Clear();
+            foreach (clinical trial_arm in trial_arms) {
+                //if (drug.attached) {
+                if (!item.trial_arms.Any(x => x.baseid == trial_arm.baseid)) {
+                    item.trial_arms.Add(trial_arm);
+                }
+                // }
+            }
             ActiveRecordMediator<trial>.Save(item);
 
             if (autosave != null && autosave == "true") {
@@ -1016,6 +1024,7 @@ namespace stellar.Controllers {
                             json_str += @"""" + item.baseid + @""":{";
                             json_str += @"""baseid"":""" + item.baseid + @""",";
                             // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
+                            json_str += @"""form"":""" + item.dose_form + @""",";
                             json_str += @"""name"":""" + item.brand_name + @""",";
                             json_str += @"""label_claim"":""" + item.label_claim + @""",";
                             json_str += @"""manufacturer"":""" + item.manufacturer + @"""";

@@ -40,10 +40,10 @@ $sub.abbreviated
 #end
 
 #end
-			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
+			<tr class="#if($velocityCount%2<1)even #else odd #end " data-baseid="$item.baseid">
 			
 				<td>
-				<input type="hidden" name="drugs[$velocityCount].baseid" value="$part.baseid" class="list_item drug_item"/>
+				<input type="hidden" name="drugs[$velocityCount].baseid" value="$item.baseid" class="list_item drug_item"/>
 				#if($!taxonomyService.get_taxonomy($!item.dose_form).name!="") $!taxonomyService.get_taxonomy($!item.dose_form).name #else - #end
 				</td>
 				

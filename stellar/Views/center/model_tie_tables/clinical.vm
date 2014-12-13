@@ -13,7 +13,7 @@
 	#foreach($part in  $typed_list)
 		<tr class="#if($velocityCount%2<1)even #else odd #end rec_$!part.ln_clinical_t" data-baseid="$part.baseid">
 			<td>
-				<input type="hidden" name="item.clinicals[$velocityCount].baseid" value="$part.baseid" class="list_item drug_item"/>
+				<input type="hidden" name="trial_arms[$velocityCount].baseid" value="$part.baseid" class="list_item drug_item"/>
 				$!part.baseid
 			</td>
 			<td>$!part.name</td>

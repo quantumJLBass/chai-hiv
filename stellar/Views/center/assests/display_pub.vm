@@ -1,8 +1,8 @@
 #if(!$viewonly && $signedin && !$skiplayout)
 	<div class="pubstate menuaction" style="font-size:10px; display: inline-block; height: 28px; margin-left: 15px ! important;">
 		<input type="radio" id="pubstate2" name="pub" class="button" value="0"  #if($published==false)checked="checked"#end/>
-			<label for="pubstate2" style="display:inline-block;text-shadow:none;"> #if($published==false)<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end Draft ($!draft_count)</label>
+			<label for="pubstate2" style="display:inline-block;text-shadow:none;"> #if($published==false)<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end &nbsp;&nbsp;Draft&nbsp;&nbsp;&nbsp;(&nbsp;$!draft_count&nbsp;)</label>
 		<input type="radio" id="pubstate1" name="pub" class="button" value="1" #if($published!=false)checked="checked"#end/>
-			<label for="pubstate1" style="display:inline-block;text-shadow:none;"> #if($published!=false)<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end Published ($!pub_count)</label>
+			<label for="pubstate1" style="display:inline-block;text-shadow:none;"> #if($published!=false)<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end &nbsp;&nbsp;Published&nbsp;&nbsp;&nbsp;(&nbsp;$!pub_count&nbsp;)</label>
 	</div>
 #end

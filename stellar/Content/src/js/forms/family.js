@@ -186,7 +186,9 @@ $.chai.family = {
 					html+="<div id='create_drPros_stub' class='full-input'>";
 						html+="<form action='/center/savedrug.castle' method='post'><input name='item.baseid' type='hidden' value='0'>";
 							html+="<input type='hidden' name='item.families.substance_id' value='"+$("[name='item.baseid']").val()+"'/>";
-							html+="form <input type='text' name='item.dose_form' value='' style='display: inline-block; max-width:50%;'/>";
+							
+							var form_block = $('#drug_forms').html();
+							html+="Form: "+form_block+"<!--<input type='text' name='item.dose_form' value='' style='display: inline-block; max-width:50%;'/>-->";
 							
 							
 							
@@ -263,6 +265,9 @@ $.chai.family = {
 										var count = $(".drug_item.list_item").length;
 										//var html = v.label_claim;//+ '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><input type="hidden" name="drugs['+(count)+'].attached" value="1" class="drug_item list_item"/>';
 										
+										tableData.push( v.form ); 
+										
+										
 										$.each(v.label_claim.split(':'),function(i,val){
 											tableData.push(val);
 										});
@@ -283,6 +288,7 @@ $.chai.family = {
 										});
 	
 									});
+									$.chai.core.util.autoSaver();
 									$( "#form_list" ).dialog( "close" );
 								}else{
 									$.chai.core.util.popup_message($("<span>failed to save, try again.</span>"));

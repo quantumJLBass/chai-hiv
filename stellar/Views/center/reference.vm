@@ -166,8 +166,8 @@
 			</li>
 			<li>
 				#* Treatmentdata *#
-				#set($typed_list = $item.treatments)
-				#parse("center/model_tie_tables/treatment.vm")
+				#set($typed_list = $item.trials)
+				#parse("center/model_tie_tables/trial.vm")
 			</li>
 		  </ul>
 		  <ul class="grid col-one-half mq2-col-full">

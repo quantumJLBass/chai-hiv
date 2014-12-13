@@ -1,0 +1,32 @@
+<label for="Trialdata">Clinical Trials:</label>
+<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Trialdata" width="100%">
+	<thead>
+		<tr>
+			<th width="15%">Record ID</th>
+			<th>Number</th>
+			<th>Title</th>
+			<th width="20%"></th>
+		</tr>
+	</thead>
+	<tbody>
+	#foreach($trail in  $item.trials)
+		<tr class="#if($velocityCount%2<1)even #else odd #end " data-baseid="$trail.baseid">
+			<td>$!trail.baseid
+			<input type="hidden" name="item.trials[$velocityCount].baseid" value="$trail.baseid" class="drug_item"/>
+			</td>
+			<td>#if($!trail.number)$!trail.number #else -- #end</td>
+			<td>#if($!trail.title)$!trail.title #else -- #end</td>
+			<td>
+			#if($viewonly) #else
+			<a href="treatment.castle?id=$part.baseid" class="button small inline_edit" data-type="clinical"><i class="icon-edit" title="Edit"></i></a> | 
+			<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
+			#end
+			</td>
+		</tr>
+	#end
+	</tbody>
+	<tfoot></tfoot>
+</table>
+#if($viewonly) #else
+<a href="#"  class="button add_to_list" data-type="trial">Add to a trial</a>
+#end
