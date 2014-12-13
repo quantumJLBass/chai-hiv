@@ -2010,7 +2010,7 @@ $.chai.clinical = {
 									var tdCount = targetrow.find("td").length;
 									var tableData = [];
 									
-									var html = targetrow.find("td:first").text() + '<input type="hidden" name="item.drugs['+(count-1)+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
+									var html = targetrow.find("td:first").text() + '<input type="hidden" name="drugs['+(count-1)+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
 									tableData.push( html );
 									tableData.push( targetrow.find("td:first").next('td').text() ); 
 									if(tdCount>2){

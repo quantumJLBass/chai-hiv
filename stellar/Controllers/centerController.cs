@@ -328,6 +328,8 @@ namespace stellar.Controllers {
         /// <summary> </summary>
         [SkipFilter()]
         public void saveclinical([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] clinical item,
+            [ARDataBind("drugs", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug[] drugs,
+            
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -371,6 +373,20 @@ namespace stellar.Controllers {
                 }
             }
             if (item.published) item.content = "";
+
+            if (item.drugs != null) {
+                item.drugs.Clear();
+                foreach (drug drug in drugs) {
+                    if (drug.baseid == 0) {
+                        ActiveRecordMediator<reference>.Save(drug);
+                    }
+                    if (!item.drugs.Contains(drug)) {
+                        item.drugs.Add(drug);
+                    }
+                }
+            }
+
+
             item.tmp = false;
             ActiveRecordMediator<clinical>.Save(item);
             if (autosave != null && autosave == "true") {
