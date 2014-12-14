@@ -111,7 +111,6 @@ $.chai.clinical = {
 			});
 		});
 
-		
 		$(".drug_pro_add_item").on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();

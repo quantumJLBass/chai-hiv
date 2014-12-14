@@ -122,7 +122,47 @@ $sub.abbreviated
 			<div class="">
 				<ul class="grid col-one-half mq2-col-full full-input header">
 					<li><h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Product Data #if($item.new_drug_code)( $!item.new_drug_code )#end </h2><li>
-					<li><h3>Attached to Drug Family <em>[ $!fam_sub_code ]</em></h3></li>
+					<li>
+					
+					#if($item.families)
+					<h3>Attached to Drug Family <em>[ $!fam_sub_code ]</em>
+					#end
+				  #if(!$item.families)
+				  
+
+				#capturefor(family_items)
+				#foreach($family in $families)
+#set($f_sub_code="")
+#capturefor(f_sub_code)
+
+#foreach($subd in  $family.substances)
+$subd.abbreviated
+#between
+<em>:</em>
+#end
+
+#end
+				$f_sub_code => $family.baseid
+				#between
+				,
+				#end
+				#end
+				  
+				  
+				 	<span style="font-size:16px; font-weight:bold; color:#760A0B;"><i>( this drug product orphaned, choose its family ) 
+				 $Controller.feilds("select","family","families.baseid", "", $family_items,"","","","") 
+				  </i></span>
+				  
+		  
+				  
+				  
+				  
+				  
+				  
+				  #end
+					
+					
+					</h3></li>
 				</ul>
 				<ul class="grid col-one-half mq2-col-full full-input header" style=" text-align:right;">
 					<li><h4 style="margin-bottom:5px; bottom-border:1px solid #e2e2e2;">General Definition</h4><li>

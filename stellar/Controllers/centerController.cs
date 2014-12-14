@@ -321,7 +321,7 @@ namespace stellar.Controllers {
             if (id <= 0) id = make_clinical_tmp();
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<clinical>.Find(id);
             PropertyBag["drugs"] = ActiveRecordBase<drug>.FindAll().Where(x => !x.deleted);
-
+            PropertyBag["trials"] = ActiveRecordBase<trial>.FindAll().Where(x => !x.deleted);
             RenderView("clinical");
         }
 
@@ -435,26 +435,26 @@ namespace stellar.Controllers {
         #endregion
         #region(trials)
             /// <summary> </summary>
-            public void trials(Boolean skiplayout, String exclude, Boolean pub) {
-            if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
-            pub = is_pubview(pub);
-            PropertyBag["published"] = pub;
-            //do the auth
-            userService.clearTmps<trial>();
-            if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
-            String[] drop = exclude.Split(',');
-            if (skiplayout) CancelLayout();
-            PropertyBag["skiplayout"] = skiplayout;
-            IList<trial> items = ActiveRecordBase<trial>.FindAll();
-            PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
-            PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
-            if (skiplayout) {
-                PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
-            } else {
-                PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+            public void trials(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback, string filter) {
+                if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+                pub = is_pubview(pub);
+                PropertyBag["published"] = pub;
+                //do the auth
+                userService.clearTmps<trial>();
+                if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
+                String[] drop = exclude.Split(',');
+                if (skiplayout) CancelLayout();
+                PropertyBag["skiplayout"] = skiplayout;
+                IList<trial> items = ActiveRecordBase<trial>.FindAll();
+                PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+                PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
+                if (skiplayout) {
+                    PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
+                } else {
+                    PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                }
+                RenderView("trials");
             }
-            RenderView("trials");
-        }
             /// <summary> </summary>
             public static int make_trial_tmp() {
                 trial tmp = new trial();
@@ -466,14 +466,14 @@ namespace stellar.Controllers {
             }
             /// <summary> </summary>
             public void trial(int id, Boolean skiplayout) {
-            if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
-            //do the auth
-            if (skiplayout) CancelLayout();
-            PropertyBag["skiplayout"] = skiplayout;
-            if (id <= 0) id = make_trial_tmp();
-            if (id > 0) PropertyBag["item"] = ActiveRecordBase<trial>.Find(id);
-            RenderView("trial");
-        }
+                if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+                //do the auth
+                if (skiplayout) CancelLayout();
+                PropertyBag["skiplayout"] = skiplayout;
+                if (id <= 0) id = make_trial_tmp();
+                if (id > 0) PropertyBag["item"] = ActiveRecordBase<trial>.Find(id);
+                RenderView("trial");
+            }
             /// <summary> </summary>
         [SkipFilter()]
             public void savetrial([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] trial item,
@@ -904,6 +904,7 @@ namespace stellar.Controllers {
             PropertyBag["skiplayout"] = skiplayout;
             if (id <= 0) id = make_drug_tmp();
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<drug>.Find(id);
+            PropertyBag["families"] = ActiveRecordBase<drug_family>.FindAll().Where(x => !x.deleted);
             RenderView("drug");
         }
 

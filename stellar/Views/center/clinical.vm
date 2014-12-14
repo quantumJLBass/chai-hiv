@@ -14,13 +14,41 @@
 	<article class="grid col-full">
 	<form id="contact_form" class="contact_form autosave" action="/center/saveclinical.castle" method="post" name="contact_form">
 	  <input type="hidden" name="item.baseid" value="$!item.baseid" />
-	  <input type="hidden" name="item.trials.baseid" value="$!item.trials.baseid" />
+	  
 	  
 		<article id="navtabs" class="grid col-full">
-		  <article class="grid col-full">
-			<h2 id="header_title">
-			  #if(!$item.baseid || $item.tmp)New #end Clinical Trial Arms #if($item.trials.number) <span style="font-size:16px"> <i>( trial #$!item.trials.number )</i> </span> #end</h2>
-			  <ul class="grid col-one-full mq2-col-full full-input">		  
+			<article class="grid col-full">
+				<h2 id="header_title">
+				  #if(!$item.baseid || $item.tmp)New #end Clinical Trial Arms 
+				  #if($item.trials.number)
+					<span style="font-size:16px"> <i>( trial #$!item.trials.number )</i> </span> 
+					<input type="hidden" name="item.trials.baseid" value="$!item.trials.baseid" />
+				  #end
+				  #if(!$item.trials)
+				  
+
+#capturefor(trial_items)
+#foreach($trial in $trials)
+$!trial.title ($!trial.number) => $trial.baseid
+#between
+,
+#end
+#end
+				  
+				  
+				 	<span style="font-size:16px; font-weight:bold; color:#760A0B;"><i>( this trial arm orphaned, choose its trial ) 
+				 $Controller.feilds("select","trial","trials.baseid", "", $trial_items,"","","","") 
+				  </i></span>
+				  
+		  
+				  
+				  
+				  
+				  
+				  
+				  #end
+				</h2>
+				<ul class="grid col-one-full mq2-col-full full-input">		  
 					<li>
 					#* name *#
 						$Controller.feilds("textarea","$type","name", $!item.name ,"","",""," style='height:63px; min-height: auto;' ")
@@ -97,15 +125,14 @@
 				<li><h2>Save to add ties to Drugs or Regimens</h2></li>
 			</ul> #end
 		#if(!$skiplayout && $item.baseid>0)
-		  <hr/>
+		  #*<hr/>
 		  <ul class="grid col-one-full mq2-col-full full-input">
 				<li>
-					#* Treatmentdata *#
 					#set($typed_list = $item.trials)
 					#parse("center/model_tie_tables/trial.vm")
 				</li>
 		  </ul>
-			#*#set($type="clinical")
+			#set($type="clinical")
 			#parse("center/ref.vm")*#
 		#end
 		</article>

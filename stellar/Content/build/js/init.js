@@ -1851,12 +1851,21 @@ $.chai.trial = {
 									$( "#mess" ).remove();
 
 									var dataTable = $("#trial_arms.tab_content").find('.dataTable');
+									
+									var count = $("#trial_arms.tab_content .datagrid tbody tr").length + 1;
+									if($("#trial_arms.tab_content  .datagrid tbody tr td.dataTables_empty").length){
+										count--;
+									}
+									console.log("in list before add "+count);
+									
+									
+									
 									var tableData = [];
-
-									var html = form.find('[name="item.name"]').val();
+									var baseid = form.find('[name="item.baseid"]').val();
+									var html =  baseid+ '<input type="hidden" name="trial_arms['+count+'].baseid" value="'+baseid+'" class="list_item drug_item">';
 									tableData.push( html );
 									tableData.push( form.find('[name="item.name"]').val() );
-									tableData.push( form.find('[name="item.name"]').val() ); 
+									tableData.push( "-refresh for drugs-" ); 
 									tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 									dataTable.dataTable().fnAddData( tableData );
 									
@@ -2008,7 +2017,6 @@ $.chai.clinical = {
 			});
 		});
 
-		
 		$(".drug_pro_add_item").on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();
