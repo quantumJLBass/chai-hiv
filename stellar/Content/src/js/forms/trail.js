@@ -100,13 +100,14 @@ $.chai.trial = {
 									
 									var tableData = [];
 									var baseid = form.find('[name="item.baseid"]').val();
-									var html =  baseid+ '<input type="hidden" name="trial_arms['+count+'].baseid" value="'+baseid+'" class="list_item drug_item">';
-									tableData.push( html );
-									tableData.push( form.find('[name="item.name"]').val() );
-									tableData.push( "-refresh for drugs-" ); 
-									tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
-									dataTable.dataTable().fnAddData( tableData );
-									
+									if(baseid<=0){
+										var html =  baseid+ '<input type="hidden" name="trial_arms['+count+'].baseid" value="'+baseid+'" class="list_item drug_item">';
+										tableData.push( html );
+										tableData.push( form.find('[name="item.name"]').val() );
+										tableData.push( "-refresh for drugs-" ); 
+										tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
+										dataTable.dataTable().fnAddData( tableData );
+									}
 									$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
 										e.preventDefault();
 										e.stopPropagation();

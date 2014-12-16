@@ -19,12 +19,14 @@
 		<article id="navtabs" class="grid col-full">
 			<article class="grid col-full">
 				<h2 id="header_title">
-				  #if(!$item.baseid || $item.tmp)New #end Clinical Trial Arms 
+				  #if(!$item.baseid || $item.tmp)New 
+				  <input type="hidden" name="item.trials.baseid" value="$!item.trials.baseid" />
+				  #end Clinical Trial Arms 
 				  #if($item.trials.number)
 					<span style="font-size:16px"> <i>( trial #$!item.trials.number )</i> </span> 
 					<input type="hidden" name="item.trials.baseid" value="$!item.trials.baseid" />
 				  #end
-				  #if(!$item.trials)
+				  #if(!$item.trials && !$item.tmp)
 				  
 
 #capturefor(trial_items)
