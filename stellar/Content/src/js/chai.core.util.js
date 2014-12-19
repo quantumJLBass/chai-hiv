@@ -53,6 +53,16 @@
 				}
 			});
 		},
+		
+		unhighlight:function(){
+			$('.highlighted').animate({
+				"background-color":"#FFF",
+				},1500,function(){
+					$(this).removeClass("highlighted");
+			});
+		},
+		
+		
 		alais_scruber:function (input,jObj){
 			var str = input.val();
 				str=str.split(' ').join('-');
@@ -329,7 +339,7 @@
 										
 									});
 									$.chai.core.util.set_up_form(type,inlist,use);
-									$.chai.core.util.activate_adverse_ui();
+									$.chai.clinical.activate_adverse_ui();
 								},
 								close: function() {
 									$.chai.core.util.close_dialog_modle($( "#drug_form" ));
@@ -464,11 +474,20 @@
 					   dataType : "json",
 					   success: function(returndata){
 							if(returndata.alias!==""){
-								select_target.find('.add').before('<option value="'+ returndata.alias +'" '+(select_target.is(secselect_target)?"selected":"")+' >'+returndata.name +'</option>');
+								var op = '<option value="'+ returndata.alias +'" '+(select_target.is(secselect_target)?"selected":"")+' '+(select_target.is(secselect_target)?"selected":"")+' data=" -- '+ returndata.alias +'" selected>'+returndata.name +'</option>';
+								
+								if(select_target.is('.adverse_events')){
+									op = '<option value="'+ returndata.baseid +'" data-baseid="'+ returndata.baseid +'" data-alias="'+ returndata.alias +'" data-content=""  selected >'+returndata.name +'</option>';
+								}
+								select_target.find('.add').before(op);
 								$( "#taxonomyitem" ).dialog( "destroy" );
 								$( "#taxonomyitem" ).remove();
 								$.chai.core.util.popup_message($("<span><h5>You have added a  new taxonomy!</h5>It has also selected for you</span>"));
-								$('form[name="entry_form"] :input:first').trigger("change");
+								if(select_target.is('.adverse_events')){
+									select_target.find(':selected:not([value="'+ returndata.baseid +'"])').removeAttr('selected');
+									select_target.trigger('change');
+								}
+								$('form[name="entry_form"] :input:first').trigger("click");
 							}else{
 								$.chai.core.util.popup_message($("<span>failed to save, try again.</span>"));
 							}
@@ -512,7 +531,7 @@
 								}
 								
 								if(typeof(select_target)!=="undefined" && typeof(select_target)!=="function"){
-									select_target.find('option:first').before('<option value="'+ returndata.alias +'" >'+returndata.name +'</option>');
+									select_target.find('option:first').before('<option value="'+ returndata.alias +'" selected>'+returndata.name +'</option>');
 								}
 								$( "#taxonomyitem" ).dialog( "destroy" );
 								$( "#taxonomyitem" ).remove();
@@ -601,7 +620,9 @@
 				var dialog_obj = $("#taxonomyitem");
 				
 				var secselect_target;
-				var type = select_target.attr("rel")!=="" ? select_target.attr("rel") : select_target.attr("id");
+				var rel = select_target.attr("rel");
+				var s_id = select_target.attr("id");
+				var type = rel !=="" && typeof rel !=="undefined" ? rel : s_id;
 				var attr=select_target.attr("rel");
 				if (typeof attr !== typeof undefined && attr !== false) {
 					secselect_target = $('[rel="'+type+'"]');
@@ -640,70 +661,7 @@
 		},
 
 
-		re_index_meta_items:function(){
-			$.each(
-			   $(".adverse_events").closest('ul').find("li[data-taxorder]"),
-			   function(i){
-					$(this).data('taxorder',i);
-					$.each($(this).find("input,select:not([name=''])"),function(){
-						//var name = $(this).attr('name');
-						$(this).attr('name', $(this).attr('name').split('[')[0]+"["+i+"]");
-					}); 
-				}
-			);
-		},
-		controll_meta_items:function(){
-			$('.remove').hover(function(){$(this).removeClass('red');},function(){$(this).addClass('red');});
-			$('.remove').on("click",function(){
-				var container = $(this).closest('li');
-				var option = container.find('[name^="option"]').val();
-				$(".adverse_events option[value='"+option+"']").removeAttr("disabled");
-				container.fadeOut(function(){ $(this).remove(); });
-			});
-			$.chai.core.util.re_index_meta_items();
-		},
 
-		activate_adverse_ui:function (){
-			$(".adverse_events").on("change", function(){
-				var selected = $(this).val();
-				
-				var selected_obj = $(this).find('option[value="'+selected+'"]');
-				
-				if(selected_obj.is('.add')){
-					return;	
-				}
-				
-				var container = $(this).closest('ul');
-				
-				var baseid = selected_obj.data('baseid');
-				var content = selected_obj.data('content');
-				var alias = selected_obj.data('alias');
-				
-				
-				//this works by
-				//tax is picked. 
-				//the tax, since it's a base id can have a child.
-				//that child is the 
-				
-				var is_none = alias ==="none"?"":"required";
-				
-				container.append(
-					 '<li data-taxorder="9999" data-name="'+selected_obj.val()+'">'+
-						'<i class="icon-remove-circle red right remove"></i>'+
-						 '<label>'+ selected_obj.text() +' <i class="icon-question-sign blue" title="'+ content +'"></i>'+
-						 '</label>'+
-						 '<input type="'+(alias ==="none"?"hidden":"text")+'" name="value[9999]" id="" '+is_none+' value=""/>'+//child
-						 '<input type="hidden" name="option_key[9999]" value="'+baseid+'" />'+//tax_id
-					 '</li>'
-				);
-				selected_obj.attr("disabled",true);
-				$(this).val("");
-				$.chai.core.util.controll_meta_items();
-				$.chai.core.util.re_index_meta_items();
-				$.chai.core.util.make_maskes();
-			});
-			$.chai.core.util.controll_meta_items();
-		},
 
 		get_table_ids:function (datagrid){
 			var inlist ="";
@@ -869,7 +827,7 @@
 							});
 						});
 					});
-			},
+			},	
 	};
 
 })(jQuery);

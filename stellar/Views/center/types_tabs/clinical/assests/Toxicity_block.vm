@@ -27,7 +27,7 @@
 				#set($adverse_events_severe = $postingService.get_taxonomies("adverse_events_severe"))
 				<ul class="grid col-one-half mq2-col-full full-input">
 #* max_dose *#
-					<li>
+					<li style="padding: 15px 10px;">>
 						<label for="max_dose">Adverse Events, Objective: #*<i class="icon-question-sign blue" title=""></i>*#</label>
 						<select name="" id="adverse_events_severe" class="adverse_events taxed" >
 							<option value="">Add an event</option> 

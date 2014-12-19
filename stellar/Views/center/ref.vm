@@ -29,12 +29,12 @@
 		</thead>
 		<tbody>
 			#foreach($part in $item.references)
-			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code" data-baseid="$item.baseid">
+			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code" data-baseid="$part.baseid">
 				<td><input type="hidden" name="references[$velocityCount].baseid" value="$part.baseid" class="drug_item"/>$!part.baseid</td>
 				<td>$!part.get_meta("ref_type")</td>
 				<td class="no_overflow">$!part.name</td>
 				<td class="no_overflow"><a href="#if($!part.url)$!part.url#else $!part.static_file #end" target="_blank">#if($item.static_file)<i class="icon-download-alt"></i>#else<i class="icon-external-link-sign"></i>#end #if($!part.url)$!part.url#else $!part.static_file #end</a></td>
-			  #if(!$viewonly)<td><a href="reference.castle?id=$part.baseid" class="button small inline_edit" data-type="substance"><i class="icon-edit" title="Edit"></i></a> | <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
+			  #if(!$viewonly)<td><a href="reference.castle?id=$part.baseid" class="button small ref_inline_edit" data-type="$type"><i class="icon-edit" title="Edit"></i></a> | <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
 			  
 			   <button class="ref_text" data-clipboard-text="#{{REF $!part.baseid}}" title="Click to copy me.">Copy Ref</button>
     
@@ -47,7 +47,7 @@
 		<tfoot>
 		</tfoot>
 	  </table>
-	  #if(!$viewonly)<a href="#" class="button add_to_list" data-type="reference"><i class="icon-plus blue" title="Add"></i> Add a $type reference</a>
+	  #if(!$viewonly)<a href="#" class="button ref_form" data-type="reference"><i class="icon-plus blue" title="Add"></i> Add a $type reference</a>
 	  #end
 	   </li>
   </ul>

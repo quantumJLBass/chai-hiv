@@ -124,7 +124,7 @@
 				#parse("center/assests/save_bar.vm")	
 			</ul>	
 			#if(!$skiplayout && $item.baseid>0)
-				#set($type="regimen")
+				#set($type="trail")
 				#parse("center/ref.vm")
 			#end			
 		</form>

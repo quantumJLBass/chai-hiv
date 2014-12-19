@@ -623,9 +623,12 @@ namespace stellar.Controllers {
                 
             }
             if (ajax) {
+
                 CancelLayout();
+                Response.ContentType = "application/json; charset=UTF-8";
                 if (taxonomy.baseid>0){
-                    RenderText("{\"state\":\"true\",\"name\":\"" + taxonomy.name + "\",\"alias\":\"" + taxonomy.alias + "\"}");
+
+                    RenderText("{\"state\":\"true\",\"baseid\":\"" + taxonomy.baseid + "\",\"name\":\"" + taxonomy.name + "\",\"alias\":\"" + taxonomy.alias + "\"}");
                 }else{
                     RenderText("{\"state\":\"false\"}");
                 }

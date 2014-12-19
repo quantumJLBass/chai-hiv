@@ -8,7 +8,7 @@ $.chai.form_base = {
 		$.chai.core.util.apply_tax_request();
 		$.chai.core.util.apply_taxed_add();
 		$.chai.core.util.apply_a_taxed_add();
-		$.chai.core.util.activate_adverse_ui();
+		$.chai.clinical.activate_adverse_ui();
 		$.chai.core.util.make_dataTables();
 
 		$('option.add_item').on('click',function(e){

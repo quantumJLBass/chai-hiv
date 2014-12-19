@@ -125,8 +125,8 @@
 					#set($adverse_events = $postingService.get_taxonomies("adverse_events"))
 					<ul class="grid col-one-half mq2-col-full full-input">
 						#* max_dose *#
-						<li>
-							<label for="max_dose">Adverse Events, Subjective: #*<i class="icon-question-sign blue" title=""></i>*#</label>
+							<li style="padding: 15px 10px;">
+								<label for="max_dose">Adverse Events, Subjective:</label>
 								<select name="" id="adverse_events" class="adverse_events taxed" >
 									<option value="">Add an event</option> 
 									#foreach($part in $adverse_events)

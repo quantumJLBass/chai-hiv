@@ -216,7 +216,7 @@ $Controller.feilds("select","drug_family","dose_form", "", $dose_forms, "","",""
 		#end
 		
 		#if(!$skiplayout && $item.baseid>0)
-			#set($type="drug")
+			#set($type="family")
 			#parse("center/ref.vm")
 		#end
 

@@ -127,15 +127,25 @@ namespace stellar.Controllers {
             PropertyBag["items"] = ActiveRecordBase<reference>.FindAll().Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()));
             RenderView("references");
         }
+
+        /// <summary> </summary>
+        public static int make_reference_tmp() {
+            reference tmp = new reference();
+            tmp.tmp = true;
+            appuser user = userService.getUserFull();
+            tmp.editing = user;
+            ActiveRecordMediator<reference>.Save(tmp);
+            return tmp.baseid;
+        }
         /// <summary> </summary>
         public void reference(int id, Boolean skiplayout, String typed_ref) {
             //do the auth
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
+            if (id <= 0) id = make_reference_tmp();
             if (!String.IsNullOrWhiteSpace(typed_ref)) PropertyBag["type"] = typed_ref;
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<reference>.Find(id);
-
             RenderView("reference");
         }
 
@@ -1638,6 +1648,7 @@ namespace stellar.Controllers {
             }
             if (ajax) {
                 CancelLayout();
+                Response.ContentType = "application/json; charset=UTF-8";
                 if (taxonomy.baseid > 0) {
                     RenderText("{\"state\":\"true\",\"baseid\":\"" + taxonomy.baseid + "\",\"name\":\"" + taxonomy.name + "\",\"alias\":\"" + taxonomy.alias + "\"}");
                 } else {

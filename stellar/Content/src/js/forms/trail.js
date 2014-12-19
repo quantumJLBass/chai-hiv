@@ -3,7 +3,7 @@ $.chai.trial = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
 		$.chai.form_base.ini();
-		
+		$.chai.reference.ref_popup_primer();
 		$.chai.trial.trial_arm_primer();
 		$('.trial_inline_edit').on('click',function(e){
 			e.preventDefault();
