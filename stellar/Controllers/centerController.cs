@@ -57,8 +57,6 @@ using System.DirectoryServices.Protocols;
 using System.DirectoryServices.AccountManagement;
 using Castle.MonoRail.Framework.Helpers;
 #endregion
-
-
 namespace stellar.Controllers {
     /// <summary> </summary>
     [Layout("simple")]
@@ -68,7 +66,7 @@ namespace stellar.Controllers {
         //usr = user name
         //pwd = user password
 
-
+        #region(Page Actions *sign in/out etc*)
         /// <summary> </summary>
         public void home() {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -94,26 +92,7 @@ namespace stellar.Controllers {
             logout_user();
             Redirect("center", "login", new Hashtable());
         }
-
-        /// <summary> </summary>
-        public Boolean is_pubview(Boolean pub) {
-            if (context().Request.QueryString["pub"] == null) {
-                HttpCookie myCookie = context().Request.Cookies["hivpubview"];
-                // Read the cookie information and display it.
-                if (myCookie != null) {
-                    pub = Convert.ToBoolean(myCookie.Value);
-                } else {
-                    pub = true;
-                }
-            }
-            HttpCookie veiwonlyCookie = context().Request.Cookies["hivviewonly"];
-            if (veiwonlyCookie != null) {
-                Boolean veiwonly=Convert.ToBoolean(veiwonlyCookie.Value);
-                if (veiwonly) pub = true;
-            }
-            return pub;
-        }
-
+        #endregion
         #region(references)
         /// <summary> </summary>
         public void references(Boolean skiplayout, String exclude, Boolean pub) {
@@ -1305,10 +1284,8 @@ namespace stellar.Controllers {
     }
 
         #endregion
-
-
-
-         /// <summary> </summary>
+        #region(Reports)
+        /// <summary> </summary>
         public void reports() {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             List<user_meta_data> data = ActiveRecordBase<user_meta_data>.FindAll().Where(x => x.meta_key.Contains("sql_") && !x.meta_key.Contains("__name") ).ToList();
@@ -1500,9 +1477,8 @@ namespace stellar.Controllers {
 
             //RenderView("reports");
         }
-
-
-
+        #endregion
+        #region(Trash services)
         /// <summary> </summary>
         public void delete_post<t>(int id) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -1558,16 +1534,8 @@ namespace stellar.Controllers {
             CancelLayout();
             RedirectToAction("trashbin");
         }
-
-
-
-
-
-
-
-
-
-
+        #endregion
+        #region(taxonomy)
         /// <summary> </summary>
         public void get_taxonomies(String tax, String exclude, string callback) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
@@ -1658,22 +1626,26 @@ namespace stellar.Controllers {
             }
             RedirectToAction("taxonomy");
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        #endregion
+        #region(UI/Display helpers)
+        /// <summary> </summary>
+        public Boolean is_pubview(Boolean pub) {
+            if (context().Request.QueryString["pub"] == null) {
+                HttpCookie myCookie = context().Request.Cookies["hivpubview"];
+                // Read the cookie information and display it.
+                if (myCookie != null) {
+                    pub = Convert.ToBoolean(myCookie.Value);
+                } else {
+                    pub = true;
+                }
+            }
+            HttpCookie veiwonlyCookie = context().Request.Cookies["hivviewonly"];
+            if (veiwonlyCookie != null) {
+                Boolean veiwonly = Convert.ToBoolean(veiwonlyCookie.Value);
+                if (veiwonly) pub = true;
+            }
+            return pub;
+        }
         /// <summary> </summary>
         public Boolean is_viewonly() {
 
@@ -1732,9 +1704,8 @@ namespace stellar.Controllers {
 
             return html;
         }
-
-
-
+        #endregion
+        #region(Feild helpers)
         /// <summary> </summary>
         public string feilds(string formfeild, string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
             return feilds(formfeild, datatype, model_prop, value, "", custom_lable, placeholder, html_class, html_attr);
@@ -1885,6 +1856,6 @@ namespace stellar.Controllers {
             }
             return html;
         }
-
+        #endregion
     }
 }
