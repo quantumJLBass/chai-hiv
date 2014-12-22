@@ -149,7 +149,7 @@ $subd.abbreviated
 				#end
 				  
 				  
-				 	<span style="font-size:16px; font-weight:bold; color:#760A0B;"><i>( this drug product orphaned, choose its family ) 
+				 	<span style="font-size:16px; font-weight:bold; color:#760A0B;"><i>( this drug product has been orphaned, choose its family ) 
 				 $Controller.feilds("select","family","families.baseid", "", $family_items,"","","","") 
 				  </i></span>
 				  

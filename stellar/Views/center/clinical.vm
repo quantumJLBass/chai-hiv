@@ -31,14 +31,15 @@
 
 #capturefor(trial_items)
 #foreach($trial in $trials)
-$!trial.title ($!trial.number) => $trial.baseid
+$!trial.number
+#if($trial.title) &nbsp;-&nbsp;(&nbsp;$htmlService.truncate($!trial.title.Replace(',',' '), 50, "", "...") &nbsp;)#end  => $trial.baseid
 #between
 ,
 #end
 #end
 				  
 				  
-				 	<span style="font-size:16px; font-weight:bold; color:#760A0B;"><i>( this trial arm orphaned, choose its trial ) 
+				 	<span style="font-size:16px; font-weight:bold; color:#760A0B;"><i>( this trial arm has been orphaned, choose its trial ) 
 				 $Controller.feilds("select","trial","trials.baseid", "", $trial_items,"","","","") 
 				  </i></span>
 				  

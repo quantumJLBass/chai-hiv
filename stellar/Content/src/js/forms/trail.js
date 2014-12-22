@@ -100,7 +100,7 @@ $.chai.trial = {
 									
 									var tableData = [];
 									var baseid = form.find('[name="item.baseid"]').val();
-									if(baseid<=0){
+									if($("#trial_arms.tab_content .dataTable [value='"+baseid+"']").length<=0){
 										var html =  baseid+ '<input type="hidden" name="trial_arms['+count+'].baseid" value="'+baseid+'" class="list_item drug_item">';
 										tableData.push( html );
 										tableData.push( form.find('[name="item.name"]').val() );
@@ -117,8 +117,7 @@ $.chai.trial = {
 											datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
 										});
 									});
-									$( "#trial_arm_form" ).dialog( "destroy" );
-									$( "#trial_arm_form" ).remove();
+									$.chai.core.util.close_dialog_modle($( "#trial_arm_form" ));
 								});
 							}
 						});	

@@ -1761,3 +1761,10 @@ h2, h3 {
 /* -------------------------------------------------------------
 ======	END
 ------------------------------------------------------------- */
+[name="item.trials.baseid"] option{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 50%;
+	overflow: hidden;
+	display: block;
+}
