@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 using System.Text;
 using System.Net.Sockets;
 using System.Web.Mail;
+using System.Web.Script.Serialization;
 using stellar.Services;
 
 using System.CodeDom;
@@ -1718,6 +1719,33 @@ namespace stellar.Controllers {
         }
         #endregion
         #region(Feild helpers)
+
+        /// <summary> </summary>
+        public string feilds(string formfeild, string options) {
+            String html = "";
+            if (options.IndexOf('{') < 0) {
+                options = "{" + options + "}";
+            }
+            switch (formfeild) {
+                case "text": {
+                        html = feild_textinput(options); break;
+                    }
+                case "hidden": {
+                        html = feild_hiddeninput(options); break;
+                    }
+                case "textarea": {
+                        html = feild_textarea(options); break;
+                    }
+                case "select": {
+                        html = ""; break;//feild_select(options); break;
+                    }
+
+            }
+
+            return html;
+        }
+
+
         /// <summary> </summary>
         public string feilds(string formfeild, string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {
             return feilds(formfeild, datatype, model_prop, value, "", custom_lable, placeholder, html_class, html_attr);
@@ -1741,6 +1769,141 @@ namespace stellar.Controllers {
 
             return html;
         }
+        /// <summary> </summary>
+        public string feild_hiddeninput(string options) {
+            //var option_obj = JObject.Parse(options).ToDictionary<String,String>();
+            Dictionary<String, String> option_obj = JsonConvert.DeserializeObject<Dictionary<String, String>>(options);
+            String datatype = option_obj.ContainsKey("datatype") ? option_obj["datatype"] : "";
+            String objectName = option_obj.ContainsKey("objectName") ? option_obj["objectName"] : "";
+            String model_prop = option_obj.ContainsKey("model_prop") ? option_obj["model_prop"] : "";
+            String value = option_obj.ContainsKey("value") ? option_obj["value"] : "";
+            String html_attr = option_obj.ContainsKey("html_attr") ? option_obj["html_attr"] : "";
+            Boolean viewOnly_visable = option_obj.ContainsKey("viewOnly_visable") ? Convert.ToBoolean(option_obj["viewOnly_visable"]) : false;
+
+            String html = "";
+            String lable = "";
+            String field_helper = "";
+            String feild_name = "";
+
+            if (is_viewonly() && viewOnly_visable) {
+                taxonomy feildObj = null;
+                if (!String.IsNullOrWhiteSpace(datatype)) {
+                    feildObj = postingService.get_taxonomy(datatype, model_prop, "SYSTEM__feild_helpers");
+                }
+                if (feildObj != null) {
+                    if (feildObj.content != null && feildObj.content != "") {
+                        field_helper = "<i class='icon-question-sign blue' title='" + feildObj.content + "'></i>";
+                    }
+                    if (feildObj.name != null && feildObj.name != "") {
+                        lable = feildObj.name + ": ";
+                    }
+                }
+                html = "<label >" + lable + field_helper + "</label> " + value;
+            } else {
+                feild_name = objectName + (String.IsNullOrWhiteSpace(model_prop) ? "" : "." + model_prop);
+                value = (value != "" && value != "System.String[]") ? "value='" + value + "'" : "";
+                html = "<input type='hidden' name='" + feild_name + "' id='" + model_prop + "' " + value + " " + html_attr + " />";
+            }
+            return html;
+        }
+        /// <summary> </summary>
+        public string feild_textinput(string options) {
+            //var option_obj = JObject.Parse(options).ToDictionary<String,String>();
+            Dictionary<String, String> option_obj = JsonConvert.DeserializeObject<Dictionary<String, String>>(options);
+            String datatype = option_obj.ContainsKey("datatype") ? option_obj["datatype"] : "" ;
+            String objectName = option_obj.ContainsKey("objectName") ? option_obj["objectName"] : "";
+            String model_prop = option_obj.ContainsKey("model_prop") ? option_obj["model_prop"] : "";
+            String value = option_obj.ContainsKey("value") ? option_obj["value"] : "";
+            String custom_lable = option_obj.ContainsKey("custom_lable") ? option_obj["custom_lable"] : "";
+            String placeholder = option_obj.ContainsKey("placeholder") ? option_obj["placeholder"] : "";
+            String html_class = option_obj.ContainsKey("html_class") ? option_obj["html_class"] : "";
+            String html_attr = option_obj.ContainsKey("html_attr") ? option_obj["html_attr"] : "";
+
+            String html = "";
+            String lable = "";
+            String field_helper = "";
+            String feild_name = "";
+
+            taxonomy feildObj = null;
+            if (!String.IsNullOrWhiteSpace(datatype)) {
+                 feildObj = postingService.get_taxonomy(datatype, model_prop, "SYSTEM__feild_helpers");
+            }
+            if (feildObj != null) {
+                if (feildObj.content != null && feildObj.content != "") {
+                    field_helper = "<i class='icon-question-sign blue' title='" + feildObj.content + "'></i>";
+                }
+                if (feildObj.name != null && feildObj.name != "") {
+                    lable = feildObj.name + ": ";
+                }
+            }
+            if (custom_lable != "") {
+                lable = custom_lable + ": ";
+            }
+
+            if (is_viewonly()) {
+                html = "<label >" + lable + field_helper + "</label> " + value;
+            } else {
+                feild_name = objectName + (String.IsNullOrWhiteSpace(model_prop) ? "" : "." + model_prop);
+                placeholder = (placeholder != "") ? "placeholder='" + placeholder + "'" : "";
+                html_class = (html_class != "") ? "class='" + html_class + "'" : "";
+                value = (value != "" && value != "System.String[]") ? "value='" + value + "'" : "";
+
+                html = "<label for='" + model_prop + "'>" + lable + field_helper + "</label>" +
+                "<input type='text' name='" + feild_name + "' id='" + model_prop + "' " + placeholder + " " + html_class + " " + value + " " + html_attr + " />";
+            }
+            return html;
+        }
+        /// <summary> </summary>
+        public string feild_textarea(string options) {
+
+            Dictionary<String, String> option_obj = JsonConvert.DeserializeObject<Dictionary<String, String>>(options);
+            String datatype = option_obj.ContainsKey("datatype") ? option_obj["datatype"] : "";
+            String objectName = option_obj.ContainsKey("objectName") ? option_obj["objectName"] : "";
+            String model_prop = option_obj.ContainsKey("model_prop") ? option_obj["model_prop"] : "";
+            String value = option_obj.ContainsKey("value") ? option_obj["value"] : "";
+            String custom_lable = option_obj.ContainsKey("custom_lable") ? option_obj["custom_lable"] : "";
+            String placeholder = option_obj.ContainsKey("placeholder") ? option_obj["placeholder"] : "";
+            String html_class = option_obj.ContainsKey("html_class") ? option_obj["html_class"] : "";
+            String html_attr = option_obj.ContainsKey("html_attr") ? option_obj["html_attr"] : "";
+
+            String html = "";
+            String lable = "";
+            String field_helper = "";
+            String feild_name = "";
+
+            taxonomy feildObj = null;
+            if (!String.IsNullOrWhiteSpace(datatype)) {
+                feildObj = postingService.get_taxonomy(datatype, model_prop, "SYSTEM__feild_helpers");
+            }
+
+            if (feildObj != null) {
+                if (feildObj.content != null && feildObj.content != "") {
+                    field_helper = "<i class='icon-question-sign blue' title='" + feildObj.content + "'></i>";
+                }
+                if (feildObj.name != null && feildObj.name != "") {
+                    lable = feildObj.name + ": ";
+                }
+            }
+            if (custom_lable != "") {
+                lable = custom_lable + ": ";
+            }
+
+            if (is_viewonly()) {
+                html = "<label >" + lable + field_helper + "</label> " + value;
+            } else {
+                feild_name = objectName + (String.IsNullOrWhiteSpace(model_prop) ? "" : "." + model_prop);
+                placeholder = (placeholder != "") ? "placeholder='" + placeholder + "'" : "";
+                html_class = (html_class != "") ? "class='" + html_class + "'" : "";
+                value = (value != "" && value != "System.String[]") ? "" + value + "" : "";
+
+                html = "<label for='" + model_prop + "'>" + lable + field_helper + "</label>" +
+                "<textarea name='" + feild_name + "' id='" + model_prop + "' " + placeholder + " " + html_class + " " + html_attr + " >" + value + "</textarea>";
+            }
+            return html;
+        }
+
+
+
 
         /// <summary> </summary>
         public string feild_textinput(string datatype, string model_prop, string value, string custom_lable, string placeholder, string html_class, string html_attr) {

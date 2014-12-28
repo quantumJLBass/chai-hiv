@@ -26,7 +26,10 @@
 				</tr>-->
 			#foreach($part in $item.interactions)
 				<tr class=""  data-baseid="$part.baseid">
-					<td><input type="hidden" name="interactions[$velocityCount].id" value="$!part.id"/>
+					<td><!--<input type="hidden" name="interactions[$velocityCount].id" value="$!part.id"/>-->
+					$Controller.feilds("hidden","{'objectName':'interactions[$velocityCount]', 'model_prop':'id', 'value':'$!part.id' }") 
+					
+					
 						<select name="interactions[$velocityCount].substance"  id="ddi_only_$velocityCount"><option value="">Select</option></select>
 					</td>
 					<td>$Controller.feilds("select","interactions[$velocityCount]","yes_no", $!part.yes_no , "Yes=>yes,No=>no","","","","")</td>
@@ -35,11 +38,17 @@
 					
 					
 					
-					<td><input type="text" name="interactions[$velocityCount].dose_amount" value="$!part.dose_amount" style="width:100%"/></td>
-					<td><textarea placeholder="Describe the interaction between the two drugs" name="interactions[$velocityCount].descriptions"  rows="1">$!part.descriptions</textarea></td>
+					<td>
+					$Controller.feilds("textinput","{'objectName':'interactions[$velocityCount]', 'model_prop':'dose_amount', 'value':'$!part.dose_amount', 'html_attr':' style=\"width:100%\" '}") 
+					
+					
+					<!--<input type="text" name="interactions[$velocityCount].dose_amount" value="$!part.dose_amount" style="width:100%"/>--></td>
+					<td>
+					$Controller.feilds("textarea","{'objectName':'interactions[$velocityCount]', 'model_prop':'descriptions', 'value':'$!part.descriptions', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}") 
+					<!--<textarea placeholder="Describe the interaction between the two drugs" name="interactions[$velocityCount].descriptions"  rows="1">$!part.descriptions</textarea>--></td>
 					<td>
 					#if($viewonly) #else 
-					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
+					<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
 					#end
 					</td>
 				</tr>
