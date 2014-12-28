@@ -2122,8 +2122,7 @@ $.chai.drug = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
 		$.chai.form_base.ini();
-		
-		
+
 		$("select[name*='inactive_ingredients[]']").on("change",function(){
 			var sel="";
 			$.each($(this).find(':selected'),function(i){
@@ -2176,8 +2175,19 @@ $.chai.drug = {
 		});
 		$.chai.drug.setup_ddi_ui();
 	},
-	
+	apply_ddi_removal:function(){
+		$("#ddi tbody .removal").off().on("click",function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			var targetrow = $(this).closest("tr");
+			var datatable = $(this).closest('.dataTable').dataTable();
+			targetrow.fadeOut( "75" ,function(){ 
+				datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
+			});
+		});
+	},
 	setup_ddi_ui:function(){
+		$.chai.drug.apply_ddi_removal();
 		$('#drug_interaction').on("click",function(e){
 			e.preventDefault();
 			e.stopPropagation();
@@ -2222,18 +2232,9 @@ $.chai.drug = {
 				$.each(data,function(i,v){
 					$('#ddi_only_'+count).append("<option value='"+v.baseid+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-abbreviated='"+v.abbreviated+"'   >"+v.name+" ( "+v.abbreviated+" )</option>");
 				});
-			});	
-			
-			$("#ddi tbody .removal").off().on("click",function(e){
-				e.preventDefault();
-				e.stopPropagation();
-				var targetrow = $(this).closest("tr");
-				var datatable = $(this).closest('.dataTable').dataTable();
-				targetrow.fadeOut( "75" ,function(){ 
-					datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-				});
 			});
-		});	
+			$.chai.drug.apply_ddi_removal();
+		});
 	}
 	
 	
