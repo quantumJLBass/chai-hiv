@@ -25,14 +25,20 @@
 					</td>
 				</tr>-->
 			#foreach($part in $item.interactions)
-				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
-					<td> </td>
-					<td> </td>
-					<td> </td>
-					<td> </td>
+				<tr class=""  data-baseid="$part.baseid">
+					<td><input type="hidden" name="interactions[$velocityCount].id" value="$!part.id"/>
+						<select name="interactions[$velocityCount].substance"  id="ddi_only_$velocityCount"><option value="">Select</option></select>
+					</td>
+					<td>$Controller.feilds("select","interactions[$velocityCount]","yes_no", $!part.yes_no , "Yes=>yes,No=>no","","","","")</td>
+					<!--<select name="interaction.yes_no"><option value="yes">Yes</option><option value="no">No</option></select>-->
+					
+					
+					
+					
+					<td><input type="text" name="interactions[$velocityCount].dose_amount" value="$!part.dose_amount" style="width:100%"/></td>
+					<td><textarea placeholder="Describe the interaction between the two drugs" name="interactions[$velocityCount].descriptions"  rows="1">$!part.descriptions</textarea></td>
 					<td>
-					#if($viewonly) #else
-					<a href="ddi.castle?id=$item.baseid&skiplayout=1" class="button small inline_edit"  data-type="drug"><i class="icon-edit" title="Edit"></i></a> | 
+					#if($viewonly) #else 
 					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
 					#end
 					</td>

@@ -917,6 +917,7 @@ namespace stellar.Controllers {
         public void savedrug([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug item,
             [ARDataBind("lmics", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_lmic[] lmics,
             [ARDataBind("markets", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_market[] markets,
+            [ARDataBind("interactions", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_interaction[] interactions,
             String label_claim,
             Boolean ajaxed_update,
             Boolean json,
@@ -952,6 +953,17 @@ namespace stellar.Controllers {
                     if (!item.lmics.Contains(lmic)) {
                         item.lmics.Add(lmic);
                     }
+                }
+            }
+            if (item.interactions != null) {
+                item.interactions.Clear();
+            }
+            foreach (drug_interaction interaction in interactions) {
+                if (interaction.id == 0) {
+                    ActiveRecordMediator<drug_interaction>.Save(interaction);
+                }
+                if (!item.interactions.Contains(interaction)) {
+                    item.interactions.Add(interaction);
                 }
             }
 

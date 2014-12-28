@@ -29,10 +29,12 @@
 			#foreach($part in $item.interactions)
 				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
 					<td> </td>
-					<td> </td>
-					<td> </td>
-					<td> </td>
-					<td> </td>
+					<td><input type="hidden" name="'+input_name+'.id" value="0"/>
+						<select name="'+input_name+'.substance"  id="ddi_only_$velocityCount"><option value="">Select</option></select>
+					</td>
+					<td><select name="'+input_name+'.yes_no"><option value="yes">Yes</option><option value="no">No</option></select></td>
+					<td><input type="text" name="'+input_name+'.dose_amount" value="" style="width:100%"/></td>
+					<td><textarea placeholder="Describe the interaction between the two drugs" name="'+input_name+'.descriptions"  rows="1"></textarea></td>
 					<td>
 					#if($viewonly) #else
 					<a href="ddi.castle?id=$item.baseid&skiplayout=1" class="button small inline_edit"  data-type="drug"><i class="icon-edit" title="Edit"></i></a> | 

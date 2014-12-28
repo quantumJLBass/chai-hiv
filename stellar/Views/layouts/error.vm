@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		
 		<title>Sorry, but there is an issue.</title>
-
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 		$scriptsService.Css("colorbox.css,error.css")
 <style>
 html {
@@ -33,14 +33,14 @@ h1 {
 	color: #9e1b32;
 	padding: 10px 300px 10px 0px;
 	text-transform: uppercase;
-	font: normal 72px/70px 'SteelfishExtraBold', Arial, sans-serif;
+	font: normal 72px/70px 'Open Sans Condensed', sans-serif;
 	margin: 0px;
 }
 h2 {
 	color: #9e1b32;
 	padding: 10px 380px 10px 0px;
 	text-transform: uppercase;
-	font: normal 32px/30px 'SteelfishExtraBold', Arial, sans-serif;
+	font: normal 32px/30px 'Open Sans Condensed', sans-serif;
 	margin: 0px;
 }
 a {
@@ -106,12 +106,6 @@ li {
 }
 img {
 	padding: 40px 0px 0px;
-}
-@font-face {
-	font-family: 'SteelfishExtraBold';
-	src: url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.eot?') format('eot'), url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.woff') format('woff'), url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.ttf') format('truetype'), url('http://images.wsu.edu/fonts/Steelfish/steelfish_eb-webfont.svg#webfont') format('svg');
-	font-weight: normal;
-	font-style: normal;
 }
 </style>
 	</head>
