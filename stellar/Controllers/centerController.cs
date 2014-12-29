@@ -719,16 +719,34 @@ namespace stellar.Controllers {
 
             item.drugs.Clear();
             foreach (drug drug in drugs) {
-                //if (drug.attached) {
-                    if (!item.drugs.Any(x => x.baseid == drug.baseid)) { 
-                        item.drugs.Add(drug);
+                if (!item.drugs.Any(x => x.baseid == drug.baseid)) {
+                    item.drugs.Add(drug);
+
+
+                    if (drug.interactions != null) {
+                        drug.interactions.Clear();
                     }
-                // }
+
+                    foreach (drug_interaction interaction in interactions) {
+                        /* foreach (drug drug in drugs) {
+
+                         }*/
+                        if (interaction.drug.baseid == drug.baseid) { 
+                            if (interaction.id == 0) {
+                                ActiveRecordMediator<drug_interaction>.Save(interaction);
+                            }
+                            if (!drug.interactions.Contains(interaction)) {
+                                drug.interactions.Add(interaction);
+                            }
+                        }
+                    }
+                    ActiveRecordMediator<drug>.Save(drug);
+
+
+                }
             }
 
-            foreach (drug_interaction interaction in interactions) {
-                ActiveRecordMediator<drug_interaction>.Save(interaction);
-            }
+
             /*
             item.markets.Clear();
             foreach (drug_market market in markets) {

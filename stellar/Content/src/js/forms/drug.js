@@ -84,7 +84,7 @@ $.chai.drug = {
 			
 			if(family_list){
 				input_name = 'interactions['+(count)+']';
-				html = '<select name="'+input_name+'.drug" id="drpr_'+count+'"><option value="">Select</option></select>';
+				html = '<select name="'+input_name+'.drug.baseid" id="drpr_'+count+'"><option value="">Select</option></select>';
 				tableData.push( html );
 			}
 			

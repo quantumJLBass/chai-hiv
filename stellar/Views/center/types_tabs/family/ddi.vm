@@ -39,7 +39,7 @@ $drug.dose_form -- $!drug.name ( $drug.manufacturer | $drug.label_claim ) => $dr
 			<tr class=""  data-baseid="$part.baseid">
 				<td>
 				
-				$Controller.feilds("select","{'objectName':'interactions[$i]', 'model_prop':'drug', 'value':'$!part.drug.baseid', 'select_options':'$drugs_list'}")
+				$Controller.feilds("select","{'objectName':'interactions[$i]', 'model_prop':'drug.baseid', 'value':'$!part.drug.baseid', 'select_options':'$drugs_list'}")
 				
 				</td>
 				<td>
@@ -84,6 +84,7 @@ $!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) =>
 	</tbody>
 	<tfoot>
 		<tr>
+			<th width="15%"></th>
 			<th width="15%"></th>
 			<th width="15%"></th>
 			<th width="15%"></th>
