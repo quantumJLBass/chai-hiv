@@ -635,7 +635,7 @@ namespace stellar.Controllers {
 
                 PropertyBag["item"] = fam;
 
-                
+                               
 
                 List<substance> substances = new List<substance>();
                 substances.AddRange(fam.substances);
@@ -644,7 +644,10 @@ namespace stellar.Controllers {
                     PropertyBag["substances"] = substances;
                 }
 
+                IList<substance> ddisubstances = ActiveRecordBase<substance>.FindAll();
 
+                PropertyBag["ddi_only"] = ddisubstances.Where(x => !x.tmp && !x.deleted && x.for_ddi == "yes").ToList();
+                PropertyBag["ddisubstances"] = ddisubstances.Where(x => !x.tmp && !x.deleted && x.for_ddi != "yes").ToList();
             }
 
             RenderView("family");
@@ -689,6 +692,7 @@ namespace stellar.Controllers {
             [ARDataBind("family_substance", Validate = true, AutoLoad = AutoLoadBehavior.OnlyNested)]family_substance[] family_substance,
             [ARDataBind("substances", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance[] substances,
             [ARDataBind("drugs", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug[] drugs,
+            [ARDataBind("interactions", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_interaction[] interactions,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -722,7 +726,9 @@ namespace stellar.Controllers {
                 // }
             }
 
-            
+            foreach (drug_interaction interaction in interactions) {
+                ActiveRecordMediator<drug_interaction>.Save(interaction);
+            }
             /*
             item.markets.Clear();
             foreach (drug_market market in markets) {
@@ -845,6 +851,7 @@ namespace stellar.Controllers {
                     // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
                     json_str += @"""name"":""" + item.name + @""",";
                     json_str += @"""lab_code"":""" + item.lab_code + @""",";
+                    json_str += @"""form"":""" + item.dose_form + @""",";
                     // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
                     json_str += @"""label_claim"":""" + item.label_claim + @""",";
                     json_str += @"""manufacturer"":""" + item.manufacturer + @"""";
@@ -895,6 +902,14 @@ namespace stellar.Controllers {
             if (id <= 0) id = make_drug_tmp();
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<drug>.Find(id);
             PropertyBag["families"] = ActiveRecordBase<drug_family>.FindAll().Where(x => !x.deleted);
+
+
+            IList<substance> substances = ActiveRecordBase<substance>.FindAll();
+
+            PropertyBag["ddi_only"] = substances.Where(x => !x.tmp && !x.deleted && x.for_ddi == "yes").ToList();
+            PropertyBag["substances"] = substances.Where(x => !x.tmp && !x.deleted && x.for_ddi != "yes").ToList();
+
+
             RenderView("drug");
         }
 
@@ -1115,6 +1130,7 @@ namespace stellar.Controllers {
             foreach (substance sub in items) {
                 json_str += @""""+sub.baseid+@""":{";
                 json_str += @"""baseid"":"""+sub.baseid+@""",";
+                json_str += @"""ddi"":""" + sub.for_ddi + @""",";
                 // json_str += @"""fam_baseid"":""" + sub.families.First().family.baseid + @""",";
                 json_str += @"""name"":""" + postingService.get_taxonomy(sub.generic_name).name + @""",";
                 json_str += @"""abbreviated"":""" + sub.abbreviated + @"""";
@@ -1737,7 +1753,7 @@ namespace stellar.Controllers {
                         html = feild_textarea(options); break;
                     }
                 case "select": {
-                        html = ""; break;//feild_select(options); break;
+                        html = feild_select(options); break;
                     }
 
             }
@@ -1902,6 +1918,96 @@ namespace stellar.Controllers {
             return html;
         }
 
+        /// <summary> </summary>
+        public string feild_select(string options) {
+
+            Dictionary<String, String> option_obj = JsonConvert.DeserializeObject<Dictionary<String, String>>(options);
+            String datatype = option_obj.ContainsKey("datatype") ? option_obj["datatype"] : "";
+            String objectName = option_obj.ContainsKey("objectName") ? option_obj["objectName"] : "";
+            String model_prop = option_obj.ContainsKey("model_prop") ? option_obj["model_prop"] : "";
+            String value = option_obj.ContainsKey("value") ? option_obj["value"] : "";
+            String custom_lable = option_obj.ContainsKey("custom_lable") ? option_obj["custom_lable"] : "";
+            String select_options = option_obj.ContainsKey("select_options") ? option_obj["select_options"] : "";
+
+            String html_class = option_obj.ContainsKey("html_class") ? option_obj["html_class"] : "";
+            String html_attr = option_obj.ContainsKey("html_attr") ? option_obj["html_attr"] : "";
+
+
+            String html = "";
+            String lable = "";
+            String field_helper = "";
+            String feild_name = "";
+
+            taxonomy feildObj = null;
+            if (!String.IsNullOrWhiteSpace(datatype)) {
+                feildObj = postingService.get_taxonomy(datatype, model_prop, "SYSTEM__feild_helpers");
+            }
+            if (feildObj != null) {
+                if (feildObj.content != null && feildObj.content != "") {
+                    field_helper = "<i class='icon-question-sign blue' title='" + feildObj.content + "'></i>";
+                }
+                if (feildObj.name != null && feildObj.name != "") {
+                    lable = feildObj.name + ": ";
+                }
+            }
+            if (custom_lable != "") {
+                lable = custom_lable + ": ";
+            }
+            if (String.IsNullOrWhiteSpace(html_attr)) {
+                html_attr = " rel='' ";
+            }
+            if (is_viewonly()) {
+                html = "<label >" + lable + field_helper + "</label> " + value;
+            } else {
+                feild_name = objectName + (String.IsNullOrWhiteSpace(model_prop) ? "" : "." + model_prop);
+                html_class = (html_class != "") ? "class='" + html_class + "'" : "";
+                value = (value != "" && value != "System.String[]") ? "" + value + "" : "";
+
+
+                dynamic opts = objectService.explode(select_options);
+
+                html = "<label for='" + model_prop + "'>" + lable + field_helper + "</label>" +
+                        "<select name='" + feild_name + "' id='" + model_prop + "' " + html_class + " " + html_attr + " >" +
+                        "<option value=''>Select</option>";
+                foreach (dynamic part in opts) {
+                    dynamic selval = part.Trim();
+                    dynamic opt = part.Trim();
+
+                    bool optgroup_part = false;
+                    bool optgroup_start = false;
+                    bool optgroup_end = false;
+                    if (part.Contains("=>")) {
+                        dynamic opval = objectService.explode(part, "=>");
+                        if ( opval[0].Contains("optgroup_") ) {
+                            optgroup_part = true;
+                            if (opval[0].Contains("_start")) {
+                                optgroup_start = true;
+                            } else {
+                                optgroup_end = false;
+                            }
+                            selval = opval[1].Trim();
+                        }else{
+                            selval = opval[1].Trim();
+                            opt = opval[0].Trim();
+                        }
+                    }
+
+                    String selected = (!String.IsNullOrWhiteSpace(value) && value == selval) ? "selected" : "";
+                    if(optgroup_part){
+                        if (optgroup_start) {
+                            html += "<optgroup label='" + selval + "'>";
+                        } else {
+                            html += "</optgroup>";
+                        }
+                    }else{
+                        html += "<option value='" + selval + "' data='" + value + " -- " + selval + "' " + selected + " >" + opt + "</option>";
+                    }
+                }
+
+                html += "</select>";
+            }
+            return html;
+        }
 
 
 

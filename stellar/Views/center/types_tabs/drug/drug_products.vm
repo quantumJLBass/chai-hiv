@@ -19,7 +19,7 @@
 		<tbody>
 		#set($k=0)
 		#foreach($drug in $!item.drugs)
-			<tr>
+			<tr data-baseid="${drug.baseid}">
 				<td>${drug.dose_form}</td>
 				#if($drug.label_claim)
 					#set($label_claims = $objectService.explode($!drug.label_claim,":"))

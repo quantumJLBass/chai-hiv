@@ -2202,7 +2202,7 @@ $.chai.drug = {
 			
 			if(family_list){
 				input_name = 'interactions['+(count)+']';
-				html = '<input type="hidden" name="'+input_name+'.id" value="0"/><select name="'+input_name+'.substance" id="drpr_'+count+'"><option value="">Select</option></select>';
+				html = '<select name="'+input_name+'.drug" id="drpr_'+count+'"><option value="">Select</option></select>';
 				tableData.push( html );
 			}
 			
@@ -2221,16 +2221,33 @@ $.chai.drug = {
 			dataTable.dataTable().fnAddData( tableData );
 
 			if(family_list){
-				$.getJSON("/center/substances.castle?ddi_only=false&json=true&callback=?",function(data){
-					//alert("got data");
+				$.getJSON("/center/drugs.castle?json=true&callback=?",function(data){
 					$.each(data,function(i,v){
-						$('#drpr_'+count).append("<option value='"+v.baseid+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-abbreviated='"+v.abbreviated+"'   >"+v.name+" ( "+v.abbreviated+" )</option>");
+						if( $("[data-baseid='"+v.baseid+"']").length > 0 ){
+							$('#drpr_'+count).append("<option value='"+v.baseid+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-label_claim='"+v.label_claim+"' data-form='"+v.form+"' data-manufacturer='"+v.manufacturer+"'  >"+ v.form + " -- " + v.name+" ( "+v.manufacturer+" | "+v.label_claim+" )</option>");
+						}
 					});
 				});	
 			}
 			$.getJSON("/center/substances.castle?json=true&callback=?",function(data){
-				$.each(data,function(i,v){
-					$('#ddi_only_'+count).append("<option value='"+v.baseid+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-abbreviated='"+v.abbreviated+"'   >"+v.name+" ( "+v.abbreviated+" )</option>");
+				$('#ddi_only_'+count).append(function(){
+					var ophtml="";
+					ophtml+='<optgroup label="Drug Substances">';
+					$.each(data,function(i,v){
+						if(v.ddi!=="yes"){
+							ophtml+="<option value='"+v.baseid+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-abbreviated='"+v.abbreviated+"'   >"+v.name+" ( "+v.abbreviated+" )</option>";
+						}
+					});
+					ophtml+='</optgroup>';
+	
+					ophtml+='<optgroup label="DDI ONLY Substances">';
+					$.each(data,function(i,v){
+						if(v.ddi==="yes"){
+							ophtml+="<option value='"+v.baseid+"' data-baseid='"+v.baseid+"' data-name='"+v.name+"' data-abbreviated='"+v.abbreviated+"'   >"+v.name+" ( "+v.abbreviated+" )</option>";
+						}
+					});
+					ophtml+='</optgroup>';
+					return ophtml;
 				});
 			});
 			$.chai.drug.apply_ddi_removal();

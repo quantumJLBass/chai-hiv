@@ -1,67 +1,62 @@
 #* drugdata *#
-	#*#set($typed_list = $item.interactions)
-	#parse("center/model_tie_tables/interactions.vm")
-	*#
-	
-	<label for="DDIdata">Drug to Drug Interactions:</label>
-	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="DDIdata" width="100%">
-		<thead>
-			<tr>
-				<th width="15%">With this substance</th>
-				<th width="10%">Interactions</th>
-				<th width="10%">Amount</th>
-				<th>Description</th>
-				<th width="5%"></th>
+<label for="DDIdata">Drug to Drug Interactions:</label>
+<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="DDIdata" width="100%">
+	<thead>
+		<tr>
+			<th width="15%">With this substance</th>
+			<th width="10%">Interactions</th>
+			<th width="10%">Amount</th>
+			<th>Description</th>
+			<th width="5%"></th>
+		</tr>
+	</thead>
+	<tbody>
+		#foreach($part in $item.interactions)
+			<tr class=""  data-baseid="$part.baseid">
+				<td>
+					$Controller.feilds("hidden","{'objectName':'interactions[$velocityCount]', 'model_prop':'id', 'value':'$!part.id' }")
+					
+					
+
+#capturefor(substances_list)
+optgroup_start => Drug Substances ,
+#foreach($part in $substances)
+$!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) => $part.baseid
+#between
+,
+#end
+, optgroup_end => Drug Substances ,
+optgroup_start => DDI ONLY Substances ,
+#foreach($part in $ddi_only)
+$!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) => $part.baseid
+#between
+,
+#end
+, optgroup_end => Drug Substances
+#end					
+				
+					
+					$Controller.feilds("select","{'objectName':'interactions[$velocityCount]', 'model_prop':'substance', 'value':'$!part.substance', 'select_options':'$substances_list'}")
+<!--					<select name="interactions[$velocityCount].substance"  id="ddi_only_$velocityCount"><option value="">Select</option></select>-->
+				</td>
+				<td>
+				$Controller.feilds("select","{'objectName':'interactions[$velocityCount]', 'model_prop':'yes_no', 'value':'$!part.yes_no', 'select_options':'Yes=>yes,No=>no'}")
+				</td>
+				<td>$Controller.feilds("text","{'objectName':'interactions[$velocityCount]', 'model_prop':'dose_amount', 'value':'$!part.dose_amount', 'html_attr':' style=\"width:100%\" '}")</td>
+				<td>$Controller.feilds("textarea","{'objectName':'interactions[$velocityCount]', 'model_prop':'descriptions', 'value':'$!part.descriptions', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}")</td>
+				<td> #if($viewonly) #else <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a> #end	</td>
 			</tr>
-		</thead>
-		<tbody>
-			<!--	<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
-					<td>$Controller.feilds("select","$type","with", "with" , "With","","","","")</td>
-					<td>$Controller.feilds("textarea","$type","discription", "sadg dl ksdisnle slnvfoslencvsk sdodlksdn" ,"","",""," rows='1' ")</td>
-					<td>
-					#if($viewonly) #else
-					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
-					#end
-					</td>
-				</tr>-->
-			#foreach($part in $item.interactions)
-				<tr class=""  data-baseid="$part.baseid">
-					<td><!--<input type="hidden" name="interactions[$velocityCount].id" value="$!part.id"/>-->
-					$Controller.feilds("hidden","{'objectName':'interactions[$velocityCount]', 'model_prop':'id', 'value':'$!part.id' }") 
-					
-					
-						<select name="interactions[$velocityCount].substance"  id="ddi_only_$velocityCount"><option value="">Select</option></select>
-					</td>
-					<td>$Controller.feilds("select","interactions[$velocityCount]","yes_no", $!part.yes_no , "Yes=>yes,No=>no","","","","")</td>
-					<!--<select name="interaction.yes_no"><option value="yes">Yes</option><option value="no">No</option></select>-->
-					
-					
-					
-					
-					<td>
-					$Controller.feilds("textinput","{'objectName':'interactions[$velocityCount]', 'model_prop':'dose_amount', 'value':'$!part.dose_amount', 'html_attr':' style=\"width:100%\" '}") 
-					
-					
-					<!--<input type="text" name="interactions[$velocityCount].dose_amount" value="$!part.dose_amount" style="width:100%"/>--></td>
-					<td>
-					$Controller.feilds("textarea","{'objectName':'interactions[$velocityCount]', 'model_prop':'descriptions', 'value':'$!part.descriptions', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}") 
-					<!--<textarea placeholder="Describe the interaction between the two drugs" name="interactions[$velocityCount].descriptions"  rows="1">$!part.descriptions</textarea>--></td>
-					<td>
-					#if($viewonly) #else 
-					<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
-					#end
-					</td>
-				</tr>
-			#end
-		</tbody>
-		<tfoot>			<tr>
-				<th width="15%"></th>
-				<th width="15%"></th>
-				<th width="15%"></th>
-				<th></th>
-				<th width="5%"></th>
-			</tr></tfoot>
-	</table>
-	<a href="#" id="drug_interaction" class="button" data-type="drug_interaction">Add Drug Interaction</a>
-	
-	<div style="clear: both;"></div>
+		#end
+	</tbody>
+	<tfoot>
+		<tr>
+			<th width="15%"></th>
+			<th width="15%"></th>
+			<th width="15%"></th>
+			<th></th>
+			<th width="5%"></th>
+		</tr>
+	</tfoot>
+</table>
+<a href="#" id="drug_interaction" class="button" data-type="drug_interaction">Add Drug Interaction</a>
+<div style="clear: both;"></div>
