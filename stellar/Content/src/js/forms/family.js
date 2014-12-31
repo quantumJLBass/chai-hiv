@@ -147,7 +147,7 @@ $.chai.family = {
 						e.stopPropagation();
 						$.chai.family.add_drProTableRow();
 					});
-					//$.chai.core.util.make_datatable_popup_add(datatable);
+					//$.chai.core.util.ini_modaltable_to_table(dtable);
 					
 					$("#drpro_table").find('.removal').off().on("click",function(e){
 						e.preventDefault();

@@ -21,8 +21,9 @@ $(document).ready(function() {
 			}
 			return false;
 		});	
-		
-		var uitabs = $( ".uitabs" ).tabs();
+		if($( ".uitabs" ).length>0){
+			var uitabs = $( ".uitabs" ).tabs();
+		}
 		
 	};
 

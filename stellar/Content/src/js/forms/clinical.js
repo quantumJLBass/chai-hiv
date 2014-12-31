@@ -53,6 +53,13 @@ $.chai.clinical = {
 								"sPaginationType": "full_numbers",
 								"fnDrawCallback": function() {}
 							});
+							
+							$("#drug_list #data").on( 'page.dt', function () {
+								$.chai.clinical.set_drugTable_removal();
+								$.chai.clinical.ini_list_to_datatable();
+							});
+							
+							
 							$.each($("#drug_list #data thead th"), function ( i ) {
 								var select = $('<select><option value=""></option></select>')
 									.appendTo( $(this) )
@@ -236,6 +243,10 @@ $.chai.clinical = {
 			setTimeout(function(){$(".dialog_message").fadeOut("500");},"1000");
 			
 			$.chai.clinical.set_drugTable_removal();
+			$("#drug_list #data").on( 'page.dt', function () {
+				$.chai.clinical.set_drugTable_removal();
+				$.chai.clinical.ini_list_to_datatable();
+			});
 			$.chai.clinical.ini_list_to_datatable();
 			$.chai.core.util.autoSaver();
 			console.log("in list after add "+($("#drug_products .datagrid tbody tr").length));

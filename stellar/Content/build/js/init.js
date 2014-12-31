@@ -711,7 +711,7 @@
 			});	
 		},
 
-		make_datatable_popup_add:function (datatable,type){
+		ini_modaltable_to_table:function (datatable,type){
 			$('.additem').off().on('click',function(e){
 				e.preventDefault();
 				e.stopPropagation();
@@ -776,12 +776,15 @@
 					"bJQueryUI": true,
 					"sPaginationType": "full_numbers",
 					"fnDrawCallback": function() {//(oSettings ) {
-						$.chai.core.util.make_datatable_popup_add(datatable,type);
+						$.chai.core.util.ini_modaltable_to_table(datatable,type);
 					}
 				});
-	
+				datatable.on( 'page.dt', function () {
+					$.chai.core.util.ini_modaltable_to_table(datatable,type);
+				});
+
 				$.chai.core.util.last_datatable=datatable;
-				$.chai.core.util.make_datatable_popup_add(datatable,type);
+				$.chai.core.util.ini_modaltable_to_table(datatable,type);
 			});
 		},
 		make_dataTables:function(){
@@ -793,6 +796,10 @@
 						"bJQueryUI": true,
 						"sPaginationType": "full_numbers",
 						"aaSorting": [[1,'asc']]
+					});
+					datatable.on( 'page.dt', function () {
+						$.chai.core.util.ini_modaltable_to_table(datatable,datagrids.closest('.dataTables_wrapper').next(".add_to_list").data('type'));
+						$.chai.core.util.ini_dataTable_removals(datatable.find(".removal"));
 					});
 				});
 				
@@ -817,23 +824,28 @@
 						$.chai.core.util.add_item_popup(type, list, ["new","list"]);
 					});
 				});
+				
+				$.chai.core.util.ini_dataTable_removals();
 			}
-			var removals = $(".display.datagrid.dataTable .removal");
-					$.each(removals,function(){
-						var targ = $(this);
-						targ.on("click",function(e){
-							e.preventDefault();
-							e.stopPropagation();
-							var targ = $(this);
-							var targetrow = targ.closest("tr");
-							var datatable = targ.closest('.datagrid').dataTable();
-							targetrow.fadeOut( "75" ,function(){ 
-								var row = targetrow.get(0);
-								datatable.fnDeleteRow( datatable.fnGetPosition( row ) );
-							});
-						});
+
+		},
+		ini_dataTable_removals:function(removals){
+			removals = removals || $(".display.datagrid.dataTable .removal");
+			$.each(removals,function(){
+				var targ = $(this);
+				targ.off().on("click",function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					var targ = $(this);
+					var targetrow = targ.closest("tr");
+					var datatable = targ.closest('.datagrid').dataTable();
+					targetrow.fadeOut( "75" ,function(){ 
+						var row = targetrow.get(0);
+						datatable.fnDeleteRow( datatable.fnGetPosition( row ) );
 					});
-			},	
+				});
+			});
+		},
 	};
 
 })(jQuery);
@@ -1357,7 +1369,7 @@ $.chai.family = {
 						e.stopPropagation();
 						$.chai.family.add_drProTableRow();
 					});
-					//$.chai.core.util.make_datatable_popup_add(datatable);
+					//$.chai.core.util.ini_modaltable_to_table(dtable);
 					
 					$("#drpro_table").find('.removal').off().on("click",function(e){
 						e.preventDefault();
@@ -1917,6 +1929,13 @@ $.chai.clinical = {
 								"sPaginationType": "full_numbers",
 								"fnDrawCallback": function() {}
 							});
+							
+							$("#drug_list #data").on( 'page.dt', function () {
+								$.chai.clinical.set_drugTable_removal();
+								$.chai.clinical.ini_list_to_datatable();
+							});
+							
+							
 							$.each($("#drug_list #data thead th"), function ( i ) {
 								var select = $('<select><option value=""></option></select>')
 									.appendTo( $(this) )
@@ -2100,6 +2119,10 @@ $.chai.clinical = {
 			setTimeout(function(){$(".dialog_message").fadeOut("500");},"1000");
 			
 			$.chai.clinical.set_drugTable_removal();
+			$("#drug_list #data").on( 'page.dt', function () {
+				$.chai.clinical.set_drugTable_removal();
+				$.chai.clinical.ini_list_to_datatable();
+			});
 			$.chai.clinical.ini_list_to_datatable();
 			$.chai.core.util.autoSaver();
 			console.log("in list after add "+($("#drug_products .datagrid tbody tr").length));
