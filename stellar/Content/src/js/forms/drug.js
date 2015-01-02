@@ -35,7 +35,7 @@ $.chai.drug = {
 			
 			var html = '<input type="hidden" name="lmics['+(count)+'].id" value="0"/>';
 			//tableData.push( html );
-			tableData.push( html+'<input type="text" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
+			tableData.push( html+'<input type="text" placeholder="label claim amount" name="lmics['+(count)+'].form"/>' );
 			tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_1l"/>' ); 
 			tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_2l"/>' ); 
 			tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_3l"/>' ); 

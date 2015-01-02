@@ -773,7 +773,7 @@
 						$.chai.core.util.ini_modaltable_to_table(datatable,type);
 					}
 				});
-				datatable.on( 'page.dt', function () {
+				datatable.on( 'draw.dt', function () {
 					$.chai.core.util.ini_modaltable_to_table(datatable,type);
 				});
 
@@ -791,7 +791,7 @@
 						"sPaginationType": "full_numbers",
 						"aaSorting": [[1,'asc']]
 					});
-					datatable.on( 'page.dt', function () {
+					datatable.on( 'draw.dt', function () {
 						$.chai.core.util.ini_modaltable_to_table(datatable,datagrids.closest('.dataTables_wrapper').next(".add_to_list").data('type'));
 						$.chai.core.util.ini_dataTable_removals(datatable.find(".removal"));
 					});

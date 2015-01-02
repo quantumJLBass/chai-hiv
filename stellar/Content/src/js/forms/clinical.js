@@ -54,7 +54,7 @@ $.chai.clinical = {
 								"fnDrawCallback": function() {}
 							});
 							
-							$("#drug_list #data").on( 'page.dt', function () {
+							$("#drug_list #data").on( 'draw.dt', function () {
 								$.chai.clinical.set_drugTable_removal();
 								$.chai.clinical.ini_list_to_datatable();
 							});
@@ -243,7 +243,7 @@ $.chai.clinical = {
 			setTimeout(function(){$(".dialog_message").fadeOut("500");},"1000");
 			
 			$.chai.clinical.set_drugTable_removal();
-			$("#drug_list #data").on( 'page.dt', function () {
+			$("#drug_list #data").on( 'draw.dt', function () {
 				$.chai.clinical.set_drugTable_removal();
 				$.chai.clinical.ini_list_to_datatable();
 			});

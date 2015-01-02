@@ -779,7 +779,7 @@
 						$.chai.core.util.ini_modaltable_to_table(datatable,type);
 					}
 				});
-				datatable.on( 'page.dt', function () {
+				datatable.on( 'draw.dt', function () {
 					$.chai.core.util.ini_modaltable_to_table(datatable,type);
 				});
 
@@ -797,7 +797,7 @@
 						"sPaginationType": "full_numbers",
 						"aaSorting": [[1,'asc']]
 					});
-					datatable.on( 'page.dt', function () {
+					datatable.on( 'draw.dt', function () {
 						$.chai.core.util.ini_modaltable_to_table(datatable,datagrids.closest('.dataTables_wrapper').next(".add_to_list").data('type'));
 						$.chai.core.util.ini_dataTable_removals(datatable.find(".removal"));
 					});
@@ -1930,7 +1930,7 @@ $.chai.clinical = {
 								"fnDrawCallback": function() {}
 							});
 							
-							$("#drug_list #data").on( 'page.dt', function () {
+							$("#drug_list #data").on( 'draw.dt', function () {
 								$.chai.clinical.set_drugTable_removal();
 								$.chai.clinical.ini_list_to_datatable();
 							});
@@ -2119,7 +2119,7 @@ $.chai.clinical = {
 			setTimeout(function(){$(".dialog_message").fadeOut("500");},"1000");
 			
 			$.chai.clinical.set_drugTable_removal();
-			$("#drug_list #data").on( 'page.dt', function () {
+			$("#drug_list #data").on( 'draw.dt', function () {
 				$.chai.clinical.set_drugTable_removal();
 				$.chai.clinical.ini_list_to_datatable();
 			});
@@ -2176,7 +2176,7 @@ $.chai.drug = {
 			
 			var html = '<input type="hidden" name="lmics['+(count)+'].id" value="0"/>';
 			//tableData.push( html );
-			tableData.push( html+'<input type="text" placeholder="label claim amount" name="item.lmics['+(count)+'].form"/>' );
+			tableData.push( html+'<input type="text" placeholder="label claim amount" name="lmics['+(count)+'].form"/>' );
 			tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_1l"/>' ); 
 			tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_2l"/>' ); 
 			tableData.push( '<input type="checkbox" value="yes" name="lmics['+(count)+'].lmic_3l"/>' ); 
