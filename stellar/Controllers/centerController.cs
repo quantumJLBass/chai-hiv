@@ -978,17 +978,19 @@ namespace stellar.Controllers {
                     return;
                 }
             }
+
             if (item.lmics != null) { 
                 item.lmics.Clear();
-                foreach (drug_lmic lmic in lmics) {
-                    if (lmic.id == 0) {
-                        ActiveRecordMediator<drug_lmic>.Save(lmic);
-                    }
-                    if (!item.lmics.Contains(lmic)) {
-                        item.lmics.Add(lmic);
-                    }
+            }
+            foreach (drug_lmic lmic in lmics) {
+                if (lmic.id == 0) {
+                    ActiveRecordMediator<drug_lmic>.Save(lmic);
+                }
+                if (!item.lmics.Contains(lmic)) {
+                    item.lmics.Add(lmic);
                 }
             }
+            
             if (item.interactions != null) {
                 item.interactions.Clear();
             }
