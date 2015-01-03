@@ -93,15 +93,9 @@ $.chai.reference = {
 										tableData.push( '<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 										dataTable.dataTable().fnAddData( tableData );
 									}
-									$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
-										e.preventDefault();
-										e.stopPropagation();
-										var targetrow = $(this).closest("tr");
-										var datatable = $(this).closest('.dataTable').dataTable();
-										targetrow.fadeOut( "75" ,function(){ 
-											datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-										});
-									});
+
+									$.chai.core.util.build_general_removal_button($("ul .display.datagrid.dataTable .removal"));
+									
 									$( "#ref_form" ).dialog( "destroy" );
 									$( "#ref_form" ).remove();
 								});

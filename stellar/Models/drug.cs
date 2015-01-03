@@ -260,6 +260,10 @@ namespace stellar.Models {
         virtual public string lmic_3l { get; set; }
 
         /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string tbd { get; set; }
+
+        /// <summary> </summary>
         [BelongsTo]
         virtual public drug drug { get; set; }
 

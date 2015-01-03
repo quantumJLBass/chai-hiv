@@ -14,7 +14,12 @@ $.chai.clinical = {
 				$.chai.clinical.resetFeildset(checks);
 			});
 		});
-
+		$('.drug_inline_edit').on('click',function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			$.chai.core.util.popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> Loading content...</span>',true);
+			$.chai.drug.drug_popupForm($(this).closest('tr').data('baseid'));
+		});
 		$(".drug_pro_add_item").on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();
@@ -196,14 +201,7 @@ $.chai.clinical = {
 
 	},
 	set_drugTable_removal:function(){
-		$("#Drugdata .removal").off().on("click",function(e){
-			e.preventDefault(); e.stopPropagation();
-			var targetrow = $(this).closest("tr");
-			var datatable = $(this).closest('.datagrid').dataTable();
-			targetrow.fadeOut( "75" ,function(){ 
-				datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-			});
-		});
+		$.chai.core.util.build_general_removal_button($("#Drugdata .removal"));
 	},
 	ini_list_to_datatable:function(){
 		
@@ -260,5 +258,14 @@ $.chai.clinical = {
 		});
 		return listing;
 	},
+
+	
+
+
+
+
+
+
+
 
 };

@@ -60,7 +60,7 @@ $sub.abbreviated
 				
 				
 				<td>
-					<a href="drug.castle?id=$item.baseid" class="button small">Edit</a>
+					<a href="drug.castle?id=$item.baseid" class="button small clinical_inline_edit">Edit</a>
 					 | <a href="#" class="button xsmall crimson defocus removal">Remove</a>
 				</td>
 			</tr>

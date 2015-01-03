@@ -329,6 +329,12 @@ input:hover, textarea:hover, input:focus, textarea:focus, input:active, textarea
 input[type="text"], textarea {
 	cursor: text;
 }
+.table_radios{
+	padding: 2px 3px !important;
+	min-width: 75px;
+	font-size: 8px !important;
+	text-align: center;
+}
 input[type="radio"], input[type="checkbox"] {
 	display: inline;
 	width: auto;
@@ -336,7 +342,10 @@ input[type="radio"], input[type="checkbox"] {
 	margin-right: 1em;
 }
 input[type="checkbox"] + label, input[type="radio"] + label {
-	display: inline;
+	/*display: inline;*/
+}
+.ui-state-active.ui-button {
+	cursor:default;
 }
 input[type="file"] {
 	border: none;

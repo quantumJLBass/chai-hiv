@@ -31,15 +31,7 @@ $.chai.substance = {
 			
 			dataTable.dataTable().fnAddData( tableData );
 			
-			$("#Saltdata tbody .removal").off().on("click",function(e){
-				e.preventDefault();
-				e.stopPropagation();
-				var targetrow = $(this).closest("tr");
-				var datatable = $(this).closest('.dataTable').dataTable();
-				targetrow.fadeOut( "75" ,function(){ 
-					datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-				});
-			});
+			$.chai.core.util.build_general_removal_button($("#Saltdata tbody .removal"));
 		});	
 	
 			
@@ -60,15 +52,8 @@ $.chai.substance = {
 			
 			dataTable.dataTable().fnAddData( tableData );
 			
-			$("#Prodrugdata tbody .removal").off().on("click",function(e){
-				e.preventDefault();
-				e.stopPropagation();
-				var targetrow = $(this).closest("tr");
-				var datatable = $(this).closest('.dataTable').dataTable();
-				targetrow.fadeOut( "75" ,function(){ 
-					datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-				});
-			});
+			
+			$.chai.core.util.build_general_removal_button($("#Prodrugdata tbody .removal"));
 		});
 	}
 };

@@ -43,7 +43,7 @@
 					<input type="hidden" name="drugs[${k}].baseid" value="${drug.baseid}" class="drug_item list_item"/>
 					<input type="hidden" name="drugs[${k}].attached" value="1" class="drug_item list_item"/>
 					
-					<a href="#" class="button small"><i class="icon-pencile" title="Edit"></i>Edit</a>
+					<a href="#" class="button small drug_inline_edit"><i class="icon-pencile" title="Edit"></i>Edit</a>
 					<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
 				</td>
 			</tr>

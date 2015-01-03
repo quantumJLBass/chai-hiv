@@ -10,6 +10,7 @@
 				$.chai.core.util.setup_ref_copy();
 			}else{
 				$.chai.core.util.make_dataTables();
+				$.chai.core.util.set_up_list_deletion();
 			}
 			return options;
 		});

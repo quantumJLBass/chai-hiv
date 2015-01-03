@@ -5,53 +5,66 @@
 	
 	<label for="LMICdata">LMIC:</label>
 	<div id="LMICdata">
-	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" width="100%">
-		<thead>
-			<tr>
-				<!--<th>Form</th>-->
-				<th>AMT</th>
-				<th width="5%">L1</th>
-				<th width="5%">L2</th>
-				<th width="5%">L3</th>
-				<th width="5%">TBD</th>
-				<th width="5%"></th>
-			</tr>
-		</thead>
 		<div id="dirty_options" style="display:none;">
-		$Controller.feilds("select","$type","", "", $dose_forms, "","","","")
-		
+			$Controller.feilds("select","$type","", "", $dose_forms, "","","","")
 		</div>
-		<tbody>
-			#foreach($part in $item.lmics)
-
-				<tr class="#if($velocityCount%2<1)even #else odd #end "  data-baseid="$part.id">
-					#*<td>
-					
-					$Controller.feilds("select","$type","lmics[${velocityCount}].form", $!part.form, $dose_forms, "","","","")</td>*#
-					<td><input type="hidden" name="lmics[${velocityCount}].id" value="$!part.id"/>$Controller.feilds("textinput","$type","lmics[${velocityCount}].amount", $!part.amount ,"","label claim amount","","")</td>
-					<td data-order="0"><input type="checkbox" name="lmics[${velocityCount}].lmic_1l" value="yes" #if($!part.amount=="yes") checked #end/></td>
-					<td data-order="1"><input type="checkbox" name="lmics[${velocityCount}].lmic_2l" value="yes" #if($!part.amount=="yes") checked #end/></td>
-					<td data-order="0"><input type="checkbox" name="lmics[${velocityCount}].lmic_3l" value="yes" #if($!part.amount=="yes") checked #end/></td>
-					<td data-order="0"><input type="checkbox" name="lmics[${velocityCount}].tbd" value="yes" #if($!part.amount=="yes") checked #end/></td>
-					<td>
-					#if($viewonly) #else
-					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
-					#end
-					</td>
+		<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" width="100%">
+			<thead>
+				<tr>
+					<!--<th>Form</th>-->
+					<th width="25%">AMT</th>
+					<th>L1</th>
+					<th>L2</th>
+					<th>L3</th>
+					<th>TBD</th>
+					<th width="5%"></th>
 				</tr>
-			#end
-		</tbody>
-		<tfoot>			<tr>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th width="5%"></th>
-			</tr></tfoot>
-	</table>
-	<a href="#" id="add_lmic" class="button add_lmic" data-type="drug_lmic">Add LMIC</a>
-</div>
+			</thead>
+	
+			<tbody>
+				#foreach($part in $item.lmics)
+					<tr class="#if($velocityCount%2<1)even #else odd #end "  data-baseid="$part.id">
+						<td>
+							$Controller.feilds("hidden","{'objectName':'lmics[${velocityCount}]', 'model_prop':'id', 'value':'$!part.id' }")
+							$Controller.feilds("text","{'objectName':'lmics[$velocityCount]', 'model_prop':'amount', 'value':'$!part.amount', 'placeholder':'Enter the label claim amount for this LMIC'}")
+						</td>
+						<td class="table_radios" >
+							<label for="radio${velocityCount}-1">Yes</label><input id="radio${velocityCount}-1" type="radio" name="lmics[${velocityCount}].lmic_1l" value="yes" #if($!part.lmic_1l=="yes") checked #end/>
+							<label for="radio${velocityCount}-2">No</label><input id="radio${velocityCount}-2" type="radio" name="lmics[${velocityCount}].lmic_1l" value="no" #if($!part.lmic_1l!="yes") checked #end/>
+						</td>
+						<td class="table_radios" >
+							<label for="radio${velocityCount}-3">Yes</label><input id="radio${velocityCount}-3" type="radio" name="lmics[${velocityCount}].lmic_2l" value="yes" #if($!part.lmic_2l=="yes") checked #end/>
+							<label for="radio${velocityCount}-4">No</label><input id="radio${velocityCount}-4" type="radio" name="lmics[${velocityCount}].lmic_2l" value="no" #if($!part.lmic_2l!="yes") checked #end/>
+						</td>
+						<td class="table_radios" >
+							<label for="radio${velocityCount}-5">Yes</label><input id="radio${velocityCount}-5" type="radio" name="lmics[${velocityCount}].lmic_3l" value="yes" #if($!part.lmic_3l=="yes") checked #end/>
+							<label for="radio${velocityCount}-6">No</label><input id="radio${velocityCount}-6" type="radio" name="lmics[${velocityCount}].lmic_3l" value="no" #if($!part.lmic_3l!="yes") checked #end/>
+						</td>
+						<td class="table_radios" >
+							<label for="radio${velocityCount}-7">Yes</label><input id="radio${velocityCount}-7" type="radio" name="lmics[${velocityCount}].tbd" value="yes" #if($!part.tbd=="yes") checked #end/>
+							<label for="radio${velocityCount}-8">No</label><input id="radio${velocityCount}-8" type="radio" name="lmics[${velocityCount}].tbd" value="no" #if($!part.tbd!="yes") checked #end/>
+						</td>
+						<td>
+							#if($viewonly) #else
+							<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
+							#end
+						</td>
+					</tr>
+				#end
+			</tbody>
+			<tfoot>
+				<tr>
+					<th width="25%"></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th width="5%"></th>
+				</tr>
+			</tfoot>
+		</table>
+		<a href="#" id="add_lmic" class="button add_lmic" data-type="drug_lmic">Add LMIC</a>
+	</div>
 
 
 <!--<ul class="grid col-one-half mq2-col-full full-input">

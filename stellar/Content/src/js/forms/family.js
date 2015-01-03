@@ -4,7 +4,12 @@ $.chai.family = {
 	ini:function(){
 		$.chai.core.util.setup_viewlog();
 		$.chai.form_base.ini();
-		
+		$('.drug_inline_edit').on('click',function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			$.chai.core.util.popup_message('<span style="font-size: 28px;"><i class="icon-spinner icon-spin icon-large"></i> Loading content...</span>',true);
+			$.chai.drug.drug_popupForm($(this).closest('tr').data('baseid'));
+		});
 		$('#substances_disabled').on("click",function(e){
 			e.preventDefault();
 			e.stopPropagation();
@@ -152,11 +157,12 @@ $.chai.family = {
 					$("#drpro_table").find('.removal').off().on("click",function(e){
 						e.preventDefault();
 						e.stopPropagation();
-						var targetrow = $(this).closest("tr");
-						var datatable = $(this).closest('.dataTable').dataTable();
-						targetrow.fadeOut( "75" ,function(){ 
-							datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-							//targetrow.remove();
+						var targ = $(this);
+						$.chai.core.util.confirmation_message("Are you sure?",{
+							"yes":function(){
+								$.chai.core.util.remove_datatable_current_row(targ);
+							},
+							"no":function(){}
 						});
 					});
 				}
@@ -277,15 +283,7 @@ $.chai.family = {
 										tableData.push( '<input type="hidden" name="drugs['+(count)+'].baseid" value="'+v.baseid+'" class="drug_item list_item"/><a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>' ); 
 										dataTable.dataTable().fnAddData( tableData );
 										
-										$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
-											e.preventDefault();
-											e.stopPropagation();
-											var targetrow = $(this).closest("tr");
-											var datatable = $(this).closest('.dataTable').dataTable();
-											targetrow.fadeOut( "75" ,function(){ 
-												datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) );
-											});
-										});
+										$.chai.core.util.build_general_removal_button($("ul .display.datagrid.dataTable .removal"));
 	
 									});
 									$.chai.core.util.autoSaver();

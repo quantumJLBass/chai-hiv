@@ -102,7 +102,19 @@
 			$( '[type="date"],[rel="date"]' ).datepicker();
 		},
 
-
+		set_up_list_deletion:function(){
+			$('.deletion').off().on("click",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				var targ = $(this);
+				$.chai.core.util.confirmation_message("Are you sure you want send this item to the trashbin?",{
+					"yes":function(){
+						window.location=targ.attr("href");
+					},
+					"no":function(){}
+				});
+			});
+		},
 
 
 
@@ -264,13 +276,48 @@
 					}
 				},
 				close: function() {
-					$('body').css({overflow:"auto"});
-					$( "#mess" ).dialog( "destroy" );
-					$( "#mess" ).remove();
+					$.chai.core.util.close_dialog_modle($( "#mess" ));
 				}
 			});
 		},
 		
+		
+		confirmation_message:function (html_message,callback){
+			if($("#mess").length<=0){
+				$('body').append('<div id="mess">');
+			}
+			$("#mess").html( (typeof html_message === 'string' || html_message instanceof String) ? html_message : html_message.html() );
+			$( "#mess" ).dialog({
+				autoOpen: true,
+				resizable: false,
+				width: 350,
+				minHeight: 25,
+				modal: true,
+				draggable : false,
+				create:function(){
+					$('.ui-dialog-titlebar').remove();
+					$('body').css({overflow:"hidden"});
+				},
+				buttons:{
+					Yes:function(){
+						if($.isFunction(callback.yes)){
+							callback.yes();
+						}
+						$( this ).dialog( "close" );
+					},
+					No: function() {
+						if($.isFunction(callback.no)){
+							callback.no();
+						}
+						$( this ).dialog( "close" );
+					}
+				},
+				close: function() {
+					$.chai.core.util.close_dialog_modle($( "#mess" ));
+				}
+			});
+		},
+
 		add_item_popup:function (type,inlist,use,id){
 			if(typeof(use)==="undefined"){ 
 				use = ["new","list"];
@@ -752,11 +799,13 @@
 				$("ul .display.datagrid.dataTable .removal").off().on("click",function(e){
 					e.preventDefault();
 					e.stopPropagation();
-					var targetrow = $(this).closest("tr");
-					
-					var datatable = $(this).closest('.datagrid').dataTable();
-					
-					targetrow.fadeOut( "75" ,function(){ datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) ); });
+					var targ = $(this);
+					$.chai.core.util.confirmation_message("Are you sure?",{
+						"yes":function(){
+							$.chai.core.util.remove_datatable_current_row(targ);
+						},
+						"no":function(){}
+					});
 				});
 			});
 		},
@@ -826,20 +875,30 @@
 		ini_dataTable_removals:function(removals){
 			removals = removals || $(".display.datagrid.dataTable .removal");
 			$.each(removals,function(){
+				$.chai.core.util.build_general_removal_button($(this));
+			});
+		},
+		build_general_removal_button:function(jObj){
+			jObj.off().on("click",function(e){
+				e.preventDefault();
+				e.stopPropagation();
 				var targ = $(this);
-				targ.off().on("click",function(e){
-					e.preventDefault();
-					e.stopPropagation();
-					var targ = $(this);
-					var targetrow = targ.closest("tr");
-					var datatable = targ.closest('.datagrid').dataTable();
-					targetrow.fadeOut( "75" ,function(){ 
-						var row = targetrow.get(0);
-						datatable.fnDeleteRow( datatable.fnGetPosition( row ) );
-					});
+				$.chai.core.util.confirmation_message("Are you sure?",{
+					"yes":function(){
+						$.chai.core.util.remove_datatable_current_row(targ);
+					},
+					"no":function(){}
 				});
 			});
 		},
+		remove_datatable_current_row:function(targ){
+			var targetrow = targ.closest("tr");
+			var datatable = targ.closest('.datagrid').dataTable();
+			targetrow.fadeOut( "75" ,function(){ 
+				var row = targetrow.get(0);
+				datatable.fnDeleteRow( datatable.fnGetPosition( row ) );
+			});
+		}
 	};
 
 })(jQuery);

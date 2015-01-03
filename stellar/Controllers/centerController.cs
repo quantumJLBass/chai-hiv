@@ -981,28 +981,28 @@ namespace stellar.Controllers {
 
             if (item.lmics != null) { 
                 item.lmics.Clear();
-            }
-            foreach (drug_lmic lmic in lmics) {
-                if (lmic.id == 0) {
-                    ActiveRecordMediator<drug_lmic>.Save(lmic);
-                }
-                if (!item.lmics.Contains(lmic)) {
-                    item.lmics.Add(lmic);
-                }
-            }
             
+                foreach (drug_lmic lmic in lmics) {
+                    if (lmic.id == 0) {
+                        ActiveRecordMediator<drug_lmic>.Save(lmic);
+                    }
+                    if (!item.lmics.Contains(lmic)) {
+                        item.lmics.Add(lmic);
+                    }
+                }
+            }
             if (item.interactions != null) {
                 item.interactions.Clear();
-            }
-            foreach (drug_interaction interaction in interactions) {
-                if (interaction.id == 0) {
-                    ActiveRecordMediator<drug_interaction>.Save(interaction);
+            
+                foreach (drug_interaction interaction in interactions) {
+                    if (interaction.id == 0) {
+                        ActiveRecordMediator<drug_interaction>.Save(interaction);
+                    }
+                    if (!item.interactions.Contains(interaction)) {
+                        item.interactions.Add(interaction);
+                    }
                 }
-                if (!item.interactions.Contains(interaction)) {
-                    item.interactions.Add(interaction);
-                }
             }
-
             /*
             item.markets.Clear();
             String[] keys = HttpContext.Current.Request.Params.AllKeys.Where(x => x.StartsWith("markets_counts[")).ToArray();
