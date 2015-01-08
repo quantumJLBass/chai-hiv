@@ -760,9 +760,12 @@
 				var targetrow = trigger.closest('tr');
 				var baseid = targetrow.data("baseid");
 				
-				var count = datatable.find("tbody").find("tr").length;
+				var count = datatable.find("tbody").find("tr").length+1;
 				if(type==="reference"){
-					count=count+1;
+					count = $(".main .ref.dataTable tbody tr").length + 1;
+					if($(".main .ref.dataTable tbody tr td.dataTables_empty").length){
+						count--;
+					}
 				}
 				var tdCount = targetrow.find("td").length;
 				//alert(tdCount);
@@ -786,7 +789,17 @@
 					'<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>'+cp_btn
 				); 
 	
-				$("[data-active_grid='true']").dataTable().fnAddData( tableData );
+	
+				if(type==="reference"){
+					if($('.main .ref.dataTable [value="'+baseid+'"]').length<=0){
+						$(".main .ref.dataTable").dataTable().fnAddData( tableData );
+						$('.main .ref.dataTable [value="'+baseid+'"]').closest('tr').find('td:eq(2),td:eq(3)').addClass('no_overflow');
+					}
+				}else{
+					if($('[data-active_grid="true"] [value="'+baseid+'"]').length<=0){
+						$("[data-active_grid='true']").dataTable().fnAddData( tableData );
+					}
+				}
 				
 				targetrow.fadeOut( "75" ,function(){ datatable.fnDeleteRow( datatable.fnGetPosition( targetrow.get(0) ) ); });
 				
