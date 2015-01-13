@@ -99,6 +99,7 @@ namespace stellar.Controllers {
         public void references(Boolean skiplayout, String exclude, Boolean pub) {
             //do the auth
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
+            userService.clearTmps<reference>();
             PropertyBag["published"] = is_pubview(pub);
             if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
             String[] drop = exclude.Split(',');
