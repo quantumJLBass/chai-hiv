@@ -313,6 +313,12 @@ namespace stellar.Controllers {
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<clinical>.Find(id);
             PropertyBag["drugs"] = ActiveRecordBase<drug>.FindAll().Where(x => !x.deleted);
             PropertyBag["trials"] = ActiveRecordBase<trial>.FindAll().Where(x => !x.deleted);
+
+            IList<substance> ddisubstances = ActiveRecordBase<substance>.FindAll();
+
+            PropertyBag["ddi_only"] = ddisubstances.Where(x => !x.tmp && !x.deleted && x.for_ddi == "yes").ToList();
+            PropertyBag["ddisubstances"] = ddisubstances.Where(x => !x.tmp && !x.deleted && x.for_ddi != "yes").ToList();
+
             RenderView("clinical");
         }
 
@@ -320,7 +326,7 @@ namespace stellar.Controllers {
         [SkipFilter()]
         public void saveclinical([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] clinical item,
             [ARDataBind("drugs", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug[] drugs,
-            
+            [ARDataBind("interactions", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_interaction[] interactions,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -365,7 +371,7 @@ namespace stellar.Controllers {
             }
             if (item.published) item.content = "";
 
-            if (item.drugs != null) {
+            /*if (item.drugs != null) {
                 item.drugs.Clear();
                 foreach (drug drug in drugs) {
                     if (drug.baseid == 0) {
@@ -375,8 +381,35 @@ namespace stellar.Controllers {
                         item.drugs.Add(drug);
                     }
                 }
-            }
+            }*/
+            item.drugs.Clear();
+            foreach (drug drug in drugs) {
+                if (!item.drugs.Any(x => x.baseid == drug.baseid)) {
+                    item.drugs.Add(drug);
 
+
+                    if (drug.interactions != null) {
+                        drug.interactions.Clear();
+                    }
+
+                    foreach (drug_interaction interaction in interactions) {
+                        /* foreach (drug drug in drugs) {
+
+                         }*/
+                        if (interaction.drug.baseid == drug.baseid) {
+                            if (interaction.id == 0) {
+                                ActiveRecordMediator<drug_interaction>.Save(interaction);
+                            }
+                            if (!drug.interactions.Contains(interaction)) {
+                                drug.interactions.Add(interaction);
+                            }
+                        }
+                    }
+                    ActiveRecordMediator<drug>.Save(drug);
+
+
+                }
+            }
 
             item.tmp = false;
             ActiveRecordMediator<clinical>.Save(item);

@@ -1,58 +1,97 @@
 #* drugdata *#
-	#*
-		#set($typed_list = $item.interactions)
-		#parse("center/model_tie_tables/interactions.vm")
-	*#
+<label for="DDIdata">Drug to Drug Interactions:</label>
+<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="DDIdata" width="100%">
+	<thead>
+		<tr>
+			<th width="15%" id="ddi_drug_product">Drug Product</th>
+			<th width="15%">With these substances</th>
+			<th width="10%">Interactions</th>
+			<th width="10%">Amount</th>
+			<th>Description</th>
+			<th width="5%"></th>
+		</tr>
+	</thead>
+	<tbody>
+
+
+
+
+
+#capturefor(drugs_list)
+#foreach($drug in $!item.drugs)
+$drug.dose_form -- $!drug.name ( $drug.manufacturer | $drug.label_claim ) => $drug.baseid
+#between
+,
+#end
+#end
+
+
+
+
+	#set($i = 0)
+	#foreach($drug in $!item.drugs)
+
+
+
 	
-	<label for="DDIdata">Drug to Drug Interactions:</label>
-	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="DDIdata" width="100%">
-		<thead>
-			<tr>
-				<th width="15%" id="ddi_drug_product">Drug Product</th>
-				<th width="15%">With these substances</th>
-				<th width="10%">Interactions</th>
-				<th width="10%">Amount</th>
-				<th>Description</th>
-				<th width="5%"></th>
+	
+		#foreach($part in $drug.interactions)
+			<tr class=""  data-baseid="$part.baseid">
+				<td>
+				
+				$Controller.feilds("select","{'objectName':'interactions[$i]', 'model_prop':'drug.baseid', 'value':'$!part.drug.baseid', 'select_options':'$drugs_list'}")
+				
+				</td>
+				<td>
+					$Controller.feilds("hidden","{'objectName':'interactions[$i]', 'model_prop':'id', 'value':'$!part.id' }")
+					
+					
+
+#capturefor(substances_list)
+optgroup_start => Drug Substances ,
+#foreach($part in $ddisubstances)
+$!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) => $part.baseid
+#between
+,
+#end
+, optgroup_end => Drug Substances ,
+optgroup_start => DDI ONLY Substances ,
+#foreach($part in $ddi_only)
+$!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) => $part.baseid
+#between
+,
+#end
+, optgroup_end => Drug Substances
+#end					
+				
+					
+					$Controller.feilds("select","{'objectName':'interactions[$i]', 'model_prop':'substance', 'value':'$!part.substance', 'select_options':'$substances_list'}")
+<!--					<select name="interactions[$i].substance"  id="ddi_only_$i"><option value="">Select</option></select>-->
+				</td>
+				<td>
+				$Controller.feilds("select","{'objectName':'interactions[$i]', 'model_prop':'yes_no', 'value':'$!part.yes_no', 'select_options':'Yes=>yes,No=>no'}")
+				</td>
+				<td>$Controller.feilds("text","{'objectName':'interactions[$i]', 'model_prop':'dose_amount', 'value':'$!part.dose_amount', 'html_attr':' style=\"width:100%\" '}")</td>
+				<td>$Controller.feilds("textarea","{'objectName':'interactions[$i]', 'model_prop':'descriptions', 'value':'$!part.descriptions', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}")</td>
+				<td> #if($viewonly) #else <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a> #end	</td>
 			</tr>
-		</thead>
-		<tbody>
-			<!--	<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
-					<td>$Controller.feilds("select","$type","with", "with" , "With","","","","")</td>
-					<td>$Controller.feilds("textarea","$type","discription", "sadg dl ksdisnle slnvfoslencvsk sdodlksdn" ,"","",""," rows='1' ")</td>
-					<td>
-					#if($viewonly) #else
-					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
-					#end
-					</td>
-				</tr>-->
-			#foreach($part in $item.interactions)
-				<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code"  data-baseid="$item.baseid">
-					<td> </td>
-					<td><input type="hidden" name="'+input_name+'.id" value="0"/>
-						<select name="'+input_name+'.substance"  id="ddi_only_$velocityCount"><option value="">Select</option></select>
-					</td>
-					<td><select name="'+input_name+'.yes_no"><option value="yes">Yes</option><option value="no">No</option></select></td>
-					<td><input type="text" name="'+input_name+'.dose_amount" value="" style="width:100%"/></td>
-					<td><textarea placeholder="Describe the interaction between the two drugs" name="'+input_name+'.descriptions"  rows="1"></textarea></td>
-					<td>
-					#if($viewonly) #else
-					<a href="ddi.castle?id=$item.baseid&skiplayout=1" class="button small inline_edit"  data-type="drug"><i class="icon-edit" title="Edit"></i></a> | 
-					<a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
-					#end
-					</td>
-				</tr>
-			#end
-		</tbody>
-		<tfoot>			<tr>
-				<th width="15%"></th>
-				<th width="15%"></th>
-				<th width="15%"></th>
-				<th width="15%"></th>
-				<th></th>
-				<th width="5%"></th>
-			</tr></tfoot>
-	</table>
-	<a href="#" id="drug_interaction" class="button" data-type="drug_interaction">Add Drug Interaction</a>
-	
-	<div style="clear: both;"></div>
+			
+		#set($i = $i+1)
+		#end
+		
+		
+	#end
+	</tbody>
+	<tfoot>
+		<tr>
+			<th width="15%"></th>
+			<th width="15%"></th>
+			<th width="15%"></th>
+			<th width="15%"></th>
+			<th></th>
+			<th width="5%"></th>
+		</tr>
+	</tfoot>
+</table>
+<a href="#" id="drug_interaction" class="button" data-type="drug_interaction">Add Drug Interaction</a>
+<div style="clear: both;"></div>
