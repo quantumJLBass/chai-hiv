@@ -1,0 +1,9 @@
+#if(!$viewonly && $item.deleted)
+	<div id="ddiradio" class="pubstate ui-buttonset" style="float:right; font-size:12px; display: inline-block; height: 28px; margin-left: 15px ! important;">Trash Status <br/>
+		<input type="radio" name="item.deleted" id="ddiradio1" class="button" value="0" #if( $!item.deleted==false ) checked #end/>
+		<label for="ddiradio1" style="display: inline-block;font-size: 0.8em;" >#if( $!item.deleted==false )<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end No</label>
+		
+		<input type="radio" name="item.deleted" id="ddiradio2" class="button" value="1" #if( $!item.deleted==true ) checked #end />
+		<label for="ddiradio2" style="display: inline-block;font-size: 0.8em;" >#if( $!item.deleted==true )<i class="icon-check"></i>#else<i class="icon-check-empty"></i>#end Yes</label>
+	</div>
+#end

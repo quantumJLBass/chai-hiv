@@ -121,7 +121,10 @@ $sub.abbreviated
 		<article id="navtabs" class="grid col-full">
 			<div class="">
 				<ul class="grid col-one-half mq2-col-full full-input header">
-					<li><h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Drug Product Data #if($item.new_drug_code)( $!item.new_drug_code )#end </h2><li>
+					<li><h2 id="header_title">
+						#parse("center/assests/trash_choice.vm") 
+						#if(!$item.baseid || $item.tmp)New #end Drug Product Data #if($item.new_drug_code)( $!item.new_drug_code )#end
+					</h2><li>
 					<li>
 					
 					#if($item.families)

@@ -1,6 +1,9 @@
 <article class="grid col-full">
 	
-	<h2 id="header_title">References #if(!$skiplayout && !$viewonly)<a href="reference.castle" class="button  xl right"><i class="icon-plus blue" title="Add"></i> New</a>#end</h2>
+	<h2 id="header_title">	#if($trashlist)
+	<span style="color: rgb(118, 10, 11); ">Trashed </span>
+	#end
+	References #if(!$skiplayout && !$viewonly)<a href="reference.castle" class="button  xl right"><i class="icon-plus blue" title="Add"></i> New</a>#end</h2>
 	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid ref" id="data" width="100%">
 		<thead>
 			<tr>
@@ -22,7 +25,9 @@
 					#if($viewonly)
 						<a href="reference.castle?id=$item.baseid" class="button small">View</a>
 					#else
-						#if(!$skiplayout)<a href="reference.castle?id=$item.baseid" class="button small">Edit</a> | <a href="remove_reference.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>#else<a href="#ADD" class="additem button med">Add</a>#end
+						#if(!$skiplayout)<a href="reference.castle?id=$item.baseid" class="button small">Edit</a> 
+							#if(!$trashlist) | <a href="remove_reference.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>#end 
+						#else<a href="#ADD" class="additem button med">Add</a>#end
 					#end
 				</td>
 			</tr>

@@ -11,14 +11,20 @@
 		});
 		$( ".pubstate" ).buttonset();
 		$('.pubstate.menuaction :radio').on('change',function () {
+			$('.pubstate :radio').attr("checked",false).removeAttr('checked').next("label").removeClass("ui-state-active");
+			$(this).attr("checked",true);
 			$('.pubstate :radio').next("label").find("i").removeClass("icon-check-empty").removeClass("icon-check");
 			$('.pubstate :radio').not(":checked").next("label").find("i").addClass("icon-check-empty");
-			$('.pubstate :radio:checked').next("label").find("i").addClass("icon-check");
-			var state = $('.pubstate :radio:checked').val();
-			$.cookie('hivpubview', state===1?"true":"false", { expires:1, path: '/' });
+			$('.pubstate :radio:checked').next("label").addClass("ui-state-active").find("i").addClass("icon-check");
+			
+			var state = $('.pubstate [name="pub"]:checked').val();
+			var trashed = $('[name="trash"]').is(':checked');
+			if(!trashed){
+				$.cookie('hivpubview', trashed===1 ? "" : (state===1?"true":"false"), { expires:1, path: '/' });
+			}
 			//state = "pub="+state;
 			
-			window.location = window.location.href.split('?')[0]+"?pub="+state;
+			window.location = window.location.href.split('?')[0]+"?"+( trashed?"&trash=1":"&pub="+state );
 		});
 	
 		$.chai.core.util.setting_item_pub($(".container"));

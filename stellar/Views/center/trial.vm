@@ -3,7 +3,10 @@
 	#parse("center/viewonly/trial.vm")
 #else
 	<article class="grid col-full">
-		<h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Clinical trial #if($item.number)( $item.number ) #end</h2>
+		<h2 id="header_title">
+		#parse("center/assests/trash_choice.vm") 
+		#if(!$item.baseid || $item.tmp)New #end Clinical trial #if($item.number)( $item.number ) #end
+		</h2>
 		<form id="contact_form" class="contact_form autosave" action="/center/savetrial.castle" method="post" name="contact_form">
 		<input type="hidden" name="item.baseid" value="$!item.baseid" />
 		

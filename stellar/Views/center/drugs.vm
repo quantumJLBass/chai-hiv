@@ -1,6 +1,11 @@
 <article class="grid col-full">
 	
-	<h2 id="header_title">Drug Products #parse("center/assests/display_pub.vm") 
+	<h2 id="header_title">	#if($published==false && !$trashlist)Draft 
+	#elseif(!$trashlist)Published 
+	#else
+	<span style="color: rgb(118, 10, 11); ">Trashed </span>
+	#end
+	Drug Products #parse("center/assests/display_pub.vm") 
 	#*
 	#if(!$skiplayout && !$viewonly)<a href="drug.castle" class="button xl right"><i class="icon-plus blue" title="Add"></i> New</a>#end
 		*#
@@ -70,7 +75,9 @@ $sub.abbreviated
 						<a href="drug.castle?id=$item.baseid" class="button small">View</a>
 					#else
 						#if(!$skiplayout)
-						<a href="drug.castle?id=$item.baseid" class="button small">Edit</a> | <a href="remove_drug.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> #*| <a href="copydrug.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>*#
+						<a href="drug.castle?id=$item.baseid" class="button small">Edit</a> 
+							#if(!$trashlist) | <a href="remove_drug.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> #end
+							#*| <a href="copydrug.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>*#
 						#else
 
 						<a href="#ADD" class="additem button med">Add</a>

@@ -35,7 +35,7 @@ $part.name => $part.alias
 		</div>
 
 		<h2 id="header_title">
-		
+		#parse("center/assests/trash_choice.vm") 
 
 		#if(!$item.baseid || $item.tmp)New #end Drug Substance
 		</h2>

@@ -7,7 +7,10 @@
 		<form id="contact_form" class="contact_form" action="/center/savereference.castle" method="post" name="contact_form" enctype="multipart/form-data">
 			<input type="hidden" name="item.baseid" value="$!item.baseid" />
 			<article class="grid col-full">
-				  <h2 id="header_title">#if(!$item.baseid || $item.tmp)New #end Reference</h2>
+				  <h2 id="header_title">
+				  #parse("center/assests/trash_choice.vm") 
+				  #if(!$item.baseid || $item.tmp)New #end Reference
+				  </h2>
 				  <hr/>
 			</article>
 			<article class="grid col-full">

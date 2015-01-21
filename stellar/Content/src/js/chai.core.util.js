@@ -906,7 +906,7 @@
 		},
 		remove_datatable_current_row:function(targ){
 			var targetrow = targ.closest("tr");
-			var datatable = targ.closest('.datagrid').dataTable();
+			var datatable = targ.closest('table').dataTable();
 			targetrow.fadeOut( "75" ,function(){ 
 				var row = targetrow.get(0);
 				datatable.fnDeleteRow( datatable.fnGetPosition( row ) );

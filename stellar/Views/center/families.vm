@@ -3,7 +3,12 @@
 
 <article class="grid col-full">
 	
-	<h2 id="header_title">Drug Families #parse("center/assests/display_pub.vm") #if(!$skiplayout && !$viewonly)<a href="family.castle" class="button xl right" #if($substance_count<=0) id="substances_disabled" title="You must adds substances first" #end><i class="icon-plus blue" title="Add"></i> New</a>#end</h2>
+	<h2 id="header_title">	#if($published==false && !$trashlist)Draft 
+	#elseif(!$trashlist)Published 
+	#else
+	<span style="color: rgb(118, 10, 11); ">Trashed </span>
+	#end
+	Drug Families  #if(!$skiplayout && !$viewonly)<a href="family.castle" class="button xl right" #if($substance_count<=0) id="substances_disabled" title="You must adds substances first" #end><i class="icon-plus blue" title="Add"></i> New</a>#end #parse("center/assests/display_pub.vm")</h2>
 		
 	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
 		<thead>
@@ -34,7 +39,9 @@ $part.abbreviated
 						<a href="drug.castle?id=$item.baseid" class="button small">View</a>
 					#else
 						#if(!$skiplayout)
-						<a href="family.castle?id=$item.baseid" class="button small">Edit</a> | <a href="remove_family.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> #*| <a href="copyfamily.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>*# 
+							<a href="family.castle?id=$item.baseid" class="button small">Edit</a> 
+							#if(!$trashlist) | <a href="remove_family.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>#end
+							#*| <a href="copyfamily.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>*# 
 						#end
 					#end
 				</td>

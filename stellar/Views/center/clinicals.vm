@@ -1,5 +1,12 @@
 <article class="grid col-full">
 	<h2 id="header_title">
+	#if($published==false && !$trashlist)Draft 
+	#elseif(!$trashlist)Published 
+	#else
+	<span style="color: rgb(118, 10, 11); ">Trashed </span>
+	#end
+	
+	
 		Clinical Trials Arms 
 		#parse("center/assests/display_pub.vm") 
 		#*
@@ -31,9 +38,9 @@
 						<a href="clinical.castle?id=$item.baseid" class="button small">View</a>
 					#else
 						#if(!$skiplayout)
-							<a href="clinical.castle?id=$item.baseid" class="button small">Edit</a> | 
-							<a href="remove_clinical.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> #*| 
-							<a href="copyclinical.castle?id=$item.baseid&name=#if($!item.name)$!item.name#else$name#end" class="button xsmall">Copy</a> *#
+							<a href="clinical.castle?id=$item.baseid" class="button small">Edit</a> 
+							#if(!$trashlist) | <a href="remove_clinical.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> #end 
+							#* |<a href="copyclinical.castle?id=$item.baseid&name=#if($!item.name)$!item.name#else$name#end" class="button xsmall">Copy</a> *#
 						#else
 							<a href="#ADD" class="additem button med">Add</a>
 						#end

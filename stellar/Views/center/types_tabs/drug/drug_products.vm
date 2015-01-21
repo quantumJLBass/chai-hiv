@@ -1,5 +1,5 @@
 <div id="drpro_table">
-	<table width="100%" class="drpro_table display" ellspacing="0">
+	<table width="100%" class="drpro_table display" id="drugTie" cellspacing="0">
 		<thead>
 			<tr>
 			<th>Form</th>

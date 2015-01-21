@@ -19,6 +19,9 @@
 		<article id="navtabs" class="grid col-full">
 			<article class="grid col-full">
 				<h2 id="header_title">
+				
+				#parse("center/assests/trash_choice.vm") 
+				
 				  #if(!$item.baseid || $item.tmp)New 
 				  <input type="hidden" name="item.trials.baseid" value="$!item.trials.baseid" />
 				  #end Clinical Trial Arms 

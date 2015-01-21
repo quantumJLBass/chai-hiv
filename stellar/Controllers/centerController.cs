@@ -96,16 +96,29 @@ namespace stellar.Controllers {
         #endregion
         #region(references)
         /// <summary> </summary>
-        public void references(Boolean skiplayout, String exclude, Boolean pub) {
+        public void references(Boolean skiplayout, String exclude, Boolean pub, Boolean trash) {
             //do the auth
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             userService.clearTmps<reference>();
             PropertyBag["published"] = is_pubview(pub);
+            PropertyBag["trashlist"] = trash;
             if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
             String[] drop = exclude.Split(',');
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
-            PropertyBag["items"] = ActiveRecordBase<reference>.FindAll().Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()));
+            IList<reference> items = ActiveRecordBase<reference>.FindAll().Where(x => !x.tmp).ToList();
+            PropertyBag["draft_count"] = items.Where(x => !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+            PropertyBag["pub_count"] = items.Where(x => !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
+            PropertyBag["trash_count"] = items.Where(x => x.deleted && !drop.Contains(x.baseid.ToString())).Count();
+            if (!trash) {
+                if (skiplayout) {
+                    PropertyBag["items"] = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()));
+                } else {
+                    PropertyBag["items"] = items.Where(x => !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                }
+            } else {
+                PropertyBag["items"] = items.Where(x => x.deleted == trash && !drop.Contains(x.baseid.ToString()));
+            }
             RenderView("references");
         }
 
@@ -143,6 +156,9 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             if (cancel != null) {
+                if (item.tmp == true && item.baseid > 0) {
+                    ActiveRecordMediator<reference>.Delete(item);
+                }
                 Redirect("center", "references", new Hashtable());
                 return;
             }
@@ -258,10 +274,11 @@ namespace stellar.Controllers {
         #endregion
         #region(clinicals)
         /// <summary> </summary>
-        public void clinicals(Boolean skiplayout, String exclude, Boolean pub) {
+        public void clinicals(Boolean skiplayout, String exclude, Boolean pub, Boolean trash) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
+            PropertyBag["trashlist"] = trash;
             //do the auth
             userService.clearTmps<clinical>();
             if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
@@ -269,13 +286,18 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
 
-            IList<clinical> items = ActiveRecordBase<clinical>.FindAll();
-            PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
-            PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
-            if (skiplayout) {
-                PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
+            IList<clinical> items = ActiveRecordBase<clinical>.FindAll().Where(x => !x.tmp).ToList();
+            PropertyBag["draft_count"] = items.Where(x => !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+            PropertyBag["pub_count"] = items.Where(x => !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
+            PropertyBag["trash_count"] = items.Where(x => x.deleted && !drop.Contains(x.baseid.ToString())).Count();
+            if (!trash) {
+                if (skiplayout) {
+                    PropertyBag["items"] = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()));
+                } else {
+                    PropertyBag["items"] = items.Where(x => !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                }
             } else {
-                PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                PropertyBag["items"] = items.Where(x => x.deleted == trash && !drop.Contains(x.baseid.ToString()));
             }
             RenderView("clinicals");
         }
@@ -339,7 +361,9 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             if (cancel != null) {
-                ActiveRecordMediator<clinical>.Delete(item);
+                if (item.tmp == true && item.baseid > 0) {
+                    ActiveRecordMediator<clinical>.Delete(item);
+                } 
                 Redirect("center", "clinicals", new Hashtable());
                 return;
             }
@@ -459,23 +483,29 @@ namespace stellar.Controllers {
         #endregion
         #region(trials)
             /// <summary> </summary>
-            public void trials(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback, string filter) {
+        public void trials(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback, string filter, Boolean trash) {
                 if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
                 pub = is_pubview(pub);
                 PropertyBag["published"] = pub;
+                PropertyBag["trashlist"] = trash;
                 //do the auth
                 userService.clearTmps<trial>();
                 if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
                 String[] drop = exclude.Split(',');
                 if (skiplayout) CancelLayout();
                 PropertyBag["skiplayout"] = skiplayout;
-                IList<trial> items = ActiveRecordBase<trial>.FindAll();
-                PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
-                PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
-                if (skiplayout) {
-                    PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
+                IList<trial> items = ActiveRecordBase<trial>.FindAll().Where(x => !x.tmp).ToList();
+                PropertyBag["draft_count"] = items.Where(x => !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+                PropertyBag["pub_count"] = items.Where(x => !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
+                PropertyBag["trash_count"] = items.Where(x => x.deleted && !drop.Contains(x.baseid.ToString())).Count();
+                if (!trash) {
+                    if (skiplayout) {
+                        PropertyBag["items"] = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()));
+                    } else {
+                        PropertyBag["items"] = items.Where(x => !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                    }
                 } else {
-                    PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                    PropertyBag["items"] = items.Where(x => x.deleted == trash && !drop.Contains(x.baseid.ToString()));
                 }
                 RenderView("trials");
             }
@@ -515,7 +545,9 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             if (cancel != null) {
-                if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<trial>.Delete(item);
+                if (item.tmp == true && item.baseid > 0) {
+                    ActiveRecordMediator<trial>.Delete(item);
+                }
                 Redirect("center", "trials", new Hashtable());
                 return;
             }
@@ -597,32 +629,33 @@ namespace stellar.Controllers {
         #endregion
         #region(drug_families)
         /// <summary> </summary>
-        public void families(Boolean skiplayout, String exclude, Boolean pub) {
+        public void families(Boolean skiplayout, String exclude, Boolean pub, Boolean trash) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
+            PropertyBag["trashlist"] = trash;
             //do the auth
             userService.clearTmps<drug_family>();
             if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
             String[] drop = exclude.Split(',');
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
-            IList<drug_family> items = ActiveRecordBase<drug_family>.FindAll();
+            IList<drug_family> items = ActiveRecordBase<drug_family>.FindAll().Where(x => !x.tmp).ToList();;
             
-
-
-
-
             IList<substance> subitems = ActiveRecordBase<substance>.FindAll();
             PropertyBag["substance_count"] = subitems.Where(x => !x.tmp && !x.deleted).Count();
 
-
-            PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
-            PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
-            if (skiplayout) {
-                PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
+            PropertyBag["draft_count"] = items.Where(x => !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+            PropertyBag["pub_count"] = items.Where(x => !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
+            PropertyBag["trash_count"] = items.Where(x => x.deleted && !drop.Contains(x.baseid.ToString())).Count();
+            if (!trash) {
+                if (skiplayout) {
+                    PropertyBag["items"] = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()));
+                } else {
+                    PropertyBag["items"] = items.Where(x => !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                }
             } else {
-                PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                PropertyBag["items"] = items.Where(x => x.deleted == trash && !drop.Contains(x.baseid.ToString()));
             }
             RenderView("families");
         }
@@ -740,7 +773,9 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             if (cancel != null) {
-                if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<drug_family>.Delete(item);
+                if (item.tmp == true && item.baseid > 0) {
+                    ActiveRecordMediator<drug_family>.Delete(item);
+                }
                 Redirect("center", "families", new Hashtable());
                 return;
             }
@@ -865,10 +900,11 @@ namespace stellar.Controllers {
         #endregion
         #region(drugs)
         /// <summary> </summary>
-        public void drugs(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback, string filter) {
+        public void drugs(Boolean skiplayout, String exclude, Boolean pub, Boolean json, string callback, string filter, Boolean trash) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
+            PropertyBag["trashlist"] = trash;
             //do the auth
             userService.clearTmps<drug>();
             if (String.IsNullOrWhiteSpace(exclude)) exclude = "";
@@ -876,7 +912,7 @@ namespace stellar.Controllers {
 
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
-            IList<drug> items = ActiveRecordBase<drug>.FindAll();
+            IList<drug> items = ActiveRecordBase<drug>.FindAll().Where(x => !x.tmp).ToList();
 
             if (json) {
                 CancelLayout();
@@ -890,9 +926,9 @@ namespace stellar.Controllers {
 
                 String json_str = "";
                 if (filtering.Count() > 1) {
-                    items = items.Where(x => !x.tmp && !x.deleted && x.dose_form == filtering[1] && !drop.Contains(x.baseid.ToString())).ToList();
+                    items = items.Where(x => !x.deleted && x.dose_form == filtering[1] && !drop.Contains(x.baseid.ToString())).ToList();
                 } else {
-                    items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
+                    items = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString())).ToList();
                 }
                 
                 json_str += @"  { 
@@ -926,12 +962,18 @@ namespace stellar.Controllers {
                 RenderText(json_str);
             } else {
 
-                PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
-                PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
-                if (skiplayout) {
-                    PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()));
+
+                PropertyBag["draft_count"] = items.Where(x => !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+                PropertyBag["pub_count"] = items.Where(x => !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
+                PropertyBag["trash_count"] = items.Where(x => x.deleted && !drop.Contains(x.baseid.ToString())).Count();
+                if (!trash) {
+                    if (skiplayout) {
+                        PropertyBag["items"] = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()));
+                    } else {
+                        PropertyBag["items"] = items.Where(x => !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                    }
                 } else {
-                    PropertyBag["items"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                    PropertyBag["items"] = items.Where(x => x.deleted == trash && !drop.Contains(x.baseid.ToString()));
                 }
                 RenderView("drugs");
             }
@@ -1002,7 +1044,9 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             if (cancel != null) {
-                if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<drug>.Delete(item);
+                if (item.tmp == true && item.baseid > 0) {
+                    ActiveRecordMediator<drug>.Delete(item);
+                }
                 Redirect("center", "drugs", new Hashtable());
                 return;
             }
@@ -1151,33 +1195,43 @@ namespace stellar.Controllers {
         #endregion
         #region(substances)
         /// <summary> </summary>
-        public void substances(Boolean skiplayout, String exclude, Boolean pub, Boolean json, String callback, String ddi_only) {
+        public void substances(Boolean skiplayout, String exclude, Boolean pub, Boolean json, String callback, String ddi_only, Boolean trash) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             pub = is_pubview(pub);
             PropertyBag["published"] = pub;
+            PropertyBag["trashlist"] = trash;
             //do the auth
         userService.clearTmps<substance>();
         if (String.IsNullOrWhiteSpace(exclude)) exclude = "0";
         String[] drop = exclude.Split(',');
         if (skiplayout) CancelLayout();
         PropertyBag["skiplayout"] = skiplayout;
-        IList<substance> items = ActiveRecordBase<substance>.FindAll();
-        PropertyBag["draft_count"] = items.Where(x => !x.tmp && !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
-        PropertyBag["pub_count"] = items.Where(x => !x.tmp && !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
+        IList<substance> items = ActiveRecordBase<substance>.FindAll().Where(x => !x.tmp).ToList();
+        PropertyBag["draft_count"] = items.Where(x => !x.deleted && !x.published && !drop.Contains(x.baseid.ToString())).Count();
+        PropertyBag["pub_count"] = items.Where(x => !x.deleted && x.published && !drop.Contains(x.baseid.ToString())).Count();
+        PropertyBag["trash_count"] = items.Where(x => x.deleted && !drop.Contains(x.baseid.ToString())).Count();
 
 
-        PropertyBag["ddi_only"] = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()) && x.for_ddi == "yes").ToList();
 
+        if (!trash) {
+            if (skiplayout) {
+                PropertyBag["ddi_only"] = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi == "yes");
+            } else {
+                PropertyBag["ddi_only"] = items.Where(x => !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()) && x.for_ddi == "yes");
+            }
+        } else {
+            PropertyBag["ddi_only"] = items.Where(x => x.deleted == trash && !drop.Contains(x.baseid.ToString()) && x.for_ddi == "yes");
+        }
         if (json) {
             CancelLayout();
             CancelView();
             String json_str = "";
             if (ddi_only=="true") {
-                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi == "yes").ToList();
+                items = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi == "yes").ToList();
             } else if (ddi_only=="false") {
-                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi != "yes").ToList();
+                items = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi != "yes").ToList();
             }else{
-                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) ).ToList();
+                items = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()) ).ToList();
             }
             json_str += @"  { 
     ";
@@ -1206,12 +1260,15 @@ namespace stellar.Controllers {
             Response.ContentType = "application/json; charset=UTF-8";
             RenderText(json_str);
         } else {
-            if (skiplayout) {
-                items = items.Where(x => !x.tmp && !x.deleted && !drop.Contains(x.baseid.ToString()) && x.for_ddi != "yes").ToList();
+            if (!trash) {
+                if (skiplayout) {
+                    PropertyBag["items"] = items.Where(x => !x.deleted && !drop.Contains(x.baseid.ToString()));
+                } else {
+                    PropertyBag["items"] = items.Where(x => !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()));
+                }
             } else {
-                items = items.Where(x => !x.tmp && !x.deleted && x.published == pub && !drop.Contains(x.baseid.ToString()) && x.for_ddi != "yes").ToList();
+                PropertyBag["items"] = items.Where(x => x.deleted == trash && !drop.Contains(x.baseid.ToString()));
             }
-                PropertyBag["items"] = items;
             RenderView("substances");
         }
     }
@@ -1255,7 +1312,9 @@ namespace stellar.Controllers {
         if (skiplayout) CancelLayout();
         PropertyBag["skiplayout"] = skiplayout;
         if (cancel != null) {
-            if (item.tmp == true && item.baseid > 0) ActiveRecordMediator<substance>.Delete(item);
+            if (item.tmp == true && item.baseid > 0) {
+                ActiveRecordMediator<substance>.Delete(item);
+            }
             Redirect("center", "substances", new Hashtable());
             return;
         }
