@@ -2181,7 +2181,7 @@ $.chai.clinical = {
 			var tdCount = targetrow.find("td").length;
 			var tableData = [];
 			
-			var html = targetrow.find("td:first").text() + '<input type="hidden" name="drugs['+count+'].baseid" value="'+baseid+'" class="drug_item list_item"/>';
+			var html = targetrow.find("td:first").text() + '<input type="hidden" name="drugs['+count+'].baseid" data-baseid="'+baseid+'" value="'+baseid+'" class="drug_item list_item"/>';
 			tableData.push( html );
 			
 			for (var i = 1; i < tdCount-1; i++) { 
@@ -2193,7 +2193,10 @@ $.chai.clinical = {
 				'<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>'
 			); 
 
-			$("#drug_products").find(".datagrid").dataTable().fnAddData( tableData );
+			$("#drug_products .datagrid").dataTable().fnAddData( tableData );
+			
+			//$("#drug_products .datagrid [name='drugs["+count+"].baseid']").data('baseid',baseid);
+			
 			
 			targetrow.fadeOut( "75" ,function(){ table.fnDeleteRow( table.fnGetPosition( targetrow.get(0) ) ); });
 			
