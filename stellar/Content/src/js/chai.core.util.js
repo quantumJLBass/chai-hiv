@@ -17,10 +17,13 @@
 						data: "autosave=true&autosaved="+$.chai.core.util.autosaved+"&"+$(this).serialize(),
 						type: "POST",
 						success: function(data){
+							$(".dialog_message.autosave").removeClass('ui-state-error');
 							if(data && data === "success") {
 								$.chai.core.util.autosaved=true;
 								$(".dialog_message.autosave").html("Auto saved form");
 								self.trigger('reinitialize.areYouSure');
+								$(".dialog_message.autosave").show();
+								setTimeout(function(){$(".dialog_message.autosave").fadeOut("500");},"1000");
 							}else if(data && data === "unsaved") {
 								window.clearInterval($.chai.core.util.t);
 								$.chai.core.util.t=null;
@@ -29,10 +32,22 @@
 								setTimeout(function(){$(".dialog_message.autosave").fadeOut("500");},"4000");
 								return;
 							}else{
-								$(".dialog_message.autosave").html("Failed to auto save");
+								$(".dialog_message.autosave").addClass('ui-state-error');
+								$(".dialog_message.autosave").html("Failed to auto save.  Will try again in 10sec.");
+								$(".dialog_message.autosave").show();
+								setTimeout(function(){$(".dialog_message.autosave").fadeOut("500");},"4000");
 							}
-							$(".dialog_message.autosave").show();
-							setTimeout(function(){$(".dialog_message.autosave").fadeOut("500");},"1000");
+
+						},
+						statusCode: {
+							500: function() {
+								window.clearInterval($.chai.core.util.t);
+								$.chai.core.util.t=null;
+								$(".dialog_message.autosave").addClass('ui-state-error');
+								$(".dialog_message.autosave").html("Failed to auto save - 500 error");
+								$(".dialog_message.autosave").show();
+								setTimeout(function(){$(".dialog_message.autosave").fadeOut("500");},"4000");
+							}
 						}
 					});
 				});
