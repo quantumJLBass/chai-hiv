@@ -1,6 +1,4 @@
 #* drugdata *#
-	#set($typed_list = $item.drugs)
-
 	<label for="Drugdata">Drug Products:</label>
 	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="Drugdata" width="100%">
 		<thead>
@@ -24,7 +22,9 @@
 			</tr>
 		</tfoot>
 		<tbody>
-		#foreach($item in $typed_list)
+		#if($!item.drugs.Count()>0)
+		#foreach($drug in $item.drugs)
+		#if($!drug.baseid>0)
 			#set($name = false)
 			#set($taxedname = false)
 			#set($manufacturer = false)
@@ -33,29 +33,29 @@
 #capturefor(fam_sub_code)
 
 
-#foreach($sub in  $item.families.substances)
+#foreach($sub in  $drug.families.substances)
 $sub.abbreviated
 #between
 <em>:</em>
 #end
 
 #end
-			<tr class="#if($velocityCount%2<1)even #else odd #end " data-baseid="$item.baseid">
+			<tr class="#if($velocityCount%2<1)even #else odd #end " data-baseid="$drug.baseid">
 			
 				<td>
-				<input type="hidden" name="drugs[$velocityCount].baseid" value="$item.baseid" class="list_item drug_item"/>
-				#if($!taxonomyService.get_taxonomy($!item.dose_form).name!="") $!taxonomyService.get_taxonomy($!item.dose_form).name #else - #end
+				<input type="hidden" name="drugs[$velocityCount].baseid" value="$drug.baseid" class="list_item drug_item"/>
+				#if($!taxonomyService.get_taxonomy($!drug.dose_form).name!="") $!taxonomyService.get_taxonomy($!drug.dose_form).name #else - #end
 				</td>
 				
-				<td>#if($!item.label_claim!="") $!item.label_claim #else - #end</td>
+				<td>#if($!drug.label_claim!="") $!drug.label_claim #else - #end</td>
 			
 				<td>#if($!fam_sub_code.trim()!="") $!fam_sub_code #else <em><b>orphaned</b></em> #end</td>
 				
-				#set($name = $item.get_named())
+				#set($name = $drug.get_named())
 				#set($taxedname = $!postingService.get_taxonomy($name).name)
 				<td>#if($taxedname)$taxedname#else #if($name!="")$name#else -- #end #end</td>
 				
-				#set($manufacturer = $!postingService.get_taxonomy($item.manufacturer).name)
+				#set($manufacturer = $!postingService.get_taxonomy($drug.manufacturer).name)
 				<td>#if($manufacturer)$!manufacturer #else - #end</td>
 				
 				
@@ -65,7 +65,8 @@ $sub.abbreviated
 				</td>
 			</tr>
 		#end
-			
+		#end
+		#end	
 			
 		</tbody>
 	</table>
