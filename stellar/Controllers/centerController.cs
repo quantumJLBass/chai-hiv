@@ -420,7 +420,7 @@ namespace stellar.Controllers {
                         /* foreach (drug drug in drugs) {
 
                          }*/
-                        if (interaction.drug.baseid == drug.baseid) {
+                        if (interaction.drug != null && interaction.drug.baseid != null && interaction.drug.baseid == drug.baseid) {
                             if (interaction.id == 0) {
                                 ActiveRecordMediator<drug_interaction>.Save(interaction);
                             }
