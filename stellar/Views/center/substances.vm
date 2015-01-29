@@ -19,6 +19,7 @@
 		</thead>
 		<tbody>
 		#foreach($item in $items)
+		#if($item.for_ddi != "yes")
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
 				<td>#if($item.cas_reg_number)$!item.cas_reg_number#else -- #end</td>
 				<td>#if($item.abbreviated)$!item.abbreviated#else -- #end</td>
@@ -33,6 +34,7 @@
 					#end
 				</td>
 			</tr>
+		#end
 		#end
 		</tbody>
 		<tfoot>

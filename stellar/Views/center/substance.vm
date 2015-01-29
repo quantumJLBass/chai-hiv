@@ -45,7 +45,11 @@ $part.name => $part.alias
 			<li>
 				#set($daval ="")
 				#set($daval = $!item.generic_name)
+				
+				#* $!item.generic_name 
 				#feild_selectinput($type "generic_name" $daval $generic_names "" "taxed" "")
+				*#
+				$Controller.feilds("select","{'objectName':'item','model_prop':'generic_name','datatype':'substance', 'value':'$!item.generic_name', 'select_options':'$generic_names', 'force_match':'true', 'html_class':'taxed'}")
 			</li>
 			
 #* abbreviated *#

@@ -2045,6 +2045,8 @@ namespace stellar.Controllers {
             String html_class = option_obj.ContainsKey("html_class") ? option_obj["html_class"] : "";
             String html_attr = option_obj.ContainsKey("html_attr") ? option_obj["html_attr"] : "";
 
+            String force_match = option_obj.ContainsKey("force_match") ? option_obj["force_match"] : "";
+
 
             String html = "";
             String lable = "";
@@ -2106,6 +2108,9 @@ namespace stellar.Controllers {
                     }
 
                     String selected = (!String.IsNullOrWhiteSpace(value) && value == selval) ? "selected" : "";
+                    if (force_match == "true") {
+                        selected = (!String.IsNullOrWhiteSpace(value) && value.ToLower() == selval.ToLower()) ? "selected" : "";
+                    }
                     if(optgroup_part){
                         if (optgroup_start) {
                             html += "<optgroup label='" + selval + "'>";
