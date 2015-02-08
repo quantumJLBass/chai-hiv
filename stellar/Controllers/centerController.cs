@@ -1664,7 +1664,7 @@ namespace stellar.Controllers {
         }
 
         /// <summary> </summary>
-        public void restore_item(int id) {
+        public void restore_item(int id, string inplace) {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());
             dynamic item = ActiveRecordBase<_base>.Find(id);
             if (item != null) {
@@ -1674,7 +1674,8 @@ namespace stellar.Controllers {
                 ActiveRecordMediator<publish_base>.Save(item);
             }
             CancelLayout();
-            RedirectToAction("trashbin");
+            String where = String.IsNullOrWhiteSpace(inplace) ? "trashbin" : inplace;
+            RedirectToAction(where);
         }
         #endregion
         #region(taxonomy)

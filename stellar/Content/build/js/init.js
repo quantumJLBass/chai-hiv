@@ -877,6 +877,7 @@
 					datatable.on( 'draw.dt', function () {
 						$.chai.core.util.ini_modaltable_to_table(datatable,datagrids.closest('.dataTables_wrapper').next(".add_to_list").data('type'));
 						$.chai.core.util.ini_dataTable_removals(datatable.find(".removal"));
+						$.chai.core.util.set_up_list_deletion();
 					});
 				});
 				
@@ -901,8 +902,9 @@
 						$.chai.core.util.add_item_popup(type, list, ["new","list"]);
 					});
 				});
-				
+				$.chai.core.util.set_up_list_deletion();
 				$.chai.core.util.ini_dataTable_removals();
+				
 			}
 
 		},

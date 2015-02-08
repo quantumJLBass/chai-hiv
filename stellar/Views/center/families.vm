@@ -40,7 +40,10 @@ $part.abbreviated
 					#else
 						#if(!$skiplayout)
 							<a href="family.castle?id=$item.baseid" class="button small">Edit</a> 
-							#if(!$trashlist) | <a href="remove_family.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>#end
+							#if(!$trashlist) | <a href="remove_family.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>
+							#else
+							<a href="$siteroot/center/restore_item.castle?id=${item.baseid}&inplace=$Controller.getAction()" title="Click to restore" class=" button small">restore&#187;</a>
+							#end
 							#*| <a href="copyfamily.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>*# 
 						#end
 					#end
