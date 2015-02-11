@@ -32,7 +32,7 @@
 								
 								#foreach($part in $_props)
 									#if(!$not_props.Contains($part))
-										<option class="drug" value="$part">$htmlService.capitalize_all($part.Replace("_"," "))</option>
+										<option class="drug" value="$part">$htmlService.capitalize_all($!part.Replace("_"," "))</option>
 									#end
 								#end
 							</select>

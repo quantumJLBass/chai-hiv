@@ -31,7 +31,7 @@
 			#foreach($part in $item.references)
 			#set($idx = ${velocityCount} - 1)
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.new_drug_code" data-baseid="$part.baseid">
-				<td><input type="hidden" name="references[${idx}].baseid" value="$part.baseid" class="drug_item"/>$!part.baseid</td>
+				<td><input type="hidden" name="references[${idx}].baseid" value="$!part.baseid" class="drug_item"/>$!part.baseid</td>
 				<td>$!part.get_meta("ref_type")</td>
 				<td class="no_overflow">$!part.name</td>
 				<td class="no_overflow"><a href="#if($!part.url)$!part.url#else $!part.static_file #end" target="_blank">#if($item.static_file)<i class="icon-download-alt"></i>#else<i class="icon-external-link-sign"></i>#end #if($!part.url)$!part.url#else $!part.static_file #end</a></td>
