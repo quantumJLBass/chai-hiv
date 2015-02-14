@@ -16,10 +16,9 @@
 
 
 
-
 #capturefor(drugs_list)
 #foreach($drug in $!item.drugs)
-$drug.dose_form -- $!drug.name ( $drug.manufacturer | $drug.label_claim ) => $drug.baseid
+$drug.dose_form -- $!drug.name #if($!part.manufacturer || $!drug.label_claim )( $!drug.manufacturer #if($!part.manufacturer && $!drug.label_claim )|#end $!drug.label_claim )#end => $drug.baseid
 #between
 ,
 #end
@@ -45,24 +44,26 @@ $drug.dose_form -- $!drug.name ( $drug.manufacturer | $drug.label_claim ) => $dr
 				<td>
 					$Controller.feilds("hidden","{'objectName':'interactions[$i]', 'model_prop':'id', 'value':'$!part.id' }")
 					
-					
+	
 
 #capturefor(substances_list)
 optgroup_start => Drug Substances ,
 #foreach($part in $ddisubstances)
-$!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) => $part.baseid
+$!postingService.get_taxonomy($part.generic_name).name #if($!part.abbreviated)( $!part.abbreviated )#end => $part.baseid
 #between
 ,
 #end
 , optgroup_end => Drug Substances ,
 optgroup_start => DDI ONLY Substances ,
 #foreach($part in $ddi_only)
-$!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) => $part.baseid
+$!postingService.get_taxonomy($part.generic_name).name #if($!part.abbreviated)( $!part.abbreviated )#end => $part.baseid
 #between
 ,
 #end
 , optgroup_end => Drug Substances
-#end					
+#end	
+
+				
 				
 					
 					$Controller.feilds("select","{'objectName':'interactions[$i]', 'model_prop':'substance', 'value':'$!part.substance', 'select_options':'$substances_list'}")
@@ -72,7 +73,8 @@ $!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) =>
 				$Controller.feilds("select","{'objectName':'interactions[$i]', 'model_prop':'yes_no', 'value':'$!part.yes_no', 'select_options':'Yes=>yes,No=>no'}")
 				</td>
 				<td>$Controller.feilds("text","{'objectName':'interactions[$i]', 'model_prop':'dose_amount', 'value':'$!part.dose_amount', 'html_attr':' style=\"width:100%\" '}")</td>
-				<td>$Controller.feilds("textarea","{'objectName':'interactions[$i]', 'model_prop':'descriptions', 'value':'$!part.descriptions', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}")</td>
+				#set($dis = $!part.descriptions.Replace("'","\'"))
+				<td>$Controller.feilds("textarea","{'objectName':'interactions[$i]', 'model_prop':'descriptions', 'value':'$dis', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}")</td>
 				<td> #if($viewonly) #else <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a> #end	</td>
 			</tr>
 			

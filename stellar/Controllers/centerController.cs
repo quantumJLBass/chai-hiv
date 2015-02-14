@@ -411,8 +411,7 @@ namespace stellar.Controllers {
                 if (!item.drugs.Any(x => x.baseid == drug.baseid)) {
                     item.drugs.Add(drug);
 
-
-                    if (drug.interactions != null) {
+                    /**/if (drug.interactions != null) {
                         drug.interactions.Clear();
                     }
 

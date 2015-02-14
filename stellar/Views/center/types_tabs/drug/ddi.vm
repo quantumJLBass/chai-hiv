@@ -15,27 +15,25 @@
 			<tr class=""  data-baseid="$part.baseid">
 				<td>
 					$Controller.feilds("hidden","{'objectName':'interactions[$velocityCount]', 'model_prop':'id', 'value':'$!part.id' }")
-					
-					
 
 #capturefor(substances_list)
 optgroup_start => Drug Substances ,
 #foreach($part in $substances)
-$!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) => $part.baseid
+$!postingService.get_taxonomy($part.generic_name).name #if($!part.abbreviated)( $!part.abbreviated )#end => $part.baseid
 #between
 ,
 #end
 , optgroup_end => Drug Substances ,
 optgroup_start => DDI ONLY Substances ,
 #foreach($part in $ddi_only)
-$!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) => $part.baseid
+$!postingService.get_taxonomy($part.generic_name).name #if($!part.abbreviated)( $!part.abbreviated )#end => $part.baseid
 #between
 ,
 #end
 , optgroup_end => Drug Substances
-#end					
-				
-					
+#end	
+
+
 					$Controller.feilds("select","{'objectName':'interactions[$velocityCount]', 'model_prop':'substance', 'value':'$!part.substance', 'select_options':'$substances_list'}")
 <!--					<select name="interactions[$velocityCount].substance"  id="ddi_only_$velocityCount"><option value="">Select</option></select>-->
 				</td>
@@ -43,7 +41,9 @@ $!postingService.get_taxonomy($part.generic_name).name  ( $part.abbreviated ) =>
 				$Controller.feilds("select","{'objectName':'interactions[$velocityCount]', 'model_prop':'yes_no', 'value':'$!part.yes_no', 'select_options':'Yes=>yes,No=>no'}")
 				</td>
 				<td>$Controller.feilds("text","{'objectName':'interactions[$velocityCount]', 'model_prop':'dose_amount', 'value':'$!part.dose_amount', 'html_attr':' style=\"width:100%\" '}")</td>
-				<td>$Controller.feilds("textarea","{'objectName':'interactions[$velocityCount]', 'model_prop':'descriptions', 'value':'$!part.descriptions', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}")</td>
+				
+				#set($dis = $!part.descriptions.Replace("'","\'"))
+				<td>$Controller.feilds("textarea","{'objectName':'interactions[$velocityCount]', 'model_prop':'descriptions', 'value':'$dis', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}")</td>
 				<td> #if($viewonly) #else <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a> #end	</td>
 			</tr>
 		#end

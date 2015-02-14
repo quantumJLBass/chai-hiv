@@ -38,7 +38,7 @@
 					#end
 				#end
 				#set($manufacturer = $!postingService.get_taxonomy($drug.manufacturer).name)
-				<td>#if($manufacturer)$!manufacturer #else - #end</td>
+				<td>#if($drug.manufacturer && $manufacturer)$!manufacturer #else -- Not set -- #end</td>
 				<td>
 					<input type="hidden" name="drugs[${k}].baseid" value="${drug.baseid}" class="drug_item list_item"/>
 					<input type="hidden" name="drugs[${k}].attached" value="1" class="drug_item list_item"/>
