@@ -170,7 +170,7 @@ namespace stellar.Controllers {
                                     Expression.Eq("url", item.url),
                                 }.ToArray()
                 );
-                if (refer!=null && refer.baseid > 0)
+                if (refer != null && refer.baseid > 0 && refer.baseid != item.baseid)
                 {
                     Flash["message"] = "Reference  existed.";
                     RedirectToUrl("~/center/reference.castle?id=" + refer.baseid);
@@ -209,7 +209,7 @@ namespace stellar.Controllers {
             }
             ActiveRecordMediator<reference>.Save(item);
 
-            if (newfile.ContentLength != 0) {
+            if (newfile !=null && newfile.ContentLength != 0) {
                 String Fname = System.IO.Path.GetFileName(newfile.FileName);
                 String[] fileparts = Fname.Split('.');
 
