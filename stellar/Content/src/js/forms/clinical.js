@@ -101,11 +101,7 @@
 				e.stopPropagation();
 				var dataTable = $('#clinical_states.dataTable');
 				var tableData = [];
-				
 				var count = $("#clinical_states tbody tr").length+1;
-				
-				//var options=$('#dirty_options select').html();
-				
 				$.each(window.data_table_clinical_states,function(i,v){
 					tableData.push( v.split('[0]').join('['+(count)+']') );
 					console.log( v.split('[0]').join('['+(count)+']') );
