@@ -171,8 +171,13 @@
 				//var targetrow = $(this).closest("grid");
 				
 				var datatable = $(this).closest('.datagrid').dataTable({
-					"aaSorting": [[1,'asc']]
-					});
+					"aaSorting": [[1,'asc']],
+					"order": [],
+					"columnDefs": [ {
+					  "targets"  : 'no-sort',
+					  "orderable": false,
+					}]
+				});
 				//var count = datatable.find("tbody").find("tr").length;
 				datatable.dataTable().fnAddData( [
 					'$part.baseid',
@@ -847,7 +852,12 @@
 					"sPaginationType": "full_numbers",
 					"fnDrawCallback": function() {//(oSettings ) {
 						$.chai.core.util.ini_modaltable_to_table(datatable,type);
-					}
+					},
+					"order": [],
+					"columnDefs": [ {
+					  "targets"  : 'no-sort',
+					  "orderable": false,
+					}]
 				});
 				datatable.on( 'draw.dt', function () {
 					$.chai.core.util.ini_modaltable_to_table(datatable,type);
@@ -865,7 +875,12 @@
 					datatable.dataTable( {
 						"bJQueryUI": true,
 						"sPaginationType": "full_numbers",
-						"aaSorting": [[1,'asc']]
+						"aaSorting": [[1,'asc']],
+						"order": [],
+						"columnDefs": [ {
+						  "targets"  : 'no-sort',
+						  "orderable": false,
+						}]
 					});
 					datatable.on( 'draw.dt', function () {
 						$.chai.core.util.ini_modaltable_to_table(datatable,datagrids.closest('.dataTables_wrapper').next(".add_to_list").data('type'));

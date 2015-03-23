@@ -535,7 +535,7 @@ i.remove {
 }
 
 
-.editing_action_block{ display:inline-block; float: right;}
+.editing_action_block{ display:inline-block; width:100%; text-align:right;}
 
 table.dataTable td:last-child { padding-right:0px !important;}
 
@@ -1870,3 +1870,12 @@ h2, h3 {
 	overflow: hidden;
 	display: block;
 }
+table.with_action tr,
+table.with_action tr td{
+	min-height:25px;
+}
+table.with_action tr td:last-child {
+    padding:0px;
+}
+
+

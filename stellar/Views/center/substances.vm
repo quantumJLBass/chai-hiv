@@ -14,7 +14,7 @@
 				<th width="15%">CAS</th>
 				<th width="15%">Abbreviated</th>
 				<th class="sorting_asc">Name</th>
-				<th width="10%"></th>
+				<th width="10%" class="no-sort"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,7 +51,7 @@
 				<th width="15%">CAS</th>
 				<th width="15%">Abbreviated</th>
 				<th class="sorting_asc">Name</th>
-				<th width="10%"></th>
+				<th width="10%" class="no-sort"></th>
 			</tr>
 		</thead>
 		<tbody>

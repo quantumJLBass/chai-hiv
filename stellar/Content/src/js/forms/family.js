@@ -142,7 +142,12 @@
 				var self = $(this);
 				self.DataTable({ 
 					"bJQueryUI": true,
-					"sPaginationType": "full_numbers", 
+					"sPaginationType": "full_numbers",
+					"order": [],
+					"columnDefs": [ {
+					  "targets"  : 'no-sort',
+					  "orderable": false,
+					}], 
 					"fnDrawCallback": function() {//(oSettings ) {
 		
 						$("#drpro_table").find('.drpro_table .dataTables_empty').html('No drug products available. <a href="#" class="add_drPro">Add <i title="edit" class="icon-plus"></i></a>');

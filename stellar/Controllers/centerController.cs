@@ -1964,6 +1964,7 @@ namespace stellar.Controllers {
             String model_prop = option_obj.ContainsKey("model_prop") ? option_obj["model_prop"] : "";
             String value = option_obj.ContainsKey("value") ? option_obj["value"] : "";
             String custom_lable = option_obj.ContainsKey("custom_lable") ? option_obj["custom_lable"] : "";
+            String skip_help = option_obj.ContainsKey("skip_help") ? option_obj["skip_help"] : "";
             String placeholder = option_obj.ContainsKey("placeholder") ? option_obj["placeholder"] : "";
             String html_class = option_obj.ContainsKey("html_class") ? option_obj["html_class"] : "";
             String html_attr = option_obj.ContainsKey("html_attr") ? option_obj["html_attr"] : "";
@@ -1978,7 +1979,7 @@ namespace stellar.Controllers {
                  feildObj = postingService.get_taxonomy(datatype, model_prop, "SYSTEM__feild_helpers");
             }
             if (feildObj != null) {
-                if (feildObj.content != null && feildObj.content != "") {
+                if (feildObj.content != null && feildObj.content != "" && skip_help != "true") {
                     field_helper = "<i class='icon-question-sign blue' title='" + feildObj.content + "'></i>";
                 }
                 if (feildObj.name != null && feildObj.name != "") {
@@ -2011,6 +2012,7 @@ namespace stellar.Controllers {
             String model_prop = option_obj.ContainsKey("model_prop") ? option_obj["model_prop"] : "";
             String value = option_obj.ContainsKey("value") ? option_obj["value"] : "";
             String custom_lable = option_obj.ContainsKey("custom_lable") ? option_obj["custom_lable"] : "";
+            String skip_help = option_obj.ContainsKey("skip_help") ? option_obj["skip_help"] : "";
             String placeholder = option_obj.ContainsKey("placeholder") ? option_obj["placeholder"] : "";
             String html_class = option_obj.ContainsKey("html_class") ? option_obj["html_class"] : "";
             String html_attr = option_obj.ContainsKey("html_attr") ? option_obj["html_attr"] : "";
@@ -2026,7 +2028,7 @@ namespace stellar.Controllers {
             }
 
             if (feildObj != null) {
-                if (feildObj.content != null && feildObj.content != "") {
+                if (feildObj.content != null && feildObj.content != "" && skip_help != "true") {
                     field_helper = "<i class='icon-question-sign blue' title='" + feildObj.content + "'></i>";
                 }
                 if (feildObj.name != null && feildObj.name != "") {
@@ -2060,6 +2062,7 @@ namespace stellar.Controllers {
             String model_prop = option_obj.ContainsKey("model_prop") ? option_obj["model_prop"] : "";
             String value = option_obj.ContainsKey("value") ? option_obj["value"] : "";
             String custom_lable = option_obj.ContainsKey("custom_lable") ? option_obj["custom_lable"] : "";
+            String skip_help = option_obj.ContainsKey("skip_help") ? option_obj["skip_help"] : "";
             String select_options = option_obj.ContainsKey("select_options") ? option_obj["select_options"] : "";
 
             String html_class = option_obj.ContainsKey("html_class") ? option_obj["html_class"] : "";
@@ -2078,7 +2081,7 @@ namespace stellar.Controllers {
                 feildObj = postingService.get_taxonomy(datatype, model_prop, "SYSTEM__feild_helpers");
             }
             if (feildObj != null) {
-                if (feildObj.content != null && feildObj.content != "") {
+                if (feildObj.content != null && feildObj.content != "" && skip_help != "true") {
                     field_helper = "<i class='icon-question-sign blue' title='" + feildObj.content + "'></i>";
                 }
                 if (feildObj.name != null && feildObj.name != "") {

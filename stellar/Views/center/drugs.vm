@@ -13,7 +13,7 @@
 		#if(!$skiplayout && !$viewonly)
 		<p><b>NOTE:</b> You Create Drug products from Family.</p>
 		#end
-	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
+	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid with_action" id="data" width="100%">
 		<thead>
 			<tr>
 				<th width="15%">Form</th>
@@ -21,7 +21,7 @@
 				<th width="15%">Family</th>
 				<th class="sorting_asc">Name (brand name)</th>
 				<th width="15%">Manufacturer</th>
-				<th width="10%"></th>
+				<th width="10%" class="no-sort"></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -31,7 +31,7 @@
 				<th width="15%"></th>
 				<th></th>
 				<th width="15%"></th>
-				<th width="10%"></th>
+				<th width="10%" class="no-sort"></th>
 			</tr>
 		</tfoot>
 		<tbody>

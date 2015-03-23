@@ -43,6 +43,9 @@ module.exports = function(grunt) {
 			},*/
 			scripts: {
 				src: [
+					'src/js/scripts.js',
+					'src/js/jquery.maskedinput.js',
+					'zeroclip/ZeroClipboard.js',
 					'src/js/chai.stub.js',
 					'src/js/chai.core.util.js',
 					'src/js/chai.general_functions.js',

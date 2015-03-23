@@ -56,7 +56,12 @@
 								var table = $("#drug_list #data").DataTable({ 
 									"bJQueryUI": true,
 									"sPaginationType": "full_numbers",
-									"fnDrawCallback": function() {}
+									"fnDrawCallback": function() {},
+									"order": [],
+									"columnDefs": [ {
+									  "targets"  : 'no-sort',
+									  "orderable": false,
+									}]
 								});
 								
 								$("#drug_list #data").on( 'draw.dt', function () {

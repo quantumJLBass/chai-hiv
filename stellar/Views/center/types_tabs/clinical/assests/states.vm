@@ -2,7 +2,7 @@
 <label for="DDIdata">States:<i title="Click for help with this block" data-block="states_block" class="icon-question-sign blue help_block"></i></label>
 <div style="position:relative;">
 	<div class="block_helper" id="states_block" style="display:none;">
-		#set($props = $objectService.explode("auc,auc_last_value,bioavailability,cmax,tmax"))
+		#set($props = $objectService.explode("state,auc,auc_unit,auc_last_value,bioavailability,cmax,tmax"))
 		<ul>
 		#foreach($prop in $!props)
 			#set($feildObj = $postingService.get_taxonomy('clinical', $prop, "SYSTEM__feild_helpers"))
@@ -15,107 +15,56 @@
 </div>
 
 
-<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="DDIdata" width="100%">
+<table cellpadding="0" cellspacing="0" border="0" class="display datagrid with_action" id="DDIdata" width="100%">
 	<thead>
 		<tr>
 			<th width="15%" id="ddi_drug_product">Type</th>
 			<th >State Details</th>
-			<th width="5%"></th>
+			<th width="25px" class="no-sort"></th>
 		</tr>
 	</thead>
 	<tfoot>
 		<tr>
 			<th width="15%"></th>
 			<th></th>
-			<th width="5%"></th>
+			<th width="25px" class="no-sort"></th>
 		</tr>
 	</tfoot>
 	<tbody>
-
-
-	#set($i = 0)
-	#foreach($state in $!item.arm_states)
-			#set($i = $i+1)
-	#end
+		#set($i = 0)
+		#foreach($state in $!item.arm_states)
+				#set($i = $i+1)
+		#end
 		<tr class=""  data-baseid="$part.baseid">
 			<td>
 				$Controller.feilds("hidden","{'objectName':'arm_states[$i]', 'model_prop':'arm.baseid', 'value':'$!item.baseid' }")
-				$Controller.feilds("select","{'objectName':'arm_states[$i]', 'model_prop':'drug', 'value':'$!ddi.drug', 'select_options':'Fasting,Fed,Steady'}")
+				$Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'state', 'value':'$!state.state', 'select_options':'Fasting,Fed,Steady', 'skip_help':'true'}")
 			</td>
 			<td>
-			
-			
-		<ul>
-	
-			<li>
 				<div class="grid col-one-half">
-	#* cmax *#
-					<div class="grid col-one-half">
-						$Controller.feilds("text","{'objectName':'arm_states[$i]', 'model_prop':'cmax', 'value':'$!state.cmax', 'custom_lable':'Cmax', 'placeholder':'(ng/ml)'}")
-					</div>	
-	#* tmax *#
-					<div class="grid col-one-half">	
-						$Controller.feilds("text","{'objectName':'arm_states[$i]', 'model_prop':'tmax', 'value':'$!state.tmax', 'custom_lable':'Tmax', 'placeholder':'(hours)'}")
-					</div>
-				</div>	
-	#* fasting_bioavailability *#
-				<div class="grid col-one-half">	
-					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'model_prop':'bioavailability', 'value':'$!state.bioavailability', 'custom_lable':'bioavailability', 'placeholder':'(%)'}")
+					#* cmax *#
+							$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'cmax', 'value':'$!state.cmax',  'placeholder':'(ng/ml)', 'skip_help':'true'}")<br/>
+							
+					#* tmax *#
+							$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'tmax', 'value':'$!state.tmax', 'placeholder':'(hours)', 'skip_help':'true'}")<br/>
+						
+					#* bioavailability *#
+							$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'bioavailability', 'value':'$!state.bioavailability', 'placeholder':'(%)', 'skip_help':'true'}")
 				</div>
-				<hr/>
-			</li>
-	#* auc *#
-			<li>
-				<div class="grid col-one-half">
-					<div class="grid col-one-half">
-					
-					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'model_prop':'auc', 'value':'$!state.auc', 'custom_lable':'auc', 'placeholder':'(%)'}")
-					
-					
-					
-					
-						<!--$Controller.feilds("textinput","$type","auc", $!item.fasting_auc ,"auc","","","")-->
-					</div>
-					<div class="grid col-one-half">
-						$Controller.feilds("select","$type","auc_unit", $!item.fasting_auc_unit ,"inf.,0-24,0-last","auc unit","","","")
-						$Controller.feilds("select","{'objectName':'arm_states[$i]', 'model_prop':'auc_unit', 'value':'$!state.auc_unit', 'select_options':'inf.,0-12,0-24,0-48,0-last'}")
-					</div>
-				</div>
-				<div class="grid col-one-half">
-	#* fasting_auc_last_value *#
-				$Controller.feilds("textinput","$type","auc_last_value", $!item.fasting_auc_last_value ,"auc last value","","","")
-				</div>
-				<div style="clear"></div>
 			
-
-			</li>
-	
-	
-	
-			<li>
+				<div class="grid col-one-half">
+					#* auc *#
+						$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc', 'value':'$!state.auc', 'custom_lable':'auc', 'placeholder':'(%)', 'skip_help':'true'}")<br/>
 				
-			</li>
-			
-		</ul>
-			<!--
-			$Controller.feilds("select","{'objectName':'arm_states[$i]', 'model_prop':'yes_no', 'value':'$!ddi.yes_no', 'select_options':'Yes=>yes,No=>no'}")
-
-				$Controller.feilds("hidden","{'objectName':'arm_states[$i]', 'model_prop':'id', 'value':'$!ddi.id' }")
+					#* auc_unit *#
+						$Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_unit', 'value':'$!state.auc_unit', 'select_options':'inf.,0-12,0-24,0-48,0-last', 'skip_help':'true'}")<br/>
 				
-				$Controller.feilds("select","{'objectName':'arm_states[$i]', 'model_prop':'substance', 'value':'$!ddi.substance', 'select_options':'$substances_list'}")
-
-
-			$Controller.feilds("select","{'objectName':'arm_states[$i]', 'model_prop':'yes_no', 'value':'$!ddi.yes_no', 'select_options':'Yes=>yes,No=>no'}")
-			
-			$Controller.feilds("text","{'objectName':'arm_states[$i]', 'model_prop':'dose_amount', 'value':'$!ddi.dose_amount', 'html_attr':' style=\"width:100%\" '}")
-			
-			#set($dis = $!ddi.descriptions.Replace("'","\'"))
-			$Controller.feilds("textarea","{'objectName':'interactions[$i]', 'model_prop':'descriptions', 'value':'$dis', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}")-->
+					#* auc_last_value *#
+						$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_last_value', 'value':'$!state.auc_last_value', 'placeholder':'(%)', 'skip_help':'true'}")
+				</div>
 			</td>
 			<td> #if($viewonly) #else <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a> #end	</td>
 		</tr>
-			
-
 	</tbody>
 </table>
 <a href="#" id="drug_interaction" class="button" data-type="drug_interaction">Add New State</a>

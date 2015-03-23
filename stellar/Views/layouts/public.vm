@@ -7,7 +7,6 @@
 		#* all the JS and CSS that is site wide *#
 		#parse("layouts/default_assets/global_header_html.vm")
 	</head>
-	<!--<body id='campusmap' class="#if($embeded)embeded #end central_layout ${controller.getView()} ${controller.getAction()}">-->
     <body class="#if($embeded)embeded #end central_layout ${controller.getView()} ${controller.getAction()}">
 		#if(!$embeded)
 			<div id="header_bar">
@@ -17,7 +16,6 @@
                 <form action="#" id="placeSearch" style="margin: 19px 0 10px 33px;">
                     <input type="text" value="" placeholder="Search for a place" /><input type="submit" class="submit" value="placeSearching" />
                 </form>
-                
                 <div id="navwrap_outer">
                     <div id="navwrap">
                         <div id="nav">
@@ -25,13 +23,9 @@
                         </div>
                     </div>
                 </div>
-
 			</div>
 		#end
-		
 		$childContent
-
 		#parse("layouts/default_assets/global_footer_JS.vm")
-
 	</body>
 </html>

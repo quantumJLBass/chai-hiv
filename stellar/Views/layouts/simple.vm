@@ -13,10 +13,6 @@
 			#parse("layouts/default_assets/header_html.vm")
 			<hr>
 			<div class="services-page main grid-wrap">
-				<!--<header class="grid col-full">
-					
-					<p class="fleft">Services</p>
-				</header>-->
 				#parse("layouts/default_assets/sidebar.vm")
 				<section class="grid col-three-quarters mq2-col-full">
 					<div class="grid-wrap smallgut">
@@ -40,7 +36,6 @@
 			</div> <!--main-->
 			#parse("layouts/default_assets/footer.vm")
 		</div>
-		
 		<div id="staging"></div>
 	</body>
 </html>

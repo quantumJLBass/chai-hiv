@@ -8,10 +8,14 @@
 <script type="text/javascript" src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0"></script>
 -->
 <!-- Javascript - jQuery -->
-<script src="http://code.jquery.com/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+
+
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<script type="text/javascript" src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+ 
 
 
 <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.1/js/jquery.dataTables.min.js"></script>
@@ -30,9 +34,10 @@ $scriptsService.Js("addthis_ini.js")
 <!--[if (gte IE 6)&(lte IE 8)]>
 	<script src="/content/js/selectivizr.js"></script>
 <![endif]-->
-<script src="/content/js/scripts.js"></script>
+<!--<script src="/content/js/scripts.js"></script>
 <script src="/content/js/jquery.maskedinput.js"></script>
 <script src="/Content/zeroclip/ZeroClipboard.min.js"></script>
-<!--<script src="/content/js/init.js"></script>-->
-<script src="/content/build/js/init.js"></script>
+<script src="/content/js/init.js"></script>
+<script src="/content/build/js/init.js"></script>-->
+<script type="text/javascript" src="/content/build/js/init.js"></script>
 #if($admin_js)${admin_js}#end
