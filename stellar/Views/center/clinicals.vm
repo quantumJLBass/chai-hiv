@@ -43,14 +43,8 @@
 					<td>$!item.name</td>
 					<td>#if($!item.drugs.Count>0)$!taxonomyService.get_taxonomy($!item.drugs.get_item(0).brand_name).name#else Not set#end</td>
 					<td>
-
-					
 					#set($TYPE = "clinical")
 					#parse("center/assests/list_actions.vm")
-					
-					
-					
-					
 					</td>
 				</tr>
 			#end

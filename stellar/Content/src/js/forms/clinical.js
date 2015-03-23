@@ -6,7 +6,7 @@
 			$.chai.form_base.ini();
 			$.chai.drug.setup_ddi_ui();
 			$.chai.reference.ref_popup_primer();
-			
+			$.chai.clinical.add_state();
 			$.each($('.showFeildset'),function(){
 				var checks = $(this);
 				checks.buttonset();
@@ -95,7 +95,26 @@
 				});	
 			});
 		},
-			
+		add_state:function(){
+			$('#add_clinical_state').off().on("click",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				var dataTable = $('#clinical_states.dataTable');
+				var tableData = [];
+				
+				var count = $("#clinical_states tbody tr").length+1;
+				
+				//var options=$('#dirty_options select').html();
+				
+				$.each(window.data_table_clinical_states,function(i,v){
+					tableData.push( v.split('[0]').join('['+(count)+']') );
+					console.log( v.split('[0]').join('['+(count)+']') );
+				});
+				dataTable.dataTable().fnAddData( tableData );
+				$.chai.core.util.build_general_removal_button($("#clinical_states tbody .removal"));
+
+			});	
+		},			
 		re_index_meta_items:function(){
 			$.each(
 			   $(".adverse_events").closest('ul').find("li[data-taxorder]"),
