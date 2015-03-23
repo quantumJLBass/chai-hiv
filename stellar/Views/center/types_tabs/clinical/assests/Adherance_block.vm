@@ -17,70 +17,38 @@
 				<li class="moa_dmpk_block">
 					<ul class="grid col-one-half mq2-col-full full-input">
 						<li>
-							$Controller.feilds("textinput","$type","adherance_convenience_diet_constraints", $!item.adherance_convenience_diet_constraints ,"","","has_moa_dmpk","")
+							$Controller.feilds("textinput","$type","adherance_convenience_diet_constraints", $!item.adherance_convenience_diet_constraints ,"","","","")
 						</li>
 					</ul>
-					<ul class="grid col-one-half mq2-col-full full-input">
-						<li>
-							<span class="moa_dmpk">
-								#set($daval ="")
-								#set($daval = $!item.adherance_convenience_diet_constraints_moa_dmpk)
-								#feild_selectinput($type "adherance_convenience_diet_constraints_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
-							</span>
-						</li>
-					</ul><div style="clear:both;"></div>
+					<div style="clear:both;"></div>
 				</li>
 				
 	#* adherance_convenience_co_dosing_constraints *#
 				<li class="moa_dmpk_block">
 					<ul class="grid col-one-half mq2-col-full full-input">
 						<li>
-							$Controller.feilds("textinput","$type","adherance_convenience_co_dosing_constraints", $!item.adherance_convenience_co_dosing_constraints ,"","","has_moa_dmpk","")
+							$Controller.feilds("textinput","$type","adherance_convenience_co_dosing_constraints", $!item.adherance_convenience_co_dosing_constraints ,"","","","")
 						</li>
 					</ul>
-					<ul class="grid col-one-half mq2-col-full full-input">
-						<li>
-							<span class="moa_dmpk">
-								#set($daval ="")
-								#set($daval = $!item.adherance_convenience_co_dosing_constraints_moa_dmpk)
-								#feild_selectinput($type "adherance_convenience_co_dosing_constraints_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
-							</span>
-						</li>
-					</ul><div style="clear:both;"></div>
+					<div style="clear:both;"></div>
 				</li>		
 	#* adherance_convenience_dose_timing_constraints *#
 				<li class="moa_dmpk_block">
 					<ul class="grid col-one-half mq2-col-full full-input">
 						<li>
-							$Controller.feilds("textinput","$type","adherance_convenience_dose_timing_constraints", $!item.adherance_convenience_dose_timing_constraints ,"","","has_moa_dmpk","")
+							$Controller.feilds("textinput","$type","adherance_convenience_dose_timing_constraints", $!item.adherance_convenience_dose_timing_constraints ,"","","","")
 						</li>
 					</ul>
-					<ul class="grid col-one-half mq2-col-full full-input">
-						<li>
-							<span class="moa_dmpk">
-								#set($daval ="")
-								#set($daval = $!item.adherance_convenience_dose_timing_constraints_moa_dmpk)
-								#feild_selectinput($type "adherance_convenience_dose_timing_constraints_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
-							</span>
-						</li>
-					</ul><div style="clear:both;"></div>
+					<div style="clear:both;"></div>
 				</li>		
 	#* adherance_convenience_frequency *#
 				<li class="moa_dmpk_block">
 					<ul class="grid col-one-half mq2-col-full full-input">
 						<li>
-							$Controller.feilds("textinput","$type","adherance_convenience_frequency", $!item.adherance_convenience_frequency ,"","","has_moa_dmpk","")
+							$Controller.feilds("textinput","$type","adherance_convenience_frequency", $!item.adherance_convenience_frequency ,"","","","")
 						</li>
 					</ul>
-					<ul class="grid col-one-half mq2-col-full full-input">
-						<li>
-							<span class="moa_dmpk">
-								#set($daval ="")
-								#set($daval = $!item.adherance_convenience_frequency_moa_dmpk)
-								#feild_selectinput($type "adherance_convenience_frequency_moa_dmpk" $daval $!MoA_DMPKs  "" "taxed" "")
-							</span>
-						</li>
-					</ul><div style="clear:both;"></div>
+					<div style="clear:both;"></div>
 				</li>
 			</ul>
 			<div style="clear:both;">
@@ -154,7 +122,7 @@
 				<li class="moa_dmpk_block">
 					<ul class="grid col-one-full mq2-col-full full-input">
 						<li>
-						$Controller.feilds("textinput","$type","adherance_tolerability_other_tolerabilities", $!item.adherance_tolerability_other_tolerabilities ,"","","has_moa_dmpk","")
+						$Controller.feilds("textinput","$type","adherance_tolerability_other_tolerabilities", $!item.adherance_tolerability_other_tolerabilities ,"","","","")
 						</li>
 					</ul>
 					<div style="clear:both;"></div>

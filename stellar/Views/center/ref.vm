@@ -35,12 +35,13 @@
 				<td>$!part.get_meta("ref_type")</td>
 				<td class="no_overflow"><span title="$!part.name">$!part.name</span></td>
 				<td class="no_overflow"><a href="#if($!part.url)$!part.url#else $!part.static_file #end" target="_blank" title="#if($!part.url)$!part.url#else $!part.static_file #end">#if($item.static_file)<i class="icon-download-alt"></i>#else<i class="icon-external-link-sign"></i>#end #if($!part.url)$!part.url#else $!part.static_file #end</a></td>
-			  #if(!$viewonly)<td><a href="reference.castle?id=$part.baseid" class="button small ref_inline_edit" data-type="$type"><i class="icon-edit" title="Edit"></i></a> | <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
+			  #if(!$viewonly)<td>
 			  
-			   <button class="ref_text" data-clipboard-text="#{{REF $!part.baseid}}" title="Click to copy me.">Copy Ref</button>
-    
-			  
-			  
+				<span class="editing_action_block">
+					<a href="#" class="button xsmall ref_text" data-clipboard-text="#{{REF $!part.baseid}}" title="Click to copy me."><i class="icon-copy" title="copy"></i></a>
+					<a href="reference.castle?id=$part.baseid" class="button small edit_item ref_inline_edit" data-type="$type"><i class="icon-pencil" title="Edit"></i></a>
+					<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
+				</span>
 			  </td>#end
 			</tr>
 			#end
@@ -48,7 +49,8 @@
 		<tfoot>
 		</tfoot>
 	  </table>
-	  #if(!$viewonly)<a href="#" class="button ref_form" data-type="reference"><i class="icon-plus blue" title="Add"></i> Add a $type reference</a>
+	  #if(!$viewonly)
+	  <a href="#" class="button ref_form" data-type="reference"><i class="icon-plus blue" title="Add"></i> Add a $type reference</a>
 	  #end
 	   </li>
   </ul>

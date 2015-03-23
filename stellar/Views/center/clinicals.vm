@@ -19,11 +19,11 @@
 	<table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="data" width="100%">
 		<thead>
 			<tr>
-				<th width="15%">ID</th>
-				<th>Trail Number</th>
+				<th width="10%">ID</th>
+				<th width="15%">Trail Number</th>
 				<th>Name</th>
 				<th>Drug</th>
-				<th width="20%">Actions</th>
+				<th width="10%"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,20 +34,14 @@
 					<td>$!item.name</td>
 					<td>#if($!item.drugs.Count>0)$!taxonomyService.get_taxonomy($!item.drugs.get_item(0).brand_name).name#else Not set#end</td>
 					<td>
-					#if($viewonly)
-						<a href="clinical.castle?id=$item.baseid" class="button small">View</a>
-					#else
-						#if(!$skiplayout)
-							<a href="clinical.castle?id=$item.baseid" class="button small">Edit</a> 
-							#if(!$trashlist) | <a href="remove_clinical.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a> 
-							#else
-							<a href="$siteroot/center/restore_item.castle?id=${item.baseid}&inplace=$Controller.getAction()" title="Click to restore" class=" button small">restore&#187;</a>
-							#end
-							#* |<a href="copyclinical.castle?id=$item.baseid&name=#if($!item.name)$!item.name#else$name#end" class="button xsmall">Copy</a> *#
-						#else
-							<a href="#ADD" class="additem button med">Add</a>
-						#end
-					#end
+
+					
+					#set($TYPE = "clinical")
+					#parse("center/assests/list_actions.vm")
+					
+					
+					
+					
 					</td>
 				</tr>
 			#end

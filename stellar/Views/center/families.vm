@@ -15,7 +15,7 @@
 			<tr>
 				<th width="15%">Drug code</th>
 				<th class="sorting_asc">Substances</th>
-				<th width="20%"></th>
+				<th width="10%"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,18 +35,8 @@
 				<td>#if($item.new_drug_code)$!item.new_drug_code#else -- #end</td>
 				<td>$!fam_sub_code</td>
 				<td>
-					#if($viewonly)
-						<a href="drug.castle?id=$item.baseid" class="button small">View</a>
-					#else
-						#if(!$skiplayout)
-							<a href="family.castle?id=$item.baseid" class="button small">Edit</a> 
-							#if(!$trashlist) | <a href="remove_family.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>
-							#else
-							<a href="$siteroot/center/restore_item.castle?id=${item.baseid}&inplace=$Controller.getAction()" title="Click to restore" class=" button small">restore&#187;</a>
-							#end
-							#*| <a href="copyfamily.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>*# 
-						#end
-					#end
+					#set($TYPE = "family")
+					#parse("center/assests/list_actions.vm")
 				</td>
 			</tr>
 		#end

@@ -160,7 +160,7 @@ namespace stellar.Models {
             virtual public IList<trial> trials { get; set; }
 
         /// <summary> </summary>
-        [HasAndBelongsToMany(typeof(clinical), Lazy = true, Table = "clinical_to_drugs", ColumnKey = "drug_id", ColumnRef = "clinical_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
+        [HasAndBelongsToMany(typeof(clinical), Lazy = true, Table = "clinical_to_drug", ColumnKey = "drug_id", ColumnRef = "clinical_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<clinical> clinicals { get; set; }
 
         /*/// <summary> </summary>
@@ -188,47 +188,17 @@ namespace stellar.Models {
         [HasMany(typeof(drug_market), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
         virtual public IList<drug_market> markets { get; set; }
 
-        /// <summary> </summary>
-        [HasMany(typeof(drug_interaction), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
-        virtual public IList<drug_interaction> interactions { get; set; }
 
         /// <summary> </summary>
         [HasMany(typeof(drug_lmic), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
         virtual public IList<drug_lmic> lmics { get; set; }
 
-    }
-
-
-
-
-
-    /// <summary> </summary>
-    [ActiveRecord(Lazy = true, BatchSize = 5)]
-    public class drug_interaction : ActiveRecordBase<drug_interaction> {
-        /// <summary> </summary>
-        [PrimaryKey("interaction_id")]
-        virtual public int id { get; set; }
 
         /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string substance { get; set; }
-
-        /// <summary>only yes no</summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string yes_no { get; set; }
-
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string dose_amount { get; set; }
+        //[HasMany(typeof(drug_interaction), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
+        //virtual public IList<drug_interaction> interactions { get; set; }
 
 
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string descriptions { get; set; }
-
-        /// <summary> </summary>
-        [BelongsTo]
-        virtual public drug drug { get; set; }
 
     }
 
@@ -268,8 +238,6 @@ namespace stellar.Models {
         virtual public drug drug { get; set; }
 
     }
-
-
 
     /// <summary> </summary>
     [ActiveRecord(Lazy = true, BatchSize = 5)]

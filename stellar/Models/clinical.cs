@@ -212,37 +212,22 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string toxicity_sae { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string toxicity_sae_moa_dmpk { get; set; }
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string toxicity_other { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string toxicity_other_moa_dmpk { get; set; }
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string toxicity_drug_to_drug_interactions { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string toxicity_drug_to_drug_interactions_moa_dmpk { get; set; }
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string toxicity_ae_chronic { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string toxicity_ae_chronic_moa_dmpk { get; set; }
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string toxicity_ae_advanced_grade { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string toxicity_ae_advanced_grade_moa_dmpk { get; set; }
 
 
         /// <summary> </summary>
@@ -258,25 +243,13 @@ namespace stellar.Models {
         virtual public string adherance_convenience_diet_constraints { get; set; }
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string adherance_convenience_diet_constraints_moa_dmpk { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
         virtual public string adherance_convenience_co_dosing_constraints { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string adherance_convenience_co_dosing_constraints_moa_dmpk { get; set; }
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string adherance_convenience_dose_timing_constraints { get; set; }
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string adherance_convenience_dose_timing_constraints_moa_dmpk { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
         virtual public string adherance_convenience_frequency { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string adherance_convenience_frequency_moa_dmpk { get; set; }
 
 
         /// <summary> </summary>
@@ -290,13 +263,7 @@ namespace stellar.Models {
         virtual public string adherance_tolerability_ae_acute { get; set; }
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string adherance_tolerability_ae_acute_moa_dmpk { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
         virtual public string adherance_tolerability_ae_mild_grade { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string adherance_tolerability_ae_mild_grade_moa_dmpk { get; set; }
 
 
         /// <summary> </summary>
@@ -310,20 +277,7 @@ namespace stellar.Models {
         virtual public string forgiveness_forgiveness { get; set; }
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string forgiveness_forgiveness_moa_dmpk { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
         virtual public string forgiveness_drug_to_drug_interactions_efficacy_reduction { get; set; }
-        /// <summary> </summary>
-        [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string forgiveness_drug_to_drug_interactions_efficacy_reduction_moa_dmpk { get; set; }
-
-
-
-
-
-
-
 
 
 
@@ -338,12 +292,96 @@ namespace stellar.Models {
         [HasAndBelongsToMany(typeof(drug), Lazy = true, Table = "clinical_to_drug", ColumnKey = "clinical_id", ColumnRef = "drug_id", NotFoundBehaviour = NotFoundBehaviour.Ignore)]
         virtual public IList<drug> drugs { get; set; }
 
+        /// <summary> </summary>
+        [HasMany(typeof(drug_interaction), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
+        virtual public IList<drug_interaction> interactions { get; set; }
 
-
-
-
-
+        /// <summary> </summary>
+        [HasMany(typeof(arm_state), Lazy = true, Cascade = ManyRelationCascadeEnum.AllDeleteOrphan)]
+        virtual public IList<arm_state> arm_states { get; set; }
+        
 
     }
+
+    /// <summary> </summary>
+    [ActiveRecord(Lazy = true, BatchSize = 5)]
+    public class drug_interaction : ActiveRecordBase<drug_interaction> {
+        /// <summary> </summary>
+        [PrimaryKey("interaction_id")]
+        virtual public int id { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string substance { get; set; }
+
+        /// <summary>only yes no</summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string yes_no { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string dose_amount { get; set; }
+
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string descriptions { get; set; }
+
+        /// <summary> </summary>
+        [Property]
+        virtual public int drug { get; set; }
+
+        /// <summary> </summary>
+        //[BelongsTo]
+        //virtual public drug drug { get; set; }
+
+        /// <summary> </summary>
+        [BelongsTo]
+        virtual public clinical arm { get; set; }
+
+    }
+
+    /// <summary> </summary>
+    [ActiveRecord(Lazy = true, BatchSize = 5)]
+    public class arm_state : ActiveRecordBase<arm_state> {
+        /// <summary> </summary>
+        [PrimaryKey("lmic_id")]
+        virtual public int id { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string state_type { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string bioavailability { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string auc { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string auc_unit { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string auc_last_value { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string cmax { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string tmax { get; set; }
+
+        /// <summary> </summary>
+        [BelongsTo]
+        virtual public clinical arm { get; set; }
+
+    }
+
+
 
 }

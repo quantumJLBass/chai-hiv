@@ -21,7 +21,7 @@
 				<th width="15%">Family</th>
 				<th class="sorting_asc">Name (brand name)</th>
 				<th width="15%">Manufacturer</th>
-				<th width="20%">action</th>
+				<th width="10%"></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -31,7 +31,7 @@
 				<th width="15%"></th>
 				<th></th>
 				<th width="15%"></th>
-				<th width="20%"></th>
+				<th width="10%"></th>
 			</tr>
 		</tfoot>
 		<tbody>
@@ -71,23 +71,8 @@ $sub.abbreviated
 				
 				
 				<td>
-					#if($viewonly)
-						<a href="drug.castle?id=$item.baseid" class="button small">View</a>
-					#else
-						#if(!$skiplayout)
-						<a href="drug.castle?id=$item.baseid" class="button small">Edit</a> 
-							#if(!$trashlist) | <a href="remove_drug.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>
-							#else
-							<a href="$siteroot/center/restore_item.castle?id=${item.baseid}&inplace=$Controller.getAction()" title="Click to restore" class=" button small">restore&#187;</a>
-							#end
-							#*| <a href="copydrug.castle?id=$item.baseid&name=#if($taxedname)$taxedname#else$name#end" class="button xsmall">Copy</a>#else<a href="#ADD" class="additem button med">Add</a>*#
-						#else
-
-						<a href="#ADD" class="additem button med">Add</a>
-						
-						
-						#end 
-					#end
+					#set($TYPE = "drug")
+					#parse("center/assests/list_actions.vm")
 				</td>
 			</tr>
 		#end

@@ -2,19 +2,23 @@
 	<table width="100%" class="drpro_table display" id="drugTie" cellspacing="0">
 		<thead>
 			<tr>
-			<th>Form</th>
-			#foreach($part in  $item.substances)
-			<th>$part.abbreviated Amt.</th>
-			#end
-			<th>Manufacure</th><th>Actions</th></tr>
+				<th>Form</th>
+				#foreach($part in  $item.substances)
+					<th>$part.abbreviated Amt.</th>
+				#end
+				<th>Manufacure</th>
+				<th></th>
+			</tr>
 		</thead>
 		<tfoot>
 			<tr>
-			<th></th>
-			#foreach($part in  $item.substances)
-			<th></th>
-			#end
-			<th></th><th></th></tr>
+				<th></th>
+				#foreach($part in  $item.substances)
+				<th></th>
+				#end
+				<th></th>
+				<th></th>
+			</tr>
 		</tfoot>
 		<tbody>
 		#set($k=0)
@@ -42,9 +46,10 @@
 				<td>
 					<input type="hidden" name="drugs[${k}].baseid" value="${drug.baseid}" class="drug_item list_item"/>
 					<input type="hidden" name="drugs[${k}].attached" value="1" class="drug_item list_item"/>
-					
-					<a href="#" class="button small drug_inline_edit"><i class="icon-pencile" title="Edit"></i>Edit</a>
-					<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
+					<span class="editing_action_block">
+						<a href="#" class="button small edit_item drug_inline_edit"><i class="icon-pencil" title="Edit"></i></a>
+						<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
+					</span>
 				</td>
 			</tr>
 			#set($k=$k+1)

@@ -13,7 +13,7 @@
 				<th width="15%">Record ID</th>
 				<th>Number</th>
 				<th>Title</th>
-				<th width="20%">action</th>
+				<th width="10%"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,16 +23,8 @@
 				<td>#if($item.number)$!item.number#else -- #end</td>
 				<td>#if($item.title)$!item.title#else -- #end</td>
 				<td>
-					#if($viewonly)
-						<a href="trial.castle?id=$item.baseid" class="button small">View</a>
-					#else
-						#if(!$skiplayout)<a href="trial.castle?id=$item.baseid" class="button small">Edit</a> 
-							#if(!$trashlist) | <a href="remove_trial.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>
-							#else
-							<a href="$siteroot/center/restore_item.castle?id=${item.baseid}&inplace=$Controller.getAction()" title="Click to restore" class=" button small">restore&#187;</a>
-							#end
-						#else<a href="#ADD" class="additem button med">Add</a>#end
-					#end
+					#set($TYPE = "trial")
+					#parse("center/assests/list_actions.vm")
 				</td>
 			</tr>
 		#end

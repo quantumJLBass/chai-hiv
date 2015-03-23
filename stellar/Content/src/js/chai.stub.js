@@ -1,6 +1,9 @@
 (function($) {
-	$.chai={};		
-	$.chai.ini=	function (options){
-		return $.chai.ready(options);
+	$.chai={
+		ini:function (options){
+			return $.chai.ready(options);
+		},
+		core:{
+		}
 	};
 })(jQuery);

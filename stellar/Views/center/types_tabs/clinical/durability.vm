@@ -21,9 +21,7 @@ $part.name => $part.alias
 		
 		<div id="Adherance">
 			$Controller.notes("$type","durability_adherance","top")
-			
 			#parse("center/types_tabs/clinical/assests/Adherance_block.vm")
-
 			$Controller.notes("$type","durability_adherance","bottom")
 		</div>
 

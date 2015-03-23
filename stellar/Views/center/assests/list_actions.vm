@@ -1,0 +1,18 @@
+#if($viewonly)
+	<a href="${TYPE}.castle?id=$item.baseid" class="button small">View</a>
+#else
+	#if(!$skiplayout)
+		<span class="editing_action_block">
+			
+			#if(!$trashlist)
+				<a href="${TYPE}.castle?id=$item.baseid" class="button small edit_item"><i class="icon-pencil" title="Edit"></i></a> 
+				<a href="remove_${TYPE}.castle?id=$item.baseid" class="button xsmall crimson defocus deletion"><i class="icon-remove" title="Remove"></i></a>
+			#else
+				<a href="$siteroot/center/restore_item.castle?id=${item.baseid}&inplace=$Controller.getAction()" title="Click to restore" class=" button small">restore&#187;</a>
+			#end
+			#* <a href="copyclinical.castle?id=$item.baseid&name=#if($!item.name)$!item.name#else$name#end" class="button xsmall">Copy</a> *#
+		</span>
+	#else
+		<a href="#ADD" class="additem button med">Add</a>
+	#end
+#end

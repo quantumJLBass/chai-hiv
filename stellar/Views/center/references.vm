@@ -11,7 +11,7 @@
 				<th width="15%">Type</th>
 				<th width="25%">Name</th>
 				<th>location</th>
-				<th width="20%"></th>
+				<th width="10%"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,16 +22,8 @@
 				<td class="no_overflow"><span title="$!item.name">$!item.name</span></td>
 				<td class="no_overflow"><a href="#if($!item.url)$!item.url#else $!item.static_file #end" target="_blank"  title="#if($!item.url)$!item.url#else $!item.static_file #end">#if($item.static_file)<i class="icon-download-alt"></i>#else<i class="icon-external-link-sign"></i>#end #if($!item.url)$!item.url#else $!item.static_file #end</a></td>
 				<td>
-					#if($viewonly)
-						<a href="reference.castle?id=$item.baseid" class="button small">View</a>
-					#else
-						#if(!$skiplayout)<a href="reference.castle?id=$item.baseid" class="button small">Edit</a> 
-							#if(!$trashlist) | <a href="remove_reference.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>
-							#else
-							<a href="$siteroot/center/restore_item.castle?id=${item.baseid}&inplace=$Controller.getAction()" title="Click to restore" class=" button small">restore&#187;</a>
-							#end
-						#else<a href="#ADD" class="additem button med">Add</a>#end
-					#end
+					#set($TYPE = "reference")
+					#parse("center/assests/list_actions.vm")
 				</td>
 			</tr>
 		#end

@@ -14,7 +14,7 @@
 				<th width="15%">CAS</th>
 				<th width="15%">Abbreviated</th>
 				<th class="sorting_asc">Name</th>
-				<th width="20%">action</th>
+				<th width="10%"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,16 +25,10 @@
 				<td>#if($item.abbreviated)$!item.abbreviated#else -- #end</td>
 				<td>$!postingService.get_taxonomy($item.generic_name).name</td>
 				<td>
-					#if($viewonly)
-						<a href="substance.castle?id=$item.baseid" class="button small">View</a>
-					#else
-						#if(!$skiplayout)<a href="substance.castle?id=$item.baseid" class="button small">Edit</a> 
-							#if(!$trashlist) | <a href="remove_substance.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>
-							#else
-							<a href="$siteroot/center/restore_item.castle?id=${item.baseid}&inplace=$Controller.getAction()" title="Click to restore" class=" button small">restore&#187;</a>
-							#end
-						#else<a href="#ADD" class="additem button med">Add</a>#end
-					#end
+
+					#set($TYPE = "substance")
+					#parse("center/assests/list_actions.vm")
+					
 				</td>
 			</tr>
 		#end
@@ -57,7 +51,7 @@
 				<th width="15%">CAS</th>
 				<th width="15%">Abbreviated</th>
 				<th class="sorting_asc">Name</th>
-				<th width="20%">action</th>
+				<th width="10%"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -67,13 +61,8 @@
 				<td>#if($item.abbreviated)$!item.abbreviated#else -- #end</td>
 				<td>$!postingService.get_taxonomy($item.generic_name).name</td>
 				<td>
-					#if($viewonly)
-						<a href="substance.castle?id=$item.baseid" class="button small">View</a>
-					#else
-						#if(!$skiplayout)<a href="substance.castle?id=$item.baseid" class="button small">Edit</a> 
-							#if(!$trashlist) | <a href="remove_substance.castle?id=$item.baseid" class="button xsmall crimson defocus deletion">Remove</a>#end
-						#else<a href="#ADD" class="additem button med">Add</a>#end
-					#end
+					#set($TYPE = "substance")
+					#parse("center/assests/list_actions.vm")
 				</td>
 			</tr>
 		#end

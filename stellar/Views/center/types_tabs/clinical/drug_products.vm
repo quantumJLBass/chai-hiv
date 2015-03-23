@@ -8,7 +8,7 @@
 				<th width="15%">Family</th>
 				<th class="sorting_asc">Name (brand name)</th>
 				<th width="15%">Manufacturer</th>
-				<th width="20%">action</th>
+				<th width="10%"></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -18,7 +18,7 @@
 				<th width="15%"></th>
 				<th></th>
 				<th width="15%"></th>
-				<th width="20%"></th>
+				<th width="10%"></th>
 			</tr>
 		</tfoot>
 		<tbody>
@@ -60,8 +60,13 @@ $sub.abbreviated
 				
 				
 				<td>
-					<a href="drug.castle?id=$item.baseid" class="button small clinical_inline_edit">Edit</a>
-					 | <a href="#" class="button xsmall crimson defocus removal">Remove</a>
+
+		<span class="editing_action_block">
+			<a href="drug.castle?id=$item.baseid" class="button small edit_item clinical_inline_edit"><i class="icon-pencil" title="Edit"></i></a> 
+			<a href="#" class="button xsmall crimson defocus deletion"><i class="icon-remove" title="Remove"></i></a>
+		</span>
+					 
+					 
 				</td>
 			</tr>
 		#end

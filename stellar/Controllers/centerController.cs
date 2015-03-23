@@ -349,6 +349,7 @@ namespace stellar.Controllers {
         public void saveclinical([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] clinical item,
             [ARDataBind("drugs", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug[] drugs,
             [ARDataBind("interactions", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_interaction[] interactions,
+            [ARDataBind("arm_states", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]arm_state[] arm_states,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -395,30 +396,50 @@ namespace stellar.Controllers {
             }
             if (item.published) item.content = "";
 
-            /*if (item.drugs != null) {
+            /**/
+            if (item.drugs != null) {
                 item.drugs.Clear();
                 foreach (drug drug in drugs) {
-                    if (drug.baseid == 0) {
-                        ActiveRecordMediator<reference>.Save(drug);
-                    }
                     if (!item.drugs.Contains(drug)) {
                         item.drugs.Add(drug);
                     }
                 }
-            }*/
-            item.drugs.Clear();
-            foreach (drug drug in drugs) {
+            }
+            if (item.interactions != null) {
+                item.interactions.Clear();
+                foreach (drug_interaction interaction in interactions) {
+                    if (interaction.id == 0) {
+                        ActiveRecordMediator<drug_interaction>.Save(interaction);
+                    }
+                    if (!item.interactions.Contains(interaction)) {
+                        item.interactions.Add(interaction);
+                    }
+                }
+            }
+            if (item.arm_states != null) {
+                item.arm_states.Clear();
+                foreach (arm_state arm_state in arm_states) {
+                    if (arm_state.id == 0) {
+                        ActiveRecordMediator<arm_state>.Save(arm_state);
+                    }
+                    if (!item.arm_states.Contains(arm_state)) {
+                        item.arm_states.Add(arm_state);
+                    }
+                }
+            }          
+
+            
+
+
+            /*foreach (drug drug in drugs) {
                 if (!item.drugs.Any(x => x.baseid == drug.baseid)) {
                     item.drugs.Add(drug);
 
-                    /**/if (drug.interactions != null) {
+                   if (drug..interactions != null) {
                         drug.interactions.Clear();
                     }
 
                     foreach (drug_interaction interaction in interactions) {
-                        /* foreach (drug drug in drugs) {
-
-                         }*/
                         if (interaction.drug != null && interaction.drug.baseid != null && interaction.drug.baseid == drug.baseid) {
                             if (interaction.id == 0) {
                                 ActiveRecordMediator<drug_interaction>.Save(interaction);
@@ -432,7 +453,7 @@ namespace stellar.Controllers {
 
 
                 }
-            }
+            }*/
 
             item.tmp = false;
             ActiveRecordMediator<clinical>.Save(item);
@@ -758,7 +779,7 @@ namespace stellar.Controllers {
             [ARDataBind("family_substance", Validate = true, AutoLoad = AutoLoadBehavior.OnlyNested)]family_substance[] family_substance,
             [ARDataBind("substances", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]substance[] substances,
             [ARDataBind("drugs", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug[] drugs,
-            [ARDataBind("interactions", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_interaction[] interactions,
+            //[ARDataBind("interactions", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_interaction[] interactions,
             Boolean ajaxed_update,
             Boolean forced_tmp,
             String apply,
@@ -791,14 +812,12 @@ namespace stellar.Controllers {
                     item.drugs.Add(drug);
 
 
-                    if (drug.interactions != null) {
+                    /*if (drug.interactions != null) {
                         drug.interactions.Clear();
                     }
 
                     foreach (drug_interaction interaction in interactions) {
-                        /* foreach (drug drug in drugs) {
 
-                         }*/
                         if (interaction.drug.baseid == drug.baseid) { 
                             if (interaction.id == 0) {
                                 ActiveRecordMediator<drug_interaction>.Save(interaction);
@@ -807,7 +826,7 @@ namespace stellar.Controllers {
                                 drug.interactions.Add(interaction);
                             }
                         }
-                    }
+                    }*/
                     ActiveRecordMediator<drug>.Save(drug);
 
 
@@ -1026,7 +1045,7 @@ namespace stellar.Controllers {
         public void savedrug([ARDataBind("item", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)] drug item,
             [ARDataBind("lmics", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_lmic[] lmics,
             [ARDataBind("markets", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_market[] markets,
-            [ARDataBind("interactions", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_interaction[] interactions,
+            //[ARDataBind("interactions", Validate = true, AutoLoad = AutoLoadBehavior.NewRootInstanceIfInvalidKey)]drug_interaction[] interactions,
             String label_claim,
             Boolean ajaxed_update,
             Boolean json,
@@ -1068,6 +1087,7 @@ namespace stellar.Controllers {
                     }
                 }
             }
+            /*
             if (item.interactions != null) {
                 item.interactions.Clear();
             
@@ -1079,7 +1099,7 @@ namespace stellar.Controllers {
                         item.interactions.Add(interaction);
                     }
                 }
-            }
+            }*/
             /*
             item.markets.Clear();
             String[] keys = HttpContext.Current.Request.Params.AllKeys.Where(x => x.StartsWith("markets_counts[")).ToArray();

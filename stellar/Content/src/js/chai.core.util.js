@@ -1,5 +1,4 @@
 (function($) {
-	$.chai.core={};
 	$.chai.core.util = {
 		autosaved:false,
 		t:null,
