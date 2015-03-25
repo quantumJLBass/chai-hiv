@@ -2820,7 +2820,6 @@ $(document).ready(function() {
 				
 				var datatable = $(this).closest('.datagrid').dataTable({
 					"aaSorting": [[1,'asc']],
-					"order": [],
 					"columnDefs": [ {
 					  "targets"  : 'no-sort',
 					  "orderable": false,
@@ -3501,7 +3500,6 @@ $(document).ready(function() {
 					"fnDrawCallback": function() {//(oSettings ) {
 						$.chai.core.util.ini_modaltable_to_table(datatable,type);
 					},
-					"order": [],
 					"columnDefs": [ {
 					  "targets"  : 'no-sort',
 					  "orderable": false,
@@ -3524,7 +3522,6 @@ $(document).ready(function() {
 						"bJQueryUI": true,
 						"sPaginationType": "full_numbers",
 						"aaSorting": [[1,'asc']],
-						"order": [],
 						"columnDefs": [ {
 						  "targets"  : 'no-sort',
 						  "orderable": false,
@@ -4131,7 +4128,6 @@ $.fn.showOptionGroup = function() {
 				self.DataTable({ 
 					"bJQueryUI": true,
 					"sPaginationType": "full_numbers",
-					"order": [],
 					"columnDefs": [ {
 					  "targets"  : 'no-sort',
 					  "orderable": false,
@@ -4716,7 +4712,6 @@ $.fn.showOptionGroup = function() {
 									"bJQueryUI": true,
 									"sPaginationType": "full_numbers",
 									"fnDrawCallback": function() {},
-									"order": [],
 									"columnDefs": [ {
 									  "targets"  : 'no-sort',
 									  "orderable": false,

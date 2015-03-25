@@ -29,7 +29,7 @@
 		<tfoot>
 			<tr>
 				<th width="10%"></th>
-				<th width="20%" class="sorting_asc">r</th>
+				<th width="20%" class="sorting_asc"></th>
 				<th></th>
 				<th></th>
 				<th width="10%" class="no-sort"></th>

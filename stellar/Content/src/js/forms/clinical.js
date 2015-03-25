@@ -57,7 +57,6 @@
 									"bJQueryUI": true,
 									"sPaginationType": "full_numbers",
 									"fnDrawCallback": function() {},
-									"order": [],
 									"columnDefs": [ {
 									  "targets"  : 'no-sort',
 									  "orderable": false,

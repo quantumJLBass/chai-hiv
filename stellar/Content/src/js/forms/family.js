@@ -143,7 +143,6 @@
 				self.DataTable({ 
 					"bJQueryUI": true,
 					"sPaginationType": "full_numbers",
-					"order": [],
 					"columnDefs": [ {
 					  "targets"  : 'no-sort',
 					  "orderable": false,
