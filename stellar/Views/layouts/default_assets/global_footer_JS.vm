@@ -39,5 +39,7 @@ $scriptsService.Js("addthis_ini.js")
 <script src="/Content/zeroclip/ZeroClipboard.min.js"></script>
 <script src="/content/js/init.js"></script>
 <script src="/content/build/js/init.js"></script>-->
+
 <script type="text/javascript" src="/content/js/init.js"></script>
+<!--<script type="text/javascript" src="/content/build/js/init.js"></script>-->
 #if($admin_js)${admin_js}#end

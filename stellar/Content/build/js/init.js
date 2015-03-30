@@ -2961,7 +2961,7 @@ $(document).ready(function() {
 				modal: true,
 				draggable : false,
 				create:function(){
-					$('.ui-dialog-titlebar').remove();
+					$("#mess").find('.ui-dialog-titlebar').remove();
 					$('body').css({overflow:"hidden"});
 				},
 				buttons:{
@@ -4756,9 +4756,14 @@ $.fn.showOptionGroup = function() {
 				var dataTable = $('#clinical_states.dataTable');
 				var tableData = [];
 				var count = $("#clinical_states tbody tr").length+1;
-				$.each(window.data_table_clinical_states,function(i,v){
-					tableData.push( v.split('[0]').join('['+(count)+']') );
-					console.log( v.split('[0]').join('['+(count)+']') );
+				if($("#clinical_states tbody tr td.dataTables_empty").length){
+					count=1;
+				}
+				//window.data_table_clinical_states
+				$.each($("#local_state_stage li"),function(i,v){
+					var html=$(v).html();
+					tableData.push( html.split('[0]').join('['+(count)+']') );
+					console.log( html.split('[0]').join('['+(count)+']') );
 				});
 				dataTable.dataTable().fnAddData( tableData );
 				$.chai.core.util.build_general_removal_button($("#clinical_states tbody .removal"));

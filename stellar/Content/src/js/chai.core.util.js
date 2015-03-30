@@ -313,7 +313,7 @@
 				modal: true,
 				draggable : false,
 				create:function(){
-					$('.ui-dialog-titlebar').remove();
+					$("#mess").find('.ui-dialog-titlebar').remove();
 					$('body').css({overflow:"hidden"});
 				},
 				buttons:{

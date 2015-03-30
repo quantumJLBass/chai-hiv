@@ -33,12 +33,11 @@
 	<tbody>
 		#set($i = 0)
 		#foreach($state in $!item.arm_states)
-				#set($i = $i+1)
-		#end
+		#set($i = $i+1)
 		<tr class=""  data-baseid="$part.baseid">
 			<td>
 				$Controller.feilds("hidden","{'objectName':'arm_states[$i]', 'model_prop':'arm.baseid', 'value':'$!item.baseid' }")
-				$Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'state', 'value':'$!state.state', 'select_options':'Fasting,Fed,Steady', 'skip_help':'true'}")
+				$Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'state_type', 'value':'$!state.state_type', 'select_options':'Fasting,Fed,Steady', 'skip_help':'true'}")
 			</td>
 			<td>
 				<div class="grid col-one-half">
@@ -65,14 +64,20 @@
 			</td>
 			<td> #if($viewonly) #else <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a> #end	</td>
 		</tr>
+		#end
 	</tbody>
 </table>
 <a href="#" id="add_clinical_state" class="button" data-type="clinical_state">Add New State</a>
 <div style="clear: both;"></div>
-<script>
-var data_table_clinical_states=[
-	"$Controller.feilds("hidden","{'objectName':'arm_states[$i]', 'model_prop':'arm.baseid', 'value':'' }") $Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'state', 'value':'', 'select_options':'Fasting,Fed,Steady', 'skip_help':'true'}")",
-	"<div class='grid col-one-half'>$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'cmax', 'value':'$!state.cmax',  'placeholder':'(ng/ml)', 'skip_help':'true'}")<br/>$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'tmax', 'value':'$!state.tmax', 'placeholder':'(hours)', 'skip_help':'true'}")<br/>$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'bioavailability', 'value':'$!state.bioavailability', 'placeholder':'(%)', 'skip_help':'true'}")</div><div class='grid col-one-half'>$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc', 'value':'$!state.auc', 'custom_lable':'auc', 'placeholder':'(%)', 'skip_help':'true'}") $Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_unit', 'value':'$!state.auc_unit', 'select_options':'inf.,0-12,0-24,0-48,0-last', 'skip_help':'true'}")<br/>$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_last_value', 'value':'$!state.auc_last_value', 'placeholder':'(%)', 'skip_help':'true'}")</div>",
-	"#if($viewonly) #else <a href='#' class='button xsmall crimson defocus removal'><i class='icon-remove' title='Remove'></i></a> #end"
-];
-</script>
+<div id="local_state_stage" style="display:none;">
+<ul>
+<li>$Controller.feilds("hidden","{'objectName':'arm_states[$i]', 'model_prop':'arm.baseid', 'value':'' }") $Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'state_type', 'value':'', 'select_options':'Fasting,Fed,Steady', 'skip_help':'true'}")</li>
+
+<li><div class='grid col-one-half'>$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'cmax', 'value':'$!state.cmax',  'placeholder':'(ng/ml)', 'skip_help':'true'}")<br/>$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'tmax', 'value':'$!state.tmax', 'placeholder':'(hours)', 'skip_help':'true'}")<br/>$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'bioavailability', 'value':'$!state.bioavailability', 'placeholder':'(%)', 'skip_help':'true'}")</div><div class='grid col-one-half'>$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc', 'value':'$!state.auc', 'custom_lable':'auc', 'placeholder':'(%)', 'skip_help':'true'}") $Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_unit', 'value':'$!state.auc_unit', 'select_options':'inf.,0-12,0-24,0-48,0-last', 'skip_help':'true'}")<br/>$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_last_value', 'value':'$!state.auc_last_value', 'placeholder':'(%)', 'skip_help':'true'}")</div></li>
+
+
+<li>#if($viewonly) #else <a href='#' class='button xsmall crimson defocus removal'><i class='icon-remove' title='Remove'></i></a> #end</li>
+
+</ul>
+
+</div>

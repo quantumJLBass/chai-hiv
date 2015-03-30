@@ -523,7 +523,7 @@ i.remove {
 }
 
 
-.editing_action_block{ display:inline-block; width:100%; text-align:right;}
+.editing_action_block{ display:inline-block; width:auto; text-align:right;}
 
 table.dataTable td:last-child { padding-right:0px !important;}
 
@@ -1862,5 +1862,11 @@ table.with_action tr td{
 table.with_action tr td:last-child {
     padding:0px;
 }
+.ui-dialog .ui-dialog-titlebar-close span.ui-icon{
+  margin: -8px;
+}
 
-
+.ui-widget-overlay.ui-front{
+	  position: fixed;
+}
+.ui-dialog{z-index:999;}
