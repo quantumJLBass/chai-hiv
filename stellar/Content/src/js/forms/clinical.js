@@ -105,14 +105,15 @@
 					count=1;
 				}
 				//window.data_table_clinical_states
-				$.each($("#local_state_stage li"),function(i,v){
-					var html=$(v).html();
-					tableData.push( html.split('[0]').join('['+(count)+']') );
-					console.log( html.split('[0]').join('['+(count)+']') );
+				$.each($("#local_state_stage li"),function(idx,val){
+					var html=$(val).html().toString();
+					html = html.split('___arm_states').join('arm_states');
+					html = html.split('[0]').join('['+(count)+']');
+					tableData.push( html );
+					console.log( html );
 				});
 				dataTable.dataTable().fnAddData( tableData );
 				$.chai.core.util.build_general_removal_button($("#clinical_states tbody .removal"));
-
 			});	
 		},			
 		re_index_meta_items:function(){

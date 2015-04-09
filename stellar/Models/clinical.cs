@@ -354,6 +354,15 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string time_point { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string time_point_unit { get; set; }
+        
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
         virtual public string bioavailability { get; set; }
 
         /// <summary> </summary>
@@ -371,6 +380,10 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string cmax { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string cmin { get; set; }
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]

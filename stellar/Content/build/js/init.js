@@ -3520,6 +3520,7 @@ $(document).ready(function() {
 					var datatable = $(this);
 					datatable.dataTable( {
 						"bJQueryUI": true,
+						"bAutoWidth": false,
 						"sPaginationType": "full_numbers",
 						"aaSorting": [[1,'asc']],
 						"columnDefs": [ {
@@ -4514,6 +4515,7 @@ $.fn.showOptionGroup = function() {
 			$.chai.reference.ref_popup_primer();
 			$.chai.trial.trial_arm_primer();
 			$.chai.trial.start_popup_watch();
+			$.chai.core.util.setup_ref_copy();
 		},
 	
 		start_popup_watch:function(){
@@ -4760,14 +4762,15 @@ $.fn.showOptionGroup = function() {
 					count=1;
 				}
 				//window.data_table_clinical_states
-				$.each($("#local_state_stage li"),function(i,v){
-					var html=$(v).html();
-					tableData.push( html.split('[0]').join('['+(count)+']') );
-					console.log( html.split('[0]').join('['+(count)+']') );
+				$.each($("#local_state_stage li"),function(idx,val){
+					var html=$(val).html().toString();
+					html = html.split('___arm_states').join('arm_states');
+					html = html.split('[0]').join('['+(count)+']');
+					tableData.push( html );
+					console.log( html );
 				});
 				dataTable.dataTable().fnAddData( tableData );
 				$.chai.core.util.build_general_removal_button($("#clinical_states tbody .removal"));
-
 			});	
 		},			
 		re_index_meta_items:function(){
@@ -5262,6 +5265,7 @@ $.fn.showOptionGroup = function() {
 		ini:function(){
 			$.chai.form_base.ini();
 			$.chai.reference.int_file();
+			$.chai.core.util.setup_ref_copy();
 		},
 		int_file:function(){
 			$("#load_file").on("click",function(){

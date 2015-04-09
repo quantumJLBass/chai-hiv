@@ -7,6 +7,7 @@
 			$.chai.reference.ref_popup_primer();
 			$.chai.trial.trial_arm_primer();
 			$.chai.trial.start_popup_watch();
+			$.chai.core.util.setup_ref_copy();
 		},
 	
 		start_popup_watch:function(){

@@ -4,6 +4,7 @@
 		ini:function(){
 			$.chai.form_base.ini();
 			$.chai.reference.int_file();
+			$.chai.core.util.setup_ref_copy();
 		},
 		int_file:function(){
 			$("#load_file").on("click",function(){

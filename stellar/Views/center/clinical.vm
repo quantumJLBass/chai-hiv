@@ -57,11 +57,11 @@ $!trial.number
 				<ul class="grid col-one-full mq2-col-full full-input">		  
 					<li>
 					#* name *#
-						$Controller.feilds("textarea","$type","name", $!item.name ,"","",""," style='height:63px; min-height: auto;' ")
+						$Controller.feilds("textarea","$type","name", $!item.name ,"Trial Arm Name","",""," style='height:63px; min-height: auto;' ")
 					</li>
 					<li>
 					#* title *#
-						$Controller.feilds("textarea","$type","title", $!item.title ,"","","","")
+						$Controller.feilds("textarea","$type","title", $!item.title ,"Trial Arm Description","","","")
 					</li>
 				</ul>
 		  </article>

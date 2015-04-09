@@ -535,7 +535,7 @@ i.remove {
 }
 
 
-.editing_action_block{ display:inline-block; width:auto; text-align:right;}
+.editing_action_block{ display:inline-block; width:100%; text-align:right;}
 
 table.dataTable td:last-child { padding-right:0px !important;}
 

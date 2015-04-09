@@ -872,6 +872,7 @@
 					var datatable = $(this);
 					datatable.dataTable( {
 						"bJQueryUI": true,
+						"bAutoWidth": false,
 						"sPaginationType": "full_numbers",
 						"aaSorting": [[1,'asc']],
 						"columnDefs": [ {

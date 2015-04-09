@@ -77,11 +77,15 @@ namespace stellar.Models {
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string study_primary_end_point { get; set; }
+        virtual public string study_purpose { get; set; }
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
-        virtual public string study_secondary_end_point { get; set; }
+        virtual public string study_outcome_measures { get; set; }
+
+        /// <summary> </summary>
+        [Property(SqlType = "nvarchar(MAX)")]
+        virtual public string study_secondary_outcome_measures { get; set; }
 
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]

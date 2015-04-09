@@ -85,14 +85,20 @@
 	<li>
 		$Controller.feilds("textarea","$type","study_design", $!item.study_design ,"Study Design","","","")
 	</li>
-#* study_primary_end_point *#
+#* study_purpose *#
 	<li>
-		#*$Controller.filter_refs($!item.study_primary_end_point)*#
-		$Controller.feilds("textarea","$type","study_primary_end_point", $!item.study_primary_end_point ,"","",""," row='7' ")
+		#*$Controller.filter_refs($!item.study_purpose)*#
+		$Controller.feilds("textarea","$type","study_purpose", $!item.study_purpose ,"Study Purpose","",""," row='7' ")
 	</li>
-#* study_secondary_end_point *#
+
+		
+#* study_outcome_measures *#
 	<li>
-		$Controller.feilds("textarea","$type","study_secondary_end_point", $!item.study_secondary_end_point ,"","",""," row='7' ")
+		$Controller.feilds("textarea","$type","study_outcome_measures", $!item.study_outcome_measures ,"","",""," row='7' ")
+	</li>
+#* study_secondary_outcome_measures *#
+	<li>
+		$Controller.feilds("textarea","$type","study_secondary_outcome_measures", $!item.study_secondary_outcome_measures ,"","",""," row='7' ")
 	</li>
 #* study_comments *#
 	<li>
