@@ -33,8 +33,8 @@
 				$Controller.feilds("hidden","{'objectName':'arm_states[$i]', 'model_prop':'arm.baseid', 'value':'$!item.baseid' }")
 				$Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'state_type', 'value':'$!state.state_type', 'select_options':'Unspecified,Fasting,Fed,Steady', 'skip_help':'true'}")<br/>
 						
-					#* Days *#
-							$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'time_point', 'value':'$!state.time_point', 'placeholder':'time point in # of days or weeks', 'skip_help':'true'}")<br/>
+				#* Days *#
+				$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'time_point', 'value':'$!state.time_point', 'placeholder':'# of days or weeks', 'skip_help':'true'}")<br/>
 							
 				$Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'time_point_unit', 'value':'$!state.time_point_unit', 'select_options':'days,weeks', 'skip_help':'true'}")
 					</div>		
@@ -42,26 +42,26 @@
 			<td>
 				<div class="grid col-one-half  full-input">
 					#* cmax *#
-							$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'cmax', 'value':'$!state.cmax',  'placeholder':'(ng/ml)', 'skip_help':'true'}")<br/>
+					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'cmax', 'value':'$!state.cmax',  'placeholder':'(ng/ml)', 'skip_help':'true'}")<br/>
 					#* cmin *#
-							$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'cmin', 'value':'$!state.cmin',  'placeholder':'(ng/ml)', 'skip_help':'true'}")<br/>
+					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical', 'model_prop':'cmin', 'value':'$!state.cmin',  'placeholder':'(ng/ml)', 'skip_help':'true'}")<br/>
 							
 					#* tmax *#
-							$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'tmax', 'value':'$!state.tmax', 'placeholder':'(hours)', 'skip_help':'true'}")
+					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'tmax', 'value':'$!state.tmax', 'placeholder':'(hours)', 'skip_help':'true'}")
 				</div>
 			
 				<div class="grid col-one-half  full-input">
 					#* bioavailability *#
-							$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'bioavailability', 'value':'$!state.bioavailability', 'placeholder':'(%)', 'skip_help':'true'}")
+					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'bioavailability', 'value':'$!state.bioavailability', 'placeholder':'(%)', 'skip_help':'true'}")
 							
 					#* auc *#
-						$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc', 'value':'$!state.auc', 'custom_lable':'AUC', 'placeholder':'(%)', 'skip_help':'true'}") 
+					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc', 'value':'$!state.auc', 'custom_lable':'AUC', 'placeholder':'(%)', 'skip_help':'true'}") 
 				
 					#* auc_unit *#
-						$Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_unit', 'value':'$!state.auc_unit','custom_lable':'AUC Time Interval','select_options':'inf.,0-12,0-24,0-48,0-last', 'skip_help':'true'}")<br/>
+					$Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_unit', 'value':'$!state.auc_unit','custom_lable':'AUC Time Interval','select_options':'inf.,0-8,0-12,0-24,0-48,0-last', 'skip_help':'true'}")<br/>
 				
 					#* auc_last_value *#
-						$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_last_value', 'value':'$!state.auc_last_value', 'placeholder':'(%)', 'skip_help':'true'}")
+					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_last_value', 'value':'$!state.auc_last_value', 'placeholder':'(%)', 'skip_help':'true'}")
 				</div>
 			</td>
 			<td > #if($viewonly) #else <span class="editing_action_block"><a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a></span> #end	</td>
@@ -79,7 +79,7 @@
 			<div class="grid mq2-col-full full-input">
 			$Controller.feilds("hidden","{'objectName':'___arm_states[$i]', 'model_prop':'arm.baseid', 'value':'' }")
 			$Controller.feilds("select","{'objectName':'___arm_states[$i]', 'datatype':'clinical', 'model_prop':'state_type', 'value':'', 'select_options':'Unspecified,Fasting,Fed,Steady', 'skip_help':'true'}")<br/>
-			$Controller.feilds("text","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'time_point', 'value':'', 'placeholder':'time point in # of days or weeks', 'skip_help':'true'}")<br/>
+			$Controller.feilds("text","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'time_point', 'value':'', 'placeholder':'# of days or weeks', 'skip_help':'true'}")<br/>
 			$Controller.feilds("select","{'objectName':'___arm_states[$i]', 'datatype':'clinical', 'model_prop':'time_point_unit', 'value':'', 'select_options':'days,weeks', 'skip_help':'true'}")
 			</div>
 		</li>
@@ -94,7 +94,7 @@
 			<div class="grid col-one-half  full-input">
 				$Controller.feilds("text","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'bioavailability', 'value':'', 'placeholder':'(%)', 'skip_help':'true'}")
 				$Controller.feilds("text","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'auc', 'value':'', 'custom_lable':'AUC', 'placeholder':'(%)', 'skip_help':'true'}")
-				$Controller.feilds("select","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'auc_unit', 'value':'','custom_lable':'AUC Time Interval','select_options':'inf.,0-12,0-24,0-48,0-last', 'skip_help':'true'}")<br/>
+				$Controller.feilds("select","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'auc_unit', 'value':'','custom_lable':'AUC Time Interval','select_options':'inf.,0-8,0-12,0-24,0-48,0-last', 'skip_help':'true'}")<br/>
 				$Controller.feilds("text","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'auc_last_value', 'value':'', 'placeholder':'(%)', 'skip_help':'true'}")
 			</div>
 		</li>

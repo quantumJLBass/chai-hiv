@@ -2812,6 +2812,18 @@ $(document).ready(function() {
 				});
 			});
 		},
+		
+		setup_curate:function(){
+			$('#curate').on('click',function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				//$.get('/center/curate.castle',{'id':$(this).data('item_id'),'type':$(this).data('type')},function(){});
+				window.location = '/center/curate.castle?id='+$(this).data('item_id')+'&type='+$(this).data('type');
+			});
+		},		
+		
+		
+		
 		setup_refs:function(){
 			$('.add_ref').on("click",function(e){
 				e.preventDefault();
@@ -2843,14 +2855,23 @@ $(document).ready(function() {
 				$(ref_btn).on('click',function(e){
 					e.preventDefault();
 					e.stopPropagation();
+					$('.active_copy').removeClass('active_copy');
+					$(ref_btn).next('.copy_area').addClass('active_copy');
+					$(ref_btn).next('.copy_area').find('.icon-copy').on('click',function(){
+						$('.active_copy').removeClass('active_copy');
+					});
+					
+					
+					
 				});
-				var client = new ZeroClipboard( ref_btn );
+				
+				/*var client = new ZeroClipboard( ref_btn );
 				client.on( "ready", function(  ) {
 					$(ref_btn).addClass("cp_ready");
 					client.on( "aftercopy", function( event ) {
 						alert("Copied text to clipboard: " + event.data["text/plain"] );
 					});
-				});
+				});*/
 			});
 		},
 		
@@ -3989,6 +4010,7 @@ $.fn.showOptionGroup = function() {
 	$.chai.family = {
 		ini:function(){
 			$.chai.core.util.setup_viewlog();
+			$.chai.core.util.setup_curate();
 			$.chai.form_base.ini();
 			
 			$.chai.trial.start_popup_watch();
@@ -4511,6 +4533,7 @@ $.fn.showOptionGroup = function() {
 	$.chai.trial = {
 		ini:function(){
 			$.chai.core.util.setup_viewlog();
+			$.chai.core.util.setup_curate();
 			$.chai.form_base.ini();
 			$.chai.reference.ref_popup_primer();
 			$.chai.trial.trial_arm_primer();
@@ -4651,6 +4674,7 @@ $.fn.showOptionGroup = function() {
 	$.chai.trial_arm = {
 		ini:function(){
 			$.chai.core.util.setup_viewlog();
+			$.chai.core.util.setup_curate();
 			$.chai.form_base.ini();
 		},
 	};
@@ -4660,6 +4684,7 @@ $.fn.showOptionGroup = function() {
 	$.chai.clinical = {
 		ini:function(){
 			$.chai.core.util.setup_viewlog();
+			$.chai.core.util.setup_curate();
 			$.chai.form_base.ini();
 			$.chai.drug.setup_ddi_ui();
 			$.chai.reference.ref_popup_primer();
@@ -4950,6 +4975,7 @@ $.fn.showOptionGroup = function() {
 	$.chai.drug = {
 		ini:function(){
 			$.chai.core.util.setup_viewlog();
+			$.chai.core.util.setup_curate();
 			$.chai.form_base.ini();
 	
 			$("select[name*='inactive_ingredients[]']").on("change",function(){
@@ -5204,6 +5230,7 @@ $.fn.showOptionGroup = function() {
 	$.chai.substance = {
 		ini:function(){
 			$.chai.core.util.setup_viewlog();
+			$.chai.core.util.setup_curate();
 			$.chai.form_base.ini();
 	
 			$( "#ddiradio" ).buttonset();

@@ -3,6 +3,7 @@
 	$.chai.substance = {
 		ini:function(){
 			$.chai.core.util.setup_viewlog();
+			$.chai.core.util.setup_curate();
 			$.chai.form_base.ini();
 	
 			$( "#ddiradio" ).buttonset();

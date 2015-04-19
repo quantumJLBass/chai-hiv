@@ -3,6 +3,7 @@
 	$.chai.family = {
 		ini:function(){
 			$.chai.core.util.setup_viewlog();
+			$.chai.core.util.setup_curate();
 			$.chai.form_base.ini();
 			
 			$.chai.trial.start_popup_watch();

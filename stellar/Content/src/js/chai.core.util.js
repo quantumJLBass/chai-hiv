@@ -164,6 +164,18 @@
 				});
 			});
 		},
+		
+		setup_curate:function(){
+			$('#curate').on('click',function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				//$.get('/center/curate.castle',{'id':$(this).data('item_id'),'type':$(this).data('type')},function(){});
+				window.location = '/center/curate.castle?id='+$(this).data('item_id')+'&type='+$(this).data('type');
+			});
+		},		
+		
+		
+		
 		setup_refs:function(){
 			$('.add_ref').on("click",function(e){
 				e.preventDefault();
@@ -195,14 +207,23 @@
 				$(ref_btn).on('click',function(e){
 					e.preventDefault();
 					e.stopPropagation();
+					$('.active_copy').removeClass('active_copy');
+					$(ref_btn).next('.copy_area').addClass('active_copy');
+					$(ref_btn).next('.copy_area').find('.icon-copy').on('click',function(){
+						$('.active_copy').removeClass('active_copy');
+					});
+					
+					
+					
 				});
-				var client = new ZeroClipboard( ref_btn );
+				
+				/*var client = new ZeroClipboard( ref_btn );
 				client.on( "ready", function(  ) {
 					$(ref_btn).addClass("cp_ready");
 					client.on( "aftercopy", function( event ) {
 						alert("Copied text to clipboard: " + event.data["text/plain"] );
 					});
-				});
+				});*/
 			});
 		},
 		

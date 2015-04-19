@@ -59,6 +59,8 @@ using System.DirectoryServices.AccountManagement;
 using Castle.MonoRail.Framework.Helpers;
 #endregion
 namespace stellar.Controllers {
+
+
     /// <summary> </summary>
     [Layout("simple")]
     public class centerController : BaseController {
@@ -1463,8 +1465,79 @@ namespace stellar.Controllers {
             RenderView("reports");
         }
 
+        public static string ToCsvFields(string separator, FieldInfo[] fields, object o) {
+            StringBuilder row = new StringBuilder();
+
+            foreach (var f in fields) {
+                StringBuilder part = new StringBuilder();
+                part.Append(f.Name);
+                part.Append(separator);
+                var x = f.GetValue(o);
+                if (x != null){
+                    part.Append(CleanCSVString(x.ToString()));
+                } else {
+                    part.Append("");
+                }
+
+                row.AppendLine(part.ToString());
+
+            }
+
+            return row.ToString();
+        }
+        protected static string CleanCSVString(string input) {
+            string output = "\"" + input.Replace("\"", "\"\"").Replace("\r\n", " ").Replace("\r", " ").Replace("\n", "") + "\"";
+            return output;
+        }
+
+/// <summary> </summary>
+        public void curate(int id, String type) {
 
 
+
+           // dynamic item = null;
+            var csv = "";
+            StringBuilder csvdata = new StringBuilder();
+            dynamic item = null;
+            if (type == "drug") {
+                item = ActiveRecordBase<drug>.Find(id);
+            }
+            if (type == "clinical") { //aka Trial arm
+                item = ActiveRecordBase<clinical>.Find(id);
+            }
+            if (type == "substance") {
+                item = ActiveRecordBase<substance>.Find(id);
+            }
+            if (type == "trial") {
+                item = ActiveRecordBase<trial>.Find(id);
+            }
+
+            FieldInfo[] fields = item.GetType().GetFields();
+            csvdata.AppendLine(ToCsvFields(",", fields, item));
+            csv = csvdata.ToString();
+            Response.Clear();
+            String contentType = "text/csv";
+
+            // Setup the response
+            HttpContext.Response.Buffer = true;
+            HttpContext.Response.AddHeader("Content-Length", csv.Length.ToString());
+            HttpContext.Current.Response.AddHeader("content-disposition", "inline; filename=\"datacheck.csv\"");
+            DateTime dt = DateTime.Now.AddMilliseconds(1);
+            HttpContext.Response.Cache.SetExpires(dt);
+            HttpContext.Response.Cache.SetMaxAge(new TimeSpan(dt.ToFileTime()));
+            HttpContext.Response.Cache.SetValidUntilExpires(true);
+            HttpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
+            HttpContext.Response.Expires = 0;
+            HttpContext.Response.ContentType = contentType;
+            HttpContext.Response.Write(csv.ToString());
+            // Write the file to the response
+            //HttpContext.Response.BinaryWrite(GetBytes(csv));
+
+
+            //Response.ContentType = "text/csv; charset=UTF-8";
+            //RenderText(csv);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
         /// <summary> </summary>
         public void report() {
             if (!Controllers.BaseController.authenticated()) Redirect("center", "login", new Hashtable());

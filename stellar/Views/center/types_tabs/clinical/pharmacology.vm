@@ -6,10 +6,10 @@
 	</ul>	
 	<ul class="grid col-one-half mq2-col-full full-input">	
 	
-#* metabolites_of_parent *#
+#* metabolites_of_parent
 		<li>
 			$Controller.feilds("textinput","$type","metabolites_of_parent", $!item.metabolites_of_parent ,"","","","")
-		</li>
+		</li> *#
 	</ul>	
 	<hr/>
 	

@@ -3,6 +3,7 @@
 	$.chai.drug = {
 		ini:function(){
 			$.chai.core.util.setup_viewlog();
+			$.chai.core.util.setup_curate();
 			$.chai.form_base.ini();
 	
 			$("select[name*='inactive_ingredients[]']").on("change",function(){

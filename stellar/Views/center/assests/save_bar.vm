@@ -22,6 +22,7 @@
 		</div>
 		
 		<button id="viewlog" class="button fright" title="View the log for this item" data-item_id="$item.baseid" style="top: 15px; right: -1px; position: fixed;">Log</button>
+		<button id="curate" class="button fright" title="Get a list to curate the data" data-item_id="$item.baseid" data-type="$type" style="top: 56px; right: -1px; position: fixed;">Curate</button>
 	</div>
 #end		
 		

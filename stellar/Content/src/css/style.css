@@ -518,9 +518,31 @@ i.remove {
 }
 .button.ref_text:hover {
 	/*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#420905', endColorstr='#850f0a');*/
-	background: #D7ECAE !important;
+	background: #C5DC98 !important;
 	color: #9FC456 !important;
 }
+
+.copy_block { position:relative; height: 17px !important;}
+.copy_area {
+    display: none;
+    background: #C5DC98 !important;
+    position: absolute;
+    right: 3px;
+    top: -5px;
+    font-size: 14px !important;
+    line-height: 22px !important;
+    height: 23px !important;
+    padding: 2px 7px !important;
+    border-radius: 0 !important;
+    width: 125px;
+	
+}
+.copy_area .icon-copy{cursor:pointer;}
+.copy_area .copy_text{padding:0px 4px; background:#EDEDED; color:#2A2A2A; cursor:text; float:left;}
+.copy_area.active_copy{display:block;}
+
+
+
 
 
 .editing_action_block{ display:inline-block; width:100%; text-align:right;}

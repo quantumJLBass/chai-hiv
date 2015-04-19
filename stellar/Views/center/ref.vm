@@ -38,7 +38,10 @@
 			  #if(!$viewonly)<td>
 			  
 				<span class="editing_action_block">
-					<a href="#" class="button xsmall ref_text" data-clipboard-text="#{{REF $!part.baseid}}" title="Click to copy me."><i class="icon-copy" title="copy"></i></a>
+					<span class="copy_block">
+						<a href="#" class="button xsmall ref_text" title=""><i class="icon-copy" title="Click to copy reference code"></i></a>
+						<span class="copy_area"><span class="copy_text">#{{REF $!part.baseid}}</span><i class="icon-copy" title="Click to close."></i></span>
+					</span>
 					<a href="reference.castle?id=$part.baseid" class="button small edit_item ref_inline_edit" data-type="$type"><i class="icon-pencil" title="Edit"></i></a>
 					<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
 				</span>

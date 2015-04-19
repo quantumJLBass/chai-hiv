@@ -3,6 +3,7 @@
 	$.chai.clinical = {
 		ini:function(){
 			$.chai.core.util.setup_viewlog();
+			$.chai.core.util.setup_curate();
 			$.chai.form_base.ini();
 			$.chai.drug.setup_ddi_ui();
 			$.chai.reference.ref_popup_primer();
