@@ -83,6 +83,8 @@ namespace stellar.Models {
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string biological_half_life { get; set; }
 
+
+        /*
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string metabolites_of_parent { get; set; }
@@ -172,6 +174,7 @@ namespace stellar.Models {
         /// <summary> </summary>
         [Property(SqlType = "nvarchar(MAX)")]
         virtual public string steady_state_auc_unit { get; set; }
+        */
 
 
         /// <summary> </summary>

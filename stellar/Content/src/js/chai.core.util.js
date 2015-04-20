@@ -166,12 +166,12 @@
 		},
 		
 		setup_curate:function(){
-			$('#curate').on('click',function(e){
+			/*$('#curate').on('click',function(e){
 				e.preventDefault();
 				e.stopPropagation();
 				//$.get('/center/curate.castle',{'id':$(this).data('item_id'),'type':$(this).data('type')},function(){});
 				window.location = '/center/curate.castle?id='+$(this).data('item_id')+'&type='+$(this).data('type');
-			});
+			});*/
 		},		
 		
 		

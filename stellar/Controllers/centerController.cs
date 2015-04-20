@@ -1465,21 +1465,61 @@ namespace stellar.Controllers {
             RenderView("reports");
         }
 
-        public static string ToCsvFields(string separator, FieldInfo[] fields, object o) {
+        public static string objectToCSV(dynamic item, String type) {
+            StringBuilder csvdata = new StringBuilder();
+            Type myType = item.GetType();
+            IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+            csvdata.AppendLine(ToCsvFields(type, ",", props, item));
+            return csvdata.ToString();
+        }
+
+
+        public static string ToCsvFields(string type, string separator, IList<PropertyInfo> props, object o) {
             StringBuilder row = new StringBuilder();
 
-            foreach (var f in fields) {
+            foreach (PropertyInfo prop in props) {
                 StringBuilder part = new StringBuilder();
-                part.Append(f.Name);
-                part.Append(separator);
-                var x = f.GetValue(o);
-                if (x != null){
-                    part.Append(CleanCSVString(x.ToString()));
-                } else {
-                    part.Append("");
-                }
+                String prop_name = prop.Name;
+                if (prop_name.IndexOf("is_") < 0) {
+                    if (o != null) {
+                        var x = prop.GetValue(o, null);
+                        if (x is string || x == null) {
+                            taxonomy feildObj = postingService.get_taxonomy(type, prop_name, "SYSTEM__feild_helpers");
+                            String name = prop.Name;
+                            if (feildObj != null) {
+                                if (feildObj.name != null && feildObj.name != "") {
+                                    name = feildObj.name;
+                                }
+                            }
+                            part.Append("\"" + name + "\"");
+                            part.Append(separator);
+                            if (x != null) {
+                                part.Append(CleanCSVString(x.ToString()));
+                            } else {
+                                part.Append("\"\"");
+                            }
+                            row.AppendLine(part.ToString());
+                        }
+                        if (x is IList) {
+                            /*row.AppendLine("\"LIST ITEMS\",\"-------------------\"");
+                            dynamic items = x;
+                            foreach (dynamic list_item in items) {
+                                Type t = list_item.GetType();
+                                String named = t.Name;
 
-                row.AppendLine(part.ToString());
+
+
+
+                                if(named !="drug" && named !="clinical" && named !="trial" && named !="substance" && named !="drug_family"){
+                                    string list_part = objectToCSV(x, named);
+                                    row.AppendLine(list_part);
+                                }
+                                
+                            }
+                            row.AppendLine("\"END OF LIST ITEM\",\"-------------------\"");*/
+                        }
+                    }
+                }
 
             }
 
@@ -1492,12 +1532,7 @@ namespace stellar.Controllers {
 
 /// <summary> </summary>
         public void curate(int id, String type) {
-
-
-
            // dynamic item = null;
-            var csv = "";
-            StringBuilder csvdata = new StringBuilder();
             dynamic item = null;
             if (type == "drug") {
                 item = ActiveRecordBase<drug>.Find(id);
@@ -1512,31 +1547,24 @@ namespace stellar.Controllers {
                 item = ActiveRecordBase<trial>.Find(id);
             }
 
-            FieldInfo[] fields = item.GetType().GetFields();
-            csvdata.AppendLine(ToCsvFields(",", fields, item));
-            csv = csvdata.ToString();
-            Response.Clear();
-            String contentType = "text/csv";
+            String csv = objectToCSV(item,type);
+            byte[] csvBytes = Encoding.ASCII.GetBytes(csv);
 
-            // Setup the response
-            HttpContext.Response.Buffer = true;
-            HttpContext.Response.AddHeader("Content-Length", csv.Length.ToString());
-            HttpContext.Current.Response.AddHeader("content-disposition", "inline; filename=\"datacheck.csv\"");
-            DateTime dt = DateTime.Now.AddMilliseconds(1);
-            HttpContext.Response.Cache.SetExpires(dt);
-            HttpContext.Response.Cache.SetMaxAge(new TimeSpan(dt.ToFileTime()));
-            HttpContext.Response.Cache.SetValidUntilExpires(true);
-            HttpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
-            HttpContext.Response.Expires = 0;
-            HttpContext.Response.ContentType = contentType;
-            HttpContext.Response.Write(csv.ToString());
-            // Write the file to the response
-            //HttpContext.Response.BinaryWrite(GetBytes(csv));
+            HttpContext.Response.Clear();
+            HttpContext.Response.ClearHeaders();
 
+            String namepart = item.baseid.ToString();
 
-            //Response.ContentType = "text/csv; charset=UTF-8";
-            //RenderText(csv);
+            HttpContext.Response.AppendHeader("Content-disposition", String.Format("attachment; filename=\"{0}\"", namepart + "--" + type + "--" + "curation.csv"));
+            HttpContext.Response.AppendHeader("Content-Type", "binary/octet-stream");
+            HttpContext.Response.AppendHeader("Content-length", csvBytes.Length.ToString());
+
+            HttpContext.Response.BinaryWrite(csvBytes);
+            if (HttpContext.Response.IsClientConnected) { 
+                HttpContext.Response.Flush();
+            }
             HttpContext.Current.ApplicationInstance.CompleteRequest();
+
         }
         /// <summary> </summary>
         public void report() {
