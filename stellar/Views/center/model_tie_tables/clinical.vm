@@ -5,7 +5,7 @@
 			<th width="10%">ID</th>
 			<th width="30%">Name</th>
 			<th>Drug</th>
-			<th style="width:50px" class="no-sort"></th>
+			<th style="width:75px" class="no-sort"></th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -13,7 +13,7 @@
 			<th width="10%"></th>
 			<th width="30%"></th>
 			<th></th>
-			<th style="width:50px" class="no-sort"></th>
+			<th style="width:75px" class="no-sort"></th>
 		</tr>
 	</tfoot>
 	<tbody>
@@ -34,6 +34,7 @@
 			<td >
 				#if($viewonly) #else
 					<span class="editing_action_block">
+					<a class="button curate" title="Get a list to curate the data"  href="/center/curate.castle?id=${part.baseid}&type=clinical" target="_blank" ><i class="icon-refresh"></i></a>
 					<a href="clinical.castle?id=$part.baseid" class="button small edit_item trial_inline_edit" data-type="clinical"><i class="icon-pencil" title="Edit"></i></a><a href="#" class="button xsmall crimson defocus deletion removal"><i class="icon-remove" title="Remove"></i></a>
 					</span>
 				#end

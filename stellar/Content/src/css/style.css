@@ -505,11 +505,9 @@ i.remove {
 
 .button.ref_text,
 .button.ref_text:visited{
- 	/*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#850f0a', endColorstr='#420905');*/
 	background: #9FC456 !important;
 	color: #D7ECAE !important;
 	border:none !important;
-	/*text-shadow: 1px 1px 0px #454545 !important;*/
     font-size: 14px !important;
     line-height: 14px !important;
     height: 14px !important;
@@ -517,9 +515,23 @@ i.remove {
 	border-radius:0px !important;
 }
 .button.ref_text:hover {
-	/*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#420905', endColorstr='#850f0a');*/
 	background: #C5DC98 !important;
 	color: #9FC456 !important;
+}
+
+.button.curate{
+	background: #56BEC4 !important;
+	color: #AEDFEC !important;
+	border:none !important;
+    font-size: 14px !important;
+    line-height: 14px !important;
+    height: 14px !important;
+    padding: 3px 7px !important;
+	border-radius:0px !important;
+}
+.button.curate:hover {
+	background: #4DD9E1 !important;
+	color: #AEDFEC !important;
 }
 
 .copy_block { position:relative; height: 17px !important;}

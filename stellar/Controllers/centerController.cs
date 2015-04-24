@@ -335,6 +335,14 @@ namespace stellar.Controllers {
             PropertyBag["skiplayout"] = skiplayout;
             if (id <= 0) id = make_clinical_tmp();
             if (id > 0) PropertyBag["item"] = ActiveRecordBase<clinical>.Find(id);
+
+            if (id > 0) {
+                clinical item = ActiveRecordBase<clinical>.Find(id);
+                PropertyBag["item"] = item;
+            }
+
+
+
             PropertyBag["drugs"] = ActiveRecordBase<drug>.FindAll().Where(x => !x.deleted);
             PropertyBag["trials"] = ActiveRecordBase<trial>.FindAll().Where(x => !x.deleted);
 
@@ -1014,7 +1022,10 @@ namespace stellar.Controllers {
             if (skiplayout) CancelLayout();
             PropertyBag["skiplayout"] = skiplayout;
             if (id <= 0) id = make_drug_tmp();
-            if (id > 0) PropertyBag["item"] = ActiveRecordBase<drug>.Find(id);
+            if (id > 0) {
+                drug item = ActiveRecordBase<drug>.Find(id);
+                PropertyBag["item"] = item;
+            }
             PropertyBag["families"] = ActiveRecordBase<drug_family>.FindAll().Where(x => !x.deleted);
 
 

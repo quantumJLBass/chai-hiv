@@ -62,7 +62,7 @@ $sub.abbreviated
 				<td>
 
 		<span class="editing_action_block">
-			<a href="drug.castle?id=$item.baseid" class="button small edit_item clinical_inline_edit"><i class="icon-pencil" title="Edit"></i></a> 
+			<a href="drug.castle?id=$drug.baseid" class="button small edit_item drug_inline_edit"><i class="icon-pencil" title="Edit"></i></a> 
 			<a href="#" class="button xsmall crimson defocus deletion"><i class="icon-remove" title="Remove"></i></a>
 		</span>
 					 
