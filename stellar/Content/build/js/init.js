@@ -2988,6 +2988,7 @@ $(document).ready(function() {
 				buttons:{
 					Yes:function(){
 						if($.isFunction(callback.yes)){
+							console.log(callback.yes);
 							callback.yes();
 						}
 						$( this ).dialog( "close" );
@@ -3596,7 +3597,9 @@ $(document).ready(function() {
 				var targ = $(this);
 				$.chai.core.util.confirmation_message("Are you sure?",{
 					"yes":function(){
+						console.log('ready to remove');
 						$.chai.core.util.remove_datatable_current_row(targ);
+						return false;
 					},
 					"no":function(){}
 				});
@@ -4689,6 +4692,8 @@ $.fn.showOptionGroup = function() {
 			$.chai.drug.setup_ddi_ui();
 			$.chai.reference.ref_popup_primer();
 			$.chai.clinical.add_state();
+			//$.chai.core.util.build_general_removal_button($("#clinical_states tbody .removal"));
+			//$.chai.core.util.build_general_removal_button($("#clinical_states tbody .removal"));
 			$.each($('.showFeildset'),function(){
 				var checks = $(this);
 				checks.buttonset();

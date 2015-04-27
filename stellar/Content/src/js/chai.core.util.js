@@ -340,6 +340,7 @@
 				buttons:{
 					Yes:function(){
 						if($.isFunction(callback.yes)){
+							console.log(callback.yes);
 							callback.yes();
 						}
 						$( this ).dialog( "close" );
@@ -948,7 +949,9 @@
 				var targ = $(this);
 				$.chai.core.util.confirmation_message("Are you sure?",{
 					"yes":function(){
+						console.log('ready to remove');
 						$.chai.core.util.remove_datatable_current_row(targ);
+						return false;
 					},
 					"no":function(){}
 				});

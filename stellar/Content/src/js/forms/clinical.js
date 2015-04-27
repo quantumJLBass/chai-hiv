@@ -8,6 +8,8 @@
 			$.chai.drug.setup_ddi_ui();
 			$.chai.reference.ref_popup_primer();
 			$.chai.clinical.add_state();
+			//$.chai.core.util.build_general_removal_button($("#clinical_states tbody .removal"));
+			//$.chai.core.util.build_general_removal_button($("#clinical_states tbody .removal"));
 			$.each($('.showFeildset'),function(){
 				var checks = $(this);
 				checks.buttonset();
