@@ -3545,6 +3545,7 @@ $(document).ready(function() {
 						"bAutoWidth": false,
 						"sPaginationType": "full_numbers",
 						"aaSorting": [[1,'asc']],
+						"aLengthMenu": [[ 25, 50, 100, -1], [ 25, 50, 100, "All"]],
 						"columnDefs": [ {
 						  "targets"  : 'no-sort',
 						  "orderable": false,
@@ -4492,6 +4493,43 @@ $.fn.showOptionGroup = function() {
 				$('#to_save_query').slideDown();
 				$('#start_save_query').slideUp();
 			});
+			var form_clear = false;
+			$('#submit').on('click',function(e){
+				if( !form_clear ){
+					e.preventDefault();
+					e.stopPropagation();
+					var pro_has_val = true;
+					$.each($('#contact_form [name*="property"]'),function(){
+						if($(this).val()=== null){
+							pro_has_val = false;
+						}
+					});
+					var operator_has_val = true;
+					$.each($('#contact_form [name*="operator"]'),function(){
+						if($(this).val()=== null){
+							operator_has_val = false;
+						}
+					});
+					var value_has_val = true;
+					$.each($('#contact_form [name*="value"]'),function(){
+						if($(this).val()=== null){
+							value_has_val = false;
+						}
+					});
+					
+					
+					
+					if( $('#contact_form [name="selected_properties"]').val() !== null && pro_has_val === true && operator_has_val === true && value_has_val === true ){
+						form_clear = true;
+						$('#submit').trigger('click');
+					}else{
+						$.chai.core.util.popup_message("Please fill in all the form fields.");
+					}
+				}
+			});
+			
+			
+			
 		},
 		re_index_query_items:function (){
 			$.each($(".query_item:not('#queryBed .query_item')"),function(i){
@@ -4530,6 +4568,7 @@ $.fn.showOptionGroup = function() {
 		}
 	
 	};
+	$.chai.report=$.chai.reports;
 })(jQuery);	
 // JavaScript Document
 (function($) {
@@ -5057,19 +5096,21 @@ $.fn.showOptionGroup = function() {
 				var dataTable = $('#ddi').find('.dataTable');
 				var tableData = [];
 				var family_list = $("#ddi_drug_product").length>0;
-				var count = $("#ddi tbody select").length;
+				var count = $("#ddi [name$='].id']").length;
 	
 				var input_name = 'interactions['+(count)+']';
 				
 				var html = '';
 				
 				if(family_list){
+					html = '';
+					tableData.push( html );
 					input_name = 'interactions['+(count)+']';
 					html = '<input type="hidden" name="'+input_name+'.arm.baseid" value="'+$("[name='item.baseid']").val()+'"/><select name="'+input_name+'.drug" id="drpr_'+count+'"><option value="">Select</option></select>';
 					tableData.push( html );
 				}
 				
-				html = '<input type="hidden" name="'+input_name+'.id" value="0"/><select name="'+input_name+'.substance"  id="ddi_only_'+count+'"><option value="">Select</option></select>';
+				html = '<input type="hidden" name="'+input_name+'.id" value=""/><select name="'+input_name+'.substance"  id="ddi_only_'+count+'"><option value="">Select</option></select>';
 				tableData.push( html );
 				
 				html = '<select name="'+input_name+'.yes_no"><option value="yes">Yes</option><option value="no">No</option></select>';

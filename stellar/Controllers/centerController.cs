@@ -384,17 +384,21 @@ namespace stellar.Controllers {
                     return;
                 }
             }
-
+            item.tmp = false;
+            ActiveRecordMediator<clinical>.Save(item);
             //todo abstract this since the taxonmies also have need for this.  
             //when it's done remeber it should account for children
             if (item.taxonomies!=null) item.taxonomies.Clear();
-            if (item.meta_data != null) item.meta_data.Clear();
+            //if (item.meta_data != null) 
+                item.meta_data.Clear();
             String[] keys = HttpContext.Current.Request.Params.AllKeys.Where(x => x.StartsWith("value[")).ToArray();
+            //meta_data[] all_meta = ActiveRecordBase<meta_data>.FindAllByProperty("post", item.baseid);
             for (int i = 0; i <= keys.Count(); i++) {
                 if (!String.IsNullOrWhiteSpace(HttpContext.Current.Request.Form["value[" + i + "]"])) {
                     String val = HttpContext.Current.Request.Form["value[" + i + "]"];
                     String option = HttpContext.Current.Request.Form["option_key[" + i + "]"];
                     if (!String.IsNullOrWhiteSpace(val)) {
+                        //IList<meta_data> metas = all_meta.Where(x => x.meta_key == option).ToList();
                         taxonomy tmp = ActiveRecordBase<taxonomy>.Find(Int32.Parse(option));
                         item.meta_data.Add(new meta_data() {
                             value = val,
@@ -408,22 +412,41 @@ namespace stellar.Controllers {
 
             /**/
             if (item.drugs != null) {
-                item.drugs.Clear();
+                //item.drugs.Clear();
+                if (item.drugs == null) item.drugs = new List<drug>();
                 foreach (drug drug in drugs) {
                     if (!item.drugs.Contains(drug)) {
                         item.drugs.Add(drug);
                     }
                 }
             }
+            if (item.interactions == null) item.interactions = new List<drug_interaction>();
             if (item.interactions != null) {
-                item.interactions.Clear();
+                //item.interactions.Clear();
                 foreach (drug_interaction interaction in interactions) {
                     if (interaction.id == 0) {
-                        ActiveRecordMediator<drug_interaction>.Save(interaction);
+                    //    ActiveRecordMediator<drug_interaction>.Save(interaction);
                     }
                     if (!item.interactions.Contains(interaction)) {
                         item.interactions.Add(interaction);
+                        //ActiveRecordMediator<drug_interaction>.Refresh(interaction);
                     }
+                    /*if (interaction.id == 0) {
+                        
+                    } else {
+                        if (!item.interactions.Contains(interaction)) {
+                            item.interactions.Add(interaction);
+                        }
+                    }
+                    item.interactions.Add(new drug_interaction() {
+                        //id = 0,
+                        arm = interaction.arm,
+                        dose_amount = interaction.dose_amount,
+                        descriptions = interaction.descriptions,
+                        substance = interaction.substance,
+                        yes_no = interaction.yes_no,
+                        drug = interaction.drug
+                    });*/
                 }
             }
             if (item.arm_states != null) {
@@ -476,12 +499,12 @@ namespace stellar.Controllers {
             }
             //do the auth
             if (apply != null || ajaxed_update) {
-                logger.writelog("Saved and returned " + item.name + " edits", getView(), getAction(), item.baseid);
-                Flash["message"] = "Applied " + item.name + " edits for " + item.ln_clinical_t;
+                //logger.writelog("Saved and returned " + item.name + " edits", getView(), getAction(), item.baseid);
+                //Flash["message"] = "Applied " + item.name + " edits for " + item.ln_clinical_t;
                 if (item.baseid > 0) {
                     if (ajaxed_update) {
                         CancelLayout(); CancelView();
-                        RenderText(item.baseid.ToString() + "," + item.ln_clinical_t);
+                        RenderText(item.baseid.ToString() + "," + item.baseid);
                     } else {
                         RedirectToUrl("~/center/clinical.castle?id=" + item.baseid);
                     }
@@ -1613,12 +1636,20 @@ namespace stellar.Controllers {
                 if (i > 0) {
                     joining = params_list["joining[" + i + "]"];
                 }
-                String clause = " " + property + " " + wherreOperator + " " + value + "";
+                String clause = " " + property + " " + wherreOperator + " " + value.ToString() + "";
                 Where += (i == 0 ? " WHERE " : joining + " ") + clause;
             }
             String selected = " itm ";
-            if (String.IsNullOrWhiteSpace(params_list["selected_properties"])) params_list["selected_properties"] = "*";
-            if (params_list["selected_properties"] != "*") selected = params_list["selected_properties"];
+            if (String.IsNullOrWhiteSpace(params_list["selected_properties"])) {
+                params_list["selected_properties"] = " * ";
+            }
+            if (params_list["selected_properties"] != " * ") {
+                selected = params_list["selected_properties"];
+            }
+
+            selected = " itm ";
+
+
             String sql = @"SELECT " + selected + " FROM " + type + " AS itm " + Where;
 
             if (type == "drug") {
@@ -1635,7 +1666,8 @@ namespace stellar.Controllers {
             }
             if (type == "trial") {
                 SimpleQuery<trial> pq = new SimpleQuery<trial>(typeof(trial), sql);
-                PropertyBag["items"] = pq.Execute();
+                HqlBasedQuery query = new HqlBasedQuery(typeof(trial), sql);
+                PropertyBag["items"] = ActiveRecordMediator.ExecuteQuery(query); //pq.Execute().ToList();
             }
             PropertyBag["type"] = type;
             PropertyBag["ran_query"] = sql;

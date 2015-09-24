@@ -897,6 +897,7 @@
 						"bAutoWidth": false,
 						"sPaginationType": "full_numbers",
 						"aaSorting": [[1,'asc']],
+						"aLengthMenu": [[ 25, 50, 100, -1], [ 25, 50, 100, "All"]],
 						"columnDefs": [ {
 						  "targets"  : 'no-sort',
 						  "orderable": false,

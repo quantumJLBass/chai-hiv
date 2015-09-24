@@ -4,7 +4,7 @@
 			<tr>
 				<th>Form</th>
 				#foreach($part in  $item.substances)
-					<th>$part.abbreviated Amt.</th>
+					<th>$!part.abbreviated Amt.</th>
 				#end
 				<th>Manufacure</th>
 				<th></th>
@@ -24,7 +24,7 @@
 		#set($k=0)
 		#foreach($drug in $!item.drugs)
 			<tr data-baseid="${drug.baseid}">
-				<td>${drug.dose_form}</td>
+				<td>#if($!drug.dose_form) $!{drug.dose_form} #else UNSPECIFIED #end</td>
 				#if($drug.label_claim)
 					#set($label_claims = $objectService.explode($!drug.label_claim,":"))
 					#set($i = 0)

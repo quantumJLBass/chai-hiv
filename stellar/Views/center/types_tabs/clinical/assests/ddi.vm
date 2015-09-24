@@ -16,6 +16,7 @@
 <table cellpadding="0" cellspacing="0" border="0" class="display datagrid" id="DDIdata" width="100%">
 	<thead>
 		<tr>
+			<th width="15%" id="">Drug family</th>
 			<th width="15%" id="ddi_drug_product">Drug Product</th>
 			<th width="15%">With these substances</th>
 			<th width="10%">Interactions</th>
@@ -29,10 +30,10 @@
 
 
 
-
+#set($drugs_list = "")
 #capturefor(drugs_list)
 #foreach($drug in $!item.drugs)
-$drug.dose_form -- $!drug.name #if($!part.manufacturer || $!drug.label_claim )( $!drug.manufacturer #if($!part.manufacturer && $!drug.label_claim )|#end $!drug.label_claim )#end => $drug.baseid
+$!drug.dose_form -- $!drug.name #if($!part.manufacturer || $!drug.label_claim )( $!drug.manufacturer #if($!part.manufacturer && $!drug.label_claim )|#end $!drug.label_claim )#end => $drug.baseid
 #between
 ,
 #end
@@ -60,10 +61,25 @@ $!postingService.get_taxonomy($part.generic_name).name #if($!part.abbreviated)( 
 	#foreach($ddi in $!item.interactions)
 		<tr class=""  data-baseid="$part.baseid">
 			<td>
+
+#capturefor(fam_sub_code)
+
+
+#foreach($sub in  $!ddi.drug.families.substances)
+$sub.abbreviated
+#between
+<em>:</em>
+#end
+
+#end	
+$!fam_sub_code			
+			</td>
+			<td>
 			$Controller.feilds("hidden","{'objectName':'interactions[$i]', 'model_prop':'arm.baseid', 'value':'$!item.baseid' }")
 			$Controller.feilds("select","{'objectName':'interactions[$i]', 'model_prop':'drug', 'value':'$!ddi.drug', 'select_options':'$drugs_list'}")
 			
 			</td>
+
 			<td>
 				$Controller.feilds("hidden","{'objectName':'interactions[$i]', 'model_prop':'id', 'value':'$!ddi.id' }")
 				$Controller.feilds("select","{'objectName':'interactions[$i]', 'model_prop':'substance', 'value':'$!ddi.substance', 'select_options':'$substances_list'}")
@@ -72,9 +88,9 @@ $!postingService.get_taxonomy($part.generic_name).name #if($!part.abbreviated)( 
 			<td>
 			$Controller.feilds("select","{'objectName':'interactions[$i]', 'model_prop':'yes_no', 'value':'$!ddi.yes_no', 'select_options':'Yes=>yes,No=>no'}")
 			</td>
-			<td>$Controller.feilds("text","{'objectName':'interactions[$i]', 'model_prop':'dose_amount', 'value':'$!ddi.dose_amount', 'html_attr':' style=\"width:100%\" '}")</td>
-			#set($dis = $!ddi.descriptions.Replace("'","\'"))
-			<td>$Controller.feilds("textarea","{'objectName':'interactions[$i]', 'model_prop':'descriptions', 'value':'$dis', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}")</td>
+			<td>$Controller.feilds("text","{'objectName':'interactions[$i]', 'model_prop':'dose_amount', 'value':'$!ddi.dose_amount', 'html_attr':' style=\"width:100%\" ', 'placeholder':'dose of interacting drug'}")</td>
+			#set($descriptions = $!ddi.descriptions.Replace("'","\'"))
+			<td>$Controller.feilds("textarea","{'objectName':'interactions[$i]', 'model_prop':'descriptions', 'value':'$!descriptions', 'html_attr':' rows=\"1\" ', 'placeholder':'Describe the interaction between the two drugs'}")</td>
 			<td> #if($viewonly) #else <a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a> #end	</td>
 		</tr>
 			
@@ -83,6 +99,7 @@ $!postingService.get_taxonomy($part.generic_name).name #if($!part.abbreviated)( 
 	</tbody>
 	<tfoot>
 		<tr>
+			<th width="15%"></th>
 			<th width="15%"></th>
 			<th width="15%"></th>
 			<th width="15%"></th>

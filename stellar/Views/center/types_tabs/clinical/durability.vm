@@ -1,7 +1,7 @@
 #set($MoA_DMPK = $postingService.get_taxonomies("MoA_DMPK"))
 #capturefor(MoA_DMPKs)
 #foreach($part in $MoA_DMPK)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #between
 ,
 #end

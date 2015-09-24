@@ -19,9 +19,9 @@
 		<tbody>
 		#foreach($item in $items)
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.baseid" data-baseid="$item.baseid">
-				<td>#if($item.baseid)$!item.baseid#else -- #end</td>
-				<td>#if($item.number)$!item.number#else -- #end</td>
-				<td>#if($item.title)$!item.title#else -- #end</td>
+				<td>#if($item.baseid)$!item.baseid#else UNSPECIFIED #end</td>
+				<td>#if($item.number)$!item.number#else UNSPECIFIED #end</td>
+				<td>#if($item.title)$!item.title#else UNSPECIFIED #end</td>
 				<td>
 					#set($TYPE = "trial")
 					#parse("center/assests/list_actions.vm")

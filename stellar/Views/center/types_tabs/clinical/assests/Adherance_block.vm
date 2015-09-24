@@ -90,21 +90,21 @@
 			<ul class="grid col-full mq2-col-full full-input">
 				<li>	
 					#set($taxorder = 0)
-					#set($adverse_events = $postingService.get_taxonomies("adverse_events"))
+					#set($adverse_events_subjective = $postingService.get_taxonomies("adverse_events_subjective"))
 					<ul class="grid col-one-half mq2-col-full full-input">
 						#* max_dose *#
 							<li style="padding: 15px 10px;">
 								<label for="max_dose">Adverse Events, Subjective:</label>
 								<select name="" id="adverse_events" class="adverse_events taxed" >
 									<option value="">Add an event</option> 
-									#foreach($part in $adverse_events)
+									#foreach($part in $adverse_events_subjective)
 										<option #if($item.taxonomies.Contains($part))disabled #end value="$part.baseid" data-content="$!part.content" data-baseid="$!part.baseid" data-alias="$!part.alias">$part.name</option>
 									#end
 								</select>
 							</li>
-							#set($tax_type = $taxonomyService.get_taxonomy_type("adverse_events"))
+							#set($tax_type_subjective = $taxonomyService.get_taxonomy_type("adverse_events_subjective"))
 							#foreach($part in $item.taxonomies)
-								#if($part.taxonomy_type== $tax_type)
+								#if($part.taxonomy_type== $tax_type_subjective)
 									<li data-taxorder="$taxorder">
 										 <i class="icon-remove-circle red right remove"></i>
 						

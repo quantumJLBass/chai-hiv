@@ -37,6 +37,43 @@
 				$('#to_save_query').slideDown();
 				$('#start_save_query').slideUp();
 			});
+			var form_clear = false;
+			$('#submit').on('click',function(e){
+				if( !form_clear ){
+					e.preventDefault();
+					e.stopPropagation();
+					var pro_has_val = true;
+					$.each($('#contact_form [name*="property"]'),function(){
+						if($(this).val()=== null){
+							pro_has_val = false;
+						}
+					});
+					var operator_has_val = true;
+					$.each($('#contact_form [name*="operator"]'),function(){
+						if($(this).val()=== null){
+							operator_has_val = false;
+						}
+					});
+					var value_has_val = true;
+					$.each($('#contact_form [name*="value"]'),function(){
+						if($(this).val()=== null){
+							value_has_val = false;
+						}
+					});
+					
+					
+					
+					if( $('#contact_form [name="selected_properties"]').val() !== null && pro_has_val === true && operator_has_val === true && value_has_val === true ){
+						form_clear = true;
+						$('#submit').trigger('click');
+					}else{
+						$.chai.core.util.popup_message("Please fill in all the form fields.");
+					}
+				}
+			});
+			
+			
+			
 		},
 		re_index_query_items:function (){
 			$.each($(".query_item:not('#queryBed .query_item')"),function(i){
@@ -75,4 +112,5 @@
 		}
 	
 	};
+	$.chai.report=$.chai.reports;
 })(jQuery);	

@@ -51,7 +51,7 @@
 					</td>
 					<td>$!ddi.yes_no</td>
 					<td>$!ddi.dose_amount</td>
-					<td>$!ddi.descriptions</td>
+					<td>$Controller.filter_refs($!ddi.descriptions)</td>
 				</tr>
 			#end
 		#end

@@ -80,19 +80,21 @@
 				var dataTable = $('#ddi').find('.dataTable');
 				var tableData = [];
 				var family_list = $("#ddi_drug_product").length>0;
-				var count = $("#ddi tbody select").length;
+				var count = $("#ddi [name$='].id']").length;
 	
 				var input_name = 'interactions['+(count)+']';
 				
 				var html = '';
 				
 				if(family_list){
+					html = '';
+					tableData.push( html );
 					input_name = 'interactions['+(count)+']';
 					html = '<input type="hidden" name="'+input_name+'.arm.baseid" value="'+$("[name='item.baseid']").val()+'"/><select name="'+input_name+'.drug" id="drpr_'+count+'"><option value="">Select</option></select>';
 					tableData.push( html );
 				}
 				
-				html = '<input type="hidden" name="'+input_name+'.id" value="0"/><select name="'+input_name+'.substance"  id="ddi_only_'+count+'"><option value="">Select</option></select>';
+				html = '<input type="hidden" name="'+input_name+'.id" value=""/><select name="'+input_name+'.substance"  id="ddi_only_'+count+'"><option value="">Select</option></select>';
 				tableData.push( html );
 				
 				html = '<select name="'+input_name+'.yes_no"><option value="yes">Yes</option><option value="no">No</option></select>';

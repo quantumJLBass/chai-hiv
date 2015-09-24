@@ -10,7 +10,7 @@
 	#set($brand_name = $postingService.get_taxonomies("brand_name"))
 #capturefor(brand_names)
 #foreach($part in $brand_name)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #between
 ,
 #end
@@ -20,7 +20,7 @@ $part.name => $part.alias
 	#set($frequency = $postingService.get_taxonomies("frequency"))
 #capturefor(frequencys)
 #foreach($part in $frequency)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #between
 ,
 #end
@@ -30,7 +30,7 @@ $part.name => $part.alias
 	#set($approved_for = $postingService.get_taxonomies("adult"))
 #capturefor(approved_fors)
 #foreach($part in $approved_for)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #between
 ,
 #end
@@ -40,7 +40,7 @@ $part.name => $part.alias
 	#set($dose_form = $postingService.get_taxonomies("dose_type"))
 #capturefor(dose_forms)
 #foreach($part in $dose_form)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #between
 ,
 #end
@@ -50,7 +50,7 @@ $part.name => $part.alias
 	#set($dosing = $postingService.get_taxonomies("dosing"))
 #capturefor(dosings)
 #foreach($part in $dosing)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #between
 ,
 #end
@@ -61,7 +61,7 @@ $part.name => $part.alias
 	#set($inactive_ingredients = $postingService.get_taxonomies("inactive_ingredients"))
 #capturefor(inactive_ingredientss)
 #foreach($part in $inactive_ingredients)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #between
 ,
 #end
@@ -74,7 +74,7 @@ $part.name => $part.alias
 	#set($manufacturer = $postingService.get_taxonomies("commercial"))	
 #capturefor(manufacturers)
 #foreach($part in $manufacturer)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #set($manufacturer_type_id = $part.taxonomy_type.id)
 #between
 ,
@@ -84,7 +84,7 @@ $part.name => $part.alias
 	#set($sra = $postingService.get_taxonomies("sra"))	
 #capturefor(sras)
 #foreach($part in $sra)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #between
 ,
 #end
@@ -93,7 +93,7 @@ $part.name => $part.alias
 	#set($sra_approval_status = $postingService.get_taxonomies("sra_approval_status"))	
 #capturefor(sra_approval_statuss)
 #foreach($part in $sra_approval_status)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #between
 ,
 #end

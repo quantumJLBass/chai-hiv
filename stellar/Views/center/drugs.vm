@@ -56,18 +56,18 @@ $sub.abbreviated
 		
 		
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
-				<td>#if($!taxonomyService.get_taxonomy($!item.dose_form).name) $!taxonomyService.get_taxonomy($!item.dose_form).name #else - #end</td>
+				<td>#if($!taxonomyService.get_taxonomy($!item.dose_form).name) $!taxonomyService.get_taxonomy($!item.dose_form).name #else UNSPECIFIED #end</td>
 				
-				<td>#if($!item.label_claim) $!item.label_claim #else - #end</td>
+				<td>#if($!item.label_claim) $!item.label_claim #else UNSPECIFIED #end</td>
 			
 				<td>#if($!fam_sub_code.trim()!="") $!fam_sub_code #else <em><b>orphaned</b></em> #end</td>
 				
 				#set($name = $item.get_named())
 				#set($taxedname = $!postingService.get_taxonomy($name).name)
-				<td>#if($taxedname)$taxedname#else #if($name!="")$name#else -- #end #end</td>
+				<td>#if($taxedname)$taxedname#else #if($name!="")$name#else UNSPECIFIED #end #end</td>
 				
 				#set($manufacturer = $!postingService.get_taxonomy($item.manufacturer).name)
-				<td>#if($manufacturer)$!manufacturer #else - #end</td>
+				<td>#if($manufacturer)$!manufacturer #else UNSPECIFIED #end</td>
 				
 				
 				<td>

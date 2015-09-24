@@ -43,30 +43,26 @@ $sub.abbreviated
 			<tr class="#if($velocityCount%2<1)even #else odd #end " data-baseid="$drug.baseid">
 			
 				<td>
-				<input type="hidden" name="drugs[$velocityCount].baseid" value="$drug.baseid" class="list_item drug_item"/>
-				#if($!taxonomyService.get_taxonomy($!drug.dose_form).name!="") $!taxonomyService.get_taxonomy($!drug.dose_form).name #else - #end
+				<input type="hidden" name="drugs[$velocityCount].baseid" value="$!drug.baseid" class="list_item drug_item"/>
+				#if($!taxonomyService.get_taxonomy($!drug.dose_form).name!="") $!taxonomyService.get_taxonomy($!drug.dose_form).name #else UNSPECIFIED #end
 				</td>
 				
-				<td>#if($!drug.label_claim!="") $!drug.label_claim #else - #end</td>
+				<td>#if($!drug.label_claim!="") $!drug.label_claim #else UNSPECIFIED #end</td>
 			
 				<td>#if($!fam_sub_code.trim()!="") $!fam_sub_code #else <em><b>orphaned</b></em> #end</td>
 				
 				#set($name = $drug.get_named())
 				#set($taxedname = $!postingService.get_taxonomy($name).name)
-				<td>#if($taxedname)$taxedname#else #if($name!="")$name#else -- #end #end</td>
+				<td>#if($taxedname)$taxedname#else #if($name!="")$name#else UNSPECIFIED #end #end</td>
 				
 				#set($manufacturer = $!postingService.get_taxonomy($drug.manufacturer).name)
-				<td>#if($manufacturer)$!manufacturer #else - #end</td>
-				
-				
-				<td>
+				<td>#if($manufacturer)$!manufacturer #else UNSPECIFIED #end</td>
 
-		<span class="editing_action_block">
-			<a href="drug.castle?id=$drug.baseid" class="button small edit_item drug_inline_edit"><i class="icon-pencil" title="Edit"></i></a> 
-			<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
-		</span>
-					 
-					 
+				<td>
+					<span class="editing_action_block">
+						<a href="drug.castle?id=$drug.baseid" class="button small edit_item drug_inline_edit"><i class="icon-pencil" title="Edit"></i></a> 
+						<a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a>
+					</span>
 				</td>
 			</tr>
 		#end

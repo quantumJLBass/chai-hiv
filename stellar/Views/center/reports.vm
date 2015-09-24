@@ -1,11 +1,11 @@
 #* NOTE: This is where you can change the dropdowns *#
 
-#set($types = $objectService.explode("drug,clinical,substance,treatment"))
+#set($types = $objectService.explode("drug,clinical,substance,trial"))
 
 #set($drug_props = $objectService.get_type_properties("drug"))
 #set($clinical_props = $objectService.get_type_properties("clinical"))
 #set($substance_props = $objectService.get_type_properties("substance"))
-#set($treatment_props = $objectService.get_type_properties("treatment"))
+#set($trial_props = $objectService.get_type_properties("trial"))
 
 #set($brand_name = $postingService.get_taxonomies("brand_name"))
 #set($manufacturer = $postingService.get_taxonomies("commercial"))
@@ -20,7 +20,7 @@
 #set($operator = $objectService.explode("=,&lt;,&gt;,&lt;=,&gt;=,!=,LIKE,REGEXP,NOT LIKE,NOT REGEXP"))#*,LIKE,LIKE %%,REGEXP,IS NULL,NOT LIKE,NOT REGEXP,IS NOT NULL*##*IN,NOT IN,*#
 #set($joining = $objectService.explode("AND,OR"))
 
-#set($not_props = $objectService.explode("name,alias,publish_time,post_type,outputError,editing,owner,baseid,published,checksum,filehash,static_file,url,position,sort,revision,version,deleted,is_active,is_default,is_visible,is_core,is_visible_to_others,is_frontend,is_admin,admin_url,is_link,is_editable,is_frontend_editable,is_Public,protect_post,is_deletable,is_cachable,is_trackable,loads_file,tmp,gets_media,gets_url,is_tabable_content,is_summarizable,is_taggable,gets_metadata,is_taxonomyable,is_categorized,is_templatable,parent,children,menuoptions,seen,options,theme,users,taxonomy_types,taxonomies,site,meta_data,meta_data_date,meta_data_geo,editable,root,logings,updated_date,creation_date,id,record_id,ln_clinical_t,content,drugs,treatments,clinicals,substances,references"))
+#set($not_props = $objectService.explode("name,alias,publish_time,post_type,outputError,editing,owner,baseid,published,checksum,filehash,static_file,url,position,sort,revision,version,deleted,is_active,is_default,is_visible,is_core,is_visible_to_others,is_frontend,is_admin,admin_url,is_link,is_editable,is_frontend_editable,is_Public,protect_post,is_deletable,is_cachable,is_trackable,loads_file,tmp,gets_media,gets_url,is_tabable_content,is_summarizable,is_taggable,gets_metadata,is_taxonomyable,is_categorized,is_templatable,parent,children,menuoptions,seen,options,theme,users,taxonomy_types,taxonomies,site,meta_data,meta_data_date,meta_data_geo,editable,root,logings,updated_date,creation_date,id,record_id,ln_clinical_t,content,drugs,trials,trial_arms,clinicals,substances,references"))
 
 
 
@@ -97,14 +97,14 @@
 								#end
 							#end
 							</optgroup>
-							<optgroup label="Treatments" class="treatments">
-							#foreach($part in $treatment_props)
+							<optgroup label="Trials" class="trials">
+							#foreach($part in $trial_props)
 								#if(!$not_props.Contains($part))
 									#set($feildObj="" )#set($lable="")
-									#set($feildObj=$!postingService.get_taxonomy("treatment",$part,"feild_helpers"))
+									#set($feildObj=$!postingService.get_taxonomy("trial",$part,"feild_helpers"))
 									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
 									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
-									<option class="treatment" value="$part">$lable</option>
+									<option class="trial" value="$part">$lable</option>
 								#end
 							#end
 							</optgroup>
@@ -247,14 +247,14 @@
 								#end
 							#end
 							</optgroup>
-							<optgroup label="Treatments" class="treatments">
-							#foreach($part in $treatment_props)
+							<optgroup label="Trials" class="trials">
+							#foreach($part in $trial_props)
 								#if(!$not_props.Contains($part))
 									#set($feildObj="" )#set($lable="")
-									#set($feildObj=$!postingService.get_taxonomy("treatment",$part,"feild_helpers"))
+									#set($feildObj=$!postingService.get_taxonomy("trial",$part,"feild_helpers"))
 									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
 									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
-									<option class="treatment" value="$part">$lable</option>
+									<option class="trial" value="$part">$lable</option>
 								#end
 							#end
 							</optgroup>
@@ -376,14 +376,14 @@
 								#end
 							#end
 							</optgroup>
-							<optgroup label="Treatments" class="treatments">
-							#foreach($part in $treatment_props)
+							<optgroup label="Trials" class="trials">
+							#foreach($part in $trial_props)
 								#if(!$not_props.Contains($part))
 									#set($feildObj="" )#set($lable="")
-									#set($feildObj=$!postingService.get_taxonomy("treatment",$part,"feild_helpers"))
+									#set($feildObj=$!postingService.get_taxonomy("trial",$part,"feild_helpers"))
 									#if($feildObj && $feildObj.name!="") #set($lable=$feildObj.name) #end
 									#if($lable=="") #set($lable=$htmlService.capitalize_all($part.Replace("_"," "))) #end
-									<option class="treatment" value="$part">$lable</option>
+									<option class="trial" value="$part">$lable</option>
 								#end
 							#end
 							</optgroup>

@@ -32,7 +32,7 @@
 #end
 #end
 			<tr class="#if($velocityCount%2<1)even #else odd #end rec_$item.record_id" data-baseid="$item.baseid">
-				<td>#if($item.new_drug_code)$!item.new_drug_code#else -- #end</td>
+				<td>#if($item.new_drug_code)$!item.new_drug_code#else UNSPECIFIED #end</td>
 				<td>$!fam_sub_code</td>
 				<td>
 					#set($TYPE = "family")

@@ -55,13 +55,13 @@
 					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'bioavailability', 'value':'$!state.bioavailability', 'placeholder':'(%)', 'skip_help':'true'}")
 							
 					#* auc *#
-					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc', 'value':'$!state.auc', 'custom_lable':'AUC', 'placeholder':'(%)', 'skip_help':'true'}") 
+					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc', 'value':'$!state.auc', 'custom_lable':'AUC', 'placeholder':'(ng*hr/ml)', 'skip_help':'true'}") 
 				
 					#* auc_unit *#
 					$Controller.feilds("select","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_unit', 'value':'$!state.auc_unit','custom_lable':'AUC Time Interval','select_options':'inf.,0-8,0-12,0-24,0-48,0-72,0-last', 'skip_help':'true'}")<br/>
 				
 					#* auc_last_value *#
-					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_last_value', 'value':'$!state.auc_last_value', 'placeholder':'(%)', 'skip_help':'true'}")
+					$Controller.feilds("text","{'objectName':'arm_states[$i]', 'datatype':'clinical','model_prop':'auc_last_value', 'value':'$!state.auc_last_value', 'placeholder':'(ng*hr/ml)', 'skip_help':'true'}")
 				</div>
 			</td>
 			<td > #if($viewonly) #else <span class="editing_action_block"><a href="#" class="button xsmall crimson defocus removal"><i class="icon-remove" title="Remove"></i></a></span> #end	</td>
@@ -93,9 +93,9 @@
 			
 			<div class="grid col-one-half  full-input">
 				$Controller.feilds("text","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'bioavailability', 'value':'', 'placeholder':'(%)', 'skip_help':'true'}")
-				$Controller.feilds("text","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'auc', 'value':'', 'custom_lable':'AUC', 'placeholder':'(%)', 'skip_help':'true'}")
+				$Controller.feilds("text","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'auc', 'value':'', 'custom_lable':'AUC', 'placeholder':'(ng*hr/ml)', 'skip_help':'true'}")
 				$Controller.feilds("select","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'auc_unit', 'value':'','custom_lable':'AUC Time Interval','select_options':'inf.,0-8,0-12,0-24,0-48,0-72,0-last', 'skip_help':'true'}")<br/>
-				$Controller.feilds("text","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'auc_last_value', 'value':'', 'placeholder':'(%)', 'skip_help':'true'}")
+				$Controller.feilds("text","{'objectName':'___arm_states[$i]', 'datatype':'clinical','model_prop':'auc_last_value', 'value':'', 'placeholder':'(ng*hr/ml)', 'skip_help':'true'}")
 			</div>
 		</li>
 		<li>#if($viewonly) #else <span class="editing_action_block"><a href='#' class='button xsmall crimson defocus removal'><i class='icon-remove' title='Remove'></i></a></span> #end</li>

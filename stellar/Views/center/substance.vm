@@ -10,7 +10,7 @@
 	#set($generic_name = $postingService.get_taxonomies("generic_name"))
 #capturefor(generic_names)
 #foreach($part in $generic_name)
-$part.name => $part.alias
+$!part.name => $!part.alias
 #between
 ,
 #end
